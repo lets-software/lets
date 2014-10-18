@@ -2,12 +2,14 @@
 $i = $main_indent;
 // initialize links first because it sets a bunch of constants (url-related)
 if (!$links->initialize($nav_links_indent)) {
-	require_once('includes/installer.php');
+	require_once($doc_root.'includes/installer.php');
+
 	exit();
 }
+
 // now we have our constants! we can use them
 if (ENABLE_EMAIL) {
-	require_once('includes/classes/class.phpmailer.php');
+	require_once($doc_root.'includes/classes/class.phpmailer.php');
 }
 $print = return_link_variable('print','');
 if (isset($_GET["page_type"])) {

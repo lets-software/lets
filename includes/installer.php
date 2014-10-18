@@ -1,4 +1,4 @@
-<?
+<?php
 function file_perms($file, $octal = false)
 {
     if(!file_exists($file)) return false;
@@ -14,6 +14,7 @@ if (!function_exists('ftp_chmod')) {
 		return ftp_site($ftp_stream, sprintf('CHMOD %o %s', $mode, $filename));
 	}
 }
+
 function permission($filename) {
 	$perms = fileperms($filename);
 	if     (($perms & 0xC000) == 0xC000) { $info = 's'; }
@@ -78,19 +79,27 @@ $files_status = true;
 
 if (isset($_POST['submit'])) {
 	$post_post = remove_slashes($_POST);
+	$okToUpdateDb = 0;													// Stay at 0 if there is no error, pas it a 1 in case of any error
 	if ($post_post['submit'] == 'Enter Config') {
-		if (!$post_post['site_name'] or
-			!$post_post['site_key'] or
-			!$post_post['url'] or
-			!$post_post['path'] or
-			!$post_post['admin_email'] or
-			!$post_post['validation_email'] or
-			!$post_post['technical_email'] or
-			!$post_post['location']) {
-				$submitted_config = 1;
-				$message .= 'You did not fill out all the config fields!!!';
-		} else {
-			if ($mysql->query("UPDATE config SET
+			//TODO:  Add a check to verify that Mod_Rewrite is enable
+			// strpos(shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== false
+			
+			if (!$post_post['site_key']) {$message .= '<li>Please enter a Encryption Key.</li>'; $okToUpdateDb = 1;}
+			if (!$post_post['site_name']) {$message .= '<li>Please enter a Site Name.</li>'; $okToUpdateDb = 1;}
+			if (!$post_post['url']) {
+				$message .= '<li>Please enter a URL.</li>';  $okToUpdateDb = 1;
+			}elseif (!filter_var($post_post['url'], FILTER_VALIDATE_URL)){
+				$message .= '<li>Please enter a correct URL.</li>';  $okToUpdateDb = 1;
+			}
+			if (!$post_post['path']) {$message .= '<li>Please enter the path</li>'; $okToUpdateDb = 1;}
+				// filter_var compatible only with PHP version 5.2.0 or above
+			if (!filter_var($post_post['admin_email'], FILTER_VALIDATE_EMAIL))  {$message .= '<li>Please enter Admin email.</li>'; $okToUpdateDb = 1;}
+			if (!filter_var($post_post['validation_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li>Please enter Validation email.</li>'; $okToUpdateDb = 1;}
+			if (!filter_var($post_post['technical_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li>Please enter Technical email.</li>'; $okToUpdateDb = 1;}
+			if (!$post_post['location']) {$message .= '<li>Please enter your location.</li>'; $okToUpdateDb = 1;}
+			$submitted_config = 1;
+			if ($okToUpdateDb == 0) {
+				if ($mysql->query("UPDATE config SET
 				site_name = '".mysql_escape_string($post_post['site_name'])."',
 				site_key = '".mysql_escape_string($post_post['site_key'])."',
 				url = '".mysql_escape_string($post_post['url'])."',
@@ -102,18 +111,20 @@ if (isset($_POST['submit'])) {
 				email_from_name = '".mysql_escape_string($post_post['site_name'])."',
 				location = '".mysql_escape_string($post_post['location'])."'")) {
 					$message .= 'Configuration Complete!';
+				}else {
+					echo "<li>Database update fail</li>";
+				}
 			}
 		}
-	}
-	
-	if ($post_post['submit'] == 'Create #1 Account') {
+}	
+	if (isset($post_post['submit']) && $post_post['submit'] == 'Create #1 Account') {
 		if (!$post_post['first_name'] or
 			!$post_post['last_name'] or
 			!$post_post['password'] or
 			!$post_post['second_password']) {
-				$message .= 'You did not fill out all the fields!!!';
+				$message .= '<li>You did not fill out all the fields!!!</li>';
 		} elseif ($post_post['password'] != $post_post['second_password']) {
-			$message .= 'Passwords did not match, please try again.';
+			$message .= '<li>Passwords did not match, please try again.</li>';
 		} else {
 			if ($mysql->result('SELECT site_key FROM config')) {
 				$site_key = $mysql->result['site_key'];
@@ -131,17 +142,17 @@ if (isset($_POST['submit'])) {
 					expiry_month = '1',
 					expiry_year = '3000',
 					password = '".$password."'")) {
-						$message .= 'Account Creation Complete!';
+						$message .= '<li>Account Creation Complete!</li>';
 				}
 			}
 		}
 	}
 	
-	if ($post_post['submit'] == 'Set Permissions') {
+	if (isset($post_post['submit']) && $post_post['submit'] == 'Set Permissions') {
 		if (!$post_post['ftp_host'] or !$post_post['ftp_path'] or !$post_post['ftp_login'] or !$post_post['ftp_password'] or !$post_post['second_ftp_password']) {
-			$message .= 'You did not fill out all the ftp fields!!!';
+			$message .= '<li>You did not fill out all the ftp fields!!!</li>';
 		} elseif ($post_post['ftp_password'] != $post_post['second_ftp_password']) {
-			$message .= 'Passwords did not match, please try again.';
+			$message .= '<li>Passwords did not match, please try again.</li>';
 		} else {
 			if ($mysql->result('SELECT * FROM config')) {
 				$site_key = $mysql->result['site_key'];
@@ -176,48 +187,48 @@ if (isset($_POST['submit'])) {
 								$files_exist = true;
 								if (!strpos(' '.$tmp_var,'.htaccess')) {
 									$files_exist = false;
-									$message .= '<strong>.htaccess</strong> NOT FOUIND!<br />';
+									$message .= '<li><strong>.htaccess</strong> NOT FOUIND!</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'images')) {
 									$files_exist = false;
-									$message .= '<strong>images</strong> NOT FOUIND!<br />';
+									$message .= '<li><strong>images</strong> NOT FOUIND!</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'includes')) {
 									$files_exist = false;
-									$message .= '<strong>includes</strong> NOT FOUIND!<br />';
+									$message .= '<li><strong>includes</strong> NOT FOUIND!</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'templates')) {
 									$files_exist = false;
-									$message .= '<strong>templates</strong> NOT FOUIND!<br />';
+									$message .= '<li><strong>templates</strong> NOT FOUIND!</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'logs')) {
 									$files_exist = false;
-									$message .= '<strong>logs</strong> NOT FOUIND!<br />';
+									$message .= '<li><strong>logs</strong> NOT FOUIND!</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'index.php')) {
 									$files_exist = false;
-									$message .= '<strong>index.php</strong> NOT FOUIND!<br />';
+									$message .= '<li><strong>index.php</strong> NOT FOUIND!</li><br />';
 								}
 								
 								if (!$files_exist) {
-									$message .= '<strong>FTP root is incorrect</strong><br />';
+									$message .= '<li><strong>FTP root is incorrect</strong></li><br />';
 								} else {
 									$mode = 777; 
 									$np = '0'.$mode;
 									if (ftp_chmod($conn_id, eval("return({$np});"), '.htaccess')){
-										$message .= '<strong>.htaccess</strong> Permissions Set!<br />';
+										$message .= '<li><strong>.htaccess</strong> Permissions Set!</li><br />';
 									} else {
-										$message .= '<strong>.htaccess</strong> Permissions Failed!<br />';
+										$message .= '<li><strong>.htaccess</strong> Permissions Failed!</li><br />';
 									}
 									if (ftp_chmod($conn_id, eval("return({$np});"), 'images')){
-										$message .= '<strong>images</strong> Permissions Set!<br />';
+										$message .= '<li><strong>images</strong> Permissions Set!</li><br />';
 									} else {
-										$message .= '<strong>images</strong> Permissions Failed!<br />';
+										$message .= '<li><strong>images</strong> Permissions Failed!</li><br />';
 									}
 									if (ftp_chmod($conn_id, eval("return({$np});"), 'logs')){
-										$message .= '<strong>logs</strong> Permissions Set!<br />';
+										$message .= '<li><strong>logs</strong> Permissions Set!</li><br />';
 									} else {
-										$message .= '<strong>logs</strong> Permissions Failed!<br />';
+										$message .= '<li><strong>logs</strong> Permissions Failed!</li><br />';
 									}
 									
 									if (ftp_chdir($conn_id,'logs')) {
@@ -236,32 +247,32 @@ if (isset($_POST['submit'])) {
 											if (ftp_put($conn_id, $site_name.'.log', $path.'.htaccess', FTP_ASCII)) {
 												$message .= ' Uploaded '.$site_name.'.log!<br />';
 												if (ftp_chmod($conn_id, eval("return({$np});"), $site_name.'.log')){
-													$message .= '<strong>'.$site_name.'.log</strong> Permissions Set!<br />';
+													$message .= '<li><strong>'.$site_name.'.log</strong> Permissions Set!</li><br />';
 												} else {
-													$message .= '<strong>'.$site_name.'.log</strong> Permissions Failed!<br />';
+													$message .= '<li><strong>'.$site_name.'.log</strong> Permissions Failed!</li><br />';
 												}												
 											} else {
-												$message .= ' Failed to upload: '.$site_name.'.log<br />';
+												$message .= ' <li>Failed to upload: <strong>'.$site_name.'.log</strong></li><br />';
 											}											
 										}
 
 										if (!strpos(' '.$tmp_var,$site_name.'_Errors.log')) {
-											$message .= '<strong>'.$site_name.'_Errors.log</strong> not found...';
+											$message .= '<li><strong>'.$site_name.'_Errors.log</strong> not found...</li>';
 											if (ftp_put($conn_id, $site_name.'_Errors.log', $path.'.htaccess', FTP_ASCII)) {
-												$message .= ' Uploaded '.$site_name.'_Errors.log!<br />';
+												$message .= ' <li>Uploaded <strong>'.$site_name.'_Errors.log</strong>!</li><br />';
 												if (ftp_chmod($conn_id, eval("return({$np});"), $site_name.'_Errors.log')){
-													$message .= '<strong>'.$site_name.'_Errors.log</strong> Permissions Set!<br />';
+													$message .= '<li><strong>'.$site_name.'_Errors.log</strong> Permissions Set!</li><br />';
 												} else {
-													$message .= '<strong>'.$site_name.'_Errors.log</strong> Permissions Failed!<br />';
+													$message .= '<li><strong>'.$site_name.'_Errors.log</strong> Permissions Failed!</li><br />';
 												}												
 											} else {
-												$message .= ' Failed to upload: '.$site_name.'_Errors.log<br />';
+												$message .= ' <li>Failed to upload: <strong>'.$site_name.'_Errors.log</strong></li><br />';
 											}	
 										}
 									}
 								}
 							} else {
-								$message .= 'Cannot find FTP root please check settings<br />';
+								$message .= '<li>Cannot find FTP root please check settings</li><br />';
 							}
 							$message .= '<br />----------------------------------<br />';
 							ftp_close($conn_id); 
@@ -275,10 +286,10 @@ if (isset($_POST['submit'])) {
 			}
 		}		
 	}	
-}
 
-if (!$mysql->build_array('SELECT * FROM config WHERE 1')) {
-	echo '<strong>This website needs to be setup....</strong><br /><br />';
+
+if (!$mysql->build_array('SELECT * FROM config')) {
+	echo '<li><strong>This website needs to be setup....</strong></li><br /><br />';
 	if (strpos($mysql->error,"config' doesn't exist")) {
 		if ($mysql->query("
 			CREATE TABLE IF NOT EXISTS `config` (
@@ -329,7 +340,7 @@ if (!$mysql->build_array('SELECT * FROM config WHERE 1')) {
 			  `enable_comments` int(1) default '1',
 			  `require_comment_title` int(1) default '1',
 			  `require_comment_body` int(1) default '1',
-			  `location` varchar(255) default NULL,
+			  `location` varchar(255) NOT NULL default '0',
 			  `validate_members` int(1) default '1',
 			  `validate_content` int(1) default '1',
 			  `validate_articles` int(1) default '0',
@@ -440,7 +451,7 @@ if (!$mysql->build_array('SELECT * FROM config WHERE 1')) {
 			  `ftp_password` varchar(255) default NULL,
 			  PRIMARY KEY  (`ID`)
 			) ENGINE=MyISAM DEFAULT CHARSET=latin1;")) {
-			echo 'Table "config" has been created.<br />';
+			echo '<li>Table "config" has been created.</li>';
 		} else {
 			echo $mysql->error;
 		}
@@ -453,7 +464,7 @@ if (!$mysql->build_array('SELECT * FROM config WHERE 1')) {
 				")) {
 			echo $mysql->error;
 		} else {
-			echo 'Some default config information has been added.<br /><br />';
+			echo '<li>Some default config information has been added.</li><br />';
 		}
 	}	
 }
@@ -492,7 +503,7 @@ if ($mysql->build_array('SELECT * FROM config WHERE 1')) {
 			echo " <strong>URL:</strong><br /><em>example:</em> http://www.toronto-lets.ca/<br />\n";
 			echo " <input type=\"text\" name=\"url\" value=\"".$mysql->result[0]['url']."\" /><br /><br />\n";
 			
-			echo " <strong>File Path of index.php:</strong><br /><em>example:</em> /home/lets/public_html/<br />\n";
+			echo " <strong>File Path of index.php:</strong><br /><em>example:</em> ".$_SERVER["DOCUMENT_ROOT"]."<br />\n";
 			echo " <input type=\"text\" name=\"path\" value=\"".$mysql->result[0]['path']."\" /><br /><br />\n";
 			
 			echo " <strong>Admin email:</strong><br /><em>example:</em> john.smith@toronto-lets.ca<br />\n";
@@ -507,7 +518,7 @@ if ($mysql->build_array('SELECT * FROM config WHERE 1')) {
 			echo " <strong>Location:</strong><br /><em>example:</em> Toronto, ON<br />\n";
 			echo " <input type=\"text\" name=\"location\" value=\"".$mysql->result[0]['location']."\" /><br /><br />\n";
 			
-			echo " <strong>UTC Offset (Time Zone):</strong><br /><em>example:</em> Toronto would be -5, Vancouver -2, etc<br />\n";
+			echo " <strong>UTC Offset (Time Zone):</strong><br /><em>example:</em> Toronto would be -5, Paris 1, etc (full list on <a href=\"https://en.wikipedia.org/wiki/List_of_UTC_time_offsets\" title=\"List of UTC time offsets\" target=\"_blanc\">Wikipedia.org</a>)<br />\n";
 			echo " <input type=\"text\" name=\"hour_offset\" value=\"".$mysql->result[0]['hour_offset']."\" /><br /><br />\n";
 			
 			echo " <input type=\"submit\" name=\"submit\" value=\"Enter Config\" />\n";
@@ -682,43 +693,43 @@ if (CURRENT_OS == 'UNIX') {
 			}
 			if (!$htaccess_found) {
 				$files_status = false;
-				$files_status_message .= '<strong>.htaccess</strong> has not been found.<br />';
+				$files_status_message .= '<li><strong>.htaccess</strong> has not been found.</li><br />';
 			} else {
-				$files_status_message .= '<strong>.htaccess</strong> has been found.<br />';
+				$files_status_message .= '<li><strong>.htaccess</strong> has been found.</li><br />';
 			}
 			if (!$htaccess_perms) {
 				$files_status = false;
-				$files_status_message .= '<strong>.htaccess</strong> needs permissions: 777<br />';
+				$files_status_message .= '<li><strong>.htaccess</strong> needs permissions: 777</li><br />';
 			} else {
-				$files_status_message .= '<strong>.htaccess</strong> has proper permissions.<br />';
+				$files_status_message .= '<li><strong>.htaccess</strong> has proper permissions.</li><br />';
 			}
 			if (!$images_found) {
 				$files_status = false;
-				$files_status_message .= 'Folder: <strong>images</strong> has not been found.<br />';
+				$files_status_message .= '<li>Folder: <strong>images</strong> has not been found.</li><br />';
 			} else {
-				$files_status_message .= 'Folder: <strong>images</strong> has been found.<br />';
+				$files_status_message .= '<li>Folder: <strong>images</strong> has been found.</li><br />';
 			}
 			if (!$images_perms) {
 				$files_status = false;
-				$files_status_message .= 'Folder: <strong>images</strong> needs permissions: 777<br />';
+				$files_status_message .= '<li>Folder: <strong>images</strong> needs permissions: 777</li><br />';
 			} else {
-				$files_status_message .= 'Folder: <strong>images</strong> has proper permissions.<br />';
+				$files_status_message .= '<li>Folder: <strong>images</strong> has proper permissions.</li><br />';
 			}
 			if (!$logs_found) {
 				$files_status = false;
-				$files_status_message .= 'Folder: <strong>logs</strong> has not been found.<br />';
+				$files_status_message .= '<li>Folder: <strong>logs</strong> has not been found.</li><br />';
 			} else {
-				$files_status_message .= 'Folder: <strong>logs</strong> has been found.<br />';
+				$files_status_message .= '<li>Folder: <strong>logs</strong> has been found.</li><br />';
 			}
 			if (!$logs_perms) {
 				$files_status = false;
-				$files_status_message .= 'Folder: <strong>logs</strong> needs permissions: 777<br />';
+				$files_status_message .= '<li>Folder: <strong>logs</strong> needs permissions: 777</li><br />';
 			} else {
-				$files_status_message .= 'Folder: <strong>logs</strong> has proper permissions.<br />';
+				$files_status_message .= '<li>Folder: <strong>logs</strong> has proper permissions.</li><br />';
 			}
 			
-			$directory_contents = dir_contents($path.'logs/');
-				
+			$directory_contents = dir_contents($path.'//logs/');
+
 			$log_found = false;
 			$log_perms = false;
 			$err_log_found = false;
@@ -726,34 +737,34 @@ if (CURRENT_OS == 'UNIX') {
 		
 			foreach ($directory_contents as $line) {
 				if ($line['name'] == $site_name.'.log') $log_found = true;
-				if ($line['name'] == $site_name.'.log' and $line['perms'] == '-rw-rw-rw-') $log_perms = true;
+				if ($line['name'] == $site_name.'.log' and $line['perms'] == '-rw-rw-r--') $log_perms = true;
 				if ($line['name'] == $site_name.'_Errors.log') $err_log_found = true;
-				if ($line['name'] == $site_name.'_Errors.log' and $line['perms'] == '-rw-rw-rw-') $err_log_perms = true;
+				if ($line['name'] == $site_name.'_Errors.log' and $line['perms'] == '-rw-rw-r--') $err_log_perms = true;
 			}
 		
 			if (!$log_found) {
 				$files_status = false;
-				$files_status_message .= '<strong>'.$site_name.'.log</strong> has not been found.<br />';
+				$files_status_message .= '<li><strong>'.$site_name.'.log</strong> has not been found.</li><br />';
 			} else {
-				$files_status_message .= '<strong>'.$site_name.'.log</strong> has been found.<br />';
+				$files_status_message .= '<li><strong>'.$site_name.'.log</strong> has been found.</li><br />';
 			}
 			if (!$log_perms) {
 				$files_status = false;
-				$files_status_message .= '<strong>'.$site_name.'.log</strong> needs permissions: 666<br />';
+				$files_status_message .= '<li><strong>'.$site_name.'.log</strong> needs permissions: 664</li><br />';
 			} else {
-				$files_status_message .= '<strong>'.$site_name.'.log</strong> has proper permissions.<br />';
+				$files_status_message .= '<li><strong>'.$site_name.'.log</strong> has proper permissions.</li><br />';
 			}
 			if (!$err_log_found) {
 				$files_status = false;
-				$files_status_message .= '<strong>'.$site_name.'_Error.log</strong> has not been found.<br />';
+				$files_status_message .= '<li><strong>'.$site_name.'_Errors.log</strong> has not been found.</li><br />';
 			} else {
-				$files_status_message .= '<strong>'.$site_name.'_Error.log</strong> has been found.<br />';
+				$files_status_message .= '<li><strong>'.$site_name.'_Errors.log</strong> has been found.</li><br />';
 			}
 			if (!$err_log_perms) {
 				$files_status = false;
-				$files_status_message .= '<strong>'.$site_name.'_Error.log</strong> needs permissions: 666<br />';
+				$files_status_message .= '<li><strong>'.$site_name.'_Errors.log</strong> needs permissions: 664</li><br />';
 			} else {
-				$files_status_message .= '<strong>'.$site_name.'_Error.log</strong> has proper permissions.<br />';
+				$files_status_message .= '<li><strong>'.$site_name.'_Errors.log</strong> has proper permissions.</li><br />';
 			}
 		
 		
@@ -944,7 +955,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `event_categoryID` int(11) NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
   `description` longtext NOT NULL,
-  `location` varchar(255) default '0',
+  `location` varchar(255) NOT NULL default '0',
   `start_day` int(11) NOT NULL default '0',
   `start_month` int(11) NOT NULL default '0',
   `start_year` int(11) NOT NULL default '0',
@@ -1397,7 +1408,7 @@ if ($completed) {
 		if ($links->rebuild_htaccess()) {
 			echo '<strong>.htaccess was updated!!!</strong><br />';
 		} else {
-			echo '<strong>.htaccess could NOT be updated</strong><br />';
+			echo '<strong>.htaccess could NOT be updated</strong>, make sure the file permission is set to (775)<br />';
 			$completed = false;
 		}
 	} else {

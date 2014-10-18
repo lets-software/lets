@@ -1,7 +1,12 @@
-<?
+<?php
 /*
 
 	Welcome to LETS-Software
+	
+	System Requirement:
+	- A Web server supporting PHP5
+	- PHP 5.2 or above	
+	- MySQL 5 or above
 	
 	The scripts are organized as follows:
 	
@@ -78,7 +83,7 @@
 */
 
 //error_reporting(0);
-error_reporting(0);
+//error_reporting(0);
 
 $login_html_indent 				= 		'   ';
 $nav_links_indent 				= 		'   ';
@@ -98,13 +103,15 @@ $links_sidebar_indent			= 		'   ';
 $search_sidebar_indent			= 		'   ';
 $login_sidebar_indent			= 		'   ';
 
-$doc_root = $_SERVER['DOCUMENT_ROOT'].$_SERVER['PHP_SELF'];
-$doc_root = str_replace('index.php','',$doc_root);
+$doc_root = $_SERVER['DOCUMENT_ROOT']."/"; //.$_SERVER['PHP_SELF'];
+// I comment the line below as I think we don't need it after modifying the line above
+//$doc_root = str_replace('index.php','',$doc_root);
 
 require_once($doc_root.'includes/config.php');
 require_once($doc_root.'includes/main_file.php');
 require_once($doc_root.'includes/processing_functions.php');
 require_once($doc_root.'includes/html_functions.php');
+
 
 // clear HTMl holders:
 $main_html 						= 		'';
@@ -134,6 +141,15 @@ $min_width = $default_min_width;
 $errors = begin($main_indent,$database_host,$database_name,$database_user,$database_password);
 //echo $errors;
 
+// Check if the database exist, if not, we create it
+$mysql = new mysql;
+if (!mysql_select_db("$database_name")) {
+    echo("<li>Creating database $database_name! Please refresh the page... (F5)</li>");
+    mysql_query("CREATE DATABASE $database_name");
+    mysql_select_db("$database_name");
+}
+
+
 // Returns $main_html and $title and appends $styles 
 require_once($doc_root.'includes/main_xhtml.php');
 require_once($doc_root.'includes/header.php');
@@ -143,6 +159,5 @@ if (!isset($template_filename)) {
 }
 
 require_once($doc_root.'templates/'.TEMPLATE.'/'.$template_filename.'.php');
-
 
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 class images {
 
 	var	$id,

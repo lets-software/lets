@@ -1,2 +1,6 @@
+images/*
+logs/*
 .htaccess
 phpinfo.php
+phpinfo.php~
+

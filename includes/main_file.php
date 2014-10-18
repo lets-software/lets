@@ -940,5 +940,4 @@ function valid_XHTML ($text) {
 }
 
 
-
 ?>

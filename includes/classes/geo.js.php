@@ -1,3 +1,4 @@
+<?php
 /* ----------------------------------------------------------------------------------------
 Graceful E-Mail Obfuscation - JavaScript function (decodes e-mail addresses)
 Last updated: July 31th, 2007 by Roel Van Gils
@@ -58,3 +59,4 @@ function str_rot13(a,map) {
 	return s;
 }
 
+?>

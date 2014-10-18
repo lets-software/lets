@@ -1,4 +1,4 @@
-<?
+<?php
 
 class mysql {
 /*	dependent on functions:

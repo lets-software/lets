@@ -1,8 +1,7 @@
 <?php
-
 $database_host = "localhost"; 
-$database_name = "exam";
-$database_user = "ple";
-$database_password = "aseq5h6ya3";
+$database_name = "lets";
+$database_user = "root";
+$database_password = "linux";
 
 ?>

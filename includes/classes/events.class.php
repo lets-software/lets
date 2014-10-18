@@ -1,4 +1,4 @@
-<?
+<?php
 class events {
 
 	var	$id,

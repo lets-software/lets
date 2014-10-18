@@ -1,4 +1,4 @@
-<?
+<?php
 class site {
 
 	var	$db_open,
@@ -6,9 +6,9 @@ class site {
 
 	function site() {
 		if (strpos(' '.PHP_OS, 'WIN')) {
-			define(CURRENT_OS,'WIN');
+			define("CURRENT_OS",'WIN');
 		} else {
-			define(CURRENT_OS,'UNIX');
+			define("CURRENT_OS",'UNIX');
 		}
 		$this->db_open = false;
 		$this->error = "No errors";
