@@ -131,7 +131,7 @@ div#login_html {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	font-size: 14px; 
-	color: #ffffff;
+	/*color: #000000;*/
 	text-align: right;
 	border: solid thin #cccccc;  }
 
@@ -198,4 +198,4 @@ legend {
 }
 
 a#login_link {
-	color: #FFFFFF; }
+	/*color: #FFFFFF;*/ }
