@@ -155,7 +155,7 @@ require_once($doc_root.'includes/main_xhtml.php');
 require_once($doc_root.'includes/header.php');
 
 if (!isset($template_filename)) {
-	$template_filename = 'default';
+	$template_filename = 'viclets';
 }
 
 require_once($doc_root.'templates/'.TEMPLATE.'/'.$template_filename.'.php');
