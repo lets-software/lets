@@ -1,0 +1,24 @@
+div#event_page {
+}
+
+span.event_title {
+	font-size:larger;
+	font-weight:bold; }
+.event_details {
+	font-style:italic; }
+.start_date_title {
+	font-weight:bold; }
+.start_date {
+ }
+.event_duration_title {
+	font-weight:bold; }
+.event_duration {
+}
+.event_location_title {
+	font-weight:bold; }
+.event_location {
+}
+.event_description {
+}
+.event_timing {
+	font-style:italic; }

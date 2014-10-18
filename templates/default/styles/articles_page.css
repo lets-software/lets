@@ -1,0 +1,12 @@
+div#articles {
+}
+#article_page {
+	width:100%;
+	float:left; }
+span.article_title {
+	font-size:larger;
+	font-weight:bold; }
+.article_details {
+	font-style:italic; }
+.article_body {
+}

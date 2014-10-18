@@ -1,0 +1,8 @@
+div#articles {
+	width:99%;
+	float:left; }
+span.article_title {
+	font-size:larger;
+	font-weight:bold; }
+.article_details {
+	font-style:italic; }

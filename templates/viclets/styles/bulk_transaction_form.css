@@ -1,0 +1,18 @@
+div.bulk_trading {
+	float: left;
+	margin-right:10px;
+}
+label,input {
+	width: 40px; 
+	float: left;
+}
+.transaction_button {
+	width:100px;
+}
+textarea.description {
+	height:30px;
+	width:400px;
+}
+td {
+	border-bottom:1px solid #FFFFFF;
+}

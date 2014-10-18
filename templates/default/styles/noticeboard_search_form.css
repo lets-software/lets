@@ -1,0 +1,46 @@
+div.noticeboard_search {
+	float: left;
+	margin-right:10px; }
+#noticeboard_search_form {
+	width:800px;
+	margin-bottom:10px; 
+	font-size: 14px;}
+.radio_buttons {
+	float:left;
+	width:250px; }
+
+
+#amount {
+	width: 100px; 
+	margin-bottom:3px;}
+#noticeboard_button {
+	font-size: 14px; 
+	margin: 0px 0px 0px 0px; }
+#keyword {
+	width:200px; }
+#noticeboard_member {
+	width:70px; }
+#category_id {
+	height: 26px;
+	font-size: 14px; }
+#amount_above {
+	height: 26px;
+	font-size: 14px; }
+#request_or_offer {
+	height: 26px;
+	font-size: 14px; }
+#noticeboard_type {
+	height: 26px;
+	font-size: 14px; }
+#limit {
+	height: 26px;
+	font-size: 14px; }
+#orderby {
+	height: 26px;
+	font-size: 14px; }
+#orderdir {
+	height: 26px;
+	font-size: 14px; }
+select {
+	margin-top:6px;
+}

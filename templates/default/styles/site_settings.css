@@ -1,0 +1,19 @@
+label,input,select {
+	width: 200px; 
+	float: left;
+	font-size: 10px; }
+.site_settings_button {
+	margin-left:170px; }
+label {
+	text-align: right; 
+	width: 220px; 
+	font-size: 9px;
+	padding-right: 8px; }
+textarea {
+	height:50px;
+	width:350px; }
+div.setting_links {
+	width:100%;
+	float:left;
+	margin-bottom:20px;
+	padding-left:200px; }

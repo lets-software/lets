@@ -1,0 +1,23 @@
+div#articles {
+	width:99%;
+	float:left; }
+span.article_title {
+	font-size:larger;
+	font-weight:bold; }
+.article_details {
+	font-style:italic; }
+.article_body {
+}
+#article_page_image_holder {
+	background-color:#FFFFFF;
+	font-size:x-small;
+}
+#articles #article_page_image_holder img{
+	border: none;
+}
+.image_description {
+	float:left;
+	background-color:#FFFFFF;
+	font-size:x-small;
+	padding-left:5px;
+}

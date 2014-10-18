@@ -1,0 +1,16 @@
+div.member_noticeboard_entries {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	padding: 5px 5px 5px 5px;
+	border: 1px solid gray; 
+	width: 150px; }
+
+#noticeboard_member_holder {
+	float:left;
+	width:100%;
+}
+span.nb_entry_expired {
+	font-weight:bold;
+	color:#CC0000;
+}

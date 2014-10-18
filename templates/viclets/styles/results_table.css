@@ -1,0 +1,31 @@
+#noticeboard_listing td {
+	padding: 2px;
+	border-bottom:1px solid #999999;
+}
+
+#transaction_history td {
+	padding: 2px;
+	border-bottom:1px solid #999999;
+}
+
+#site_structure_html td {
+	padding: 2px;
+	border-bottom:1px solid #999999;
+}
+#balance_analysis td {
+	padding: 2px;
+	border-bottom:1px solid #999999;
+}
+#bid_list td {
+	padding: 2px;
+	padding-left:5px;
+	border-bottom:1px solid #999999;
+}
+#bulk_membership_results td {
+	padding: 2px;
+	border-bottom:1px solid #999999;
+}
+#bulk_trading_result td {
+	padding: 2px;
+	border-bottom:1px solid #999999;
+}

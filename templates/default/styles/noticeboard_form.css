@@ -1,0 +1,18 @@
+
+
+textarea {}
+#blurb { height: 100px; width:400px; }
+
+#description { height: 200px; width:400px; }
+
+label,input {
+	width: 300px; 
+	float: left;
+	margin-bottom: 5px;
+}
+.button {}
+	
+label {
+	text-align: right; 
+	width: 200px; 
+	padding-right: 8px; }

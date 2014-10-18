@@ -1,0 +1,74 @@
+textarea {
+	width: 400px;
+	height: 150px;
+}
+#member_form input {
+	width: 250px; 
+	float: left;
+	margin-bottom: 5px;
+}
+#member_form select {
+	width: 250px; 
+	float: left;
+	margin-bottom: 5px;
+}
+#member_form label {
+	width: 200px; 
+	float: left;
+	margin-bottom: 5px;
+}
+#member_form label {
+	text-align: right; 
+	width: 200px; 
+	padding-right: 8px;
+}
+
+#member_form #member_home_area_code {
+	width: 33px;
+}
+#member_form #member_home_phone_number {
+	width: 50px;
+}
+#member_form #member_home_phone_number_prefix {
+	width: 33px; 
+}
+#member_form #member_work_area_code {
+	width: 33px;
+}
+#member_form #member_work_phone_number {
+	width: 50px;
+}
+#member_form #member_work_phone_number_prefix {
+	width: 33px;
+}
+#member_form #member_mobile_area_code {
+	width: 33px;
+}
+#member_form #member_mobile_phone_number {
+	width: 50px;
+}
+#member_form #member_mobile_phone_number_prefix {
+	width: 33px;
+}
+#member_form #member_id_to_edit {
+	width: 60px;
+}
+#member_form #member_first_name_label {
+	clear:left;
+	width: 200px;
+}
+#member_form #register {
+	position: relative;
+	display: block; 
+	width: 650px; 
+	float: left;
+}
+span.required_field {
+	font-weight: bold;
+}	
+.button {
+	width: 100px;
+}
+#find_member_button {
+	width:150px;
+}

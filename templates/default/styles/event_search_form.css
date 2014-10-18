@@ -1,0 +1,15 @@
+div.event_search {
+	float: left;
+	margin-right:10px; }
+label,input {
+	width: 40px; 
+	float: left;
+	font-size: 10px; }
+
+#event_button {
+	width:75px;
+	margin: 0px 0px 0px 0px; }
+#keyword {
+	width:75px; }
+#member {
+	width:70px; }

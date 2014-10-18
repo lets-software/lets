@@ -1,0 +1,47 @@
+#contact_form label {
+	width: 200px; 
+	float: left;
+	margin-top:3px;
+}
+#contact_form input {
+	width: 200px; 
+	float: left;
+	margin-top:3px;
+}
+#contact_form .email_button {
+	margin-left:100px;
+}
+#contact_form label {
+	text-align: right; 
+	width: 200px; 
+	padding-right: 8px;
+}
+#contact_form textarea {
+	height:50px;
+	width:350px; 
+	margin-top:3px;
+}
+	
+#send_email_form label {
+	width: 200px; 
+	float: left;
+	margin-top:3px;
+}
+#send_email_form input {
+	width: 200px; 
+	float: left;
+	margin-top:3px;
+}
+#send_email_form .email_button {
+	margin-left:100px;
+}
+#send_email_form label {
+	text-align: right; 
+	width: 200px; 
+	padding-right: 8px;
+}
+#send_email_form textarea {
+	height:80px;
+	width:350px; 
+	margin-top:3px;
+}

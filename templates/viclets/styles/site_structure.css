@@ -1,0 +1,21 @@
+div.bulk_trading {
+	float: left;
+	margin-right:10px; }
+label,input {
+	width: 180px; 
+	float: left;
+	font-size: 10px; }
+input {
+	width: 100px; }
+.structure_button {
+	width:100px; }
+.page_button {
+	margin-left:200px; }
+#page_name,page_url {
+	width: 150px; }
+textarea.body {
+	height:80px;
+	width:350px; }
+#page_body {
+	height:200px;
+	width:500px; }

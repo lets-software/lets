@@ -1,0 +1,30 @@
+label,input {
+	width: 200px; 
+	float: left;
+}
+label {
+	text-align: right; 
+	width: 160px; 
+	padding-right: 8px;
+}
+.bulk_member_button {
+	margin-left:40px;
+	width:220px;
+}
+.reverse_transaction_button {
+	margin-left:100px;
+}
+#member_distribute_button {
+	width:220px;
+	margin-left:40px;
+}
+#undo_distribute_button {
+	width:220px;
+	margin-left:40px;
+}
+#confirm_transaction_button {
+	width:220px;
+}
+#cancel_transaction_button {
+	width:220px;
+}

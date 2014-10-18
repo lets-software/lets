@@ -1,0 +1,50 @@
+div {}
+#member_profile_details {
+	margin-bottom:10px;
+	margin-top:10px;
+	float: left;
+	clear:left;
+	width: 45%;
+}
+#member_info {
+	float: left;
+	width: 96%;
+}
+.member_profile_holder {
+	margin-top:15px;
+	margin-bottom:15px;
+	float: left;
+	width: 100%;
+}
+.member_info_member_profile {
+	float: left;
+	width:500px;
+	padding: 5px 5px 5px 5px;
+}
+span {}
+.member_info_name {
+	font-size:larger;
+	font-weight: bold;
+}
+.member_info_heading {
+	float: left;
+	width: 150px;
+}
+.member_info_value {
+	float: left;
+	width: 150px;
+}
+.member_profile {
+	font-size:larger;
+	font-weight: bold;
+}
+.member_other_quicklinks {
+	float: left;
+	clear:left;
+	width: 33%;
+}
+.member_self_quicklinks {
+	float: left;
+	clear:left;
+	width: 100%;
+}

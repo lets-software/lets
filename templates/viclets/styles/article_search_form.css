@@ -1,0 +1,25 @@
+#articles_search_form {
+	width:99%;
+	float:left;
+}
+#articles_search_form label {
+	width: 40px; 
+	float: left;
+}
+#articles_search_form input {
+	width: 40px; 
+	float: left;
+}
+#articles_search_form div.article_search {
+	float: left;
+	margin-right:10px;
+}
+.article_search #article_button {
+	width:100px;
+}
+#articles_search_form #keyword {
+	width:120px;
+}
+#articles_search_form #member {
+	width:70px;
+}

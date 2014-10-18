@@ -1,0 +1,23 @@
+span.add_faq_title {
+	font-size:larger;
+	font-weight:bold; }
+
+textarea {}
+#faq_question { height: 30px; width:400px; }
+#faq_answer { height: 100px; width:400px; }
+
+label,input {
+	width: 150px; 
+	float: left;
+	margin-bottom: 5px;
+	font-size: 10px; }
+label {
+	text-align: right; 
+	width: 100px; 
+	font-size: 9px;
+	padding-right: 8px; }
+.faq_button {
+	clear:left;
+	width: 130px;
+	font-size: 9px;
+	margin-left: 80px; }

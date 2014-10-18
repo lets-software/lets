@@ -1,0 +1,30 @@
+#transaction_form {
+	float: left;
+	width: 600px;
+}
+#transaction_form input {
+	width: 100px; 
+	float: left;
+	margin-bottom: 5px;
+}
+#transaction_form label {
+	width: 150px; 
+	float: left;
+	padding-left: 8px;
+	margin-bottom: 5px;
+}
+#transaction_form .transaction_button {
+	width: 130px;
+	margin-top: 10px;
+	margin-left: 50px;
+}
+	
+#transaction_form label {
+	text-align: right; 
+	width: 100px; 
+	padding-right: 8px;
+}
+#transaction_form #transaction_description {
+	width: 400px;
+	height: 100px;
+}

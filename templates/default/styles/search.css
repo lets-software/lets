@@ -1,0 +1,7 @@
+label,input {
+	font-size: 10px; }
+div#search_html {
+	width:100%;
+	float:left; }
+input#search_button {
+	width:80px; }

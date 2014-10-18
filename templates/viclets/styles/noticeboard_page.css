@@ -1,0 +1,38 @@
+span.nb_page_stats {
+	font-style:italic; }
+.nb_page_type {
+	font-size:larger;
+	font-weight:bold; }
+.nb_page_expired {
+	color:#CC0033;
+	font-weight:bold; }
+.nb_page_title {
+	font-size:larger;
+	font-weight:bold; }
+.time_left {
+	font-style:italic; }
+div#nb_page_divider {
+	float: left;
+	width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+	margin-right: 5px; }
+#auction_html {
+	float:left;
+	width:100%; }
+.buy_now_form {
+	float:left;
+	width:100%; }
+.comment_form {
+	float:left;
+	width:100%;
+	margin-top:10px; }
+.description {
+}
+#bid_button {
+	width:80px;
+}
+#buy_now_button {
+	width:80px;
+}

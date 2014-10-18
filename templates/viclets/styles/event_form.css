@@ -1,0 +1,28 @@
+span.add_event_title {
+	font-size:larger;
+	font-weight:bold;
+}
+#event_description { 
+	height: 50px; 
+	width:400px;
+}
+label,input {
+	width: 150px; 
+	float: left;
+	margin-bottom: 5px;
+}
+.article_button {
+	margin-left: 100px;
+	width: 100px;
+}
+	
+label {
+	text-align: right; 
+	width: 100px; 
+	padding-right: 8px;
+}
+.event_button {
+	clear:left;
+	width: 100px;
+	margin-left: 80px;
+}

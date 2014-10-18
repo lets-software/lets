@@ -1,0 +1,78 @@
+
+body {
+	color : #000000;
+	background : #ffffff;
+	font-family : "Times New Roman", Times, serif; }
+#log {
+	color : #000000;
+	background : #ffffff;
+	font-family : "Times New Roman", Times, serif;
+	font-size: smaller;
+}
+td {
+	width:0;
+}
+a {
+	text-decoration:none;
+	color : #000000;
+	font-weight:bold; }
+.log_link {
+	text-decoration:underline;
+	color:#0033FF; }
+textarea#log {
+	width:100%;
+	height:500px }
+div#header, #navigation, #noticeboard_search_form, #articles_search_form, #events_search_form, #auction_html, .buy_now_form, .comment_form, #member_search_form, #admin_tools, .transaction_form, #contact_form {
+	display : none; }
+	
+#articles_sidebar {
+	display : none;
+}
+#events_sidebar {
+	display : none;
+}
+#noticeboard_sidebar {
+	display : none;
+}
+#faq_sidebar {
+	display : none;
+}
+#links_sidebar {
+	display : none;
+}
+#member_search_form {
+	display : none;
+}
+img {
+	display : none;
+}
+#sidebox {
+	display : none;
+}
+#login_message {
+	display : none;
+}
+#search_sidebar {
+	display : none;
+}
+#noticeboard_listing table {
+	border-collapse:collapse;
+}
+#noticeboard_listing td {
+	border:1px #000000 solid;
+}
+#query_result table {
+	border-collapse:collapse;
+}
+#query_result td {
+	border:1px #000000 solid;
+}
+#transaction_form {
+	display : none;
+}
+#footer_menu {
+	display : none;
+}
+#comment_form {
+	display : none;
+}

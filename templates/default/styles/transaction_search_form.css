@@ -1,0 +1,10 @@
+div.transaction_search {
+	float: left;
+	width:100% }
+label,input {
+	font-size: 10px; }
+#member_id_to_view {
+	width: 35px; }
+#tranaction_search_button {
+	width:75px;
+	margin: 0px 0px 0px 0px; }

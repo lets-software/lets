@@ -1,0 +1,12 @@
+label,input {
+	width: 100px; 
+	float: left;
+}
+.form_settings_button {
+	margin-left:170px;
+}
+label {
+	text-align: right; 
+	width: 200px; 
+	padding-right: 8px;
+}

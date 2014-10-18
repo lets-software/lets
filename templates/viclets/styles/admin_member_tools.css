@@ -1,0 +1,48 @@
+#admin_tools {
+	width:100%;
+	margin-top:5px;
+}
+#admin_tools input {
+	width: 40px; 
+	float: left;
+}
+#admin_tools label {
+	width: 40px; 
+	float: left;
+}
+#admin_tools #member_button {
+	width: 75px;
+}
+#admin_tools #member_search_term {
+	width:150px;
+}
+#admin_tools .admin_tools_status {
+	font-weight:bold;
+}
+#admin_tools #admin_delete_button {
+	display:inline;
+	width:130px;
+}
+#admin_tools #admin_restore_button {
+	display:inline;
+	width:130px;
+}
+#admin_tools #admin_reactivate_button {
+	display:inline;
+	width:130px;
+}
+#admin_tools #admin_expiry_button {
+	display:inline;
+	width:130px;
+}
+#admin_tools #admin_suspend_button {
+	display:inline;
+	width:130px;
+}
+#admin_tools #admin_validate_button {
+	display:inline;
+	width:130px;
+}
+#admin_tools #suspended_message {
+	width:200px;
+}

@@ -1,0 +1,22 @@
+label,input,select {
+	width: 200px; 
+	float: left;
+}
+.site_settings_button {
+	margin-left:170px;
+}
+label {
+	text-align: right; 
+	width: 220px; 
+	padding-right: 8px;
+}
+textarea {
+	height:150px;
+	width:500px;
+}
+div.setting_links {
+	width:100%;
+	float:left;
+	margin-bottom:20px;
+	padding-left:200px;
+}

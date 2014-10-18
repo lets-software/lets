@@ -1,0 +1,10 @@
+label,input #login_password, #login_id {
+	width: 100px; 
+	float: left;
+	margin-bottom: 5px;
+	font-size: 10px; }
+label {
+	text-align: right; 
+	width: 80px; 
+	font-size: 9px;
+	padding-right: 8px; }

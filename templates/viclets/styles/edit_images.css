@@ -1,0 +1,30 @@
+#member_form #image_blurb { height: 50px; width:200px; }
+#member_form #image_description { height: 100px; width:200px; }
+
+#member_form .edit_image_title {
+	width:80px;
+}
+#member_form .default_image_button {
+	float:right;
+	width:80px;
+	text-align:left;
+	padding-left:2px;
+	margin-left:0px;
+	margin-top:2px;
+}
+#member_form .edit_image_button {
+	margin-left:10px;
+	width:90px;
+}
+#member_form .delete_image_button {
+	margin-left:10px;
+	width:90px;
+}
+#member_form .edit_image_blurb {
+	width: 206px;
+	height:40px;
+}
+#member_form .edit_image_description {
+	width:206px;
+	height:60px;
+}

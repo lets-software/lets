@@ -1,0 +1,22 @@
+div.noticeboard_search {
+	float: left;
+	margin-right:10px; }
+#noticeboard_search_form {
+	width:100%;
+	margin-bottom:10px; }
+
+#noticeboard_search_form input {
+
+	float: left;
+}
+
+#amount {
+	width: 35px; }
+#noticeboard_button {
+	width:75px;
+	margin: 0px 0px 0px 0px; }
+#keyword {
+	width:122px; }
+#noticeboard_member {
+	width:50px;
+}

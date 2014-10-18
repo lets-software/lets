@@ -1,0 +1,35 @@
+div.validate_member_actions {
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px dotted gray; 
+	text-align: center;
+}
+#unvalidated_members {
+	float: left;
+	width: 300px;
+	border: 1px dotted gray; 
+	padding: 5px;}
+.unvalidated_member {
+	width: 100%;
+	border-top: 1px dotted gray; 
+	padding-top: 10px; }
+.unvalidated_member_profile {
+	width: 80%;
+	margin-left: 10%;}
+
+span {
+	}
+.unvalidated_member_name {
+	font-weight: bold;
+	font-size: 12px;
+}
+.unvalidated_member_heading {
+	float: left;
+	width: 100px;
+
+}
+.unvalidated_member_info {
+	margin-left: 105;
+}

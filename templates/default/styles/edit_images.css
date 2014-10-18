@@ -1,0 +1,30 @@
+#image_blurb { height: 50px; width:200px; }
+#image_description { height: 100px; width:200px; }
+
+input.edit_image_title {
+	width:80px;
+}
+.default_image_button {
+	float:right;
+	width:80px;
+	text-align:left;
+	padding-left:2px;
+	margin-left:0px;
+	margin-top:2px;
+}
+.edit_image_button {
+	margin-left:10px;
+	width:90px;
+}
+.delete_image_button {
+	margin-left:10px;
+	width:90px;
+}
+textarea.edit_image_blurb {
+	width:80px;
+	height:40px;
+}
+textarea.edit_image_description {
+	width:206px;
+	height:60px;
+}

@@ -1,0 +1,41 @@
+#comment_form {
+	width: 450px; 
+	float: left;
+}
+	
+#comment_form label {
+	width: 150px; 
+	float: left;
+	margin-bottom: 5px;
+}
+
+#comment_form input {
+	width: 150px; 
+	float: left;
+	margin-bottom: 5px;
+}
+
+#comment_form label {
+	text-align: right; 
+	width: 100px; 
+	padding-right: 8px;
+}
+
+#comment_form #comment_title {
+	width: 200px; 
+	float: left;
+	margin-bottom: 5px;
+}
+#comment_form #comment_button {
+	width: 100px;
+	margin-top: 10px;
+	margin-left: 50px;
+}
+#comment_form #comment_body {
+	width: 300px;
+	height: 80px;
+}
+span.add_comment_title {
+	font-size:larger;
+	font-weight:bold;
+}

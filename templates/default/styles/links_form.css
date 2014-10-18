@@ -1,0 +1,25 @@
+span.add_link_title {
+	font-size:larger;
+	font-weight:bold; }
+
+textarea {}
+#link_title { height: 20px; width:400px; }
+#link_description { height: 100px; width:400px; }
+
+label,input {
+	width: 150px; 
+	float: left;
+	margin-bottom: 5px;
+	font-size: 10px; }
+#link_url {
+	width:400px; }
+label {
+	text-align: right; 
+	width: 100px; 
+	font-size: 9px;
+	padding-right: 8px; }
+.link_button {
+	clear:left;
+	width: 130px;
+	font-size: 9px;
+	margin-left: 80px; }

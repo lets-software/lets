@@ -1,0 +1,26 @@
+
+div#comment_list{
+
+	display:inline;
+	width: 99%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+	margin-right: 5px; }
+span.comment_list_title {
+	font-size:larger;
+	font-weight:bold; }
+.comment_title {
+	font-weight:bold; }
+.comment_details {
+	font-style:italic; }
+
+.comment_body {
+	float: left;
+	display:inline;
+	width: 99%;
+}	
+#comment_form {
+	display:inline;
+	width: 99%;
+}

@@ -1,0 +1,13 @@
+div#events {
+}
+
+span.event_list_title {
+	font-size:larger;
+	font-weight:bold; }
+.event_title {
+	font-size:larger;
+	font-weight:bold; }
+.event_details {
+	font-style:italic; }
+.event_description {
+}

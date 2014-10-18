@@ -1,0 +1,201 @@
+body {
+	text-align: left;
+	margin: 0;
+	padding: 0; }
+h1 {
+	font-size: 18px;
+	font-weight: bold; }
+h2 {
+	font-size: 14px;
+	font-weight: bold; }
+h3 {
+	font-weight: bold; }
+#container {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+#header {
+	width: 100%;
+	margin: 0;
+	padding: 0; }
+#header_container {
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%; }
+#tab {
+	width: 90%;
+	padding-left: 10px;
+	min-height: 600px;
+	margin-left: 5%;
+	margin-right: 5%;  }
+#main_body {
+	padding-right: 10px; }
+#navigation {
+	width: 250px; 
+	float: left; }
+#main {
+	position: relative;
+	min-height: 390px;
+	margin-left: 265px;
+	margin-right: 10px;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: 1em;
+	
+	
+	 }
+#page_blurb {
+	margin-bottom:10px; }
+#holder {
+	clear: both;
+	margin: 0; }
+#articles_sidebar {
+	margin-top:15px;
+}
+#search_sidebar {
+	width:100%;
+	float:left;
+	margin:0;
+	margin-bottom:10px;
+	padding:0; }
+#search_sidebar input {
+	width: 100%;
+	float:left;
+	margin:0;
+	padding:0; }
+span.nav_links_heading {
+	padding-top: 6px;
+	padding-bottom: 0;
+	font-weight: bold; }
+.message {
+	color:#990033;
+
+}
+.print_button {
+	width: 100%;
+	float:left;
+	margin-top: 50px; }
+.required_field {
+	font-weight: bold; }
+.sidebar_heading {
+	font-weight: bold; }
+.sidebar_title {
+	font-size:smaller; }
+.sidebar_details {
+	font-style:italic;
+	font-size:smaller; }
+textarea {
+	height: 150px;
+	width: 190px;
+	font-size: 14px; }
+
+input#button {
+	position: relative;
+	display:inline; 
+	margin-left: 120px; }
+#search_box_sidebar {
+	height:20px; }
+input.button {
+	position: relative;
+	display:inline; 
+	margin-left: 120px; }
+
+br {
+	}
+.left {
+	clear: left; }
+.right {
+	clear: right; }
+.both {
+	clear: both; }
+
+.nav_link {
+	padding-top: 0;
+	padding-bottom: 5px;
+	font-weight: bold; }
+.nav_link_selected {
+	padding-top: 0;
+	padding-bottom: 5px;
+	font-weight: bold; }
+
+
+div#login_html {
+	clear: right;
+	display: block; 
+	width: 300px; 
+	float: right;
+	padding-top: 8px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 14px; 
+	color: #ffffff;
+	text-align: right;
+	border: solid thin #cccccc;  }
+
+#login_id {
+	display: block; 
+	width: 80px;
+	height: 15px;
+	float: right; 
+	font-size: 14px; 
+	margin-top: 5px;
+	margin-bottom: 5px; }
+#login_id {
+	background-color: #dddddd; }
+#login_password {
+	display: block; 
+	width: 130px;
+	height: 15px;
+	float: right; }
+#login_password {
+	background-color: #dddddd; }
+#login_button {
+	display: block; 
+	width: 50px;
+	height: 22px;
+	float: right;
+	margin-top: 5px;
+	font-size: 15px; 
+	text-align: center; }
+
+#login_id_label {
+	display: block; 
+	width: 155px;
+	float: left;
+	margin-right: 5px;
+	margin-top: 5px;
+	padding-top: 2px;
+	font-size: 16px; 
+	text-align: right; }
+#login_password_label {
+	display: block; 
+	width: 155px;
+	float: left;
+	margin-right: 5px;
+	font-size: 16px; 
+	text-align: right; }
+
+span#login_message {
+	/* For guests and members */
+	clear: right;
+	display: block; 
+	width: 250px;
+	height: 13px;
+	float: right;
+	font-size: 14px;
+	padding-right: 8px;
+	text-align: right;
+	margin: 0;
+	margin-bottom: 3px; }
+
+legend {
+	padding: 10 10 10 10;
+	font-size:90%;
+	text-align:right;
+}
+
+a#login_link {
+	color: #FFFFFF; }

@@ -1,0 +1,47 @@
+#query_result {
+
+}
+table {
+	border-collapse: collapse;
+	display:inline-table;
+	width:100%;}
+
+th,td {
+	padding:3px 3px 3px 3px;
+	border-bottom:1px solid #666666;
+	vertical-align: bottom; }
+
+th.h_o {}
+	
+th.h_d {
+	font-weight:normal;
+	}
+	
+td.l_o {
+	}
+	
+td.l_d {
+	}
+	
+td.l_o_end {
+	}
+	
+td.l_d_end {
+	}
+	
+a.member_list_link {
+
+	padding-left:20px;
+	padding-right:20px;
+}
+
+a.table_page {
+
+}
+
+a.table_header{
+
+}
+
+img.column_direction {
+}

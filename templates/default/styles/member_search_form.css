@@ -1,0 +1,15 @@
+div.member_search {
+	float: left;
+	margin-right:5px; }
+#member_search_form {
+	width:100%;
+	float:left; }
+label,input {
+	width: 40px; 
+	float: left;
+	font-size: 10px; }
+#member_button {
+	width: 75px;
+	margin: 0px 0px 0px 0px; }
+#member_search_term {
+	width:150px; }

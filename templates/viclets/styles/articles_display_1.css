@@ -1,0 +1,16 @@
+div#articles {
+	width:99%;
+	float:left; }
+span.article_title {
+	font-size:larger;
+	font-weight:bold; }
+.article_details {
+	font-style:italic; }
+
+img.article_thumb {
+	margin-bottom: 2px;
+}
+.article_image_holder {
+	background-color:#FFFFFF;
+	font-size:xx-small;
+}

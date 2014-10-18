@@ -1,0 +1,23 @@
+div.transaction_form {
+	width: 400px; 
+	float: left; }
+
+label,input {
+	width: 50px; 
+	float: left;
+	margin-bottom: 5px;
+	font-size: 10px; }
+.transaction_button {
+	width: 100px;
+	font-size: 9px;
+	margin-top: 10px;
+	margin-left: 50px; }
+	
+label {
+	text-align: right; 
+	width: 80px; 
+	font-size: 9px;
+	padding-right: 8px; }
+textarea#transaction_description {
+	width: 190px;
+	height: 60px; }

@@ -1,0 +1,29 @@
+span.add_article_title {
+	font-size:larger;
+	font-weight:bold; }
+.article_list_title {
+	font-size:larger;
+	font-weight:bold; }
+.article_category_detail {
+	text-decoration:underline; }
+textarea {}
+#article_blurb { height: 50px; width:400px; }
+#article_body { height: 100px; width:400px; }
+
+label,input {
+	width: 150px; 
+	float: left;
+	margin-bottom: 5px;
+	font-size: 10px; }
+.article_button {
+	margin-left: 100px;
+	width: 100px;
+	font-size: 9px; }
+	
+label {
+	text-align: right; 
+	width: 100px; 
+	font-size: 9px;
+	padding-right: 8px; }
+a.member_article_details_link {
+	font-size:larger }

@@ -1,0 +1,32 @@
+label,input {
+	width: 150px; 
+	float: left;
+	margin-bottom: 5px;
+	font-size: 10px; }
+label {
+	text-align: right; 
+	width: 100px; 
+	font-size: 9px;
+	padding-right: 8px; }
+
+
+div.comment_form {
+	width: 450px; 
+	float: left; }
+
+input#comment_title {
+	width: 200px; 
+	float: left;
+	margin-bottom: 5px;
+	font-size: 10px; }
+.comment_button {
+	width: 100px;
+	font-size: 9px;
+	margin-top: 10px;
+	margin-left: 50px; }
+textarea#comment_body {
+	width: 300px;
+	height: 80px; }
+span.add_comment_title {
+	font-size:larger;
+	font-weight:bold; }
