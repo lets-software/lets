@@ -6,7 +6,7 @@
 	System Requirement:
 	- A Web server supporting PHP5
 	- PHP 5.2 or above	
-	- MySQL 5 or above
+	- MySQL 5.0.7 or above
 	
 	The scripts are organized as follows:
 	
@@ -141,6 +141,7 @@ $errors = begin($main_indent,$database_host,$database_name,$database_user,$datab
 //var_dump($errors);
 
 // Check if the database exist, if not, we create it
+// TODO: Replace this code with mySQLi class
 $mysql = new mysql;
 if (!mysql_select_db("$database_name")) {
     echo("<li>Creating database $database_name! Please refresh the page... (F5)</li>");
