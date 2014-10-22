@@ -139,7 +139,7 @@ $min_width = $default_min_width;
 // Establish database connection and check if member
 // If member: session is started and begin returns 0 or error message
 $errors = begin($main_indent,$database_host,$database_name,$database_user,$database_password);
-//echo $errors;
+//var_dump($errors);
 
 // Check if the database exist, if not, we create it
 $mysql = new mysql;
