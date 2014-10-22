@@ -83,7 +83,7 @@ if (isset($_POST['submit'])) {
 	if ($post_post['submit'] == 'Enter Config') {
 			//TODO:  Add a check to verify that Mod_Rewrite is enable
 			// strpos(shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== false
-			
+			if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li>Mod_Rewrite MUST be enable. Current status = Disable</li>'; $okToUpdateDb = 1;}
 			if (!$post_post['site_key']) {$message .= '<li>Please enter a Encryption Key.</li>'; $okToUpdateDb = 1;}
 			if (!$post_post['site_name']) {$message .= '<li>Please enter a Site Name.</li>'; $okToUpdateDb = 1;}
 			if (!$post_post['url']) {
@@ -99,6 +99,8 @@ if (isset($_POST['submit'])) {
 			if (!$post_post['location']) {$message .= '<li>Please enter your location.</li>'; $okToUpdateDb = 1;}
 			$submitted_config = 1;
 			if ($okToUpdateDb == 0) {
+				$post_post['path'] = preg_match('/\/$/', $post_post['path'])? $post_post['path'] : preg_replace('/$/', '/', $post_post['path']);
+				var_dump($post_post['path']);
 				if ($mysql->query("UPDATE config SET
 				site_name = '".mysql_escape_string($post_post['site_name'])."',
 				site_key = '".mysql_escape_string($post_post['site_key'])."',

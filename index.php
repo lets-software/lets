@@ -104,8 +104,7 @@ $search_sidebar_indent			= 		'   ';
 $login_sidebar_indent			= 		'   ';
 
 $doc_root = $_SERVER['DOCUMENT_ROOT']."/"; //.$_SERVER['PHP_SELF'];
-// I comment the line below as I think we don't need it after modifying the line above
-//$doc_root = str_replace('index.php','',$doc_root);
+
 
 require_once($doc_root.'includes/config.php');
 require_once($doc_root.'includes/main_file.php');

@@ -282,7 +282,7 @@ class links {
 		$z .= ''."\n";
 		$z .= 'ErrorDocument 404 '.URL.'page_not_found/'."\n";
 		
-		$handle = fopen(PATH.'.htaccess','w');
+		$handle = fopen($doc_root.'.htaccess','w');
 		if (!$handle) {
 			$this->error = 'Could not open file';
 			return false;
