@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 This is the default template 
 
@@ -9,7 +9,7 @@ This is the default template
  <div id="header">
   <div id="header_container">
    <div id="login_html">
-<?= $login_html; ?>
+<?php echo $login_html; ?>
    </div>   <div id="site_title">    
    <strong>&lt;Insert Logo here&gt;</strong>
    </div>
@@ -18,26 +18,26 @@ This is the default template
  </div>
  <div id="tab">
   <div id="navigation">
-<?= $search_sidebar; ?>
+<?php echo $search_sidebar; ?>
    <br />
-<?= $nav_html; ?>
+<?php echo $nav_html; ?>
    <br />
-<?= $articles_sidebar; ?>
-<?= $events_sidebar; ?>
-<?= $noticeboard_sidebar; ?>
-<?= $faq_sidebar; ?>
-<?= $links_sidebar; ?>
+<?php echo $articles_sidebar; ?>
+<?php echo $events_sidebar; ?>
+<?php echo $noticeboard_sidebar; ?>
+<?php echo $faq_sidebar; ?>
+<?php echo $links_sidebar; ?>
   </div>
   <div id="main">
-<?= $heading; ?>
-<?= $message; ?>
-<?= $messages; ?>
-<?= $noticeboard_info; ?>
-<?= $noticeboard_body; ?>
-<?= $noticeboard_tools; ?>
-<?= $comment_html; ?>
-<?= $comment_form; ?>
-<?= $print_button; ?>
+<?php echo $heading; ?>
+<?php echo $message; ?>
+<?php echo $messages; ?>
+<?php echo $noticeboard_info; ?>
+<?php echo $noticeboard_body; ?>
+<?php echo $noticeboard_tools; ?>
+<?php echo $comment_html; ?>
+<?php echo $comment_form; ?>
+<?php echo $print_button; ?>
    <div id="holder">
     &nbsp;
    </div>
