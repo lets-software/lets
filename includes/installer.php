@@ -83,7 +83,7 @@ if (isset($_POST['submit'])) {
 	if ($post_post['submit'] == 'Enter Config') {
 			//TODO:  Add a check to verify that Mod_Rewrite is enable
 			// strpos(shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== false
-			if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li>Mod_Rewrite MUST be enable. Current status = Disable</li>'; $okToUpdateDb = 1;}
+			if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li>Mod_Rewrite MUST be enable. Current status = Disable</li>'; } // We don't prevent you to keep going as this test will fail if you don't run apache
 			if (!$post_post['site_key']) {$message .= '<li>Please enter a Encryption Key.</li>'; $okToUpdateDb = 1;}
 			if (!$post_post['site_name']) {$message .= '<li>Please enter a Site Name.</li>'; $okToUpdateDb = 1;}
 			if (!$post_post['url']) {
