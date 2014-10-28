@@ -3,37 +3,37 @@
   </td>
  </tr>
  <tr>  <td width="20%" align="left" valign="bottom">
-<?= $login_html; ?>
+<?php echo $login_html; ?>
   </td>
   <td align="right" valign="bottom">
    <br />
-<?= $print_button; ?>
+<?php echo $print_button; ?>
   </td>
  </tr>
  <tr>
   <td valign="top" class="tableborder_left" id="tableborder_left">
   <div id="sidebox">
-<?= $nav_html; ?>
+<?php echo $nav_html; ?>
   </div>
   <br />
   <br />
   <div id="sidebar">
-<?= $search_sidebar; ?>
+<?php echo $search_sidebar; ?>
    <br /><br />
-<?= $articles_sidebar; ?>
-<?= $events_sidebar; ?>
-<?= $noticeboard_sidebar; ?>
-<?= $faq_sidebar; ?>
-<?= $links_sidebar; ?>
+<?php echo $articles_sidebar; ?>
+<?php echo $events_sidebar; ?>
+<?php echo $noticeboard_sidebar; ?>
+<?php echo $faq_sidebar; ?>
+<?php echo $links_sidebar; ?>
   </div>
   </td>
   <td colspan="2" valign="top" class="tableborder_right" id="tableborder_right">
-<?= $message; ?>
-<?= $heading; ?>
-<?= $messages; ?>
-<?= $blurb; ?>
-<?= $event_page; ?>
-<?= $comment_html; ?>
+<?php echo $message; ?>
+<?php echo $heading; ?>
+<?php echo $messages; ?>
+<?php echo $blurb; ?>
+<?php echo $event_page; ?>
+<?php echo $comment_html; ?>
   </td>
  </tr>
  <tr>
