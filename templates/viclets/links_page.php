@@ -3,35 +3,35 @@
   </td>
  </tr>
  <tr>  <td width="20%" align="left" valign="bottom">
-<?= $login_html; ?>
+<?php print($login_html); ?>
   </td>
   <td align="right" valign="bottom">
    <br />
-<?= $print_button; ?>
+<?php print($print_button); ?>
   </td>
  </tr>
  <tr>
   <td valign="top" class="tableborder_left" id="tableborder_left">
   <div id="sidebox">
-<?= $nav_html; ?>
+<?php print($nav_html); ?>
   </div>
   <br />
   <br />
   <div id="sidebar">
-<?= $search_sidebar; ?>
+<?php print($search_sidebar); ?>
    <br /><br />
-<?= $articles_sidebar; ?>
-<?= $events_sidebar; ?>
-<?= $noticeboard_sidebar; ?>
-<?= $faq_sidebar; ?>
-<?= $links_sidebar; ?>
+<?php print($articles_sidebar); ?>
+<?php print($events_sidebar); ?>
+<?php print($noticeboard_sidebar); ?>
+<?php print($faq_sidebar); ?>
+<?php print($links_sidebar); ?>
   </div>
   </td>
   <td colspan="2" valign="top" class="tableborder_right" id="tableborder_right">
-<?= $message; ?>
-<?= $heading; ?>
-<?= $blurb; ?>
-<?= $links_html; ?>
+<?php print($message); ?>
+<?php print($heading); ?>
+<?php print($blurb); ?>
+<?php print($links_html); ?>
   </td>
  </tr>
  <tr>

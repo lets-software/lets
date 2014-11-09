@@ -106,13 +106,22 @@ $login_sidebar_indent			= 		'   ';
 
 $doc_root = $_SERVER['DOCUMENT_ROOT']."/"; //.$_SERVER['PHP_SELF'];
 
-if (!isset($_session['lang'])){
-	require_once($doc_root.'includes/lang_select.php');
-	die();
-}
+
 
 require_once($doc_root.'includes/config.php');
 require_once($doc_root.'includes/main_file.php');
+
+
+if (!isset($_SESSION['lang'])){
+	if (isset($_POST['lang'])) {
+		$_SESSION['lang']=setLanguage($_POST['lang']);
+	}else{
+		require_once($doc_root.'includes/lang_select.php');
+		die();
+	}
+}
+
+
 require_once($doc_root.'includes/processing_functions.php');
 require_once($doc_root.'includes/html_functions.php');
 
@@ -160,7 +169,7 @@ require_once($doc_root.'includes/main_xhtml.php');
 require_once($doc_root.'includes/header.php');
 
 if (!isset($template_filename)) {
-	$template_filename = 'viclets';
+	$template_filename = 'default';
 }
 
 

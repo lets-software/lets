@@ -9,7 +9,7 @@ This is the default template
  <div id="header">
   <div id="header_container">
    <div id="login_html">
-<?php $login_html; ?>
+<?php print($login_html); ?>
    </div>   <div id="site_title">    
    <strong>&lt;Insert Logo here&gt;</strong>
    </div>
@@ -18,20 +18,20 @@ This is the default template
  </div>
  <div id="tab">
   <div id="navigation">
-<?php $search_sidebar; ?>
+<?php print($search_sidebar); ?>
    <br />
-<?php $nav_html; ?>
+<?php print($nav_html); ?>
    <br />
-<?php $articles_sidebar; ?>
-<?php $events_sidebar; ?>
-<?php $noticeboard_sidebar; ?>
-<?php $faq_sidebar; ?>
-<?php $links_sidebar; ?>
+<?php print($articles_sidebar); ?>
+<?php print($events_sidebar); ?>
+<?php print($noticeboard_sidebar); ?>
+<?php print($faq_sidebar); ?>
+<?php print($links_sidebar); ?>
   </div>
   <div id="main">
-<?php $message; ?>
-<?php $main_html; ?>
-<?php $print_button; ?>
+<?php print($message); ?>
+<?php print($main_html); ?>
+<?php print($print_button); ?>
    <div id="holder">
     &nbsp;
    </div>

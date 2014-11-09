@@ -1,5 +1,6 @@
 <?php
-// This should be the first page to appear on the screen to allow user to select his language
+// This should be the first page to appear on the screen during installationb to allow user to select his language
+var_dump($_SESSION);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -17,9 +18,12 @@
 </html>
 <body>
 <div class="center">Select you Language:<br>
-   <select>
+<form  action="/index.php" method="post">
+   <select id="lang" name="lang">
       <option value="ENG">English</option>
 	  <option value="FRA">Francais</option>
-	</select><br><br></div>
+	</select><br>
+	<input type="submit" value="Submit"><br>
+</form></div>
 </body>
 </html>

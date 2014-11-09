@@ -20,6 +20,19 @@ function createRandomPassword() {
 	return $pass;
 
 }
+
+function setLanguage($language){
+	if(isset($language) && $language != "") {
+		switch($language) {
+			case "FRA":
+				return "FRA";
+				break;
+			default:
+				return "ENG";
+		}
+	}
+}
+
 function let_to_num($v){ //This function transforms the php.ini notation for numbers (like '2M') to an integer (2*1024*1024 in this case)
 	$l = substr($v, -1);
 	$ret = substr($v, 0, -1);
