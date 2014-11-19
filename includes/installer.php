@@ -71,16 +71,25 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <style type="text/css">
  body { font-family: Verdana,Helvetica; font-size: 11px; }
-</style>';
+</style>
+<LINK href="'.URL.'templates/'.TEMPLATE.'/styles/install.css" rel="stylesheet" type="text/css">'
+;
 
 $message = '';
 $submitted_config = 0;
 $files_status = true;
 
+
 if (isset($_POST['submit'])) {
 	$post_post = remove_slashes($_POST);
 	$okToUpdateDb = 0;													// Stay at 0 if there is no error, pas it a 1 in case of any error
 	if ($post_post['submit'] == 'Enter Config') {
+	
+			echo "<form action=\"".$_SERVER['REQUEST_URI']."\" method=\"post\" class=\"basic-grey\">\n";
+			
+			echo '<h1>Setup Form';
+			echo '		<span>Please fill all the texts in the fields.</span>';
+			echo '</h1><br /><br />';
 			//TODO:  Add a check to verify that Mod_Rewrite is enable
 			// strpos(shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== false
 			if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li>Mod_Rewrite MUST be enable. Current status = Disable</li>'; } // We don't prevent you to keep going as this test will fail if you don't run apache
@@ -490,10 +499,9 @@ if ($mysql->build_array('SELECT * FROM config WHERE 1')) {
 			if ($message) {
 				echo '<strong><em>'.$message.'<br /><br /></em></strong>';
 			}
-			echo '<strong>Please fill out the following form:</strong><br /><br />';
-			echo 'The following fields are required:<br />';
-			echo "<form action=\"".$_SERVER['REQUEST_URI']."\" method=\"post\">\n";
 			
+			
+			echo 'The following fields are required:<br />';
 			echo " <strong>Encryption Key:</strong><br /><em>example:</em> sedtb782394jhnev63dbnec4uj894tb60rfnd67y2<br />\n";
 			echo " <em>Note:</em> You do not need to remember this code. By entering a large random number such as in the example all passwords will be stored in encrypted form.<br />\n";
 			echo " <input type=\"text\" name=\"site_key\" value=\"".$mysql->result[0]['site_key']."\" /><br /><br />\n";
