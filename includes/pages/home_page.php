@@ -38,27 +38,27 @@
 /*		CSS Files Called by script:																								*/
 	if (!$print) {
 		if (HOMEPAGE_HTML_ARTICLES) {
-			$styles 						.= 		" @import url(".URL.'templates/'.TEMPLATE."/styles/article_search_form.css);\n";
-			$styles 						.= 		" @import url(".URL.'templates/'.TEMPLATE."/styles/articles_display_1.css);\n";
-			$styles 						.= 		" @import url(".URL.'templates/'.TEMPLATE."/styles/articles_display_2.css);\n";
-			$styles 						.= 		" @import url(".URL.'templates/'.TEMPLATE."/styles/articles_display_3.css);\n";
-			$styles 						.= 		" @import url(".URL.'templates/'.TEMPLATE."/styles/thumbs_list.css);\n";
+			$styles_link 						= 			'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/article_search_form.css" />\n';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/articles_display_1.css" />\n';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/articles_display_2.css" />\n';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/articles_display_3.css" />\n';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/thumbs_list.css" />\n';
 		}
 		
 
 		if (HOMEPAGE_HTML_EVENTS) {
-			$styles 						.= 		" @import url(".URL.'templates/'.TEMPLATE."/styles/events_list.css);\n";
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/events_list.css" />\n';
 		}
 		if (HOMEPAGE_HTML_NOTICEBOARD) {
-			$styles 						.= 		" @import url(".URL.'templates/'.TEMPLATE."/styles/noticeboard_search_form.css);\n";
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/noticeboard_search_form.css" />\n';
 		}
 		if (HOMEPAGE_HTML_FAQ) {
-			$styles 						.= 		" @import url(".URL.'templates/'.TEMPLATE."/styles/faq_list.css);\n";
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/faq_list.css" />\n';
 		}
 		if (HOMEPAGE_HTML_LINKS) {
-			$styles 						.= 		" @import url(".URL.'templates/'.TEMPLATE."/styles/links_list.css);\n";
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/links_list.css" />\n';
 		}
-			$styles 						.= 		" @import url(".URL.'templates/'.TEMPLATE."/styles/results_table.css);\n";
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/results_table.css" />\n';
 /*		Dynamic Styling:																										*/
 			if (FONT_SIZE > 14) {
 				$local_font_size = 14;

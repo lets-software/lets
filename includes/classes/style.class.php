@@ -57,7 +57,8 @@ class style {
 	
 	function style_header() {
 		if (!$this->print_page) {
-			$styles = "<style type=\"text/css\">\n";
+			$styles = ' <link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE."/styles/main.css\" /> \n";
+			$styles .= "<style type=\"text/css\">\n";
 			
 			return $styles;
 		}
@@ -66,8 +67,8 @@ class style {
 		if ($this->print_page) {
 			return '<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/print.css" title="print_page" />'."\n";		
 		} else {
-			$styles = " @import url(".URL.'templates/'.TEMPLATE."/styles/main.css);\n";
-	 		$styles .= " body { color: ".TEXT_COLOUR."; font-family: ".FONT."; font-size: ".FONT_SIZE."px; background-color: ".BACKGROUND_COLOUR."; }\n";
+			// $styles = " @import url(".URL.'templates/'.TEMPLATE."/styles/main.css);\n";
+	 		$styles = " body { color: ".TEXT_COLOUR."; font-family: ".FONT."; font-size: ".FONT_SIZE."px; background-color: ".BACKGROUND_COLOUR."; }\n";
 			$styles .= " h1 { font-size: ".(FONT_SIZE + 16)."px; font-weight: normal; font-style:italic}\n";
 			$styles .= " h2 { font-size: ".(FONT_SIZE + 12)."px; font-weight: normal; font-style:italic}\n";
 			

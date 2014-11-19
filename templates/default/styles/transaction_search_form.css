@@ -1,8 +1,17 @@
-div.transaction_search {
-	float: left;
-	width:100% }
+form {
+	margin-left:auto;
+    margin-right:auto;
+    max-width: 500px;
+    background: #F7F7F7;
+    padding: 25px 15px 25px 10px;
+    font: 12px Georgia, "Times New Roman", Times, serif;
+    color: #888;
+    text-shadow: 1px 1px 1px #FFF;
+    border:1px solid #E4E4E4;}
+	
 label,input {
-	font-size: 10px; }
+	font-size: 10px;}
+	
 #member_id_to_view {
 	width: 35px; }
 #tranaction_search_button {

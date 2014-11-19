@@ -118,15 +118,15 @@ case 1: // /members directory
 		require_once('includes/pages/website_settings.php');
 		break;
 	break;
-	case 107: // Validate FAQ
+	case 107: // Validate events
 		require_once('includes/pages/validate_events.php');
 		break;
 	break;
-	case 108: // Validate FAQ
+	case 108: // Log
 		require_once('includes/pages/log.php');
 		break;
 	break;
-	case 109: // Validate FAQ
+	case 109: // Send Email
 		require_once('includes/pages/send_email.php');
 		break;
 	break;
