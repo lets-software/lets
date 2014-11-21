@@ -69,10 +69,9 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<style type="text/css">
- body { font-family: Verdana,Helvetica; font-size: 11px; }
-</style>
-<LINK href="'.URL.'templates/'.TEMPLATE.'/styles/install.css" rel="stylesheet" type="text/css">'
+<link rel="stylesheet" type="text/css" href="/templates/default/styles/install.css">
+<LINK href="'.URL.'templates/'.TEMPLATE.'/styles/install.css" rel="stylesheet" type="text/css">
+</head><body>'
 ;
 
 $message = '';
@@ -93,6 +92,8 @@ if (isset($_POST['submit'])) {
 			//TODO:  Add a check to verify that Mod_Rewrite is enable
 			// strpos(shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== false
 			if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li>Mod_Rewrite MUST be enable. Current status = Disable</li>'; } // We don't prevent you to keep going as this test will fail if you don't run apache
+			//TODO:  Generate this number randomly so user don't have to type one them selves
+			// As I think most users will not know why this string is used for. 
 			if (!$post_post['site_key']) {$message .= '<li>Please enter a Encryption Key.</li>'; $okToUpdateDb = 1;}
 			if (!$post_post['site_name']) {$message .= '<li>Please enter a Site Name.</li>'; $okToUpdateDb = 1;}
 			if (!$post_post['url']) {
@@ -500,7 +501,10 @@ if ($mysql->build_array('SELECT * FROM config WHERE 1')) {
 				echo '<strong><em>'.$message.'<br /><br /></em></strong>';
 			}
 			
-			
+			echo '<form action="'.$_SERVER['REQUEST_URI']."\" method=\"post\" class=\"basic-grey\">";
+			echo '<h1>Setup Form';
+			echo '		<span>Please fill all the texts in the fields.</span>';
+			echo '</h1><br /><br />';
 			echo 'The following fields are required:<br />';
 			echo " <strong>Encryption Key:</strong><br /><em>example:</em> sedtb782394jhnev63dbnec4uj894tb60rfnd67y2<br />\n";
 			echo " <em>Note:</em> You do not need to remember this code. By entering a large random number such as in the example all passwords will be stored in encrypted form.<br />\n";
