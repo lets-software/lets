@@ -8,7 +8,7 @@ function login_html($i,$use_uri = true) {
 	if (!user_type()) {
 		
 		$links->build_url(1,1);
-		$z .= "$i <span id=\"login_message\">Welcome <strong>Guest</strong></span><br /><span id=\"login_message\">Please Login or <br /><a id=\"login_link\" href=\"".URL.$links->complete_url."\">Register to Join</a>:</span>\n";
+		$z .= "$i <span id=\"login_message\">Welcome <strong>Guest</strong></span><br /><span id=\"login_message\">Please Login or <a id=\"login_link\" href=\"".URL.$links->complete_url."\">Register to Join</a>:</span>\n";
 		
 		if (TEMPLATE == 'viclets') {
 			$links->build_url(13,0);
@@ -24,9 +24,9 @@ function login_html($i,$use_uri = true) {
 		}
 		$z .= "\" method=\"post\">\n";		
 		$z .= "$i  <label for=\"login_id\" id=\"login_id_label\">".ucwords(MEMBERS_NAME_SINGULAR)." No:</label>\n";
-		$z .= "$i  <input type=\"text\" id=\"login_id\" name=\"login_id\" maxlength=\"5\" /><br class=\"right\"/>\n";
+		$z .= "$i  <input type=\"text\" id=\"login_id\" name=\"login_id\" /><br class=\"right\"/>\n";
 		$z .= "$i  <label for=\"login_password\" id=\"login_password_label\">Password:</label>\n";
-		$z .= "$i  <input type=\"password\" id=\"login_password\" name=\"login_password\" maxlength=\"32\" />\n";
+		$z .= "$i  <input type=\"password\" id=\"login_password\" name=\"login_password\" />\n";
 		$z .= "$i  <input id=\"login_button\" type=\"submit\" name=\"login\" value=\"Login\" />\n";
 		$z .= "$i </form>\n";
 		if (TEMPLATE != 'viclets') {

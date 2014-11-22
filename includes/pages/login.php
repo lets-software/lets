@@ -32,12 +32,12 @@
 
 $main_html .= $i."<!-- login_page_html -->\n";
 if (!user_type() and $links->build_url(1,1)) {
-	$main_html .= "$i Welcome <strong>Guest</strong>. Please Login or <a href=\"".URL.$links->complete_url."\">Register</a>:<br class=\"left\" >\n";
-	$main_html .= "$i <form action=\"".URL.MEMBERS_URL."\" method=\"post\">\n";
-	$main_html .= "$i  <label for=\"login_id\">".ucwords(MEMBERS_NAME_SINGULAR)." No:</label>\n";
-	$main_html .= "$i  <input type=\"text\" id=\"login_id\" name=\"login_id\" maxlength=\"5\" /><br class=\"left\" >\n";
-	$main_html .= "$i  <label for=\"login_password\">Password:</label>\n";
-	$main_html .= "$i  <input type=\"password\" id=\"login_password\" name=\"login_password\" maxlength=\"32\" /><br class=\"left\" >\n";	
+	$main_html .= "$i Welcome <strong>Guest</strong>. Please Login or <a href=\"".URL.$links->complete_url."\">Register</a>:<br >\n";
+	$main_html .= "$i <form class=\"login_form\"action=\"".URL.MEMBERS_URL."\" method=\"post\">\n";
+	$main_html .= "$i  <span>".ucwords(MEMBERS_NAME_SINGULAR)." No:</span>\n";
+	$main_html .= "$i  <input type=\"text\" id=\"login_id\" name=\"login_id\" /><br class=\"left\" >\n";
+	$main_html .= "$i  <span>Password:</span>\n";
+	$main_html .= "$i  <input type=\"password\" id=\"login_password\" name=\"login_password\" /><br class=\"left\" >\n";	
 	$main_html .= "$i  <input id=\"login_button\" type=\"submit\" name=\"login\" value=\"Login\" />\n";
 	$main_html .= "$i </form>\n";
 } else {

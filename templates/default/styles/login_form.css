@@ -1,9 +1,10 @@
-label,input #login_password, #login_id {
+from .login_form {
 	width: 100px; 
 	float: left;
 	margin-bottom: 5px;
-	font-size: 10px; }
-label {
+	font-size: 10px; 
+	}
+form>span {
 	text-align: right; 
 	width: 80px; 
 	font-size: 9px;

@@ -1247,7 +1247,7 @@ if (!$last_mysql->query("--
 --
 
 INSERT INTO `style` (`styleID`, `font_size`, `font`, `text_colour`, `background_colour`, `min_width`, `header_colour`, `tab_colour`, `text_background_colour`, `link_colour`, `link_decoration`, `visited_colour`, `visited_decoration`, `hover_colour`, `hover_decoration`, `header_border_size`, `header_border_colour`, `tab_border_size`, `tab_border_colour`, `header`, `required_text_decoration`, `required_font_weight`, `required_color`, `required_display`) VALUES
-(1, '12', 'Verdana,Helvetica', 'purple', '#8dbad4', '550', '#d9f5f9', 'white', '#ffffff', '#006699', '#006699', '#006699', '#006699', '#ff6600', '#ff6600', '2', 'black', '2', 'black', '', 'none', 'bold', 'none', 'bold');")) {
+(1, '12', 'Georgia, \"Times New Roman\", Times, serif', '#888', '#F7F7F7', '550', '#e7e7e7', 'white', '#ffffff', '#006699', '#006699', '#006699', '#006699', '#ff6600', '#ff6600', '2', 'black', '2', 'black', '', 'none', 'bold', 'none', 'bold');")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
