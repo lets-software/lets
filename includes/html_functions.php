@@ -22,12 +22,12 @@ function login_html($i,$use_uri = true) {
 		} else {
 			$z .= URL.MEMBERS_URL."/";
 		}
-		$z .= "\" method=\"post\">\n";		
-		$z .= "$i  <label for=\"login_id\" id=\"login_id_label\">".ucwords(MEMBERS_NAME_SINGULAR)." No:</label>\n";
-		$z .= "$i  <input type=\"text\" id=\"login_id\" name=\"login_id\" /><br class=\"right\"/>\n";
-		$z .= "$i  <label for=\"login_password\" id=\"login_password_label\">Password:</label>\n";
+		$z .= "\" method=\"post\" style=\"border: 1px solid red;\">\n";		
+		$z .= "$i  <span for=\"login_id\" id=\"login_id_label\">".ucwords(MEMBERS_NAME_SINGULAR)." No:</span>\n";
+		$z .= "$i  <input type=\"text\" id=\"login_id\" name=\"login_id\" />\n";
+		$z .= "$i  <span for=\"login_password\" id=\"login_password_label\">Password:</span>\n";
 		$z .= "$i  <input type=\"password\" id=\"login_password\" name=\"login_password\" />\n";
-		$z .= "$i  <input id=\"login_button\" type=\"submit\" name=\"login\" value=\"Login\" />\n";
+		$z .= "$i  <input id=\"login_button\" type=\"submit\" name=\"login\" value=\"Login\" /><br class=\"right\"/>\n";
 		$z .= "$i </form>\n";
 		if (TEMPLATE != 'viclets') {
 			$links->build_url(13,0);
