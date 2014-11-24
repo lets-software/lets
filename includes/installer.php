@@ -69,8 +69,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" type="text/css" href="/templates/default/styles/install.css">
-<LINK href="'.URL.'templates/'.TEMPLATE.'/styles/install.css" rel="stylesheet" type="text/css">
+<link href="'.URL.'/templates/'.TEMPLATE.'/styles/install.css" rel="stylesheet" type="text/css">
 </head><body>'
 ;
 
@@ -110,7 +109,6 @@ if (isset($_POST['submit'])) {
 			$submitted_config = 1;
 			if ($okToUpdateDb == 0) {
 				$post_post['path'] = preg_match('/\/$/', $post_post['path'])? $post_post['path'] : preg_replace('/$/', '/', $post_post['path']);
-				var_dump($post_post['path']);
 				if ($mysql->query("UPDATE config SET
 				site_name = '".mysql_escape_string($post_post['site_name'])."',
 				site_key = '".mysql_escape_string($post_post['site_key'])."',
@@ -783,6 +781,7 @@ if (CURRENT_OS == 'UNIX') {
 		
 		
 			if (!$files_status) {
+				echo '<div class="basic-grey">';
 				echo '<strong>Checking Files and Folders....</strong><br />';
 				echo '<strong>Attention:</strong><br />';
 				echo 'The following files and/or folders need their permissions changed:<br /><br />';
@@ -809,6 +808,7 @@ if (CURRENT_OS == 'UNIX') {
 				echo " <input type=\"password\" name=\"second_ftp_password\" value=\"".md5_decrypt($third_mysql->result[0]['ftp_password'],$third_mysql->result[0]['site_key'])."\" /><br /><br />\n";
 				echo " <input type=\"submit\" name=\"submit\" value=\"Set Permissions\" />\n";
 				echo "</form>\n";
+				echo '</div>';
 				exit();
 			} else {
 				echo '<strong>Checking Files and Folders....</strong><br />';
@@ -1247,7 +1247,7 @@ if (!$last_mysql->query("--
 --
 
 INSERT INTO `style` (`styleID`, `font_size`, `font`, `text_colour`, `background_colour`, `min_width`, `header_colour`, `tab_colour`, `text_background_colour`, `link_colour`, `link_decoration`, `visited_colour`, `visited_decoration`, `hover_colour`, `hover_decoration`, `header_border_size`, `header_border_colour`, `tab_border_size`, `tab_border_colour`, `header`, `required_text_decoration`, `required_font_weight`, `required_color`, `required_display`) VALUES
-(1, '12', 'Georgia, \"Times New Roman\", Times, serif', '#888', '#F7F7F7', '550', '#e7e7e7', 'white', '#ffffff', '#006699', '#006699', '#006699', '#006699', '#ff6600', '#ff6600', '2', 'black', '2', 'black', '', 'none', 'bold', 'none', 'bold');")) {
+(1, '12', 'Georgia, \"Times New Roman\", Times, serif', '#4f4f4f', '#F7F7F7', '550', '#e7e7e7', 'white', '#ffffff', '#006699', '#006699', '#006699', '#006699', '#ff6600', '#ff6600', '2', 'black', '2', 'black', '', 'none', 'bold', 'none', 'bold');")) {
 	echo $last_mysql->error;
 	$completed = false;
 }

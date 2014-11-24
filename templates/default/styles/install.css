@@ -6,7 +6,7 @@
     background: #F7F7F7;
     padding: 25px 15px 25px 10px;
     font: 12px Georgia, "Times New Roman", Times, serif;
-    color: #888;
+    color: #5f5f5f;
     text-shadow: 1px 1px 1px #FFF;
     border:1px solid #E4E4E4;
 }
@@ -16,7 +16,7 @@
     display: block;
     border-bottom:1px solid #E4E4E4;
     margin: -10px -15px 30px -10px;
-    color: #888;
+    color: #4f4f4f;
 }
 .basic-grey h1>span {
     display: block;
