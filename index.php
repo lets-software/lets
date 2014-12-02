@@ -155,7 +155,7 @@ $errors = begin($main_indent,$database_host,$database_name,$database_user,$datab
 //var_dump($errors);
 
 // Check if the database exist, if not, we create it
-// TODO: Replace this code with mySQLi class
+// TODO: Replace this code with mySQL PDO class
 $mysql = new mysql;
 if (!mysql_select_db("$database_name")) {
     echo("<li>Creating database $database_name! Please refresh the page... (F5)</li>");

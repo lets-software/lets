@@ -31,7 +31,7 @@ This is the default template
   <div id="main">
 <?php print($message); ?>
 <?php print($main_html); ?>
-<?php print($print_button); ?>
+<?php if (isset($print_button))print($print_button); ?>
    <div id="holder">
     &nbsp;
    </div>

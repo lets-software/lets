@@ -7,7 +7,7 @@
   </td>
   <td align="right" valign="bottom">
    <br />
-<?php echo $print_button; ?>
+<?php if (isset($print_button))print($print_button); ?>
   </td>
  </tr>
  <tr>
