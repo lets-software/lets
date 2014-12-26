@@ -20,10 +20,10 @@ Installation:
 - Open your browser to the url you placed index.php in and follow the prompts.
    For example http://www.your-domain.com/ 
 This is the required configuration:
-   /images 777
-   /logs 777
-   .htaccess 777
-   /logs/<Your Site Name>.log 666
-   /logs/<Your Site Name>_Errors.log 666
+   - /images 777
+   - /logs 777
+   - .htaccess 777
+   - /logs/<Your Site Name>.log 666
+   - /logs/<Your Site Name>_Errors.log 666
 - Once permissions are set refresh your browser and the script should set everything else up.
 - You can them login with username:1 and password whatever you entered previously.
