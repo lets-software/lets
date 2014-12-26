@@ -18,9 +18,7 @@ Installation:
   IMPORTANT: The scripts will immediately be in an installation-ready state.
 
 - Open your browser to the url you placed index.php in and follow the prompts.
-   For example http://www.your-domain.com/ or http://www.your-friends-domain.com/your_lets/
-Simply enter your FTP information in and the script will set the proper permissions.
-If this doesn't work for some reason use a different method.
+   For example http://www.your-domain.com/ 
 This is the required configuration:
    /images 777
    /logs 777
