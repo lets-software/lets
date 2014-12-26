@@ -19,7 +19,7 @@ Installation:
 
 - Open your browser to the url you placed index.php in and follow the prompts.
    For example http://www.your-domain.com/ 
-This is the required configuration:
+- This is the required configuration:
    - /images 777
    - /logs 777
    - .htaccess 777
