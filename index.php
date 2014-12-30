@@ -1,5 +1,5 @@
 <?php
-/*
+/**
 
 	Welcome to LETS-Software
 	
@@ -107,23 +107,36 @@ $login_sidebar_indent			= 		'   ';
 $doc_root = $_SERVER['DOCUMENT_ROOT']."/"; //.$_SERVER['PHP_SELF'];
 
 
-
-require_once($doc_root.'includes/config.php');
-require_once($doc_root.'includes/main_file.php');
+//if file_exists($doc_root.'includes/config.php')?require_once($doc_root.'includes/configdb.php'):require_once($doc_root.'install/createConfigdb.php');
+require_once $doc_root.'includes/configdb.php';
+require_once $doc_root.'includes/main_file.php';
 
 
 if (!isset($_SESSION['lang'])){
-	if (isset($_POST['lang'])) {
-		$_SESSION['lang']=setLanguage($_POST['lang']);
-	}else{
-		require_once($doc_root.'includes/lang_select.php');
+	if (!isset($_POST['lang'])) {
+		require_once $doc_root.'includes/lang_select.php';
 		die();
+	}
+	
+	switch ($_POST['lang']) {  // using standardized nomenclature ISO 639-2/B
+	
+		case 'ENG':
+			$_SESSION['lang'] = 'ENG';
+		break;
+		
+		case 'FRA':
+			$_SESSION['lang'] = 'FRA';
+		break;
+		
+		default:
+			$_SESSION['lang'] = 'ENG';
+		break;
 	}
 }
 
 
-require_once($doc_root.'includes/processing_functions.php');
-require_once($doc_root.'includes/html_functions.php');
+require_once $doc_root.'includes/processing_functions.php';
+require_once $doc_root.'includes/html_functions.php';
 
 
 // clear HTMl holders:
@@ -151,7 +164,7 @@ $min_width = $default_min_width;
 
 // Establish database connection and check if member
 // If member: session is started and begin returns 0 or error message
-$errors = begin($main_indent,$database_host,$database_name,$database_user,$database_password);
+$errors = begin($main_indent, $database_host, $database_name, $database_user, $database_password);
 //var_dump($errors);
 
 // Check if the database exist, if not, we create it
@@ -165,14 +178,14 @@ if (!mysql_select_db("$database_name")) {
 
 
 // Returns $main_html and $title and appends $styles 
-require_once($doc_root.'includes/main_xhtml.php');
-require_once($doc_root.'includes/header.php');
+require_once $doc_root.'includes/main_xhtml.php';
+require_once $doc_root.'includes/header.php';
 
 if (!isset($template_filename)) {
-	$template_filename = 'default';
+    $template_filename = 'default';
 }
 
 
-require_once($doc_root.'templates/'.TEMPLATE.'/'.$template_filename.'.php');
+require_once $doc_root.'templates/'.TEMPLATE.'/'.$template_filename.'.php';
 
 ?>

@@ -1,6 +1,6 @@
-<?
+<?php
 /***********************************************************************************************************************************
-*		Page:			member_buy.php
+*		Page:			member_home.php
 *		Access:			Member
 *		Purpose:		Allow a member to make a transaction
 *		HTML Holders:	$main_html	:	Entire Contents

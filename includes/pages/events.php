@@ -1,4 +1,4 @@
-<?
+<?php
 // NOTE: This is 2 pages in one. Either it is an article or a list.
 
 require_once('includes/classes/events.class.php');

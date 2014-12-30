@@ -1,4 +1,4 @@
-<?
+<?php
 // NOTE: This is 2 pages in one. Either it is an noticeboard entry or a list of them.
 
 // unset noticeboard ID if it doesn't exist

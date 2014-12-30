@@ -9,11 +9,14 @@ function file_perms($file, $octal = false)
 
     return substr(decoct($perms), $cut);
 }
+
+
 if (!function_exists('ftp_chmod')) {
 	function ftp_chmod($ftp_stream, $mode, $filename) {
 		return ftp_site($ftp_stream, sprintf('CHMOD %o %s', $mode, $filename));
 	}
 }
+
 
 function permission($filename) {
 	$perms = fileperms($filename);
@@ -40,6 +43,7 @@ function permission($filename) {
 
 	return $info;
 }
+
 
 function dir_contents($dir) {
 	if ($dir[strlen($dir)-1] != '/') $dir .= '/';
@@ -83,29 +87,29 @@ if (isset($_POST['submit'])) {
 	$okToUpdateDb = 0;													// Stay at 0 if there is no error, pas it a 1 in case of any error
 	if ($post_post['submit'] == 'Enter Config') {
 	
-			echo "<form action=\"".$_SERVER['REQUEST_URI']."\" method=\"post\" class=\"basic-grey\">\n";
+			echo "<form action=\"{$_SERVER['REQUEST_URI']}\" method=\"post\" class=\"basic-grey\">\n";
 			
 			echo '<h1>Setup Form';
 			echo '		<span>Please fill all the texts in the fields.</span>';
 			echo '</h1><br /><br />';
 			//TODO:  Add a check to verify that Mod_Rewrite is enable
 			// strpos(shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== false
-			if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li>Mod_Rewrite MUST be enable. Current status = Disable</li>'; } // We don't prevent you to keep going as this test will fail if you don't run apache
+			if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li class="error">Mod_Rewrite MUST be enable. Current status = Disable</li>'; } // We don't prevent you to keep going as this test will fail if you don't run apache
 			//TODO:  Generate this number randomly so user don't have to type one them selves
 			// As I think most users will not know why this string is used for. 
-			if (!$post_post['site_key']) {$message .= '<li>Please enter a Encryption Key.</li>'; $okToUpdateDb = 1;}
-			if (!$post_post['site_name']) {$message .= '<li>Please enter a Site Name.</li>'; $okToUpdateDb = 1;}
+			if (!$post_post['site_key']) {$message .= '<li class="error">Please enter a Encryption Key.</li>'; $okToUpdateDb = 1;}
+			if (!$post_post['site_name']) {$message .= '<li class="error">Please enter a Site Name.</li>'; $okToUpdateDb = 1;}
 			if (!$post_post['url']) {
-				$message .= '<li>Please enter a URL.</li>';  $okToUpdateDb = 1;
+				$message .= '<li class="error">Please enter a URL.</li>';  $okToUpdateDb = 1;
 			}elseif (!filter_var($post_post['url'], FILTER_VALIDATE_URL)){
-				$message .= '<li>Please enter a correct URL.</li>';  $okToUpdateDb = 1;
+				$message .= '<li class="error">Please enter a correct URL.</li>';  $okToUpdateDb = 1;
 			}
-			if (!$post_post['path']) {$message .= '<li>Please enter the path</li>'; $okToUpdateDb = 1;}
+			if (!$post_post['path']) {$message .= '<li class="error">Please enter the path</li>'; $okToUpdateDb = 1;}
 				// filter_var compatible only with PHP version 5.2.0 or above
-			if (!filter_var($post_post['admin_email'], FILTER_VALIDATE_EMAIL))  {$message .= '<li>Please enter Admin email.</li>'; $okToUpdateDb = 1;}
-			if (!filter_var($post_post['validation_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li>Please enter Validation email.</li>'; $okToUpdateDb = 1;}
-			if (!filter_var($post_post['technical_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li>Please enter Technical email.</li>'; $okToUpdateDb = 1;}
-			if (!$post_post['location']) {$message .= '<li>Please enter your location.</li>'; $okToUpdateDb = 1;}
+			if (!filter_var($post_post['admin_email'], FILTER_VALIDATE_EMAIL))  {$message .= '<li class="error">Please enter Admin email.</li>'; $okToUpdateDb = 1;}
+			if (!filter_var($post_post['validation_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li class="error">Please enter Validation email.</li>'; $okToUpdateDb = 1;}
+			if (!filter_var($post_post['technical_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li class="error">Please enter Technical email.</li>'; $okToUpdateDb = 1;}
+			if (!$post_post['location']) {$message .= '<li class="error">Please enter your location.</li>'; $okToUpdateDb = 1;}
 			$submitted_config = 1;
 			if ($okToUpdateDb == 0) {
 				$post_post['path'] = preg_match('/\/$/', $post_post['path'])? $post_post['path'] : preg_replace('/$/', '/', $post_post['path']);
@@ -120,9 +124,9 @@ if (isset($_POST['submit'])) {
 				update_email = '".mysql_escape_string($post_post['admin_email'])."',
 				email_from_name = '".mysql_escape_string($post_post['site_name'])."',
 				location = '".mysql_escape_string($post_post['location'])."'")) {
-					$message .= 'Configuration Complete!';
+					$message .= '<li class="ok">Configuration Complete!</li>';
 				}else {
-					echo "<li>Database update fail</li>";
+					echo '<li class="error">Database update fail</li>';
 				}
 			}
 		}
@@ -132,11 +136,11 @@ if (isset($_POST['submit'])) {
 			!$post_post['last_name'] or
 			!$post_post['password'] or
 			!$post_post['second_password']) {
-				$message .= '<li>You did not fill out all the fields!!!</li>';
+				$message .= '<li class="error">You did not fill out all the fields!!!</li>';
 		} elseif ($post_post['password'] != $post_post['second_password']) {
-			$message .= '<li>Passwords did not match, please try again.</li>';
+			$message .= '<li class="error">Passwords did not match, please try again.</li>';
 		} else {
-			if ($mysql->result('SELECT site_key FROM config')) {
+			if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) > 0 && $mysql->result('SELECT site_key FROM config')) {
 				$site_key = $mysql->result['site_key'];
 				$password = crypt(md5($post_post['second_password']),md5($site_key));
 				if ($mysql->query("INSERT INTO accounts SET
@@ -160,11 +164,11 @@ if (isset($_POST['submit'])) {
 	
 	if (isset($post_post['submit']) && $post_post['submit'] == 'Set Permissions') {
 		if (!$post_post['ftp_host'] or !$post_post['ftp_path'] or !$post_post['ftp_login'] or !$post_post['ftp_password'] or !$post_post['second_ftp_password']) {
-			$message .= '<li>You did not fill out all the ftp fields!!!</li>';
+			$message .= '<li class="error">You did not fill out all the ftp fields!!!</li>';
 		} elseif ($post_post['ftp_password'] != $post_post['second_ftp_password']) {
-			$message .= '<li>Passwords did not match, please try again.</li>';
+			$message .= '<li class="error">Passwords did not match, please try again.</li>';
 		} else {
-			if ($mysql->result('SELECT * FROM config')) {
+			if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) > 0 && $mysql->result('SELECT * FROM config')) {
 				$site_key = $mysql->result['site_key'];
 				$path = $mysql->result['path'];
 				$site_name = str_replace(' ','_',$mysql->result['site_name']);
@@ -197,27 +201,27 @@ if (isset($_POST['submit'])) {
 								$files_exist = true;
 								if (!strpos(' '.$tmp_var,'.htaccess')) {
 									$files_exist = false;
-									$message .= '<li><strong>.htaccess</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>.htaccess</strong> NOT FOUIND!</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'images')) {
 									$files_exist = false;
-									$message .= '<li><strong>images</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>images</strong> NOT FOUIND!</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'includes')) {
 									$files_exist = false;
-									$message .= '<li><strong>includes</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>includes</strong> NOT FOUIND!</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'templates')) {
 									$files_exist = false;
-									$message .= '<li><strong>templates</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>templates</strong> NOT FOUIND!</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'logs')) {
 									$files_exist = false;
-									$message .= '<li><strong>logs</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>logs</strong> NOT FOUIND!</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'index.php')) {
 									$files_exist = false;
-									$message .= '<li><strong>index.php</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>index.php</strong> NOT FOUIND!</li><br />';
 								}
 								
 								if (!$files_exist) {
@@ -226,19 +230,19 @@ if (isset($_POST['submit'])) {
 									$mode = 777; 
 									$np = '0'.$mode;
 									if (ftp_chmod($conn_id, eval("return({$np});"), '.htaccess')){
-										$message .= '<li><strong>.htaccess</strong> Permissions Set!</li><br />';
+										$message .= '<li class="ok"><strong>.htaccess</strong> Permissions Set!</li><br />';
 									} else {
-										$message .= '<li><strong>.htaccess</strong> Permissions Failed!</li><br />';
+										$message .= '<li class="error"><strong>.htaccess</strong> Permissions Failed!</li><br />';
 									}
 									if (ftp_chmod($conn_id, eval("return({$np});"), 'images')){
-										$message .= '<li><strong>images</strong> Permissions Set!</li><br />';
+										$message .= '<li class="ok"><strong>images</strong> Permissions Set!</li><br />';
 									} else {
-										$message .= '<li><strong>images</strong> Permissions Failed!</li><br />';
+										$message .= '<li class="error"><strong>images</strong> Permissions Failed!</li><br />';
 									}
 									if (ftp_chmod($conn_id, eval("return({$np});"), 'logs')){
-										$message .= '<li><strong>logs</strong> Permissions Set!</li><br />';
+										$message .= '<li class="ok"><strong>logs</strong> Permissions Set!</li><br />';
 									} else {
-										$message .= '<li><strong>logs</strong> Permissions Failed!</li><br />';
+										$message .= '<li class="error"><strong>logs</strong> Permissions Failed!</li><br />';
 									}
 									
 									if (ftp_chdir($conn_id,'logs')) {
@@ -257,32 +261,32 @@ if (isset($_POST['submit'])) {
 											if (ftp_put($conn_id, $site_name.'.log', $path.'.htaccess', FTP_ASCII)) {
 												$message .= ' Uploaded '.$site_name.'.log!<br />';
 												if (ftp_chmod($conn_id, eval("return({$np});"), $site_name.'.log')){
-													$message .= '<li><strong>'.$site_name.'.log</strong> Permissions Set!</li><br />';
+													$message .= '<li class="ok"><strong>'.$site_name.'.log</strong> Permissions Set!</li><br />';
 												} else {
-													$message .= '<li><strong>'.$site_name.'.log</strong> Permissions Failed!</li><br />';
+													$message .= '<li class="error"><strong>'.$site_name.'.log</strong> Permissions Failed!</li><br />';
 												}												
 											} else {
-												$message .= ' <li>Failed to upload: <strong>'.$site_name.'.log</strong></li><br />';
+												$message .= ' <li class="error">Failed to upload: <strong>'.$site_name.'.log</strong></li><br />';
 											}											
 										}
 
 										if (!strpos(' '.$tmp_var,$site_name.'_Errors.log')) {
-											$message .= '<li><strong>'.$site_name.'_Errors.log</strong> not found...</li>';
+											$message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> not found...</li>';
 											if (ftp_put($conn_id, $site_name.'_Errors.log', $path.'.htaccess', FTP_ASCII)) {
-												$message .= ' <li>Uploaded <strong>'.$site_name.'_Errors.log</strong>!</li><br />';
+												$message .= ' <li class="ok">Uploaded <strong>'.$site_name.'_Errors.log</strong>!</li><br />';
 												if (ftp_chmod($conn_id, eval("return({$np});"), $site_name.'_Errors.log')){
-													$message .= '<li><strong>'.$site_name.'_Errors.log</strong> Permissions Set!</li><br />';
+													$message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> Permissions Set!</li><br />';
 												} else {
-													$message .= '<li><strong>'.$site_name.'_Errors.log</strong> Permissions Failed!</li><br />';
+													$message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> Permissions Failed!</li><br />';
 												}												
 											} else {
-												$message .= ' <li>Failed to upload: <strong>'.$site_name.'_Errors.log</strong></li><br />';
+												$message .= ' <li class="error">Failed to upload: <strong>'.$site_name.'_Errors.log</strong></li><br />';
 											}	
 										}
 									}
 								}
 							} else {
-								$message .= '<li>Cannot find FTP root please check settings</li><br />';
+								$message .= '<li class="error">Cannot find FTP root please check settings</li><br />';
 							}
 							$message .= '<br />----------------------------------<br />';
 							ftp_close($conn_id); 
@@ -298,7 +302,7 @@ if (isset($_POST['submit'])) {
 	}	
 
 
-if (!$mysql->build_array('SELECT * FROM config')) {
+if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->build_array('SELECT * FROM config')) {
 	echo '<li><strong>This website needs to be setup....</strong></li><br /><br />';
 	if (strpos($mysql->error,"config' doesn't exist")) {
 		if ($mysql->query("
@@ -313,6 +317,7 @@ if (!$mysql->build_array('SELECT * FROM config')) {
 			  `site_key` varchar(255) NOT NULL default '',
 			  `path` varchar(255) NOT NULL default '',
 			  `url` varchar(255) NOT NULL default '',
+			  `default_site_language` VARCHAR( 3 ) NOT NULL default '',
 			  `enable_url_session_ids` varchar(255) NOT NULL default '0',
 			  `admin_email` varchar(255) NOT NULL default '',
 			  `site_name` varchar(255) NOT NULL default '',
@@ -460,8 +465,8 @@ if (!$mysql->build_array('SELECT * FROM config')) {
 			  `ftp_login` varchar(50) default NULL,
 			  `ftp_password` varchar(255) default NULL,
 			  PRIMARY KEY  (`ID`)
-			) ENGINE=MyISAM DEFAULT CHARSET=latin1;")) {
-			echo '<li>Table "config" has been created.</li>';
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;")) {
+			echo '<li class="ok">Table "config" has been created.</li>';
 		} else {
 			echo $mysql->error;
 		}
@@ -470,16 +475,17 @@ if (!$mysql->build_array('SELECT * FROM config')) {
 				register_terms = '".mysql_escape_string('These are the terms of membership:')."',
 				default_expiry_message = '".mysql_escape_string('This LETS suspends members automatically when their account expires. Please renew your account.')."',
 				new_member_message = '".mysql_escape_string('Your account has been created. Please follow these instructions:.')."',
+				default_site_language = '{$_SESSION['lang']}',
 				currency_name = 'green dollars'
 				")) {
 			echo $mysql->error;
 		} else {
-			echo '<li>Some default config information has been added.</li><br />';
+			echo '<li class="ok">Some default config information has been added.</li><br />';
 		}
 	}	
 }
 
-if ($mysql->build_array('SELECT * FROM config WHERE 1')) {
+if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->build_array('SELECT * FROM config WHERE 1')) {
 	if (count($mysql->result)) {
 		if (!$mysql->result[0]['site_name'] or
 			!$mysql->result[0]['url'] or
@@ -540,7 +546,7 @@ if ($mysql->build_array('SELECT * FROM config WHERE 1')) {
 	}
 }
 
-if (!$mysql->build_array('SELECT * FROM accounts WHERE 1')) {
+if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) == 0 && !$mysql->build_array('SELECT * FROM accounts WHERE 1')) {
 	if ($message) {
 		echo '<strong><em>'.$message.'<br /><br /></em></strong>';
 	}
@@ -602,8 +608,8 @@ if (!$mysql->build_array('SELECT * FROM accounts WHERE 1')) {
 	  KEY `created_day` (`created_day`,`created_month`,`created_year`,`expiry_day`,`expiry_month`,`expiry_year`,`ll_day`,`ll_month`,`ll_year`),
 	  KEY `imageID` (`imageID`),
 	  KEY `deleted` (`deleted`)
-	) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-		echo 'Table "accounts" has been created.<br />';
+	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+		echo '<li class="ok">Table "accounts" has been created.</li><br />';
 	}
 	if ($mysql->query("CREATE TABLE IF NOT EXISTS `transactions` (
 	  `transactionID` int(6) NOT NULL auto_increment,
@@ -629,8 +635,8 @@ if (!$mysql->build_array('SELECT * FROM accounts WHERE 1')) {
 	  KEY `hour` (`hour`),
 	  KEY `type` (`type`),
 	  KEY `noticeboardID` (`noticeboardID`)
-	) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-		echo 'Table "transactions" has been created.<br />';
+	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+		echo '<li class="ok">Table "transactions" has been created.</li><br />';
 	}
 }
 
@@ -671,7 +677,7 @@ if ($second_mysql->build_array('SELECT * FROM accounts WHERE accountID = 1')) {
 
 if (CURRENT_OS == 'UNIX') {
 	$third_mysql = new mysql;
-	if ($third_mysql->build_array('SELECT * FROM config WHERE ID = 1')) {
+	if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) > 0 && $third_mysql->build_array('SELECT * FROM config WHERE ID = 1')) {
 		if (count($third_mysql->result)) {
 			$path = $third_mysql->result[0]['path'];
 			$site_name = str_replace(' ','_',$third_mysql->result[0]['site_name']);
@@ -705,39 +711,39 @@ if (CURRENT_OS == 'UNIX') {
 			}
 			if (!$htaccess_found) {
 				$files_status = false;
-				$files_status_message .= '<li><strong>.htaccess</strong> has not been found.</li><br />';
+				$files_status_message .= '<li class="error"><strong>.htaccess</strong> has not been found.</li><br />';
 			} else {
-				$files_status_message .= '<li><strong>.htaccess</strong> has been found.</li><br />';
+				$files_status_message .= '<li class="ok"><strong>.htaccess</strong> has been found.</li><br />';
 			}
 			if (!$htaccess_perms) {
 				$files_status = false;
-				$files_status_message .= '<li><strong>.htaccess</strong> needs permissions: 777</li><br />';
+				$files_status_message .= '<li class="error"><strong>.htaccess</strong> needs permissions: 777</li><br />';
 			} else {
-				$files_status_message .= '<li><strong>.htaccess</strong> has proper permissions.</li><br />';
+				$files_status_message .= '<li class="ok"><strong>.htaccess</strong> has proper permissions.</li><br />';
 			}
 			if (!$images_found) {
 				$files_status = false;
-				$files_status_message .= '<li>Folder: <strong>images</strong> has not been found.</li><br />';
+				$files_status_message .= '<li class="error">Folder: <strong>images</strong> has not been found.</li><br />';
 			} else {
-				$files_status_message .= '<li>Folder: <strong>images</strong> has been found.</li><br />';
+				$files_status_message .= '<li class="ok">Folder: <strong>images</strong> has been found.</li><br />';
 			}
 			if (!$images_perms) {
 				$files_status = false;
-				$files_status_message .= '<li>Folder: <strong>images</strong> needs permissions: 777</li><br />';
+				$files_status_message .= '<li class="error">Folder: <strong>images</strong> needs permissions: 777</li><br />';
 			} else {
-				$files_status_message .= '<li>Folder: <strong>images</strong> has proper permissions.</li><br />';
+				$files_status_message .= '<li class="ok">Folder: <strong>images</strong> has proper permissions.</li><br />';
 			}
 			if (!$logs_found) {
 				$files_status = false;
-				$files_status_message .= '<li>Folder: <strong>logs</strong> has not been found.</li><br />';
+				$files_status_message .= '<li class="error">Folder: <strong>logs</strong> has not been found.</li><br />';
 			} else {
-				$files_status_message .= '<li>Folder: <strong>logs</strong> has been found.</li><br />';
+				$files_status_message .= '<li class="ok">Folder: <strong>logs</strong> has been found.</li><br />';
 			}
 			if (!$logs_perms) {
 				$files_status = false;
-				$files_status_message .= '<li>Folder: <strong>logs</strong> needs permissions: 777</li><br />';
+				$files_status_message .= '<li class="error">Folder: <strong>logs</strong> needs permissions: 777</li><br />';
 			} else {
-				$files_status_message .= '<li>Folder: <strong>logs</strong> has proper permissions.</li><br />';
+				$files_status_message .= '<li class="ok">Folder: <strong>logs</strong> has proper permissions.</li><br />';
 			}
 			
 			$directory_contents = dir_contents($path.'//logs/');
@@ -756,27 +762,27 @@ if (CURRENT_OS == 'UNIX') {
 		
 			if (!$log_found) {
 				$files_status = false;
-				$files_status_message .= '<li><strong>'.$site_name.'.log</strong> has not been found.</li><br />';
+				$files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> has not been found.</li><br />';
 			} else {
-				$files_status_message .= '<li><strong>'.$site_name.'.log</strong> has been found.</li><br />';
+				$files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> has been found.</li><br />';
 			}
 			if (!$log_perms) {
 				$files_status = false;
-				$files_status_message .= '<li><strong>'.$site_name.'.log</strong> needs permissions: 664</li><br />';
+				$files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> needs permissions: 664</li><br />';
 			} else {
-				$files_status_message .= '<li><strong>'.$site_name.'.log</strong> has proper permissions.</li><br />';
+				$files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> has proper permissions.</li><br />';
 			}
 			if (!$err_log_found) {
 				$files_status = false;
-				$files_status_message .= '<li><strong>'.$site_name.'_Errors.log</strong> has not been found.</li><br />';
+				$files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> has not been found.</li><br />';
 			} else {
-				$files_status_message .= '<li><strong>'.$site_name.'_Errors.log</strong> has been found.</li><br />';
+				$files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> has been found.</li><br />';
 			}
 			if (!$err_log_perms) {
 				$files_status = false;
-				$files_status_message .= '<li><strong>'.$site_name.'_Errors.log</strong> needs permissions: 664</li><br />';
+				$files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> needs permissions: 664</li><br />';
 			} else {
-				$files_status_message .= '<li><strong>'.$site_name.'_Errors.log</strong> has proper permissions.</li><br />';
+				$files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> has proper permissions.</li><br />';
 			}
 		
 		
@@ -811,8 +817,9 @@ if (CURRENT_OS == 'UNIX') {
 				echo '</div>';
 				exit();
 			} else {
+				echo '<div class="basic-grey">';
 				echo '<strong>Checking Files and Folders....</strong><br />';
-				echo $files_status_message.'<br /><br />';
+				echo "{$files_status_message}<br /><br />";
 			}
 		}
 	}
@@ -857,7 +864,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   KEY `day` (`day`,`month`,`year`),
   KEY `validated` (`validated`),
   KEY `imageID` (`imageID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -883,7 +890,7 @@ CREATE TABLE IF NOT EXISTS `bids` (
   PRIMARY KEY  (`bidID`),
   KEY `noticeboardID` (`noticeboardID`,`accountID`,`amount`,`day`,`month`,`year`,`hour`),
   KEY `minute` (`minute`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;")) {
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -907,7 +914,7 @@ CREATE TABLE IF NOT EXISTS `bad_logins` (
   `minute` int(2) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `ip` (`ip`,`year`,`month`,`day`,`hour`,`minute`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;")) {
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -950,7 +957,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `edited_day` (`edited_day`,`edited_month`,`edited_year`),
   KEY `created_hour` (`created_hour`,`created_minute`),
   KEY `eventID` (`eventID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -986,7 +993,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   KEY `start_hour` (`start_hour`,`start_minute`,`end_day`,`end_month`,`end_year`),
   KEY `end_hour` (`end_hour`,`end_minute`),
   KEY `validated` (`validated`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1016,7 +1023,7 @@ CREATE TABLE IF NOT EXISTS `faq` (
   KEY `parent` (`parent`),
   KEY `validated` (`validated`),
   KEY `position` (`position`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1051,7 +1058,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   KEY `thumbnail` (`thumbnail`,`page`),
   KEY `noticeboardID` (`noticeboardID`),
   KEY `articleID` (`articleID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1080,7 +1087,7 @@ CREATE TABLE IF NOT EXISTS `links` (
   PRIMARY KEY  (`linkID`),
   KEY `link_CategoryID` (`category`,`accountID`),
   KEY `parent` (`parent`,`position`,`validated`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1124,7 +1131,7 @@ CREATE TABLE IF NOT EXISTS `noticeboard` (
   KEY `expired` (`expired`),
   KEY `request` (`request`),
   KEY `quick_delete` (`quick_delete`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1161,7 +1168,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   KEY `hour` (`hour`),
   KEY `type` (`type`),
   KEY `noticeboardID` (`noticeboardID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1181,7 +1188,7 @@ CREATE TABLE IF NOT EXISTS `article_categories` (
   `art_cat` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`art_catID`),
   KEY `art_cat` (`art_cat`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1235,7 +1242,7 @@ CREATE TABLE IF NOT EXISTS `style` (
   `required_color` varchar(10) NOT NULL default '',
   `required_display` varchar(10) NOT NULL default '',
   PRIMARY KEY  (`styleID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1265,7 +1272,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `name` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`categoryID`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1312,7 +1319,7 @@ CREATE TABLE IF NOT EXISTS `event_categories` (
   `name` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`event_categoryID`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1359,7 +1366,7 @@ CREATE TABLE IF NOT EXISTS `sections` (
   KEY `parent` (`page_type`),
   KEY `hidden` (`hidden`),
   KEY `position_2` (`position`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;")) {
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1410,7 +1417,7 @@ INSERT INTO `sections` (`sectionID`, `page_type`, `page_id`, `url`, `name`, `plu
 (36, 14, 0, 'login', 'Login', 'logins', 'login', 1, 0, 42, 'Please Log-In to the ".$site_name_text."'),
 (37, 15, 0, 'help', 'Help', 'Helps', 'Help', 1, 0, 43, 'Please <a href=\"".$url."\">contact</a> us if your problem isn''t answered here.'),
 (39, 10, 0, 'business_directory', 'Business Directory', '', '', 5, 0, 2, 'This page is a simple additional page entered through the \"website structure\" link'),
-(40, 10, 0, 'more_info', 'More Info', '', '', 5, 1, 44, ' What is Victoria LETS?\r\n\r\nLETS stands for Local Exchange Trading System. Members trade directly or use the local currency, called \"Green dollars\" (GRN $) in exchange for goods and services.\r\n\r\n\r\nWho Are LETS Members?\r\n\r\nThere are hundreds of LETS communities all around the world, circulating their own local currencies. Members are people like you, your family, friends, neighbours, your massage therapist, gardener, tutor, chef, business owners...\r\n\r\nWhy Join LETS?\r\n\r\nLETS provides an alternative economy, so everyone can value the goods and services you have to offer. Likewise you are able to value and pay for the goods and services you receive with something other than Canadian dollars. There always seems to be a shortage of Canadian dollars, but there are always enough Green dollars and they always stay in the community.\r\n\r\n\r\n\r\nEarning and spending Green dollars is also a way of building community relationships and strengthening community resources. LETS works without interest or inflation. LETS eliminates the value of hoarding, stimulates active exchange, and provides equal access to resources for everyone.\r\n\r\n\r\nHow Does LETS Work?\r\n\r\n\r\nMembers open an account by paying a registration fee.\r\n\r\nWhen members sell goods or services they earn Green dollars, and their accounts are credited. When members buy goods or services they spend Green dollars, and their accounts are debited.');")) {
+(40, 10, 0, 'more_info', 'More Info', '', '', 5, 1, 44, ' What is a LETS?\r\n\r\nLETS stands for Local Exchange Trading System. Members trade directly or use the local currency, called \"Green dollars\" (GRN $) in exchange for goods and services.\r\n\r\n\r\nWho Are LETS Members?\r\n\r\nThere are hundreds of LETS communities all around the world, circulating their own local currencies. Members are people like you, your family, friends, neighbours, your massage therapist, gardener, tutor, chef, business owners...\r\n\r\nWhy Join LETS?\r\n\r\nLETS provides an alternative economy, so everyone can value the goods and services you have to offer. Likewise you are able to value and pay for the goods and services you receive with something other than Canadian dollars. There always seems to be a shortage of Canadian dollars, but there are always enough Green dollars and they always stay in the community.\r\n\r\n\r\n\r\nEarning and spending Green dollars is also a way of building community relationships and strengthening community resources. LETS works without interest or inflation. LETS eliminates the value of hoarding, stimulates active exchange, and provides equal access to resources for everyone.\r\n\r\n\r\nHow Does LETS Work?\r\n\r\n\r\nMembers open an account by paying a registration fee.\r\n\r\nWhen members sell goods or services they earn Green dollars, and their accounts are credited. When members buy goods or services they spend Green dollars, and their accounts are debited.');")) {
 	echo $last_mysql->error;
 	$completed = false;
 }
@@ -1422,16 +1429,16 @@ if ($completed) {
 		if ($links->rebuild_htaccess()) {
 			echo '<strong>.htaccess was updated!!!</strong><br />';
 		} else {
-			echo '<strong>.htaccess could NOT be updated</strong>, make sure the file permission is set to (775)<br />';
+			echo '<strong>.htaccess could NOT be updated</strong>, make sure the file permission is set to (775)<br /></div>';
 			$completed = false;
 		}
 	} else {
-		echo '<strong>Site Structure could NOT be Initialized</strong><br />';
+		echo '<strong>Site Structure could NOT be Initialized</strong><br /></div>';
 		$completed = false;
 	}
 }
 	
 if ($completed) {
-	echo '<strong>Installation Complete!!!</strong><br /><br />Clicking <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">here</a> should direct you to the home page.';
+	echo '<strong>Installation Complete!!!</strong><br /><br />Clicking <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">here</a> should direct you to the home page.</div>';
 }
 ?>

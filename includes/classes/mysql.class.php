@@ -71,11 +71,12 @@ class mysql {
 	}
 	function get_fields($t) {
 		$q = 'SELECT * FROM '.$t.' WHERE 1 LIMIT 1';
-		$key_query = mysql_query($q);
-		if (!$key_query) {
+		
+		if (!mysql_query($q)) {
 			$this->error = 'There was an error acquiring metadata for table: '.$t.':'.$this->end_line().mysql_error().$this->end_line().'IN: '.$q.$this->end_line();
 			return false;
 		}
+		$key_query = mysql_query($q);
 		$keys = array();
 		$i = 0;
 		while ($i < mysql_num_fields($key_query)) {
@@ -243,10 +244,18 @@ class mysql {
 		}
 	}
 	
-	function result($q) {
+
+    /**
+     * Check if we got a result for a given SQL query
+     * 
+     * @param $q    Query to check if we got a result
+     * 
+     * @return bool    false = no result, true = result found
+     */
+	 function result($q) {
 		$mysql_tools_result = mysql_query($q);
-		if (!$mysql_tools_result) {
-			$this->error = 'There was a mysql error:'.$this->end_line().mysql_error().$this->end_line().'IN: '.$q.$this->end_line();
+		if ($mysql_tools_result === FALSE) {
+			//$this->error = 'There was a mysql error:'.$this->end_line().mysql_error().$this->end_line().'IN: '.$q.$this->end_line();
 			return false;
 		} elseif (mysql_num_rows($mysql_tools_result) == 0) {
 			$this->error = 'No rows were returned'.$this->end_line();

@@ -19,4 +19,3 @@ if ($javascript_in_body) {
 }
 print HEADER_HTML;
 ?>
-

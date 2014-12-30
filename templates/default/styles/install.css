@@ -23,10 +23,19 @@
     font-size: 11px;
 }
 
-.basic-grey li {
+li {
 	margin-left: 10px;
-	color: red;
 }
+
+li.error{
+	color: red;
+	list-style-image: url('../../../images/iconset/essen/16x16/fail.png');
+}
+
+li.ok{
+	list-style-image: url('../../../images/iconset/essen/16x16/check.png');
+}
+
 .basic-grey label {
     display: block;
     margin: 0px;

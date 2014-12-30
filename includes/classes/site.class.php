@@ -209,7 +209,7 @@ class site {
 	}
 	function form_settings_html($i,$url) {
 		$mysql = new mysql;
-		if (!$mysql->result('SELECT * FROM config LIMIT 1')) {
+		if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->result('SELECT * FROM config LIMIT 1')) {
 			return $mysql->error;
 		}
 		$z = $i."<!-- form_settings_form -->\n";
@@ -344,7 +344,7 @@ class site {
 		$mysql = new mysql;
 		$links = new links;
 		$links->build_url(1,106);
-		if (!$mysql->result('SELECT * FROM config LIMIT 1')) {
+		if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->result('SELECT * FROM config LIMIT 1')) {
 			return $mysql->error;
 		}
 		$z = $i."<!-- lets_settings_form -->\n";
@@ -596,7 +596,7 @@ class site {
 		$mysql = new mysql;
 		$links = new links;
 		$links->build_url(1,103);
-		if (!$mysql->result('SELECT * FROM config LIMIT 1')) {
+		if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->result('SELECT * FROM config LIMIT 1')) {
 			return $mysql->error;
 		}
 		$z = $i."<!-- site_settings_form -->\n";
