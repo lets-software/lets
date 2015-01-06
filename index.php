@@ -111,7 +111,7 @@ $search_sidebar_indent			= 		'   ';
 $login_sidebar_indent			= 		'   ';
 
 $doc_root = $_SERVER['DOCUMENT_ROOT']."/"; //.$_SERVER['PHP_SELF'];
-define('LETS_ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('LETS_ROOT', $_SERVER['DOCUMENT_ROOT']."/");
 
 //if file_exists($doc_root.'includes/config.php')?require_once($doc_root.'includes/configdb.php'):require_once($doc_root.'install/createConfigdb.php');
 require_once $doc_root.'includes/configdb.php';

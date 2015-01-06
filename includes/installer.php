@@ -14,7 +14,7 @@ require_once LETS_ROOT.'includes/files_and_folders_functions.php';
 echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 <link href="'.URL.'/templates/'.TEMPLATE.'/styles/install.css" rel="stylesheet" type="text/css">
 </head><body>'
 ;
@@ -32,15 +32,15 @@ if (isset($_POST['submit'])) {
 			echo "<form action=\"{$_SERVER['REQUEST_URI']}\" method=\"post\" class=\"basic-grey\">\n";
 			
 			echo T_('<h1>Setup Form');
-			echo '		<span>'.T_("Please fill all the texts in the fields.").'</span>';
+			echo '		<span>'._("Please fill all the texts in the fields.").'</span>';
 			echo '</h1><br /><br />';
 			//TODO:  Add a check to verify that Mod_Rewrite is enable
 			// strpos(shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== false
 			if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li class="error">Mod_Rewrite MUST be enable. Current status = Disable</li>'; } // We don't prevent you to keep going as this test will fail if you don't run Apache
 			//TODO:  Generate this number randomly so user don't have to type one them selves
 			// As I think most users will not know why this string is used for. 
-			if (!$post_post['site_key']) {$message .= '<li class="error">Please enter a Encryption Key.</li>'; $okToUpdateDb = 1;}
-			if (!$post_post['site_name']) {$message .= '<li class="error">Please enter a Site Name.</li>'; $okToUpdateDb = 1;}
+			if (!$post_post['site_key']) {$message .= '<li class="error">'._("Please enter a Encryption Key.").'</li>'; $okToUpdateDb = 1;}
+			if (!$post_post['site_name']) {$message .= '<li class="error">'._("Please enter a Site Name.").'</li>'; $okToUpdateDb = 1;}
 			if (!$post_post['url']) {
 				$message .= '<li class="error">Please enter a URL.</li>';  $okToUpdateDb = 1;
 			}elseif (!filter_var($post_post['url'], FILTER_VALIDATE_URL)){
@@ -106,9 +106,9 @@ if (isset($_POST['submit'])) {
 	
 	if (isset($post_post['submit']) && $post_post['submit'] == 'Set Permissions') {
 		if (!$post_post['ftp_host'] or !$post_post['ftp_path'] or !$post_post['ftp_login'] or !$post_post['ftp_password'] or !$post_post['second_ftp_password']) {
-			$message .= '<li class="error">You did not fill out all the ftp fields!!!</li>';
+			$message .= '<li class="error">'._("You did not fill out all the ftp fields!!!").'</li>';
 		} elseif ($post_post['ftp_password'] != $post_post['second_ftp_password']) {
-			$message .= '<li class="error">Passwords did not match, please try again.</li>';
+			$message .= '<li class="error">'._("Passwords did not match, please try again.").'</li>';
 		} else {
 			if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) > 0 && $mysql->result('SELECT * FROM config')) {
 				$site_key = $mysql->result['site_key'];
@@ -120,9 +120,9 @@ if (isset($_POST['submit'])) {
 					ftp_path = '".mysql_escape_string($post_post['ftp_path'])."',
 					ftp_login = '".mysql_escape_string($post_post['ftp_login'])."',
 					ftp_password = '".mysql_escape_string($password)."'")) {
-						$message .= 'FTP information set!<br /><br />';
+						$message .= _("FTP information set!").'<br /><br />';
 						$message .= '----------------------------------<br /><br />';
-						$message .= 'Attempting to connect to FTP server...';
+						$message .= _("Attempting to connect to FTP server...");
 						
 						$conn_id = ftp_connect($post_post['ftp_host']); 
 						$login_result = ftp_login($conn_id,$post_post['ftp_login'],$post_post['second_ftp_password']); 
@@ -130,10 +130,10 @@ if (isset($_POST['submit'])) {
        						$message .= '<strong>FTP connection has failed</strong><br />Please check and re-enter details.<br />If this method continues to fail you will have to set permissions manually.';
 							exit; 
 						} else {
-							$message .= 'Done!<br />';
+							$message .= _('Done!<br />');
 							
 							if (ftp_chdir($conn_id,$post_post['ftp_path'])) {
-								$message .= 'Moved into directory: '.ftp_pwd($conn_id).'<br />';
+								$message .= _('Moved into directory: ').ftp_pwd($conn_id).'<br />';
 								
 								$dir_contents = ftp_rawlist($conn_id, ".");
 								$tmp_var = '';
@@ -143,48 +143,48 @@ if (isset($_POST['submit'])) {
 								$files_exist = true;
 								if (!strpos(' '.$tmp_var,'.htaccess')) {
 									$files_exist = false;
-									$message .= '<li class="error"><strong>.htaccess</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>.htaccess</strong> '._("NOT FOUIND!").'</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'images')) {
 									$files_exist = false;
-									$message .= '<li class="error"><strong>images</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>images</strong> '._("NOT FOUIND!").'</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'includes')) {
 									$files_exist = false;
-									$message .= '<li class="error"><strong>includes</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>includes</strong> '._("NOT FOUIND!").'</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'templates')) {
 									$files_exist = false;
-									$message .= '<li class="error"><strong>templates</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>templates</strong> '._("NOT FOUIND!").'</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'logs')) {
 									$files_exist = false;
-									$message .= '<li class="error"><strong>logs</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>logs</strong> '._("NOT FOUIND!").'</li><br />';
 								}
 								if (!strpos(' '.$tmp_var,'index.php')) {
 									$files_exist = false;
-									$message .= '<li class="error"><strong>index.php</strong> NOT FOUIND!</li><br />';
+									$message .= '<li class="error"><strong>index.php</strong> '._("NOT FOUIND!").'</li><br />';
 								}
 								
 								if (!$files_exist) {
-									$message .= '<li><strong>FTP root is incorrect</strong></li><br />';
+									$message .= '<li><strong>'._("FTP root is incorrect").'</strong></li><br />';
 								} else {
 									$mode = 777; 
 									$np = '0'.$mode;
 									if (ftp_chmod($conn_id, eval("return({$np});"), '.htaccess')){
-										$message .= '<li class="ok"><strong>.htaccess</strong> Permissions Set!</li><br />';
+										$message .= '<li class="ok"><strong>.htaccess</strong> '._("Permissions Set!").'</li><br />';
 									} else {
-										$message .= '<li class="error"><strong>.htaccess</strong> Permissions Failed!</li><br />';
+										$message .= '<li class="error"><strong>.htaccess</strong> '._("Permissions Failed!").'</li><br />';
 									}
 									if (ftp_chmod($conn_id, eval("return({$np});"), 'images')){
-										$message .= '<li class="ok"><strong>images</strong> Permissions Set!</li><br />';
+										$message .= '<li class="ok"><strong>images</strong> '._("Permissions Set!").'</li><br />';
 									} else {
-										$message .= '<li class="error"><strong>images</strong> Permissions Failed!</li><br />';
+										$message .= '<li class="error"><strong>images</strong> '._("Permissions Failed!").'</li><br />';
 									}
 									if (ftp_chmod($conn_id, eval("return({$np});"), 'logs')){
-										$message .= '<li class="ok"><strong>logs</strong> Permissions Set!</li><br />';
+										$message .= '<li class="ok"><strong>logs</strong> '._("Permissions Set!").'</li><br />';
 									} else {
-										$message .= '<li class="error"><strong>logs</strong> Permissions Failed!</li><br />';
+										$message .= '<li class="error"><strong>logs</strong> '._("Permissions Failed!").'</li><br />';
 									}
 									
 									if (ftp_chdir($conn_id,'logs')) {
@@ -736,7 +736,7 @@ if (CURRENT_OS == 'UNIX') {
 				echo '<strong>Attention:</strong><br />';
 				echo 'The following files and/or folders need their permissions changed:<br /><br />';
 				echo $files_status_message.'<br /><br />';
-				echo 'There are two ways to do this:<br />';
+				echo _("There are two ways to do this:<br />");
 				echo '1. Login to cpanel, open file manager, select the files and/or folders and choose "change permissions".<br /><br />';
 				echo '2. Enter FTP data below and this script will change the permissions. The username and password should be the same as the cpanel account.<br /><br />';
 				echo "<form action=\"".$_SERVER['REQUEST_URI']."\" method=\"post\">\n";
