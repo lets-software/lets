@@ -134,8 +134,10 @@ input#button {
 	position: relative;
 	display:inline; 
 	margin-left: 120px; }
+
 #search_box_sidebar {
 	height:20px; }
+	
 input.button {
 	position: relative;
 	display:inline; 

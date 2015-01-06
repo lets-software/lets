@@ -1,72 +1,14 @@
 <?php
-function file_perms($file, $octal = false)
-{
-    if(!file_exists($file)) return false;
 
-    $perms = fileperms($file);
-
-    $cut = $octal ? 2 : 3;
-
-    return substr(decoct($perms), $cut);
+if (!defined('LETS_ROOT')) {
+   die("Sorry. You can't access directly to this file");
 }
 
-
-if (!function_exists('ftp_chmod')) {
-	function ftp_chmod($ftp_stream, $mode, $filename) {
-		return ftp_site($ftp_stream, sprintf('CHMOD %o %s', $mode, $filename));
-	}
-}
+require_once LETS_ROOT.'includes/lib/gettext/translate.php';
 
 
-function permission($filename) {
-	$perms = fileperms($filename);
-	if     (($perms & 0xC000) == 0xC000) { $info = 's'; }
-	elseif (($perms & 0xA000) == 0xA000) { $info = 'l'; }
-	elseif (($perms & 0x8000) == 0x8000) { $info = '-'; }
-	elseif (($perms & 0x6000) == 0x6000) { $info = 'b'; }
-	elseif (($perms & 0x4000) == 0x4000) { $info = 'd'; }
-	elseif (($perms & 0x2000) == 0x2000) { $info = 'c'; }
-	elseif (($perms & 0x1000) == 0x1000) { $info = 'p'; }
-	else { $info = 'u'; }
-
-	$info .= (($perms & 0x0100) ? 'r' : '-');
-	$info .= (($perms & 0x0080) ? 'w' : '-');
-	$info .= (($perms & 0x0040) ? (($perms & 0x0800) ? 's' : 'x' ) : (($perms & 0x0800) ? 'S' : '-'));
-
-	$info .= (($perms & 0x0020) ? 'r' : '-');
-	$info .= (($perms & 0x0010) ? 'w' : '-');
-	$info .= (($perms & 0x0008) ? (($perms & 0x0400) ? 's' : 'x' ) : (($perms & 0x0400) ? 'S' : '-'));
-
-	$info .= (($perms & 0x0004) ? 'r' : '-');
-	$info .= (($perms & 0x0002) ? 'w' : '-');
-	$info .= (($perms & 0x0001) ? (($perms & 0x0200) ? 't' : 'x' ) : (($perms & 0x0200) ? 'T' : '-'));
-
-	return $info;
-}
-
-
-function dir_contents($dir) {
-	if ($dir[strlen($dir)-1] != '/') $dir .= '/';
-
-	if (!is_dir($dir)) return array();
-
-	$dir_handle  = opendir($dir);
-	$dir_objects = array();
-	while ($object = readdir($dir_handle))
-	if (!in_array($object, array('.','..'))) {
-		$filename    = $dir . $object;
-		$file_object = array(
-			'name' => $object,
-			'size' => filesize($filename),
-			'perms' => permission($filename),
-			'type' => filetype($filename),
-			'time' => date("d F Y H:i:s", filemtime($filename))
-		);
-		$dir_objects[] = $file_object;
-	}
-
-	return $dir_objects;
-}
+//require_once LETS_ROOT."locales/{$_SESSION['lang']}/install.mo";
+require_once LETS_ROOT.'includes/files_and_folders_functions.php';
 
 
 echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -89,12 +31,12 @@ if (isset($_POST['submit'])) {
 	
 			echo "<form action=\"{$_SERVER['REQUEST_URI']}\" method=\"post\" class=\"basic-grey\">\n";
 			
-			echo '<h1>Setup Form';
-			echo '		<span>Please fill all the texts in the fields.</span>';
+			echo T_('<h1>Setup Form');
+			echo '		<span>'.T_("Please fill all the texts in the fields.").'</span>';
 			echo '</h1><br /><br />';
 			//TODO:  Add a check to verify that Mod_Rewrite is enable
 			// strpos(shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== false
-			if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li class="error">Mod_Rewrite MUST be enable. Current status = Disable</li>'; } // We don't prevent you to keep going as this test will fail if you don't run apache
+			if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li class="error">Mod_Rewrite MUST be enable. Current status = Disable</li>'; } // We don't prevent you to keep going as this test will fail if you don't run Apache
 			//TODO:  Generate this number randomly so user don't have to type one them selves
 			// As I think most users will not know why this string is used for. 
 			if (!$post_post['site_key']) {$message .= '<li class="error">Please enter a Encryption Key.</li>'; $okToUpdateDb = 1;}
@@ -546,6 +488,8 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->bui
 	}
 }
 
+
+// We check if the table accounts exist 
 if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) == 0 && !$mysql->build_array('SELECT * FROM accounts WHERE 1')) {
 	if ($message) {
 		echo '<strong><em>'.$message.'<br /><br /></em></strong>';

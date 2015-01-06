@@ -1,7 +1,7 @@
 <?php
 $database_host = "localhost"; 
 $database_name = "lets";
-$database_user = "root";
+$database_user = "lets";
 $database_password = "linux";
 
 ?>

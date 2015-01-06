@@ -81,6 +81,12 @@
 				
 	
 */
+
+// Check PHP version not to have trouble
+if (version_compare(PHP_VERSION, "5.2.0") < 0) {
+   die("PHP >= 5.2.0 required you have: ". PHP_VERSION);
+}
+
 session_start();
 
 //error_reporting(0);
@@ -105,7 +111,7 @@ $search_sidebar_indent			= 		'   ';
 $login_sidebar_indent			= 		'   ';
 
 $doc_root = $_SERVER['DOCUMENT_ROOT']."/"; //.$_SERVER['PHP_SELF'];
-
+define('LETS_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 //if file_exists($doc_root.'includes/config.php')?require_once($doc_root.'includes/configdb.php'):require_once($doc_root.'install/createConfigdb.php');
 require_once $doc_root.'includes/configdb.php';
@@ -120,16 +126,16 @@ if (!isset($_SESSION['lang'])){
 	
 	switch ($_POST['lang']) {  // using standardized nomenclature ISO 639-2/B
 	
-		case 'ENG':
-			$_SESSION['lang'] = 'ENG';
+		case 'en_US':
+			$_SESSION['lang'] = 'en_US';
 		break;
 		
-		case 'FRA':
-			$_SESSION['lang'] = 'FRA';
+		case 'fr_FR':
+			$_SESSION['lang'] = 'fr_FR';
 		break;
 		
 		default:
-			$_SESSION['lang'] = 'ENG';
+			$_SESSION['lang'] = 'fr_FR';
 		break;
 	}
 }

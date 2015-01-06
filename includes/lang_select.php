@@ -5,22 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<style type="text/css">
- body { font-family: Verdana,Helvetica; font-size: 11px; }
- .center {
-	margin-left: auto;
-    margin-right: auto;
-	width: 50%;
-	text-align: center;
-    background-color: #C1DAD6;	}
-</style>
+<link href="/templates/default/styles/install.css" rel="stylesheet" type="text/css">'
 </html>
 <body>
-<div class="center">Select you Language:<br>
+<div class="basic-grey"><h1>Select you Language:</h1><br>
 <form  action="/index.php" method="post">
    <select id="lang" name="lang">
-      <option value="ENG">English</option>
-	  <option value="FRA">Francais</option>
+      <option value="en_US">English</option>
+	  <option value="fr_FR">Français</option>
 	</select><br>
 	<input type="submit" value="Submit"><br>
 </form></div>

@@ -29,11 +29,11 @@ li {
 
 li.error{
 	color: red;
-	list-style-image: url('../../../images/iconset/essen/16x16/fail.png');
+	list-style-image: url('../images/iconset/essen/16x16/busy.png');
 }
 
 li.ok{
-	list-style-image: url('../../../images/iconset/essen/16x16/check.png');
+	list-style-image: url('../images/iconset/essen/16x16/check.png');
 }
 
 .basic-grey label {
