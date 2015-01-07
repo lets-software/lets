@@ -647,7 +647,7 @@ if (CURRENT_OS == 'UNIX') {
 		
 			foreach ($directory_contents as $line) {
 				if ($line['name'] == '.htaccess') $htaccess_found = true;
-				if ($line['name'] == '.htaccess' and $line['perms'] == '-rwxrwxrwx') $htaccess_perms = true;
+				if ($line['name'] == '.htaccess' and $line['perms'] == '-rw-rw-r--') $htaccess_perms = true;
 				if ($line['name'] == 'images') $images_found = true;
 				if ($line['name'] == 'images' and $line['perms'] == 'drwxrwxrwx') $images_perms = true;
 				if ($line['name'] == 'logs') $logs_found = true;
@@ -661,7 +661,7 @@ if (CURRENT_OS == 'UNIX') {
 			}
 			if (!$htaccess_perms) {
 				$files_status = false;
-				$files_status_message .= '<li class="error"><strong>.htaccess</strong> needs permissions: 777</li><br />';
+				$files_status_message .= '<li class="error"><strong>.htaccess</strong> needs permissions: 664</li><br />';
 			} else {
 				$files_status_message .= '<li class="ok"><strong>.htaccess</strong> has proper permissions.</li><br />';
 			}

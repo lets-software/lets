@@ -38,7 +38,7 @@ h3 {
 #main_body {
 	padding-right: 10px; }
 #navigation {
-	width: 250px; 
+	width: 260px; 
 	float: left; }
 #main {
 	position: relative;
@@ -152,14 +152,41 @@ br {
 .both {
 	clear: both; }
 
-.nav_link {
-	padding-top: 0;
-	padding-bottom: 5px;
-	font-weight: bold; }
+#nav_bar ul {
+    position:relative;
+	left:-25%;
+	list-style: none;
+	margin: 0;
+	padding-left: 30px;
+}
+
+#nav_bar li{
+	font-family: 'Helvetica', Arial, Verdana, sans serif;
+}
+	
+#nav_bar li a:link, #nav_bar li a:visited {
+	font-size: 15px;
+	display: block;
+	padding: 19px 45px 19px 25px;
+	margin-top:-10px;
+	color: #43433e;
+	text-decoration: none;
+	right:11px;
+}
+	
+li a:hover, #nav_bar li a:focus {
+    background: url("../images/nav.png") no-repeat scroll -232px 3px transparent;
+    color: #FFF;
+    left: -6px;
+    padding: 19px 18px 19px 23px;
+    margin-top: -10px;}
+	
 .nav_link_selected {
-	padding-top: 0;
-	padding-bottom: 5px;
-	font-weight: bold; }
+    background: url("../images/nav.png") no-repeat scroll 0px 3px transparent;
+    color: #FFF;
+    left: -6px;
+    padding: 19px 18px 19px 25px;
+    margin-top: -10px; }
 
 
 div#login_html {
