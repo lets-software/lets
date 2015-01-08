@@ -1,6 +1,7 @@
 <?php // Translate.php
 
-define('LOCALE_DIR', LETS_ROOT .'locales');
+define('PROJECT_DIR', LETS_ROOT);
+define('LOCALE_DIR', PROJECT_DIR .'locales');
 define('DEFAULT_LOCALE', 'en_US');
 
 require_once(LETS_ROOT.'includes/lib/gettext/gettext.inc');
@@ -13,7 +14,7 @@ $locale = $_SESSION['lang'];//(isset($_GET['lang']))? $_GET['lang'] : DEFAULT_LO
 
 
 // gettext setup
-T_setlocale(LC_MESSAGES, 'messages');
+T_setlocale(LC_MESSAGES, $locale);
 // Set the text domain as 'messages'
 $domain = $locale;
 T_bindtextdomain($domain, LOCALE_DIR);

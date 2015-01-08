@@ -1,0 +1,418 @@
+# user2 <langlais115@yahoo.fr>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: lets\n"
+"POT-Creation-Date: 2015-01-08 21:09+0100\n"
+"PO-Revision-Date: 2015-01-08 21:28+0200\n"
+"Last-Translator: user2 <langlais115@yahoo.fr>\n"
+"Language-Team: Lets-Software\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Poedit-KeywordsList: T_\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: /home/user2/web/lets/includes\n"
+
+#: /home/user2/web/lets/includes/installer.php:33
+msgid "Mod_Rewrite MUST be enable. Current status = Disable"
+msgstr "Mod_Rewrite DOIT être activé. Statut actuel = Désactivé"
+
+#: /home/user2/web/lets/includes/installer.php:36
+msgid "Please enter a Encryption Key."
+msgstr "Merci de renseigner une clef d'encryption"
+
+#: /home/user2/web/lets/includes/installer.php:37
+msgid "Please enter a Site Name."
+msgstr "Merci de renseigner le nom du site."
+
+#: /home/user2/web/lets/includes/installer.php:39
+msgid "Please enter a URL."
+msgstr "Merci de renseigner l'URL"
+
+#: /home/user2/web/lets/includes/installer.php:41
+msgid "Please enter a correct URL."
+msgstr "Merci de renseigner un URL correct."
+
+#: /home/user2/web/lets/includes/installer.php:43
+msgid "Please enter the path"
+msgstr "Merci de renseigner le chemin vers le fichier index.php"
+
+#: /home/user2/web/lets/includes/installer.php:45
+msgid "Please enter Admin email."
+msgstr "Merci de renseigner une adresse mail pour l'administrateur."
+
+#: /home/user2/web/lets/includes/installer.php:46
+msgid "Please enter Validation email."
+msgstr "Merci de renseigner une adresse eMail du validateur."
+
+#: /home/user2/web/lets/includes/installer.php:47
+msgid "Please enter Technical email."
+msgstr "Merci de renseigner l'eMail technique"
+
+#: /home/user2/web/lets/includes/installer.php:48
+msgid "Please enter your location."
+msgstr "Merci de renseigner votre ville"
+
+#: /home/user2/web/lets/includes/installer.php:64
+msgid "Configuration Complete!"
+msgstr "Configuration terminée!"
+
+#: /home/user2/web/lets/includes/installer.php:66
+msgid "Database update fail"
+msgstr "L'écriture dans le base de données a echouée"
+
+#: /home/user2/web/lets/includes/installer.php:76
+msgid "You did not fill out all the fields!!!"
+msgstr "Vous n'avez pas remplie tous les champs!!!"
+
+#: /home/user2/web/lets/includes/installer.php:78
+#: /home/user2/web/lets/includes/installer.php:106
+msgid "Passwords did not match, please try again."
+msgstr "Le mot de passe ne correspond pas, merci de recommencer."
+
+#: /home/user2/web/lets/includes/installer.php:96
+msgid "Account Creation Complete!"
+msgstr "Création du compte terminé!"
+
+#: /home/user2/web/lets/includes/installer.php:104
+msgid "You did not fill out all the ftp fields!!!"
+msgstr "Vous n'avez pas remplie tous les champs FTP!!!"
+
+#: /home/user2/web/lets/includes/installer.php:118
+msgid "FTP information set!"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:120
+msgid "Attempting to connect to FTP server..."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:125
+msgid ""
+"<strong>FTP connection has failed</strong><br />Please check and re-enter "
+"details.<br />If this method continues to fail you will have to set "
+"permissions manually."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:128
+msgid "Done!"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:131
+#: /home/user2/web/lets/includes/installer.php:188
+msgid "Moved into directory: "
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:141
+#: /home/user2/web/lets/includes/installer.php:145
+#: /home/user2/web/lets/includes/installer.php:149
+#: /home/user2/web/lets/includes/installer.php:153
+#: /home/user2/web/lets/includes/installer.php:157
+#: /home/user2/web/lets/includes/installer.php:161
+msgid "NOT FOUIND!"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:165
+msgid "FTP root is incorrect"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:170
+#: /home/user2/web/lets/includes/installer.php:175
+#: /home/user2/web/lets/includes/installer.php:180
+#: /home/user2/web/lets/includes/installer.php:201
+#: /home/user2/web/lets/includes/installer.php:215
+msgid "Permissions Set!"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:172
+#: /home/user2/web/lets/includes/installer.php:177
+#: /home/user2/web/lets/includes/installer.php:182
+#: /home/user2/web/lets/includes/installer.php:203
+#: /home/user2/web/lets/includes/installer.php:217
+msgid "Permissions Failed!"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:197
+#: /home/user2/web/lets/includes/installer.php:211
+msgid "not found..."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:206
+#: /home/user2/web/lets/includes/installer.php:220
+msgid "Failed to upload:"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:226
+msgid "Cannot find FTP root please check settings"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:243
+msgid "This website needs to be setup...."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:244
+msgid "config' doesn't exist"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:406
+msgid "Table \"config\" has been created."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:420
+msgid "Some default config information has been added."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:443
+msgid "<h1>Setup Form"
+msgstr "<h1>Formulaire de configuration"
+
+#: /home/user2/web/lets/includes/installer.php:444
+msgid "Please fill all the texts in the fields."
+msgstr "Merci de remplir tous les champs"
+
+#: /home/user2/web/lets/includes/installer.php:449
+msgid "The following fields are required:"
+msgstr "Les champs suivant sont obligatoire:"
+
+#: /home/user2/web/lets/includes/installer.php:450
+msgid "<strong>Encryption Key:</strong><br /><em>example:"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:451
+msgid ""
+"<em>Note:</em> You do not need to remember this code. By entering a large "
+"random number such as in the example all passwords will be stored in "
+"encrypted form.<br />\n"
+msgstr ""
+"<em>Remarque:</em> Vous n'avez pas besoin de vous rappeler ce code. En "
+"entrant un grand nombre de caractères aléatoire comme dans l'exemple ci-"
+"dessus, tous les mots de passe seront sauvegardé encrypté.<br />"
+
+#: /home/user2/web/lets/includes/installer.php:454
+msgid "<strong>Site Name:</strong><br /><em>example:</em> Toronto LETS<br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:455
+msgid ""
+"<em>Note:</em> This name will appear in the title (the top bar of your "
+"browser).<br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:458
+msgid "example"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:461
+msgid "<strong>File Path of index.php:</strong><br /><em>example:</em> "
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:464
+msgid ""
+"<strong>Admin email:</strong><br /><em>example:</em> john.smith@toronto-lets."
+"ca<br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:467
+msgid ""
+"<strong>Validation email:</strong><br /><em>example:</em> sue@yahoo.com<br /"
+">\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:470
+msgid ""
+"<strong>Technical email:</strong><br /><em>example:</em> techie@domain."
+"ca<br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:473
+msgid "<strong>Location:</strong><br /><em>example:</em> Toronto, ON<br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:476
+msgid ""
+"<strong>UTC Offset (Time Zone):</strong><br /><em>example:</em> Toronto "
+"would be -5, Paris 1, etc (full list on <a href=\"https://en.wikipedia.org/"
+"wiki/List_of_UTC_time_offsets\" title=\"List of UTC time offsets\" target="
+"\"_blanc\">Wikipedia.org</a>)<br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:578
+msgid "<li class=\"ok\">Table \"transactions\" has been created.</li><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:588
+msgid "<strong>Create Administrative Account (#1)</strong><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:589
+msgid ""
+"This will create the #1 account which is essential for proper functioning of "
+"the LETS system.<br /><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:590
+msgid ""
+"<strong>Important:</strong> Log-on to the site with username: \"1\" and the "
+"password you create here.<br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:591
+msgid ""
+"Also please edit the account after finishing setup to add other important "
+"data such as address, telephone number, etc.<br /><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:592
+msgid ""
+"<strong>Note:</strong> Canadian may want to enable an option under \"Website "
+"Settings\" to force proper Provincial abbreviations and postal codes prior "
+"to editing the account.<br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:598
+msgid "<strong>First Name:</strong><br /><em>example:</em> John<br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:601
+msgid "<strong>Last Name:</strong><br /><em>example:</em> Malkovich<br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:604
+msgid "<strong>Password:</strong><br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:607
+msgid "<strong>Re-type Password:</strong><br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:653
+msgid "has not been found."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:655
+msgid "has been found."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:659
+msgid "needs permissions: 664"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:661
+msgid "has proper permissions."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:665
+msgid "Folder: <strong>images</strong> has not been found."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:667
+msgid "Folder: <strong>images</strong> has been found."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:671
+msgid "Folder: <strong>images</strong> needs permissions: 777"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:673
+msgid "Folder: <strong>images</strong> has proper permissions."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:677
+msgid "Folder: <strong>logs</strong> has not been found."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:679
+msgid "Folder: <strong>logs</strong> has been found."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:683
+msgid "Folder: <strong>logs</strong> needs permissions: 777"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:685
+msgid "Folder: <strong>logs</strong> has proper permissions."
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:704
+#: /home/user2/web/lets/includes/installer.php:716
+msgid "has not been found.</li><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:706
+#: /home/user2/web/lets/includes/installer.php:718
+msgid "has been found.</li><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:710
+#: /home/user2/web/lets/includes/installer.php:722
+msgid "needs permissions: 664</li><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:712
+#: /home/user2/web/lets/includes/installer.php:724
+msgid "has proper permissions.</li><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:730
+msgid "<strong>Checking Files and Folders....</strong><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:731
+msgid "<strong>Attention:</strong><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:732
+msgid ""
+"The following files and/or folders need their permissions changed:<br /><br /"
+">"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:734
+msgid "There are two ways to do this:<br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:735
+msgid ""
+"1. Login to cpanel, open file manager, select the files and/or folders and "
+"choose \"change permissions\".<br /><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:736
+msgid ""
+"2. Enter FTP data below and this script will change the permissions. The "
+"username and password should be the same as the cpanel account.<br /><br />"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:739
+msgid ""
+"<strong>FTP Host:</strong><br /><em>example:</em> ftp.toronto-lets.ca<br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:742
+msgid "<strong>FTP Root:</strong><br /><em>example:</em> public_html<br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:743
+msgid ""
+"<em>Note:</em> In a cpanel environment this should be either public_html or "
+"public_html/toronto_lets (for example).<br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:746
+msgid "<strong>FTP Login:</strong><br /><br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:749
+msgid "<strong>FTP Password:</strong><br /><br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:752
+msgid "<strong>Re-Type FTP Password:</strong><br /><br />\n"
+msgstr ""
+
+#: /home/user2/web/lets/includes/installer.php:754
+msgid "Set Permissions"
+msgstr ""

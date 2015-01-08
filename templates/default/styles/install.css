@@ -23,8 +23,9 @@
     font-size: 11px;
 }
 
-li {
-	margin-left: 10px;
+ul {
+	list-style-position: outside;
+	margin-left: -15px;
 }
 
 li.error{
@@ -59,7 +60,7 @@ li.ok{
     padding: 3px 3px 3px 5px;
     width: 70%;
     font-size: 12px;
-    line-height:15px;
+    line-height: 15px;
     box-shadow: inset 0px 1px 4px #ECECEC;
     -moz-box-shadow: inset 0px 1px 4px #ECECEC;
     -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
@@ -69,18 +70,18 @@ li.ok{
 }
 .basic-grey select {
     background: #FFF url('down-arrow.png') no-repeat right;
-    background: #FFF url('down-arrow.png') no-repeat right);
-    appearance:none;
-    -webkit-appearance:none;
+    background: #FFF url('down-arrow.png') no-repeat right;
+    appearance: field;
+    -webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 0.01px;
-    text-overflow: '';
-    width: 70%;
+    /*text-overflow: '';
+    width: 70%;*/
     height: 35px;
     line-height: 25px;
 }
 .basic-grey textarea{
-    height:100px;
+    height: 100px;
 }
 .basic-grey .button {
     background: #E27575;
