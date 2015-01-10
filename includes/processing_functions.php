@@ -7,12 +7,13 @@
 function begin($i,$database_host,$database_name,$database_user,$database_password) {
 	// these classes are needed by all pages, others are created as needed
 	global $doc_root;
-	require_once($doc_root.'includes/classes/style.class.php');
-	require_once($doc_root.'includes/classes/mysql.class.php');
-	require_once($doc_root.'includes/classes/links.class.php');
-	require_once($doc_root.'includes/classes/member.class.php');
-	require_once($doc_root.'includes/classes/images.class.php');
-	require_once($doc_root.'includes/classes/site.class.php');
+	require_once $doc_root.'includes/classes/style.class.php';
+	require_once $doc_root.'includes/classes/mysql.class.php';
+	require_once $doc_root.'includes/classes/links.class.php';
+	require_once $doc_root.'includes/classes/member.class.php';
+	require_once $doc_root.'includes/classes/images.class.php';
+	require_once $doc_root.'includes/classes/site.class.php';
+	require_once $doc_root.'includes/classes/pdo.class.php';
 	
 	global $site;
 	global $style;
@@ -21,6 +22,12 @@ function begin($i,$database_host,$database_name,$database_user,$database_passwor
 	global $links;
 	global $image;
 	global $date;
+	
+	
+	// Test PDO
+	$pdo = new mysqlPDO;
+	$pdo->connect($database_host,$database_user,$database_password,$database_name);
+	// Test PDO
 	
 	$site = new site;
 	$site->open_db($database_host,$database_name,$database_user,$database_password);
@@ -33,6 +40,8 @@ function begin($i,$database_host,$database_name,$database_user,$database_passwor
 	} else {
 		$site->build_constants();
 	}
+	
+	
 	$date['day'] = date('j',mktime(date('H')+HOUR_OFFSET, 0, 0, date('m'), date('d'), date('y')));
 	$date['month'] = date('n',mktime(date('H')+HOUR_OFFSET, 0, 0, date('m'), date('d'), date('y')));
 	$date['year'] = date('Y',mktime(date('H')+HOUR_OFFSET, 0, 0, date('m'), date('d'), date('y')));

@@ -113,11 +113,6 @@ $login_sidebar_indent			= 		'   ';
 $doc_root = $_SERVER['DOCUMENT_ROOT']."/"; //.$_SERVER['PHP_SELF'];
 define('LETS_ROOT', $_SERVER['DOCUMENT_ROOT']."/");
 
-//if file_exists($doc_root.'includes/config.php')?require_once($doc_root.'includes/configdb.php'):require_once($doc_root.'install/createConfigdb.php');
-require_once $doc_root.'includes/configdb.php';
-require_once $doc_root.'includes/main_file.php';
-
-
 if (!isset($_SESSION['lang'])){
 	if (!isset($_POST['lang'])) {
 		require_once $doc_root.'includes/lang_select.php';
@@ -139,6 +134,12 @@ if (!isset($_SESSION['lang'])){
 		break;
 	}
 }
+// Translation library
+require_once LETS_ROOT.'includes/lib/gettext/translate.php';
+
+//if file_exists($doc_root.'includes/config.php')?require_once($doc_root.'includes/configdb.php'):require_once($doc_root.'install/createConfigdb.php');
+require_once $doc_root.'includes/configdb.php';
+require_once $doc_root.'includes/main_file.php';
 
 
 require_once $doc_root.'includes/processing_functions.php';
@@ -177,8 +178,32 @@ $errors = begin($main_indent, $database_host, $database_name, $database_user, $d
 // TODO: Replace this code with mySQL PDO class
 $mysql = new mysql;
 if (!mysql_select_db("$database_name")) {
-    echo("<li>Creating database $database_name! Please refresh the page... (F5)</li>");
+	echo '<!DOCTYPE html>';
+	echo '<html xmlns="http://www.w3.org/1999/xhtml">';
+	echo '<head>';
+	echo '<title>Lets-Software Setup</title>';
+	echo '<meta http-equiv="Content-Type" content="text/html; charset='.$_SESSION['lang'].'" />';
+	echo '<link href="/templates/default/styles/install.css" rel="stylesheet" type="text/css">';
+	echo '</head><body>';
+	echo '<div class="basic-grey">';
+	echo '<div class="progress">';
+	echo '<a class="current"><span class="step step-inverse">1</span>Creating Database</a>';
+	echo '<a><span class="step step-inverse">2</span>Website settings</a>';
+	echo '<a><span class="step">3</span>Permission setup</a>';
+	echo '<a><span class="step">4</span>Admin account creation.</a>';
+	echo '</div>';
+	echo '<ul>';
     mysql_query("CREATE DATABASE $database_name");
+	if (!mysql_select_db("$database_name")) {
+		echo '    <li class="error">'.T_("Database creation <strong>$database_name</strong> failed!<br />");
+		echo T_("We manage to connect to the database server but we couldn't create the database <strong>$database_name</strong><br />");
+		echo T_('This is most likely a database permission issue.<br />');
+		echo T_('Please check your <strong>/includes/configdb.php</strong> file and your <strong>database permissions</strong>.<br />');
+		echo T_('Once you made some changes, refresh this page to try again (F5)...</li>');
+	}else{
+		echo '    <li class="ok">'.T_("Database <strong>$database_name</strong> created successfully! => Please refresh the page... (F5)").'</li>';
+	}
+	echo '</ul><input type="button" value="'.T_('Next').'" onClick="history.go(0)"></div></body></html>';
     mysql_select_db("$database_name");
 }
 

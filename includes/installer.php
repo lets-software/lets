@@ -4,21 +4,20 @@ if (!defined('LETS_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-require_once LETS_ROOT.'includes/lib/gettext/translate.php';
-
 
 //require_once LETS_ROOT."locales/{$_SESSION['lang']}/install.mo";
 require_once LETS_ROOT.'includes/files_and_folders_functions.php';
 
 
-echo '<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Lets-Software Setup</title>
-<meta http-equiv="Content-Type" content="text/html; charset='.$_SESSION['lang'].'" />
-<link href="'.URL.'/templates/'.TEMPLATE.'/styles/install.css" rel="stylesheet" type="text/css">
-</head><body>'
-;
+echo '<!DOCTYPE html>';
+echo '<html xmlns="http://www.w3.org/1999/xhtml">';
+echo '<head>';
+echo '<title>Lets-Software Setup</title>';
+echo '<meta http-equiv="Content-Type" content="text/html; charset='.$_SESSION['lang'].'" />';
+echo '<link href="'.URL.'/templates/'.TEMPLATE.'/styles/install.css" rel="stylesheet" type="text/css">';
+echo '</head>';
+echo '<body>';
+
 
 $message = '';
 $submitted_config = 0;
@@ -62,7 +61,7 @@ if (isset($_POST['submit'])) {
 				update_email = '".mysql_escape_string($post_post['admin_email'])."',
 				email_from_name = '".mysql_escape_string($post_post['site_name'])."',
 				location = '".mysql_escape_string($post_post['location'])."'")) {
-					$message .= '<li class="ok">'.T_('Configuration Complete!').'</li>';
+					$message .= '<ul class="basic-grey"><li class="ok">'.T_('Configuration Complete!').'</li>';
 				}else {
 					echo '<li class="error">'.T_('Database update fail').'</li>';
 				}
@@ -241,7 +240,6 @@ if (isset($_POST['submit'])) {
 
 
 if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->build_array('SELECT * FROM config')) {
-	echo '<li><strong>'.T_('This website needs to be setup....').'</strong></li><br /><br />';
 	if (strpos($mysql->error,T_('config\' doesn\'t exist'))) {
 		if ($mysql->query("
 			CREATE TABLE IF NOT EXISTS `config` (
@@ -439,8 +437,14 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->bui
 				$mysql->result[0] = $post_post;
 				
 			}
-
-			echo '<form action="'.$_SERVER['REQUEST_URI']."\" method=\"post\" class=\"basic-grey\">";
+			echo '<div class="basic-grey">';
+			echo '<div class="progress">';
+			echo '<a class="stepdone"><span class="step step-inverse">1</span>Creating Database</a>';
+			echo '<a class="current"><span class="step step-inverse">2</span>Website settings</a>';
+			echo '<a><span class="step">3</span>Permission setup</a>';
+			echo '<a><span class="step">4</span>Admin account creation.</a>';
+			echo '</div>';
+			echo '<form action="'.$_SERVER['REQUEST_URI'].'" method="post" >';
 			echo T_('<h1>Setup Form');
 			echo '		<span>'.T_('Please fill all the texts in the fields.').'</span>';
 			echo '</h1><br /><br />';
@@ -549,7 +553,7 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) == 0 && !$mysql->
 	  KEY `imageID` (`imageID`),
 	  KEY `deleted` (`deleted`)
 	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-		echo '<li class="ok">Table "accounts" has been created.</li><br />';
+		echo T_('<li class="ok">Table "accounts" has been created.</li><br />');
 	}
 	if ($mysql->query("CREATE TABLE IF NOT EXISTS `transactions` (
 	  `transactionID` int(6) NOT NULL auto_increment,
@@ -583,6 +587,13 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) == 0 && !$mysql->
 $second_mysql = new mysql;
 if ($second_mysql->build_array('SELECT * FROM accounts WHERE accountID = 1')) {
 	if (!isset($second_mysql->result[0]['accountID'])) {
+		echo '<div class="basic-grey">';
+		echo '<div class="progress">';
+		echo '<a class="stepdone"><span class="step step-inverse">1</span>Creating Database</a>';
+		echo '<a class="stepdone"><span class="step step-inverse">2</span>Website settings</a>';
+		echo '<a class="current"><span class="step step-inverse">3</span>Admin account creation</a>';
+		echo '<a><span class="step">4</span>Permission setup</a>';
+		echo '</div>';
 		if ($message) {
 			echo '<strong><em>'.$message.'<br /><br /></em></strong>';
 		}
@@ -595,18 +606,18 @@ if ($second_mysql->build_array('SELECT * FROM accounts WHERE accountID = 1')) {
 		echo "<form action=\"".$_SERVER['REQUEST_URI']."\" method=\"post\">\n";
 			
 		echo T_("<strong>First Name:</strong><br /><em>example:</em> John<br />\n");
-		echo " <input type=\"text\" name=\"first_name\" /><br /><br />\n";
+		echo "<input type=\"text\" name=\"first_name\" /><br /><br />\n";
 	
 		echo T_("<strong>Last Name:</strong><br /><em>example:</em> Malkovich<br />\n");
-		echo " <input type=\"text\" name=\"last_name\" /><br /><br />\n";
+		echo "<input type=\"text\" name=\"last_name\" /><br /><br />\n";
 		
 		echo T_("<strong>Password:</strong><br />\n");
-		echo " <input type=\"password\" name=\"password\" /><br /><br />\n";
+		echo "<input type=\"password\" name=\"password\" /><br /><br />\n";
 		
 		echo T_("<strong>Re-type Password:</strong><br />\n");
-		echo " <input type=\"password\" name=\"second_password\" /><br /><br />\n";
+		echo "<input type=\"password\" name=\"second_password\" /><br /><br />\n";
 			
-		echo " <input type=\"submit\" name=\"submit\" value=\"Create #1 Account\" />\n";
+		echo "<input type=\"submit\" name=\"submit\" value=\"".T_('Create #1 Account')."\" />\n";
 		echo "</form></body></html>";
 		exit();
 	}		
@@ -726,6 +737,12 @@ if (CURRENT_OS == 'UNIX') {
 		
 			if (!$files_status) {
 				echo '<div class="basic-grey">';
+				echo '<div class="progress">';
+				echo '<a class="stepdone"><span class="step step-inverse">1</span>Creating Database</a>';
+				echo '<a class="stepdone"><span class="step step-inverse">2</span>Website settings</a>';
+				echo '<a class="stepdone"><span class="step step-inverse">3</span>Admin account creation</a>';
+				echo '<a class="current"><span class="step">4</span>Permission setup</a>';
+				echo '</div>';
 				echo T_('<strong>Checking Files and Folders....</strong><br />');
 				echo T_('<strong>Attention:</strong><br />');
 				echo T_('The following files and/or folders need their permissions changed:<br /><br />');
@@ -756,7 +773,13 @@ if (CURRENT_OS == 'UNIX') {
 				exit();
 			} else {
 				echo '<div class="basic-grey">';
-				echo '<strong>Checking Files and Folders....</strong><br />';
+				echo '<div class="progress">';
+				echo '<a class="stepdone"><span class="step step-inverse">1</span>Creating Database</a>';
+				echo '<a class="stepdone"><span class="step step-inverse">2</span>Website settings</a>';
+				echo '<a class="stepdone"><span class="step step-inverse">3</span>Admin account creation</a>';
+				echo '<a class="current"><span class="step">4</span>Permission setup</a>';
+				echo '</div>';
+				echo T_('<strong>Checking Files and Folders....</strong><br />');
 				echo "{$files_status_message}<br /><br />";
 			}
 		}
@@ -1361,23 +1384,23 @@ INSERT INTO `sections` (`sectionID`, `page_type`, `page_id`, `url`, `name`, `plu
 }
 
 if ($completed) {
-	echo '<strong>Database Finalized!!</strong><br />';
+	echo T_('<strong>Database Finalized!!</strong><br />');
 	if ($links->initialize($nav_links_indent)) {
-		echo '<strong>Site Structure Initialized</strong><br />';
+		echo T_('<strong>Site Structure Initialized</strong><br />');
 		if ($links->rebuild_htaccess()) {
-			echo '<strong>.htaccess was updated!!!</strong><br />';
+			echo T_('<strong>.htaccess was updated!!!</strong><br />');
 		} else {
-			echo '<strong>.htaccess could NOT be updated</strong>, make sure the file permission is set to (775)<br /></div>';
+			echo T_('<strong>.htaccess could NOT be updated</strong>, make sure the file permission is set to (775)<br /></div>');
 			$completed = false;
 		}
 	} else {
-		echo '<strong>Site Structure could NOT be Initialized</strong><br /></div>';
+		echo T_('<strong>Site Structure could NOT be Initialized</strong><br /></div>');
 		$completed = false;
 	}
 }
 	
 if ($completed) {
-	echo '<strong>Installation Complete!!!</strong><br /><br />Clicking <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">here</a> should direct you to the home page.</div>';
+	echo '<strong>'.T_('Installation Complete!!!').'</strong><br /><br />'.T_('Clicking').' <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">'.T_('here').'</a> '.T_('should direct you to the home page.').'</div>';
 }
 echo '</body></html>';
 ?>

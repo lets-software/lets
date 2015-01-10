@@ -18,18 +18,18 @@ class site {
 		return $this->db_open;
 	}
 	
-	function open_db($host,$name,$user,$password) {
-		$database_link = @mysql_connect("$host","$user","$password") or die('<strong>Cannot connect to the database!!</strong><br /><br />Please setup a MySQL database then enter the login information in the file: <strong>includes/config.php</strong>');
+	function open_db($host,$dbName,$user,$password) {
+		$database_link = @mysql_connect("$host","$user","$password") or die('<strong>'.T_('Cannot connect to the database!!').'</strong><br /><br />'.T_('Please setup a MySQL database then enter the login information in the file: <strong>includes/dbconfig.php</strong>'));
 		if (!$database_link) {
 			$this->db_open = false;
-			$this->error = "Could not connect to $host ";
+			$this->error = T_("Could not connect to $host ");
 		} else {
-			$this->error = "Connected to $host ";
-			if (!mysql_select_db("$name")) {
+			$this->error = T_("Connected to $host ");
+			if (!mysql_select_db("$dbName")) {
 				$this->db_open = false;
-				$this->error .= "and could not connect to $name.";
+				$this->error .= T_("and could not connect to $dbName.");
 			} else {
-				$this->error .= "and connected to $name";
+				$this->error .= T_("and connected to $dbName");
 				$this->db_open = true;
 			}
 		}
