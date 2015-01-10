@@ -214,74 +214,74 @@ class site {
 		}
 		$z = $i."<!-- form_settings_form -->\n";
 		$z .= $i."<div id=\"form_settings_form\">\n";
-		$z .= $i." Checked fields will be required on their respected form. No submissions will be accepted without all these fields completed.<br />\n";
-		$z .= $i." <strong>Note:</strong> It is recommended that title be required in all applicable elements (except images).<br /><br />\n";
+		$z .= $i.T_(" Checked fields will be required on their respected form. No submissions will be accepted without all these fields completed.<br />\n");
+		$z .= $i.T_(" <strong>Note:</strong> It is recommended that title be required in all applicable elements (except images).<br /><br />\n");
 		$z .= $i." <fieldset>\n";
 		$z .= $i.' <form name="form_settings" method="post" action="'.URL.$url.append_url($url).'">'."\n";
-		$z .= $i." <h3>".ucwords(MEMBERS_NAME_SINGULAR)." Fields</h3>\n";
-		$z .= $i.'  <label for="member_address_required">Address:</label>'."\n";
+		$z .= $i." <h3>".ucwords(MEMBERS_NAME_SINGULAR)." ".T_('Fields')."</h3>\n";
+		$z .= $i.'  <label for="member_address_required">'.T_('Address').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_address_required" name="member_address_required" value="1"'.set_checked($mysql->result['member_address_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_city_required">City:</label>'."\n";
+		$z .= $i.'  <label for="member_city_required">'.T_('City').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_city_required" name="member_city_required" value="1"'.set_checked($mysql->result['member_city_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_province_required">State/Province:</label>'."\n";
+		$z .= $i.'  <label for="member_province_required">'.T_('State/Province').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_province_required" name="member_province_required" value="1"'.set_checked($mysql->result['member_province_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_postal_code_required">Postal Code:</label>'."\n";
+		$z .= $i.'  <label for="member_postal_code_required">'.T_('Postal Code').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_postal_code_required" name="member_postal_code_required" value="1"'.set_checked($mysql->result['member_postal_code_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_neighborhood_required">Neighbourhood:</label>'."\n";
+		$z .= $i.'  <label for="member_neighborhood_required">'.T_('Neighbourhood').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_neighborhood_required" name="member_neighborhood_required" value="1"'.set_checked($mysql->result['member_neighborhood_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_home_phone_number_required">Home Phone:</label>'."\n";
+		$z .= $i.'  <label for="member_home_phone_number_required">'.T_('Home Phone').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_home_phone_number_required" name="member_home_phone_number_required" value="1"'.set_checked($mysql->result['member_home_phone_number_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_work_phone_number_required">Work Phone:</label>'."\n";
+		$z .= $i.'  <label for="member_work_phone_number_required">'.T_('Work Phone').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_work_phone_number_required" name="member_work_phone_number_required" value="1"'.set_checked($mysql->result['member_work_phone_number_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_mobile_phone_number_required">Mobile Phone:</label>'."\n";
+		$z .= $i.'  <label for="member_mobile_phone_number_required">'.T_('Mobile Phone').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_mobile_phone_number_required" name="member_mobile_phone_number_required" value="1"'.set_checked($mysql->result['member_mobile_phone_number_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_email_address_required">Email:</label>'."\n";
+		$z .= $i.'  <label for="member_email_address_required">'.T_('Email').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_email_address_required" name="member_email_address_required" value="1"'.set_checked($mysql->result['member_email_address_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_member_profile_required">'.ucwords(MEMBERS_NAME_SINGULAR).' Profile:</label>'."\n";
+		$z .= $i.'  <label for="member_member_profile_required">'.ucwords(MEMBERS_NAME_SINGULAR).' '.T_('Profile').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_member_profile_required" name="member_member_profile_required" value="1"'.set_checked($mysql->result['member_member_profile_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_url_required">Website:</label>'."\n";
+		$z .= $i.'  <label for="member_url_required">'.T_('Website').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_url_required" name="member_url_required" value="1"'.set_checked($mysql->result['member_url_required']).' /><br class="left" />'."\n";
-		$z .= $i." <h3>".ucwords(NOTICEBOARD_NAME_SINGULAR)." Fields</h3>\n";
-		$z .= $i.'  <label for="noticeboard_title_required">Title:</label>'."\n";
+		$z .= $i." <h3>".ucwords(NOTICEBOARD_NAME_SINGULAR)." ".T_('Fields')."</h3>\n";
+		$z .= $i.'  <label for="noticeboard_title_required">'.T_('Title').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="noticeboard_title_required" name="noticeboard_title_required" value="1"'.set_checked($mysql->result['noticeboard_title_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="noticeboard_blurb_required">Short Description (used on list page):</label>'."\n";
+		$z .= $i.'  <label for="noticeboard_blurb_required">'.T_('Short Description (used on list page)').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="noticeboard_blurb_required" name="noticeboard_blurb_required" value="1"'.set_checked($mysql->result['noticeboard_blurb_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="noticeboard_description_required">Long Description (used on item page):</label>'."\n";
+		$z .= $i.'  <label for="noticeboard_description_required">'.T_('Long Description (used on item page)').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="noticeboard_description_required" name="noticeboard_description_required" value="1"'.set_checked($mysql->result['noticeboard_description_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="noticeboard_amount_required">Amount: (only applies to offers)</label>'."\n";
+		$z .= $i.'  <label for="noticeboard_amount_required">'.T_('Amount: (only applies to offers)').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="noticeboard_amount_required" name="noticeboard_amount_required" value="1"'.set_checked($mysql->result['noticeboard_amount_required']).' /><br class="left" />'."\n";
-		$z .= $i." <h3>".ucwords(ARTICLES_NAME_SINGULAR)." Fields</h3>\n";
-		$z .= $i.'  <label for="article_title_required">Title: (recommended)</label>'."\n";
+		$z .= $i." <h3>".ucwords(ARTICLES_NAME_SINGULAR).' '.T_('Fields')."</h3>\n";
+		$z .= $i.'  <label for="article_title_required">'.T_('Title: (recommended)').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="article_title_required" name="article_title_required" value="1"'.set_checked($mysql->result['article_title_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="article_blurb_required">Summary: (recommended)</label>'."\n";
+		$z .= $i.'  <label for="article_blurb_required">'.T_('Summary: (recommended)').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="article_blurb_required" name="article_blurb_required" value="1"'.set_checked($mysql->result['article_blurb_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="article_body_required">Body: (recommended)</label>'."\n";
+		$z .= $i.'  <label for="article_body_required">'.T_('Body: (recommended)').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="article_body_required" name="article_body_required" value="1"'.set_checked($mysql->result['article_body_required']).' /><br class="left" />'."\n";
-		$z .= $i." <h3>".ucwords(EVENTS_NAME_SINGULAR)." Fields</h3>\n";
-		$z .= $i.'  <label for="event_description_required">Description:</label>'."\n";
+		$z .= $i." <h3>".ucwords(EVENTS_NAME_SINGULAR).' '.T_('Fields')."</h3>\n";
+		$z .= $i.'  <label for="event_description_required">'.T_('Description').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="event_description_required" name="event_description_required" value="1"'.set_checked($mysql->result['event_description_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="event_location_required">Location:</label>'."\n";
+		$z .= $i.'  <label for="event_location_required">'.T_('Location').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="event_location_required" name="event_location_required" value="1"'.set_checked($mysql->result['event_location_required']).' /><br class="left" />'."\n";
-		$z .= $i." <h3>".ucwords(LINKS_NAME_SINGULAR)." Fields</h3>\n";
-		$z .= $i.'  <label for="require_link_title">Title:</label>'."\n";
+		$z .= $i." <h3>".ucwords(LINKS_NAME_SINGULAR).' '.T_('Fields')."</h3>\n";
+		$z .= $i.'  <label for="require_link_title">'.T_('Title').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="require_link_title" name="require_link_title" value="1"'.set_checked($mysql->result['require_link_title']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="require_link_description">Description:</label>'."\n";
+		$z .= $i.'  <label for="require_link_description">'.T_('Description').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="require_link_description" name="require_link_description" value="1"'.set_checked($mysql->result['require_link_description']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="require_link_url">URL:</label>'."\n";
+		$z .= $i.'  <label for="require_link_url">'.T_('URL').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="require_link_url" name="require_link_url" value="1"'.set_checked($mysql->result['require_link_url']).' /><br class="left" />'."\n";
-		$z .= $i." <h3>".ucwords(COMMENT_NAME_SINGULAR)." Fields</h3>\n";
-		$z .= $i.'  <label for="require_comment_title">Title:</label>'."\n";
+		$z .= $i." <h3>".ucwords(COMMENT_NAME_SINGULAR).' '.T_('Fields')."</h3>\n";
+		$z .= $i.'  <label for="require_comment_title">'.T_('Title').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="require_comment_title" name="require_comment_title" value="1"'.set_checked($mysql->result['require_comment_title']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="require_comment_body">Body:</label>'."\n";
+		$z .= $i.'  <label for="require_comment_body">'.T_('Body').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="require_comment_body" name="require_comment_body" value="1"'.set_checked($mysql->result['require_comment_body']).' /><br class="left" />'."\n";
-		$z .= $i." <h3>Image Fields</h3>\n";
-		$z .= $i.'  <label for="image_title_required">Title:</label>'."\n";
+		$z .= $i.' <h3>'.T_('Image Fields')."</h3>\n";
+		$z .= $i.'  <label for="image_title_required">'.T_('Title').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="image_title_required" name="image_title_required" value="1"'.set_checked($mysql->result['image_title_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_blurb_required">Short Description</label>'."\n";
+		$z .= $i.'  <label for="image_blurb_required">'.T_('Short Description').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="image_blurb_required" name="image_blurb_required" value="1"'.set_checked($mysql->result['image_blurb_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_description_required">Long Description</label>'."\n";
+		$z .= $i.'  <label for="image_description_required">'.T_('Long Description').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="image_description_required" name="image_description_required" value="1"'.set_checked($mysql->result['image_description_required']).' /><br class="left" />'."\n";
-		$z .= $i.'  <input class="form_settings_button" type="submit" name="submit" value="Submit" />'."\n";
+		$z .= $i.'  <input class="form_settings_button" type="submit" name="submit" value="'.T_('Submit').'" />'."\n";
 		$z .= $i.' </form>'."\n";
 		$z .= $i." </fieldset>\n";
 		$z .= $i.'</div>'."\n";
@@ -293,16 +293,16 @@ class site {
 		$post_post = remove_slashes($_POST);
 		
 		if (!$post_post['currency_name'] or !$post_post['currency_name_singular'] or !$post_post['transaction_name_singular'] or !$post_post['transaction_name_plural'] or !$post_post['default_expiry_message']) {
-			$this->error = 'Required Field Missing';
+			$this->error = T_('Required Field Missing');
 			return false;
 		}
 		if (($post_post['transaction_service_fee_seller'] < 0 or !is_numeric($post_post['transaction_service_fee_seller'])) 
 		or ($post_post['transaction_service_fee_seller'] < 0 or !is_numeric($post_post['transaction_service_fee_seller'])) or !is_numeric($post_post['setup_fee'])) {
-			$this->error = 'Problem with fee';
+			$this->error = T_('Problem with fee');
 			return false;
 		}
 		if ($post_post['negative_balance_limit'] < 0) {
-			$this->error = 'Negative balance limit must be a positive number';
+			$this->error = T_('Negative balance limit must be a positive number');
 			return false;
 		}
 		if (!$post_post['dump_balance_accountID'] or !is_numeric($post_post['dump_balance_accountID'])) {
@@ -349,73 +349,73 @@ class site {
 		}
 		$z = $i."<!-- lets_settings_form -->\n";
 		$z .= $i."<div id=\"lets_settings_form\">\n";
-		$z .= $i." Only settings directly related to LETS are here. For more general website settings go <a href=\"".URL.$links->complete_url.append_url(0)."\">here</a><br /><br />\n";
+		$z .= $i.T_(' Only settings directly related to LETS are here. For more general website settings go <a href="').URL.$links->complete_url.append_url(0).'">'.T_('here')."</a><br /><br />\n";
 		$z .= $i." <fieldset>\n";
 		$z .= $i.' <form name="lets_settings" method="post" action="'.URL.$url.append_url($url).'">'."\n";
-		$z .= $i."  <h3>Currency Information</h3>\n";
-		$z .= $i.'  <label for="currency_name">Currency Name (plural):</label>'."\n";
+		$z .= $i.'  <h3>'.T_('Currency Information')."</h3>\n";
+		$z .= $i.'  <label for="currency_name">'.T_('Currency Name').' '.T_('(plural)').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="currency_name" name="currency_name" value="'.htmlspecialchars($mysql->result['currency_name']).'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="currency_name_singular">Currency Name (singular):</label>'."\n";
+		$z .= $i.'  <label for="currency_name_singular">'.T_('Currency Name').' '.T_('(singular)').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="currency_name_singular" name="currency_name_singular" value="'.htmlspecialchars($mysql->result['currency_name_singular']).'" /><br class="left" />'."\n";
-		$z .= $i."  <h3>Transaction Information</h3>\n";
-		$z .= $i.'  <label for="transaction_name_singular">Transaction Name (singular):</label>'."\n";
+		$z .= $i.'  <h3>'.T_('Transaction Information')."</h3>\n";
+		$z .= $i.'  <label for="transaction_name_singular">'.T_('Transaction Name').' '.T_('(singular)').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="transaction_name_singular" name="transaction_name_singular" value="'.htmlspecialchars($mysql->result['transaction_name_singular']).'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="transaction_name_plural">Transaction Name (plural):</label>'."\n";
+		$z .= $i.'  <label for="transaction_name_plural">'.T_('Transaction Name').' '.T_('(plural)').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="transaction_name_plural" name="transaction_name_plural" value="'.htmlspecialchars($mysql->result['transaction_name_plural']).'" /><br class="left" />'."\n";
-		$z .= $i."  <h3>Transaction Fees</h3>\n";
-		$z .= $i.'  Enter a positive transaction amount at startup to charge '.a(MEMBERS_NAME_SINGULAR).' '.strtolower(MEMBERS_NAME_SINGULAR).' a fee when they join. Enter a negative value to give them a bonus.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="setup_fee">Transaction amount at startup:</label>'."\n";
+		$z .= $i.'  <h3>'.T_('Transaction Fees')."</h3>\n";
+		$z .= $i.'  '.T_('Enter a positive transaction amount at startup to charge').' '.a(MEMBERS_NAME_SINGULAR).' '.strtolower(MEMBERS_NAME_SINGULAR).' '.T_('a fee when they join. Enter a negative value to give them a bonus.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="setup_fee">'.T_('Transaction amount at startup').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="setup_fee" name="setup_fee" value="'.$mysql->result['setup_fee'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="enable_transaction_service_fee">Enable Transaction Fees:</label>'."\n";
+		$z .= $i.'  <label for="enable_transaction_service_fee">'.T_('Enable Transaction Fees').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="enable_transaction_service_fee" name="enable_transaction_service_fee" value="1"'.set_checked($mysql->result['enable_transaction_service_fee']).' /><br class="left" /><br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  Buyer and seller fees are only applicable if they are enabled above. If enabled they will only work if a positive amount is entered.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="transaction_service_fee_seller">Seller Fee:</label>'."\n";
+		$z .= $i.'  '.T_('Buyer and seller fees are only applicable if they are enabled above. If enabled they will only work if a positive amount is entered.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="transaction_service_fee_seller">'.T_('Seller Fee').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="transaction_service_fee_seller" name="transaction_service_fee_seller" value="'.$mysql->result['transaction_service_fee_seller'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="transaction_service_fee_buyer">Buyer Fee:</label>'."\n";
+		$z .= $i.'  <label for="transaction_service_fee_buyer">'.T_('Buyer Fee').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="transaction_service_fee_buyer" name="transaction_service_fee_buyer" value="'.$mysql->result['transaction_service_fee_buyer'].'" /><br class="left" />'."\n";
-		$z .= $i."  <h3>Auctions</h3>\n";
-		$z .= $i.'  <label for="enable_auctions">Enable Auctions:</label>'."\n";
+		$z .= $i.'  <h3>'.T_('Auctions')."</h3>\n";
+		$z .= $i.'  <label for="enable_auctions">'.T_('Enable Auctions').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="enable_auctions" name="enable_auctions" value="1"'.set_checked($mysql->result['enable_auctions']).' /><br class="left" /><br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  If auctions are enabled the following option will prevent '.a(MEMBERS_NAME_SINGULAR).' '.strtolower(MEMBERS_NAME_SINGULAR).' from editing their auction details once a bid has been placed on it.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="freeze_auction_after_bid">Freeze Auction:</label>'."\n";
+		$z .= $i.'  '.T_('If auctions are enabled the following option will prevent').' '.a(MEMBERS_NAME_SINGULAR).' '.strtolower(MEMBERS_NAME_SINGULAR).' '.T_('from editing their auction details once a bid has been placed on it.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="freeze_auction_after_bid">'.T_('Freeze Auction').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="freeze_auction_after_bid" name="freeze_auction_after_bid" value="1"'.set_checked($mysql->result['freeze_auction_after_bid']).' /><br class="left" />'."\n";
-		$z .= $i."  <h3>\"Buy Now\"</h3>\n";
-		$z .= $i.'  This option can work with or without auctions. If '.a(NOTICEBOARD_NAME_SINGULAR).' '.strtolower(NOTICEBOARD_NAME_SINGULAR).
-		' is set for "Buy it Now" they will be automatically removed from the active listings when the transaction is completed.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="enable_instant_buy">Enable Buy Now</label>'."\n";
+		$z .= $i.'  <h3>"'.T_('Buy Now')."\"</h3>\n";
+		$z .= $i.'  '.T_('This option can work with or without auctions. If').' '.a(NOTICEBOARD_NAME_SINGULAR).' '.strtolower(NOTICEBOARD_NAME_SINGULAR).
+		T_(' is set for "Buy it Now" they will be automatically removed from the active listings when the transaction is completed.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="enable_instant_buy">'.T_('Enable Buy Now').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="enable_instant_buy" name="enable_instant_buy" value="1"'.set_checked($mysql->result['enable_instant_buy']).' /><br class="left" /><br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  If "Buy it Now" is enabled this option will only allow the transaction to take place at the original asking price. If not enabled a Buy Now transaction can be completed at any amount.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="lock_buy_now_price">Lock Buy Now Price:</label>'."\n";
+		$z .= $i.'  '.T_('If "Buy it Now" is enabled this option will only allow the transaction to take place at the original asking price. If not enabled a Buy Now transaction can be completed at any amount.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="lock_buy_now_price">'.T_('Lock Buy Now Price').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="lock_buy_now_price" name="lock_buy_now_price" value="1"'.set_checked($mysql->result['lock_buy_now_price']).' /><br class="left" />'."\n";
-		$z .= $i."  <h3>Noticeboard Access</h3>\n";
-		$z .= $i.'  If either auctions or "Buy Now" is enabled the '.strtolower(NOTICEBOARD_NAME_SINGULAR).' acts as a kind of receipt as it is linked to in the transaction history. The following options will restrict what can be done to the '.
-		strtolower(NOTICEBOARD_NAME_SINGULAR).' once the transaction has been completed.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="prevent_edit_after_transaction">Prevent editing after transaction</label>'."\n";
+		$z .= $i.'  <h3>'.T_('Noticeboard Access')."</h3>\n";
+		$z .= $i.'  '.T_('If either auctions or "Buy Now" is enabled the').' '.strtolower(NOTICEBOARD_NAME_SINGULAR).' '.T_('acts as a kind of receipt as it is linked to in the transaction history. The following options will restrict what can be done to the ').
+		strtolower(NOTICEBOARD_NAME_SINGULAR).' '.T_('once the transaction has been completed.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="prevent_edit_after_transaction">'.T_('Prevent editing after transaction').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="prevent_edit_after_transaction" name="prevent_edit_after_transaction" value="1"'.set_checked($mysql->result['prevent_edit_after_transaction']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="prevent_deletion_after_transaction">Prevent deleting after transaction</label>'."\n";
+		$z .= $i.'  <label for="prevent_deletion_after_transaction">'.T_('Prevent deleting after transaction').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="prevent_deletion_after_transaction" name="prevent_deletion_after_transaction" value="1"'.set_checked($mysql->result['prevent_deletion_after_transaction']).' /><br class="left" />'."\n";
-		$z .= $i."  <h3>".ucwords(MEMBERS_NAME_SINGULAR)." Access</h3>\n";
-		$z .= $i.'  <label for="negative_balance_limit">Negative Balance Limit (leave blank or zero for none)</label>'."\n";
+		$z .= $i."  <h3>".ucwords(MEMBERS_NAME_SINGULAR).' '.T_('Access')."</h3>\n";
+		$z .= $i.'  <label for="negative_balance_limit">'.T_('Negative Balance Limit (leave blank or zero for none)').'</label>'."\n";
 		$z .= $i.'  <input type="text" id="negative_balance_limit" name="negative_balance_limit" value="'.$mysql->result['negative_balance_limit'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="allow_view_other_transaction_history">Allow '.strtolower(MEMBERS_NAME_PLURAL).' to view each other\'s '.strtolower(TRANSACTION_NAME_SINGULAR).' history</label>'."\n";
+		$z .= $i.'  <label for="allow_view_other_transaction_history">'.T_('Allow').' '.strtolower(MEMBERS_NAME_PLURAL).' '.T_('to view each other\'s').' '.strtolower(TRANSACTION_NAME_SINGULAR).' '.T_('history').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="allow_view_other_transaction_history" name="allow_view_other_transaction_history" value="1"'.set_checked($mysql->result['allow_view_other_transaction_history']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_expiry_hidden">Hide '.strtolower(MEMBERS_NAME_PLURAL).' expiry date from each other.</label>'."\n";
+		$z .= $i.'  <label for="member_expiry_hidden">'.T_('Hide').' '.strtolower(MEMBERS_NAME_PLURAL).' '.T_('expiry date from each other.').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="member_expiry_hidden" name="member_expiry_hidden" value="1"'.set_checked($mysql->result['allow_view_other_transaction_history']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="allow_member_admin_categories">Allow '.strtolower(MEMBERS_NAME_PLURAL).' to administer categories.</label>'."\n";
+		$z .= $i.'  <label for="allow_member_admin_categories">'.T_('Allow').' '.strtolower(MEMBERS_NAME_PLURAL).' '.T_('to administer categories.').'</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="allow_member_admin_categories" name="allow_member_admin_categories" value="1"'.set_checked($mysql->result['allow_member_admin_categories']).' /><br class="left" /><br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  Expired '.strtolower(MEMBERS_NAME_PLURAL).' have all the privlidges of non-expired '.strtolower(MEMBERS_NAME_PLURAL).'. A suspended '.strtolower(MEMBERS_NAME_SINGULAR).' looses all access to the site and their '.
-		strtolower(NOTICEBOARD_NAME_PLURAL).' become hidden.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="suspend_on_expiry">Automatically suspend '.strtolower(MEMBERS_NAME_PLURAL).' when expired?:</label>'."\n";
+		$z .= $i.'  '.T_('Expired').' '.strtolower(MEMBERS_NAME_PLURAL).' '.T_('have all the privlidges of non-expired').' '.strtolower(MEMBERS_NAME_PLURAL).'. '.T_('A suspended').' '.strtolower(MEMBERS_NAME_SINGULAR).' '.T_('looses all access to the site and their ').
+		strtolower(NOTICEBOARD_NAME_PLURAL).' '.T_('become hidden.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="suspend_on_expiry">'.T_('Automatically suspend').' '.strtolower(MEMBERS_NAME_PLURAL).' '.T_('when expired?').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="suspend_on_expiry" name="suspend_on_expiry" value="1"'.set_checked($mysql->result['suspend_on_expiry']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="default_expiry_message">Message when automatically suspended for expiry:</label>'."\n";
+		$z .= $i.'  <label for="default_expiry_message">'.T_('Message when automatically suspended for expiry').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="default_expiry_message" name="default_expiry_message" value="'.htmlspecialchars($mysql->result['default_expiry_message']).'" /><br class="left" />'."\n";
-		$z .= $i."  <h3>Misc</h3>\n";
-		$z .= $i.'  When '.a(MEMBERS_NAME_SINGULAR).' '.strtolower(MEMBERS_NAME_SINGULAR).' is deleted they are not really deleted but their balance is brought to zero. '
-		.'They can later be reactivated and their balance restored to it\'s former amount (positive or negative). '
-		.'Enter which account this transaction should be done with. If left empty the #1 account will be used.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="dump_balance_accountID">Account ID for transfering accounts to:</label>'."\n";
+		$z .= $i.'  <h3>'.T_('Misc')."</h3>\n";
+		$z .= $i.'  '.T_('When').' '.a(MEMBERS_NAME_SINGULAR).' '.strtolower(MEMBERS_NAME_SINGULAR).' '.T_('is deleted they are not really deleted but their balance is brought to zero. ')
+		.T_('They can later be reactivated and their balance restored to it\'s former amount (positive or negative). ')
+		.T_('Enter which account this transaction should be done with. If left empty the #1 account will be used.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="dump_balance_accountID">'.T_('Account ID for transferring accounts to').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="dump_balance_accountID" name="dump_balance_accountID" value="'.$mysql->result['dump_balance_accountID'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="bulk_trading_confirm">Confirm Bulk '.ucwords(TRANSACTION_NAME_PLURAL).'?:</label>'."\n";
+		$z .= $i.'  <label for="bulk_trading_confirm">'.T_('Confirm Bulk').' '.ucwords(TRANSACTION_NAME_PLURAL).'?:</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="bulk_trading_confirm" name="bulk_trading_confirm" value="1"'.set_checked($mysql->result['bulk_trading_confirm']).' /><br class="left" />'."\n";
 		
 		$z .= $i.'  <input class="form_settings_button" type="submit" name="submit" value="Submit" />'."\n";
@@ -459,13 +459,13 @@ class site {
 		}
 		if (isset($post_post['smtp_password']) and isset($post_post['smtp_password_confirm'])) {
 			if ($post_post['smtp_password'] != $post_post['smtp_password_confirm']) {
-				$this->error = 'SMTP Passwords do not match';
+				$this->error = T_('SMTP Passwords do not match');
 				return false;
 			}
 		}
 		if (isset($post_post['ftp_password']) and isset($post_post['ftp_password_confirm'])) {
 			if ($post_post['ftp_password'] != $post_post['ftp_password_confirm']) {
-				$this->error = 'FTP Passwords do not match';
+				$this->error = T_('FTP Passwords do not match');
 				return false;
 			}
 		}
@@ -601,42 +601,42 @@ class site {
 		}
 		$z = $i."<!-- site_settings_form -->\n";
 		$z .= $i."<div id=\"site_settings_form\">\n";
-		$z .= $i." For settings specific to LETS please go <a href=\"".URL.$links->complete_url.append_url(0)."\">here</a><br /><br />\n";
+		$z .= $i.' '.T_('For settings specific to LETS please go').' <a href="'.URL.$links->complete_url.append_url(0).'">'.T_('here')."</a><br /><br />\n";
 		$z .= $i." <fieldset>\n";
 		$z .= $i.' <form name="site_settings" method="post" action="'.URL.$url.append_url($url).'">'."\n";
-		$z .= $i.' <strong>Warning:</strong> For advanced use only. Follow instructions carefully. There is no validation to this form so please ensure all information is correct.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.' Required fields are <span class="required_field">'.REQUIRED_DISPLAY.'</span>.<br /><br />'."\n";
-		$z .= $i."  <h3>Website Information</h3>\n";
+		$z .= $i.T_(' <strong>Warning:</strong> For advanced use only. Follow instructions carefully. There is no validation to this form so please ensure all information is correct.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.T_(' Required fields are').' <span class="required_field">'.REQUIRED_DISPLAY.'</span>.<br /><br />'."\n";
+		$z .= $i.'  <h3>'.T_('Website Information')."</h3>\n";
 		
-		$z .= $i.'  <label for="site_name"><span class="required_field">Name:</span></label>'."\n";
+		$z .= $i.'  <label for="site_name"><span class="required_field">'.T_('Name').':</span></label>'."\n";
 		$z .= $i.'  <input type="text" id="site_name" name="site_name" value="'.htmlspecialchars($mysql->result['site_name']).'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="location">Location:</label>'."\n";
+		$z .= $i.'  <label for="location">'.T_('Location').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="location" name="location" value="'.htmlspecialchars($mysql->result['location']).'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="hour_offset">Hour Offset:</label>'."\n";
+		$z .= $i.'  <label for="hour_offset">'.T_('Hour Offset').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="hour_offset" name="hour_offset" value="'.$mysql->result['hour_offset'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="twelve_hour_clock">12 Hour Clock?:</label>'."\n";
+		$z .= $i.'  <label for="twelve_hour_clock">'.T_('12 Hour Clock?').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="twelve_hour_clock" name="twelve_hour_clock" value="1"'.set_checked($mysql->result['twelve_hour_clock']).' /><br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <strong>Note:</strong> Selecting the "Canadian" option adds provinces to the user forms as well as validates postal codes.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="canadian">Canadian:</label>'."\n";
+		$z .= $i.'  '.T_('<strong>Note:</strong> Selecting the "Canadian" option adds provinces to the user forms as well as validates postal codes.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="canadian">'.T_('Canadian').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="canadian" name="canadian" value="1"'.set_checked($mysql->result['canadian']).' /><br class="left" />'."\n";
 		
-		$z .= $i."  <h3>Website Settings</h3>\n";
-		$z .= $i.'  <strong>Warning:</strong> URL and file path are crucial to the proper functioning of the site and must be correct.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <strong>Complete URL:</strong> Must contain the initial "http://" and the trailing "/". Example: "http://www.your_lets_website.ca/" or "http://www.some_website.ca/your_lets_website/".<br class="left" />'."\n";
-		$z .= $i.'  <strong>Complete File Path:</strong> Must lead from the server\'s root directory to the location of the index.php file. Example: "/home/your_site/public_html/" or "/home/some_site/public_html/your_site/.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="url"><span class="required_field">Complete URL:</span></label>'."\n";
+		$z .= $i.'  <h3>'.T_('Website Settings')."</h3>\n";
+		$z .= $i.'  '.T_('<strong>Warning:</strong> URL and file path are crucial to the proper functioning of the site and must be correct.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  '.T_('<strong>Complete URL:</strong> Must contain the initial "http://" and the trailing "/". Example: "http://www.your_lets_website.ca/" or "http://www.some_website.ca/your_lets_website/".').'<br class="left" />'."\n";
+		$z .= $i.'  '.T_('<strong>Complete File Path:</strong> Must lead from the server\'s root directory to the location of the index.php file. Example: "/home/your_site/public_html/" or "/home/some_site/public_html/your_site/.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="url"><span class="required_field">'.T_('Complete URL').':</span></label>'."\n";
 		$z .= $i.'  <input type="text" id="url" name="url" value="'.$mysql->result['url'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="path"><span class="required_field">Complete Path:</span></label>'."\n";
+		$z .= $i.'  <label for="path"><span class="required_field">'.T_('Complete Path').':</span></label>'."\n";
 		$z .= $i.'  <input type="text" id="path" name="path" value="'.$mysql->result['path'].'" /><br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <strong>Warning:</strong> URL-based sessions are not as secure as cookie-based sessions. If disabled and '.a(MEMBERS_NAME_SINGULAR).' '.strtolower(MEMBERS_NAME_SINGULAR).
-		' tries to login while disallowing cookies the site will give a message stating their requirement. If URL-based sessions are enabled a lower session time-out would increase security.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="enable_url_session_ids">Enable URL-Based Session?:</label>'."\n";
+		$z .= $i.'  '.T_('<strong>Warning:</strong> URL-based sessions are not as secure as cookie-based sessions. If disabled and ').a(MEMBERS_NAME_SINGULAR).' '.strtolower(MEMBERS_NAME_SINGULAR).
+		T_(' tries to login while disallowing cookies the site will give a message stating their requirement. If URL-based sessions are enabled a lower session time-out would increase security.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="enable_url_session_ids">'.T_('Enable URL-Based Session?').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="enable_url_session_ids" name="enable_url_session_ids" value="1"'.set_checked($mysql->result['enable_url_session_ids']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="time_out"><span class="required_field">Session Time Out (minutes):</span></label>'."\n";
+		$z .= $i.'  <label for="time_out"><span class="required_field">'.T_('Session Time Out (minutes)').':</span></label>'."\n";
 		$z .= $i.'  <input type="text" id="time_out" name="time_out" value="'.$mysql->result['time_out'].'" /><br class="left" />'."\n";
 		
-		$z .= $i."  <h3>Enabled Sections</h3>\n";
-		$z .= $i.'  <strong>Note:</strong> Disabling the '.NOTICEBOARD_NAME.' eliminates the vast majority of the site\'s functions.<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <h3>'.T_('Enabled Sections')."</h3>\n";
+		$z .= $i.'  '.T_('<strong>Note:</strong> Disabling the').' '.NOTICEBOARD_NAME.' '.T_('eliminates the vast majority of the site\'s functions.').'<br class="left" /><br class="left" />'."\n";
 		$z .= $i.'  <label for="enable_noticeboard">'.NOTICEBOARD_NAME.':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="enable_noticeboard" name="enable_noticeboard" value="1"'.set_checked($mysql->result['enable_noticeboard']).' /><br class="left" />'."\n";
 		$z .= $i.'  <label for="enable_articles">'.ARTICLES_NAME.':</label>'."\n";
@@ -650,8 +650,8 @@ class site {
 		$z .= $i.'  <label for="enable_member_list">'.MEMBER_LIST_NAME.':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="enable_member_list" name="enable_member_list" value="1"'.set_checked($mysql->result['enable_member_list']).' /><br class="left" />'."\n";
 		
-		$z .= $i."  <h3>Validation Settings</h3>\n";
-		$z .= $i.'  <strong>Note:</strong> Check the sections you wish to enable validation. '.ucwords(MEMBERS_NAME_SINGULAR).' submissions will not be displayed on the main site until an admin validates them.<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <h3>'.T_('Validation Settings')."</h3>\n";
+		$z .= $i.'  '.T_('<strong>Note:</strong> Check the sections you wish to enable validation.').' '.ucwords(MEMBERS_NAME_SINGULAR).' '.T_('submissions will not be displayed on the main site until an admin validates them.').'<br class="left" /><br class="left" />'."\n";
 		$z .= $i.'  <label for="validate_articles">'.ARTICLES_NAME.':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="validate_articles" name="validate_articles" value="1"'.set_checked($mysql->result['validate_articles']).' /><br class="left" />'."\n";
 		$z .= $i.'  <label for="validate_events">'.EVENTS_NAME.':</label>'."\n";
@@ -660,60 +660,60 @@ class site {
 		$z .= $i.'  <input type="checkbox" id="validate_faq" name="validate_faq" value="1"'.set_checked($mysql->result['validate_faq']).' /><br class="left" />'."\n";
 		$z .= $i.'  <label for="validate_links">'.LINKS_NAME.':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="validate_links" name="validate_links" value="1"'.set_checked($mysql->result['validate_links']).' /><br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  Enabling XHTML Validation will apply to all sections. Submissions with invalid XHTML will be rejected with a message containing some debugging information.<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  '.T_('Enabling XHTML Validation will apply to all sections. Submissions with invalid XHTML will be rejected with a message containing some debugging information.').'<br class="left" /><br class="left" />'."\n";
 		$z .= $i.'  <label for="validate_xhtml">XHTML:</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="validate_xhtml" name="validate_xhtml" value="1"'.set_checked($mysql->result['validate_xhtml']).' /><br class="left" />'."\n";
-		$z .= $i.'  <strong>Warning:</strong> No method of email confirmation currently exists. Not validating '.strtolower(MEMBERS_NAME_PLURAL).' could result in accounts for the purpose of spam.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="validate_members">Validate '.ucwords(MEMBERS_NAME_SINGULAR).':</label>'."\n";
+		$z .= $i.'  '.T_('<strong>Warning:</strong> No method of email confirmation currently exists. Not validating ').strtolower(MEMBERS_NAME_PLURAL).' '.T_('could result in accounts for the purpose of spam.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="validate_members">'.T_('Validate').' '.ucwords(MEMBERS_NAME_SINGULAR).':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="validate_members" name="validate_members" value="1"'.set_checked($mysql->result['validate_members']).' /><br class="left" />'."\n";
 		
-		$z .= $i."  <h3>Messages</h3>\n";
-		$z .= $i.'  Here you can enter HTML that will appear on the home or '.strtolower(MEMBERS_NAME_PLURAL).' pages.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="visitor_message">Home Page:</label>'."\n";
+		$z .= $i.'  <h3>'.T_('Messages')."</h3>\n";
+		$z .= $i.'  '.T_('Here you can enter HTML that will appear on the home or').' '.strtolower(MEMBERS_NAME_PLURAL).' '.T_('pages').'.<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="visitor_message">'.T_('Home Page').':</label>'."\n";
 		$z .= $i.'  <textarea id="visitor_message" name="visitor_message">'.htmlspecialchars($mysql->result['visitor_message']).'</textarea><br class="left" />'."\n";
-		$z .= $i.'  <label for="member_message">'.ucwords(MEMBERS_NAME_SINGULAR).'\'s Home:</label>'."\n";
+		$z .= $i.'  <label for="member_message">'.ucwords(MEMBERS_NAME_SINGULAR).T_('\'s Home:</label>')."\n";
 		$z .= $i.'  <textarea id="member_message" name="member_message">'.htmlspecialchars($mysql->result['member_message']).'</textarea><br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="new_member_message">Register Terms:</label>'."\n";
+		$z .= $i.'  <label for="new_member_message">'.T_('Register Terms').':</label>'."\n";
 		$z .= $i.'  <textarea id="register_terms" name="register_terms">'.htmlspecialchars($mysql->result['register_terms']).'</textarea><br class="left" />'."\n";
-		$z .= $i.'  If email is enables you can enter a message that will be email to new '.strtolower(MEMBERS_NAME_PLURAL).' when they register.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="new_member_message">New '.ucwords(MEMBERS_NAME_SINGULAR).':</label>'."\n";
+		$z .= $i.'  '.T_('If email is enables you can enter a message that will be email to new').' '.strtolower(MEMBERS_NAME_PLURAL).' '.T_('when they register').'.<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="new_member_message">'.T_('New').' '.ucwords(MEMBERS_NAME_SINGULAR).':</label>'."\n";
 		$z .= $i.'  <textarea id="new_member_message" name="new_member_message">'.htmlspecialchars($mysql->result['new_member_message']).'</textarea><br class="left" />'."\n";
 		
-		$z .= $i."  <h3>Image Settings</h3>\n";
-		$z .= $i.'  <strong>Note:</strong> The image functions of this site depend on PHP compiled with the GD libraries and writable permissions in the images folder. '.
-		'If images are not working disable them here so user\'s will not be shown image forms.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="enable_images">Enable Images:</label>'."\n";
+		$z .= $i.'  <h3>'.T_('Image Settings')."</h3>\n";
+		$z .= $i.'  '.T_('<strong>Note:</strong> The image functions of this site depend on PHP compiled with the GD libraries and writable permissions in the images folder. ').
+		T_('If images are not working disable them here so user\'s will not be shown image forms.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="enable_images">'.T_('Enable Images:</label>')."\n";
 		$z .= $i.'  <input type="checkbox" id="enable_images" name="enable_images" value="1"'.set_checked($mysql->result['enable_images']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_quality">Image Quality (0 - 100):</label>'."\n";
+		$z .= $i.'  <label for="image_quality">'.T_('Image Quality').' (0 - 100):</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_quality" name="image_quality" value="'.$mysql->result['image_quality'].'" /><br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <strong>Note:</strong> Changing the image sizes after images have been uploaded will distort the output so it is recommended these adjustments only be done during setup.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_width_thumb_noticeboard">'.ucwords(NOTICEBOARD_NAME_SINGULAR).' Thumbnail Width::</label>'."\n";
+		$z .= $i.'  '.T_('<strong>Note:</strong> Changing the image sizes after images have been uploaded will distort the output so it is recommended these adjustments only be done during setup.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="image_width_thumb_noticeboard">'.ucwords(NOTICEBOARD_NAME_SINGULAR).' '.T_('Thumbnail Width').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_width_thumb_noticeboard" name="image_width_thumb_noticeboard" value="'.$mysql->result['image_width_thumb_noticeboard'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_height_thumb_noticeboard">'.ucwords(NOTICEBOARD_NAME_SINGULAR).' Thumbnail Height:</label>'."\n";
+		$z .= $i.'  <label for="image_height_thumb_noticeboard">'.ucwords(NOTICEBOARD_NAME_SINGULAR).' '.T_('Thumbnail Height').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_height_thumb_noticeboard" name="image_height_thumb_noticeboard" value="'.$mysql->result['image_height_thumb_noticeboard'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_width_page_noticeboard">'.ucwords(NOTICEBOARD_NAME_SINGULAR).' Image Width:</label>'."\n";
+		$z .= $i.'  <label for="image_width_page_noticeboard">'.ucwords(NOTICEBOARD_NAME_SINGULAR).' '.T_('Image Width').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_width_page_noticeboard" name="image_width_page_noticeboard" value="'.$mysql->result['image_width_page_noticeboard'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_height_page_noticeboard">'.ucwords(NOTICEBOARD_NAME_SINGULAR).' Image Height:</label>'."\n";
+		$z .= $i.'  <label for="image_height_page_noticeboard">'.ucwords(NOTICEBOARD_NAME_SINGULAR).' '.T_('Image Height').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_height_page_noticeboard" name="image_height_page_noticeboard" value="'.$mysql->result['image_height_page_noticeboard'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_width_thumb_article">'.ucwords(ARTICLES_NAME_SINGULAR).' Thumbnail Width:</label>'."\n";
+		$z .= $i.'  <label for="image_width_thumb_article">'.ucwords(ARTICLES_NAME_SINGULAR).' '.T_('Thumbnail Width').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_width_thumb_article" name="image_width_thumb_article" value="'.$mysql->result['image_width_thumb_article'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_height_thumb_article">'.ucwords(ARTICLES_NAME_SINGULAR).' Thumbnail Height:</label>'."\n";
+		$z .= $i.'  <label for="image_height_thumb_article">'.ucwords(ARTICLES_NAME_SINGULAR).' '.T_('Thumbnail Height').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_height_thumb_article" name="image_height_thumb_article" value="'.$mysql->result['image_height_thumb_article'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_width_page_article">'.ucwords(ARTICLES_NAME_SINGULAR).' Image Width:</label>'."\n";
+		$z .= $i.'  <label for="image_width_page_article">'.ucwords(ARTICLES_NAME_SINGULAR).' '.T_('Image Width').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_width_page_article" name="image_width_page_article" value="'.$mysql->result['image_width_page_article'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_height_page_article">'.ucwords(ARTICLES_NAME_SINGULAR).' Image Height:</label>'."\n";
+		$z .= $i.'  <label for="image_height_page_article">'.ucwords(ARTICLES_NAME_SINGULAR).' '.T_('Image Height').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_height_page_article" name="image_height_page_article" value="'.$mysql->result['image_height_page_article'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_width_thumb_member">'.ucwords(MEMBERS_NAME_SINGULAR).' Thumbnail Width:</label>'."\n";
+		$z .= $i.'  <label for="image_width_thumb_member">'.ucwords(MEMBERS_NAME_SINGULAR).' '.T_('Thumbnail Width').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_width_thumb_member" name="image_width_thumb_member" value="'.$mysql->result['image_width_thumb_member'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_height_thumb_member">'.ucwords(MEMBERS_NAME_SINGULAR).' Thumbnail Height:</label>'."\n";
+		$z .= $i.'  <label for="image_height_thumb_member">'.ucwords(MEMBERS_NAME_SINGULAR).' '.T_('Thumbnail Height').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_height_thumb_member" name="image_height_thumb_member" value="'.$mysql->result['image_height_thumb_member'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_width_page_member">'.ucwords(MEMBERS_NAME_SINGULAR).' Image Width:</label>'."\n";
+		$z .= $i.'  <label for="image_width_page_member">'.ucwords(MEMBERS_NAME_SINGULAR).' '.T_('Image Width').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_width_page_member" name="image_width_page_member" value="'.$mysql->result['image_width_page_member'].'" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="image_height_page_member">'.ucwords(MEMBERS_NAME_SINGULAR).' Image Height:</label>'."\n";
+		$z .= $i.'  <label for="image_height_page_member">'.ucwords(MEMBERS_NAME_SINGULAR).' '.T_('Image Height').':</label>'."\n";
 		$z .= $i.'  <input type="text" id="image_height_page_member" name="image_height_page_member" value="'.$mysql->result['image_height_page_member'].'" /><br class="left" />'."\n";
 		
-		$z .= $i."  <h3>Display</h3>\n";
-		$z .= $i.'  <strong>Note:</strong> These checked sections will appear on the home page:<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <h3>'.T_('Display')."</h3>\n";
+		$z .= $i.'  '.T_('<strong>Note:</strong> These checked sections will appear on the home page:').'<br class="left" /><br class="left" />'."\n";
 		$z .= $i.'  <label for="homepage_html_articles">'.ARTICLES_NAME.':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="homepage_html_articles" name="homepage_html_articles" value="1"'.set_checked($mysql->result['homepage_html_articles']).' /><br class="left" />'."\n";
 		$z .= $i.'  <label for="homepage_html_noticeboard">'.NOTICEBOARD_NAME.':</label>'."\n";
@@ -724,10 +724,10 @@ class site {
 		$z .= $i.'  <input type="checkbox" id="homepage_html_faq" name="homepage_html_faq" value="1"'.set_checked($mysql->result['homepage_html_faq']).' /><br class="left" />'."\n";
 		$z .= $i.'  <label for="homepage_html_links">'.LINKS_NAME.':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="homepage_html_links" name="homepage_html_links" value="1"'.set_checked($mysql->result['homepage_html_links']).' /><br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <strong>Note:</strong> These checked elements will be persistently displayed. To save processing time disable them here rather than removing them from the default template file.<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="persistant_html_search">Search:</label>'."\n";
+		$z .= $i.'  '.T_('<strong>Note:</strong> These checked elements will be persistently displayed. To save processing time disable them here rather than removing them from the default template file.').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="persistant_html_search">'.T_('Search').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="persistant_html_search" name="persistant_html_search" value="1"'.set_checked($mysql->result['persistant_html_search']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="persistant_html_login">Login:</label>'."\n";
+		$z .= $i.'  <label for="persistant_html_login">'.T_('Login').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="persistant_html_login" name="persistant_html_login" value="1"'.set_checked($mysql->result['persistant_html_login']).' /><br class="left" />'."\n";
 		$z .= $i.'  <label for="persistant_html_articles">'.ARTICLES_NAME.':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="persistant_html_articles" name="persistant_html_articles" value="1"'.set_checked($mysql->result['persistant_html_articles']).' /><br class="left" />'."\n";
@@ -739,16 +739,16 @@ class site {
 		$z .= $i.'  <input type="checkbox" id="persistant_html_faq" name="persistant_html_faq" value="1"'.set_checked($mysql->result['persistant_html_faq']).' /><br class="left" />'."\n";
 		$z .= $i.'  <label for="persistant_html_links">'.LINKS_NAME.':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="persistant_html_links" name="persistant_html_links" value="1"'.set_checked($mysql->result['persistant_html_links']).' /><br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <strong>Note:</strong> Check the following links to have them displayed. Use them in conjunction with the above settings (If Login HTML is persistent there is no need for a login link).<br class="left" /><br class="left" />'."\n";
-		$z .= $i.'  <label for="show_search_link">Search:</label>'."\n";
+		$z .= $i.'  '.T_('<strong>Note:</strong> Check the following links to have them displayed. Use them in conjunction with the above settings (If Login HTML is persistent there is no need for a login link).').'<br class="left" /><br class="left" />'."\n";
+		$z .= $i.'  <label for="show_search_link">'.T_('Search').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="show_search_link" name="show_search_link" value="1"'.set_checked($mysql->result['show_search_link']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="show_login_link">Login:</label>'."\n";
+		$z .= $i.'  <label for="show_login_link">'.T_('Login').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="show_login_link" name="show_login_link" value="1"'.set_checked($mysql->result['show_login_link']).' /><br class="left" />'."\n";
-		$z .= $i.'  <label for="show_help_link">Help:</label>'."\n";
+		$z .= $i.'  <label for="show_help_link">'.T_('Help').':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="show_help_link" name="show_help_link" value="1"'.set_checked($mysql->result['show_help_link']).' /><br class="left" /><br class="left" />'."\n";
 		
-		$z .= $i."  <h3>Style and Access Settings</h3>\n";
-		$z .= $i.'  <label for="enable_comments">Enable '.ucwords(COMMENT_NAME_PLURAL).':</label>'."\n";
+		$z .= $i.'  <h3>'.T_('Style and Access Settings')."</h3>\n";
+		$z .= $i.'  <label for="enable_comments">'.T_('Enable').' '.ucwords(COMMENT_NAME_PLURAL).':</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="enable_comments" name="enable_comments" value="1"'.set_checked($mysql->result['enable_comments']).' /><br class="left" />'."\n";
 		$z .= $i.'  <label for="show_comment_edited">Show '.strtolower(COMMENT_NAME_PLURAL).' as edited?:</label>'."\n";
 		$z .= $i.'  <input type="checkbox" id="show_comment_edited" name="show_comment_edited" value="1"'.set_checked($mysql->result['show_comment_edited']).' /><br class="left" />'."\n";
