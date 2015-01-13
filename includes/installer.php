@@ -439,10 +439,10 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->bui
 			}
 			echo '<div class="basic-grey">';
 			echo '<div class="progress">';
-			echo '<a class="stepdone"><span class="step step-inverse">1</span>Creating Database</a>';
-			echo '<a class="current"><span class="step step-inverse">2</span>Website settings</a>';
-			echo '<a><span class="step">3</span>Permission setup</a>';
-			echo '<a><span class="step">4</span>Admin account creation.</a>';
+			echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
+			echo '<a class="current"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
+			echo '<a><span class="step">3</span>'.T_('Admin account creation').'</a>';
+			echo '<a><span class="step">4</span>'.T_('Permission setup').'</a>';
 			echo '</div>';
 			echo '<form action="'.$_SERVER['REQUEST_URI'].'" method="post" >';
 			echo T_('<h1>Setup Form');
@@ -589,10 +589,10 @@ if ($second_mysql->build_array('SELECT * FROM accounts WHERE accountID = 1')) {
 	if (!isset($second_mysql->result[0]['accountID'])) {
 		echo '<div class="basic-grey">';
 		echo '<div class="progress">';
-		echo '<a class="stepdone"><span class="step step-inverse">1</span>Creating Database</a>';
-		echo '<a class="stepdone"><span class="step step-inverse">2</span>Website settings</a>';
-		echo '<a class="current"><span class="step step-inverse">3</span>Admin account creation</a>';
-		echo '<a><span class="step">4</span>Permission setup</a>';
+		echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
+		echo '<a class="stepdone"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
+		echo '<a class="current"><span class="step step-inverse">3</span>'.T_('Admin account creation').'</a>';
+		echo '<a><span class="step">4</span>'.T_('Permission setup').'</a>';
 		echo '</div>';
 		if ($message) {
 			echo '<strong><em>'.$message.'<br /><br /></em></strong>';
@@ -738,10 +738,10 @@ if (CURRENT_OS == 'UNIX') {
 			if (!$files_status) {
 				echo '<div class="basic-grey">';
 				echo '<div class="progress">';
-				echo '<a class="stepdone"><span class="step step-inverse">1</span>Creating Database</a>';
-				echo '<a class="stepdone"><span class="step step-inverse">2</span>Website settings</a>';
-				echo '<a class="stepdone"><span class="step step-inverse">3</span>Admin account creation</a>';
-				echo '<a class="current"><span class="step">4</span>Permission setup</a>';
+				echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
+				echo '<a class="stepdone"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
+				echo '<a class="stepdone"><span class="step step-inverse">3</span>'.T_('Admin account creation').'</a>';
+				echo '<a class="current"><span class="step">4</span>'.T_('Permission setup').'</a>';
 				echo '</div>';
 				echo T_('<strong>Checking Files and Folders....</strong><br />');
 				echo T_('<strong>Attention:</strong><br />');

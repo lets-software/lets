@@ -1495,16 +1495,10 @@ class member {
 		$z .= "$i <label for=\"member_neighborhood\">".$this->check_required($this->neighborhood_required,1)."Neighborhood:".$this->check_required($this->neighborhood_required,2)."</label>\n";
 		$z .= "$i <input type=\"text\" id=\"member_neighborhood\" name=\"member_neighborhood\" maxlength=\"32\" value=\"".htmlspecialchars($this->neighborhood)."\" /><br class=\"left\" />\n";
 		$z .= "$i <label for=\"member_home_area_code\">".$this->check_required($this->home_area_code_required,1)."Home phone number:".$this->check_required($this->home_area_code_required,2)."</label>\n";
-		$z .= "$i <input type=\"text\" id=\"member_home_area_code\" name=\"member_home_area_code\" maxlength=\"3\" value=\"".$this->home_area_code."\" />\n";
-		$z .= "$i <input type=\"text\" id=\"member_home_phone_number_prefix\" name=\"member_home_phone_number_prefix\" maxlength=\"3\" value=\"".$this->home_phone_number_prefix."\" />\n";
-		$z .= "$i <input type=\"text\" id=\"member_home_phone_number\" name=\"member_home_phone_number\" maxlength=\"4\" value=\"".$this->home_phone_number."\" /><br class=\"left\" />\n";
+		$z .= "$i <input type=\"text\" id=\"member_home_phone_number\" name=\"member_home_phone_number\" maxlength=\"14\" value=\"".$this->home_phone_number."\" /><br class=\"left\" />\n";
 		$z .= "$i <label for=\"member_work_area_code\">".$this->check_required($this->work_area_code_required,1)."Work phone number:".$this->check_required($this->work_area_code_required,2)."</label>\n";
-		$z .= "$i <input type=\"text\" id=\"member_work_area_code\" name=\"member_work_area_code\" maxlength=\"3\" value=\"".$this->work_area_code."\" />\n";
-		$z .= "$i <input type=\"text\" id=\"member_work_phone_number_prefix\" name=\"member_work_phone_number_prefix\" maxlength=\"3\" value=\"".$this->work_phone_number_prefix."\" />\n";
 		$z .= "$i <input type=\"text\" id=\"member_work_phone_number\" name=\"member_work_phone_number\" maxlength=\"4\" value=\"".$this->work_phone_number."\" /><br class=\"left\" />\n";
 		$z .= "$i <label for=\"member_mobile_area_code\">".$this->check_required($this->mobile_area_code_required,1)."Mobile phone number:".$this->check_required($this->mobile_area_code_required,2)."</label>\n";
-		$z .= "$i <input type=\"text\" id=\"member_mobile_area_code\" name=\"member_mobile_area_code\" maxlength=\"3\" value=\"".$this->mobile_area_code."\" />\n";
-		$z .= "$i <input type=\"text\" id=\"member_mobile_phone_number_prefix\" name=\"member_mobile_phone_number_prefix\" maxlength=\"3\" value=\"".$this->mobile_phone_number_prefix."\" />\n";
 		$z .= "$i <input type=\"text\" id=\"member_mobile_phone_number\" name=\"member_mobile_phone_number\" maxlength=\"4\" value=\"".$this->mobile_phone_number."\" /><br class=\"left\" />\n";
 		$z .= "$i <label for=\"member_email_address\">".$this->check_required($this->email_address_required,1)."Email Address:".$this->check_required($this->email_address_required,2)."</label>\n";
 		$z .= "$i <input type=\"text\" id=\"member_email_address\" name=\"member_email_address\" maxlength=\"100\" value=\"".$this->email_address."\" /><br class=\"left\" />\n";

@@ -59,8 +59,8 @@ function begin($i,$database_host,$database_name,$database_user,$database_passwor
 	// Logout -> remove cookie, no session
 	if (isset($_GET['logout'])) {
 		if ($_GET['logout'] == 1) {
-			if (!empty($_COOKIE['SID'])) {
-				setcookie('SID','',time()-42000,"/");
+			if (!empty($_COOKIE['PHPSESSID'])) {
+				setcookie('PHPSESSID','',time()-42000,"/");
 			}
 			$style->exists(1);
 			$GLOBALS['styles'] = $style->style_header();

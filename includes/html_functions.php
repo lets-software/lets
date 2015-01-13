@@ -22,7 +22,7 @@ function login_html($i,$use_uri = true) {
 		} else {
 			$z .= URL.MEMBERS_URL."/";
 		}
-		$z .= "\" method=\"post\" style=\"border: 1px solid red;\">\n";		
+		$z .= "\" method=\"post\">\n";		
 		$z .= "$i  <span for=\"login_id\" id=\"login_id_label\">".ucwords(MEMBERS_NAME_SINGULAR)." No:</span>\n";
 		$z .= "$i  <input type=\"text\" id=\"login_id\" name=\"login_id\" />\n";
 		$z .= "$i  <span for=\"login_password\" id=\"login_password_label\">Password:</span>\n";

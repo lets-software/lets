@@ -16,6 +16,13 @@ h2 {
 	font-weight: bold; }
 h3 {
 	font-weight: bold; }
+li.ok{
+	list-style-image: url('../images/iconset/essen/16x16/check.png');
+}
+li.error{
+	color: red;
+	list-style-image: url('../images/iconset/essen/16x16/busy.png');
+}
 #container {
 	width: 100%;
 	margin: 0;
@@ -27,18 +34,18 @@ h3 {
 	padding: 0; }
 #header_container {
 	width: 90%;
-	margin-left: 5%;
-	margin-right: 5%; }
+	margin-left: auto;
+	margin-right: auto; }
 #tab {
 	width: 90%;
 	padding-left: 10px;
 	min-height: 600px;
-	margin-left: 5%;
-	margin-right: 5%;  }
+	margin-left: auto;
+	margin-right: auto;  }
 #main_body {
 	padding-right: 10px; }
 #navigation {
-	width: 260px; 
+	width: 260px;
 	float: left; }
 #main {
 	position: relative;
@@ -48,8 +55,8 @@ h3 {
 	padding-left: 1em;
 	padding-right: 1em;
 	padding-top: 1em;
-	
-	
+
+
 	 }
 #page_blurb {
 	margin-bottom:10px; }
@@ -112,7 +119,7 @@ select{
     -moz-box-shadow: inset 0px 1px 4px #ECECEC;
     -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
 }
-	
+
 input {
 	border: 1px solid #DADADA;
     color: #888;
@@ -129,18 +136,18 @@ input {
     -moz-box-shadow: inset 0px 1px 4px #ECECEC;
     -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
 }
-	
+
 input#button {
 	position: relative;
-	display:inline; 
+	display:inline;
 	margin-left: 120px; }
 
 #search_box_sidebar {
 	height:20px; }
-	
+
 input.button {
 	position: relative;
-	display:inline; 
+	display:inline;
 	margin-left: 120px; }
 
 br {
@@ -163,7 +170,7 @@ br {
 #nav_bar li{
 	font-family: 'Helvetica', Arial, Verdana, sans serif;
 }
-	
+
 #nav_bar li a:link, #nav_bar li a:visited {
 	font-size: 15px;
 	display: block;
@@ -173,15 +180,15 @@ br {
 	text-decoration: none;
 	right:11px;
 }
-	
+
 li a:hover, #nav_bar li a:focus {
     background: url("../images/nav.png") no-repeat scroll -232px 3px transparent;
     color: #FFF;
     left: -6px;
     padding: 19px 18px 19px 23px;
     margin-top: -10px;}
-	
-.nav_link_selected {
+
+li a:hover.nav_link_selected, li a.nav_link_selected {
     background: url("../images/nav.png") no-repeat scroll 0px 3px transparent;
     color: #FFF;
     left: -6px;
@@ -191,66 +198,65 @@ li a:hover, #nav_bar li a:focus {
 
 div#login_html {
 	clear: right;
-	display: block; 
-	width: 300px; 
+	display: block;
+	width: 300px;
 	float: right;
 	padding-top: 8px;
 	padding-right: 5px;
 	padding-bottom: 5px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	font-size: 14px; 
+	margin: 10px 0px;
+	font-size: 14px;
 	/*color: #000000;*/
 	text-align: right;
-	border: solid thin #cccccc;  }
+	border: solid thin #cccccc;}
 
 #login_id {
-	display: block; 
+	display: block;
 	width: 130px;
 	height: 15px;
-	float: right; 
-	font-size: 14px; 
+	float: right;
+	font-size: 14px;
 	margin-top: 5px;
 	margin-bottom: 5px; }
 #login_id {
 	background-color: #dddddd; }
 #login_password {
-	display: block; 
+	display: block;
 	width: 130px;
 	height: 15px;
 	float: right; }
 #login_password {
-	background-color: #dddddd; }
+	background-color: #dddddd;}
 #login_button {
-	display: block; 
+	display: block;
 	width: 50px;
 	height: 22px;
 	float:right;
 	margin: 5px auto;
-	font-size: 15px; 
-	text-align: center; }
+	font-size: 15px;
+	text-align: center;}
 
 #login_id_label {
-	display: block; 
+	display: block;
 	width: 145px;
 	float: left;
 	margin-right: 5px;
 	margin-top: 5px;
 	padding-top: 2px;
-	font-size: 16px; 
+	font-size: 16px;
 	text-align: right; }
 #login_password_label {
-	display: block; 
+	display: block;
 	width: 145px;
 	float: left;
 	margin-right: 5px;
-	font-size: 16px; 
+	font-size: 16px;
 	text-align: right; }
 
 span#login_message {
 	/* For guests and members */
 	clear: right;
-	display: block; 
+	display: block;
 	width: 250px;
 	height: 13px;
 	float: right;

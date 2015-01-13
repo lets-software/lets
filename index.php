@@ -187,10 +187,10 @@ if (!mysql_select_db("$database_name")) {
 	echo '</head><body>';
 	echo '<div class="basic-grey">';
 	echo '<div class="progress">';
-	echo '<a class="current"><span class="step step-inverse">1</span>Creating Database</a>';
-	echo '<a><span class="step step-inverse">2</span>Website settings</a>';
-	echo '<a><span class="step">3</span>Permission setup</a>';
-	echo '<a><span class="step">4</span>Admin account creation.</a>';
+	echo '<a class="current"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
+	echo '<a><span class="step">2</span>'.T_('Website settings').'</a>';
+	echo '<a><span class="step">3</span>'.T_('Admin account creation').'</a>';
+	echo '<a><span class="step">4</span>'.T_('Permission setup').'</a>';
 	echo '</div>';
 	echo '<ul>';
     mysql_query("CREATE DATABASE $database_name");
@@ -203,7 +203,7 @@ if (!mysql_select_db("$database_name")) {
 	}else{
 		echo '    <li class="ok">'.T_("Database <strong>$database_name</strong> created successfully! => Please refresh the page... (F5)").'</li>';
 	}
-	echo '</ul><input type="button" value="'.T_('Next').'" onClick="history.go(0)"></div></body></html>';
+	echo '</ul><input type="button" value="'.T_('Next').'" onClick="location.href=\''.$_SERVER['HTTP_REFERER'].'\';"></div></body></html>';
     mysql_select_db("$database_name");
 }
 
