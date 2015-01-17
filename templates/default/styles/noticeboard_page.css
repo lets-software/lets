@@ -13,7 +13,7 @@ span.nb_page_stats {
 	font-style:italic; }
 div#nb_page_divider {
 	float: left;
-	clear:both;
+	/*clear:both;*/
 	width: 99%;
 	padding-top: 5px;
 	padding-bottom: 5px;

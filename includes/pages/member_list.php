@@ -124,24 +124,24 @@ if (!user_type() or !$_SESSION["member_validated"] or $_SESSION["member_suspende
 	$members_list .= query_output($members_list_indent,$order_by,$order_by_default,$direction,$direction_default,$start,$start_default,$limit,$limit_default,$query1,$query2,URL.MEMBER_LIST_URL.'/'.append_url());
 } else {
 	if (user_type() == 2) {
-		if ($member_search_type > 1) {
-			if ($member_search_type == 2) {
+		if ($member_search_type > 1) { //Normal and expired
+			if ($member_search_type == 2) { // Unvalidated
 				$query1 = "SELECT accountID".$image_field.", first_name, last_name, address, city, home_phone_number, email_address, url FROM accounts WHERE validated = 0 AND deleted = 0 AND ".$conditions."suspended = 0 ORDER BY ".$order_by." ".$direction." LIMIT ".$start.",".$limit;
 				$query2 = "SELECT accountID".$image_field.", first_name, last_name, address, city, home_phone_number, email_address, url FROM accounts WHERE validated = 0 AND deleted = 0 AND ".$conditions."suspended = 0";
 			}
-			if ($member_search_type == 3) {
+			if ($member_search_type == 3) { // Suspended
 				$query1 = "SELECT accountID".$image_field.", first_name, last_name".$balance_field.", address, city, home_phone_number, email_address, url FROM accounts WHERE validated = 1 AND ".$conditions."suspended = 1 AND deleted = 0 ORDER BY ".$order_by." ".$direction." LIMIT ".$start.",".$limit;
 				$query2 = "SELECT accountID".$image_field.", first_name, last_name".$balance_field.", address, city, home_phone_number, email_address, url FROM accounts WHERE validated = 1 AND ".$conditions."suspended = 1 AND deleted = 0";
 			}
-			if ($member_search_type == 4) {
+			if ($member_search_type == 4) { // Expiring within one month
 				$query1 = "SELECT accountID".$image_field.", first_name, last_name".$balance_field.", home_phone_number, email_address, expiry_day, expiry_month, expiry_year FROM accounts WHERE validated = 1 AND ".$conditions.'suspended = 0 AND ((expiry_year = '.$date['year'].' AND expiry_month = '.$date['month'].') OR (expiry_year = '.$date['year'].' AND expiry_month = '.($date['month'] + 1).' AND expiry_day < '.($date['day']).')) ORDER BY '.$order_by." ".$direction." LIMIT ".$start.",".$limit;
 				$query2 = "SELECT accountID".$image_field.", first_name, last_name".$balance_field.", home_phone_number, email_address, expiry_day, expiry_month, expiry_year FROM accounts WHERE validated = 1 AND ".$conditions.'suspended = 0 AND ((expiry_year = '.$date['year'].' AND expiry_month = '.$date['month'].') OR (expiry_year = '.$date['year'].' AND expiry_month = '.($date['month'] + 1).' AND expiry_day < '.($date['day']).'))';
 			}
-			if ($member_search_type == 5) {
+			if ($member_search_type == 5) { // Expired
 				$query1 = "SELECT accountID".$image_field.", first_name, last_name".$balance_field.", home_phone_number, email_address, expiry_day, expiry_month, expiry_year FROM accounts WHERE validated = 1 AND ".$conditions.'suspended = 0 AND ((expiry_year < '.$date['year'].') OR (expiry_year = '.$date['year'].' AND expiry_month < '.$date['month'].') OR (expiry_year = '.$date['year'].' AND expiry_month = '.$date['month'].' AND expiry_day < '.($date['day']).')) ORDER BY '.$order_by." ".$direction." LIMIT ".$start.",".$limit;
 				$query2 = "SELECT accountID".$image_field.", first_name, last_name".$balance_field.", home_phone_number, email_address, expiry_day, expiry_month, expiry_year FROM accounts WHERE validated = 1 AND ".$conditions.'suspended = 0 AND ((expiry_year < '.$date['year'].') OR (expiry_year = '.$date['year'].' AND expiry_month < '.$date['month'].') OR (expiry_year = '.$date['year'].' AND expiry_month = '.$date['month'].' AND expiry_day < '.($date['day']).'))';
 			}
-			if ($member_search_type == 6) {
+			if ($member_search_type == 6) { // Deleted
 				$query1 = "SELECT accountID".$image_field.", first_name, last_name".$balance_field.", address, city, home_phone_number, email_address, url FROM accounts WHERE validated = 1 AND ".$conditions."deleted = 1 ORDER BY ".$order_by." ".$direction." LIMIT ".$start.",".$limit;
 				$query2 = "SELECT accountID".$image_field.", first_name, last_name".$balance_field.", address, city, home_phone_number, email_address, url FROM accounts WHERE validated = 1 AND ".$conditions."deleted = 1";
 			}
@@ -155,7 +155,6 @@ if (!user_type() or !$_SESSION["member_validated"] or $_SESSION["member_suspende
 	}
 	$members_search_form = $user->search_form($members_search_form_indent,ucwords($member_search_term),$member_search_type);
 	$members_list = query_output($members_list_indent,$order_by,$order_by_default,$direction,$direction_default,$start,$start_default,$limit,$limit_default,$query1,$query2,URL.MEMBER_LIST_URL.'/'.append_url(),$member_search_term,$member_search_type);
-
-	
 }
+//if (!isset($members_list_form)){ $members_list = ""; } // Set $members_list to nothing if not set to prevent error
 ?>
