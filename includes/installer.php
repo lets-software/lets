@@ -25,772 +25,769 @@ $files_status = true;
 
 
 if (isset($_POST['submit'])) {
-	$post_post = remove_slashes($_POST);
-	$okToUpdateDb = 0;													// Stay at 0 if there is no error, pas it a 1 in case of any error
-	if ($post_post['submit'] == 'Enter Config') {
-			$message = '<ul>';
-			// strpos(shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== false
-			if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li class="error">'.T_('Mod_Rewrite MUST be enable. Current status = Disable').'</li>'; } // We don't prevent you to keep going as this test will fail if you don't run Apache
-			//TODO:  Generate this number randomly so user don't have to type one them selves
-			// As I think most users will not know why this string is used for. 
-			if (!$post_post['site_key']) {$message .= '<li class="error">'.T_("Please enter a Encryption Key.").'</li>'; $okToUpdateDb = 1;}
-			if (!$post_post['site_name']) {$message .= '<li class="error">'.T_("Please enter a Site Name.").'</li>'; $okToUpdateDb = 1;}
-			if (!$post_post['url']) {
-				$message .= '<li class="error">'.T_('Please enter a URL.').'</li>';  $okToUpdateDb = 1;
-			}elseif (!filter_var($post_post['url'], FILTER_VALIDATE_URL)){
-				$message .= '<li class="error">'.T_('Please enter a correct URL.').'</li>';  $okToUpdateDb = 1;
-			}
-			if (!$post_post['path']) {$message .= '<li class="error">'.T_('Please enter the path').'</li>'; $okToUpdateDb = 1;}
-				// filter_var compatible only with PHP version 5.2.0 or above
-			if (!filter_var($post_post['admin_email'], FILTER_VALIDATE_EMAIL))  {$message .= '<li class="error">'.T_('Please enter Admin email.').'</li>'; $okToUpdateDb = 1;}
-			if (!filter_var($post_post['validation_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li class="error">'.T_('Please enter Validation email.').'</li>'; $okToUpdateDb = 1;}
-			if (!filter_var($post_post['technical_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li class="error">'.T_('Please enter Technical email.').'</li>'; $okToUpdateDb = 1;}
-			if (!$post_post['location']) {$message .= '<li class="error">'.T_('Please enter your location.').'</li>'; $okToUpdateDb = 1;}
-			$message .= '</ul>';
-			$submitted_config = 1;
-			if ($okToUpdateDb == 0) {
-				$post_post['path'] = preg_match('/\/$/', $post_post['path'])? $post_post['path'] : preg_replace('/$/', '/', $post_post['path']);
-				if ($mysql->query("UPDATE config SET
-				site_name = '".mysql_escape_string($post_post['site_name'])."',
-				site_key = '".mysql_escape_string($post_post['site_key'])."',
-				url = '".mysql_escape_string($post_post['url'])."',
-				path = '".mysql_escape_string($post_post['path'])."',
-				admin_email = '".mysql_escape_string($post_post['admin_email'])."',
-				validation_email = '".mysql_escape_string($post_post['validation_email'])."',
-				technical_email = '".mysql_escape_string($post_post['technical_email'])."',
-				update_email = '".mysql_escape_string($post_post['admin_email'])."',
-				email_from_name = '".mysql_escape_string($post_post['site_name'])."',
-				location = '".mysql_escape_string($post_post['location'])."'")) {
-					$message .= '<ul class="basic-grey"><li class="ok">'.T_('Configuration Complete!').'</li>';
-				}else {
-					echo '<li class="error">'.T_('Database update fail').'</li>';
-				}
-			}
-		}
-}	
-	if (isset($post_post['submit']) && $post_post['submit'] == 'Create #1 Account') {
-		if (!$post_post['first_name'] or
-			!$post_post['last_name'] or
-			!$post_post['password'] or
-			!$post_post['second_password']) {
-				$message .= '<li class="error">'.T_('You did not fill out all the fields!!!').'</li>';
-		} elseif ($post_post['password'] != $post_post['second_password']) {
-			$message .= '<li class="error">'.T_('Passwords did not match, please try again.').'</li>';
-		} else {
-			if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) > 0 && $mysql->result('SELECT site_key FROM config')) {
-				$site_key = $mysql->result['site_key'];
-				$password = crypt(md5($post_post['second_password']),md5($site_key));
-				if ($mysql->query("INSERT INTO accounts SET
-					accountID = '1',
-					first_name = '".mysql_escape_string($post_post['first_name'])."',
-					last_name = '".mysql_escape_string($post_post['last_name'])."',
-					type = '2',
-					validated = '1',
-					created_day = '".$date['day']."',
-					created_month = '".$date['month']."',
-					created_year = '".$date['year']."',
-					expiry_day = '1',
-					expiry_month = '1',
-					expiry_year = '3000',
-					password = '".$password."'")) {
-						$message .= '<li>'.T_('Account Creation Complete!').'</li>';
-				}
-			}
-		}
-	}
-	
-	if (isset($post_post['submit']) && $post_post['submit'] == 'Set Permissions') {
-		if (!$post_post['ftp_host'] or !$post_post['ftp_path'] or !$post_post['ftp_login'] or !$post_post['ftp_password'] or !$post_post['second_ftp_password']) {
-			$message .= '<li class="error">'.T_("You did not fill out all the ftp fields!!!").'</li>';
-		} elseif ($post_post['ftp_password'] != $post_post['second_ftp_password']) {
-			$message .= '<li class="error">'.T_("Passwords did not match, please try again.").'</li>';
-		} else {
-			if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) > 0 && $mysql->result('SELECT * FROM config')) {
-				$site_key = $mysql->result['site_key'];
-				$path = $mysql->result['path'];
-				$site_name = str_replace(' ','_',$mysql->result['site_name']);
-				$password = md5_encrypt($post_post['second_ftp_password'],$site_key);
-				if ($mysql->query("UPDATE config SET
-					ftp_host = '".mysql_escape_string($post_post['ftp_host'])."',
-					ftp_path = '".mysql_escape_string($post_post['ftp_path'])."',
-					ftp_login = '".mysql_escape_string($post_post['ftp_login'])."',
-					ftp_password = '".mysql_escape_string($password)."'")) {
-						$message .= T_("FTP information set!").'<br /><br />';
-						$message .= '----------------------------------<br /><br />';
-						$message .= T_("Attempting to connect to FTP server...");
-						
-						$conn_id = ftp_connect($post_post['ftp_host']); 
-						$login_result = ftp_login($conn_id,$post_post['ftp_login'],$post_post['second_ftp_password']); 
-						if ((!$conn_id) || (!$login_result)) { 
-       						$message .= T_('<strong>FTP connection has failed</strong><br />Please check and re-enter details.<br />If this method continues to fail you will have to set permissions manually.');
-							exit; 
-						} else {
-							$message .= T_('Done!').'<br />';
-							
-							if (ftp_chdir($conn_id,$post_post['ftp_path'])) {
-								$message .= T_('Moved into directory: ').ftp_pwd($conn_id).'<br />';
-								
-								$dir_contents = ftp_rawlist($conn_id, ".");
-								$tmp_var = '';
-								foreach ($dir_contents as $item) {
-									$tmp_var .= $item.'<br />';
-								}
-								$files_exist = true;
-								if (!strpos(' '.$tmp_var,'.htaccess')) {
-									$files_exist = false;
-									$message .= '<li class="error"><strong>.htaccess</strong> '.T_("NOT FOUIND!").'</li><br />';
-								}
-								if (!strpos(' '.$tmp_var,'images')) {
-									$files_exist = false;
-									$message .= '<li class="error"><strong>images</strong> '.T_("NOT FOUIND!").'</li><br />';
-								}
-								if (!strpos(' '.$tmp_var,'includes')) {
-									$files_exist = false;
-									$message .= '<li class="error"><strong>includes</strong> '.T_("NOT FOUIND!").'</li><br />';
-								}
-								if (!strpos(' '.$tmp_var,'templates')) {
-									$files_exist = false;
-									$message .= '<li class="error"><strong>templates</strong> '.T_("NOT FOUIND!").'</li><br />';
-								}
-								if (!strpos(' '.$tmp_var,'logs')) {
-									$files_exist = false;
-									$message .= '<li class="error"><strong>logs</strong> '.T_("NOT FOUIND!").'</li><br />';
-								}
-								if (!strpos(' '.$tmp_var,'index.php')) {
-									$files_exist = false;
-									$message .= '<li class="error"><strong>index.php</strong> '.T_("NOT FOUIND!").'</li><br />';
-								}
-								
-								if (!$files_exist) {
-									$message .= '<li><strong>'.T_("FTP root is incorrect").'</strong></li><br />';
-								} else {
-									$mode = 777; 
-									$np = '0'.$mode;
-									if (ftp_chmod($conn_id, eval("return({$np});"), '.htaccess')){
-										$message .= '<li class="ok"><strong>.htaccess</strong> '.T_("Permissions Set!").'</li><br />';
-									} else {
-										$message .= '<li class="error"><strong>.htaccess</strong> '.T_("Permissions Failed!").'</li><br />';
-									}
-									if (ftp_chmod($conn_id, eval("return({$np});"), 'images')){
-										$message .= '<li class="ok"><strong>images</strong> '.T_("Permissions Set!").'</li><br />';
-									} else {
-										$message .= '<li class="error"><strong>images</strong> '.T_("Permissions Failed!").'</li><br />';
-									}
-									if (ftp_chmod($conn_id, eval("return({$np});"), 'logs')){
-										$message .= '<li class="ok"><strong>logs</strong> '.T_("Permissions Set!").'</li><br />';
-									} else {
-										$message .= '<li class="error"><strong>logs</strong> '.T_("Permissions Failed!").'</li><br />';
-									}
-									
-									if (ftp_chdir($conn_id,'logs')) {
-										$mode = 666; 
-										$np = '0'.$mode;
-										$message .= T_('Moved into directory: ').ftp_pwd($conn_id).'<br />';
-										$dir_contents = ftp_rawlist($conn_id, ".");
-										$tmp_var = '';
-										foreach ($dir_contents as $item) {
-											$tmp_var .= $item.'<br />';
-										}
-										
-										$upload = true;
-										if (!strpos(' '.$tmp_var,$site_name.'.log')) {
-											$message .= '<strong>'.$site_name.'.log</strong> '.T_('not found...');
-											if (ftp_put($conn_id, $site_name.'.log', $path.'.htaccess', FTP_ASCII)) {
-												$message .= ' Uploaded '.$site_name.'.log!<br />';
-												if (ftp_chmod($conn_id, eval("return({$np});"), $site_name.'.log')){
-													$message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('Permissions Set!').'</li><br />';
-												} else {
-													$message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('Permissions Failed!').'</li><br />';
-												}												
-											} else {
-												$message .= ' <li class="error">'.T_('Failed to upload:').' <strong>'.$site_name.'.log</strong></li><br />';
-											}											
-										}
+    $post_post = remove_slashes($_POST);
+    $okToUpdateDb = 0;                                                    // Stay at 0 if there is no error, pas it a 1 in case of any error
+    if ($post_post['submit'] == 'Enter Config') {
+            $message = '<ul>';
+            // strpos(shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== false
+            if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li class="error">'.T_('Mod_Rewrite MUST be enable. Current status = Disable').'</li>'; } // We don't prevent you to keep going as this test will fail if you don't run Apache
+            //TODO:  Generate this number randomly so user don't have to type one them selves
+            // As I think most users will not know why this string is used for. 
+            if (!$post_post['site_key']) {$message .= '<li class="error">'.T_("Please enter a Encryption Key.").'</li>'; $okToUpdateDb = 1;}
+            if (!$post_post['site_name']) {$message .= '<li class="error">'.T_("Please enter a Site Name.").'</li>'; $okToUpdateDb = 1;}
+            if (!$post_post['url']) {
+                $message .= '<li class="error">'.T_('Please enter a URL.').'</li>';  $okToUpdateDb = 1;
+            }elseif (!filter_var($post_post['url'], FILTER_VALIDATE_URL)){
+                $message .= '<li class="error">'.T_('Please enter a correct URL.').'</li>';  $okToUpdateDb = 1;
+            }
+            if (!$post_post['path']) {$message .= '<li class="error">'.T_('Please enter the path').'</li>'; $okToUpdateDb = 1;}
+                // filter_var compatible only with PHP version 5.2.0 or above
+            if (!filter_var($post_post['admin_email'], FILTER_VALIDATE_EMAIL))  {$message .= '<li class="error">'.T_('Please enter Admin email.').'</li>'; $okToUpdateDb = 1;}
+            if (!filter_var($post_post['validation_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li class="error">'.T_('Please enter Validation email.').'</li>'; $okToUpdateDb = 1;}
+            if (!filter_var($post_post['technical_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li class="error">'.T_('Please enter Technical email.').'</li>'; $okToUpdateDb = 1;}
+            if (!$post_post['location']) {$message .= '<li class="error">'.T_('Please enter your location.').'</li>'; $okToUpdateDb = 1;}
+            $message .= '</ul>';
+            $submitted_config = 1;
+            if ($okToUpdateDb == 0) {
+                $post_post['path'] = preg_match('/\/$/', $post_post['path'])? $post_post['path'] : preg_replace('/$/', '/', $post_post['path']);
+                if ($mysql->query("UPDATE config SET
+                site_name = '".mysql_escape_string($post_post['site_name'])."',
+                site_key = '".mysql_escape_string($post_post['site_key'])."',
+                url = '".mysql_escape_string($post_post['url'])."',
+                path = '".mysql_escape_string($post_post['path'])."',
+                admin_email = '".mysql_escape_string($post_post['admin_email'])."',
+                validation_email = '".mysql_escape_string($post_post['validation_email'])."',
+                technical_email = '".mysql_escape_string($post_post['technical_email'])."',
+                update_email = '".mysql_escape_string($post_post['admin_email'])."',
+                email_from_name = '".mysql_escape_string($post_post['site_name'])."',
+                location = '".mysql_escape_string($post_post['location'])."'")) {
+                    $message .= '<ul class="basic-grey"><li class="ok">'.T_('Configuration Complete!').'</li>';
+                }else {
+                    echo '<li class="error">'.T_('Database update fail').'</li>';
+                }
+            }
+        }
+}    
+    if (isset($post_post['submit']) && $post_post['submit'] == 'Create #1 Account') {
+        if (!$post_post['first_name'] or
+            !$post_post['last_name'] or
+            !$post_post['password'] or
+            !$post_post['second_password']) {
+                $message .= '<li class="error">'.T_('You did not fill out all the fields!!!').'</li>';
+        } elseif ($post_post['password'] != $post_post['second_password']) {
+            $message .= '<li class="error">'.T_('Passwords did not match, please try again.').'</li>';
+        } else {
+            if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) > 0 && $mysql->result('SELECT site_key FROM config')) {
+                $site_key = $mysql->result['site_key'];
+                $password = crypt(md5($post_post['second_password']),md5($site_key));
+                if ($mysql->query("INSERT INTO accounts SET
+                    accountID = '1',
+                    first_name = '".mysql_escape_string($post_post['first_name'])."',
+                    last_name = '".mysql_escape_string($post_post['last_name'])."',
+                    type = '2',
+                    validated = '1',
+                    created_day = '".$date['day']."',
+                    created_month = '".$date['month']."',
+                    created_year = '".$date['year']."',
+                    expiry_day = '1',
+                    expiry_month = '1',
+                    expiry_year = '3000',
+                    password = '".$password."'")) {
+                        $message .= '<li>'.T_('Account Creation Complete!').'</li>';
+                }
+            }
+        }
+    }
+    
+    if (isset($post_post['submit']) && $post_post['submit'] == 'Set Permissions') {
+        if (!$post_post['ftp_host'] or !$post_post['ftp_path'] or !$post_post['ftp_login'] or !$post_post['ftp_password'] or !$post_post['second_ftp_password']) {
+            $message .= '<li class="error">'.T_("You did not fill out all the ftp fields!!!").'</li>';
+        } elseif ($post_post['ftp_password'] != $post_post['second_ftp_password']) {
+            $message .= '<li class="error">'.T_("Passwords did not match, please try again.").'</li>';
+        } else {
+            if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) > 0 && $mysql->result('SELECT * FROM config')) {
+                $site_key = $mysql->result['site_key'];
+                $path = $mysql->result['path'];
+                $site_name = str_replace(' ','_',$mysql->result['site_name']);
+                $password = md5_encrypt($post_post['second_ftp_password'],$site_key);
+                if ($mysql->query("UPDATE config SET
+                    ftp_host = '".mysql_escape_string($post_post['ftp_host'])."',
+                    ftp_path = '".mysql_escape_string($post_post['ftp_path'])."',
+                    ftp_login = '".mysql_escape_string($post_post['ftp_login'])."',
+                    ftp_password = '".mysql_escape_string($password)."'")) {
+                        $message .= T_("FTP information set!").'<br /><br />';
+                        $message .= '----------------------------------<br /><br />';
+                        $message .= T_("Attempting to connect to FTP server...");
+                        
+                        $conn_id = ftp_connect($post_post['ftp_host']); 
+                        $login_result = ftp_login($conn_id,$post_post['ftp_login'],$post_post['second_ftp_password']); 
+                        if ((!$conn_id) || (!$login_result)) { 
+                               $message .= T_('<strong>FTP connection has failed</strong><br />Please check and re-enter details.<br />If this method continues to fail you will have to set permissions manually.');
+                            exit; 
+                        } else {
+                            $message .= T_('Done!').'<br />';
+                            
+                            if (ftp_chdir($conn_id,$post_post['ftp_path'])) {
+                                $message .= T_('Moved into directory: ').ftp_pwd($conn_id).'<br />';
+                                
+                                $dir_contents = ftp_rawlist($conn_id, ".");
+                                $tmp_var = '';
+                                foreach ($dir_contents as $item) {
+                                    $tmp_var .= $item.'<br />';
+                                }
+                                $files_exist = true;
+                                if (!strpos(' '.$tmp_var,'.htaccess')) {
+                                    $files_exist = false;
+                                    $message .= '<li class="error"><strong>.htaccess</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                }
+                                if (!strpos(' '.$tmp_var,'images')) {
+                                    $files_exist = false;
+                                    $message .= '<li class="error"><strong>images</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                }
+                                if (!strpos(' '.$tmp_var,'includes')) {
+                                    $files_exist = false;
+                                    $message .= '<li class="error"><strong>includes</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                }
+                                if (!strpos(' '.$tmp_var,'templates')) {
+                                    $files_exist = false;
+                                    $message .= '<li class="error"><strong>templates</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                }
+                                if (!strpos(' '.$tmp_var,'logs')) {
+                                    $files_exist = false;
+                                    $message .= '<li class="error"><strong>logs</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                }
+                                if (!strpos(' '.$tmp_var,'index.php')) {
+                                    $files_exist = false;
+                                    $message .= '<li class="error"><strong>index.php</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                }
+                                
+                                if (!$files_exist) {
+                                    $message .= '<li><strong>'.T_("FTP root is incorrect").'</strong></li><br />';
+                                } else {
+                                    $mode = 777; 
+                                    $np = '0'.$mode;
+                                    if (ftp_chmod($conn_id, eval("return({$np});"), '.htaccess')){
+                                        $message .= '<li class="ok"><strong>.htaccess</strong> '.T_("Permissions Set!").'</li><br />';
+                                    } else {
+                                        $message .= '<li class="error"><strong>.htaccess</strong> '.T_("Permissions Failed!").'</li><br />';
+                                    }
+                                    if (ftp_chmod($conn_id, eval("return({$np});"), 'images')){
+                                        $message .= '<li class="ok"><strong>images</strong> '.T_("Permissions Set!").'</li><br />';
+                                    } else {
+                                        $message .= '<li class="error"><strong>images</strong> '.T_("Permissions Failed!").'</li><br />';
+                                    }
+                                    if (ftp_chmod($conn_id, eval("return({$np});"), 'logs')){
+                                        $message .= '<li class="ok"><strong>logs</strong> '.T_("Permissions Set!").'</li><br />';
+                                    } else {
+                                        $message .= '<li class="error"><strong>logs</strong> '.T_("Permissions Failed!").'</li><br />';
+                                    }
+                                    
+                                    if (ftp_chdir($conn_id,'logs')) {
+                                        $mode = 666; 
+                                        $np = '0'.$mode;
+                                        $message .= T_('Moved into directory: ').ftp_pwd($conn_id).'<br />';
+                                        $dir_contents = ftp_rawlist($conn_id, ".");
+                                        $tmp_var = '';
+                                        foreach ($dir_contents as $item) {
+                                            $tmp_var .= $item.'<br />';
+                                        }
+                                        
+                                        $upload = true;
+                                        if (!strpos(' '.$tmp_var,$site_name.'.log')) {
+                                            $message .= '<strong>'.$site_name.'.log</strong> '.T_('not found...');
+                                            if (ftp_put($conn_id, $site_name.'.log', $path.'.htaccess', FTP_ASCII)) {
+                                                $message .= ' Uploaded '.$site_name.'.log!<br />';
+                                                if (ftp_chmod($conn_id, eval("return({$np});"), $site_name.'.log')){
+                                                    $message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('Permissions Set!').'</li><br />';
+                                                } else {
+                                                    $message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('Permissions Failed!').'</li><br />';
+                                                }                                                
+                                            } else {
+                                                $message .= ' <li class="error">'.T_('Failed to upload:').' <strong>'.$site_name.'.log</strong></li><br />';
+                                            }                                            
+                                        }
 
-										if (!strpos(' '.$tmp_var,$site_name.'_Errors.log')) {
-											$message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('not found...').'</li>';
-											if (ftp_put($conn_id, $site_name.'_Errors.log', $path.'.htaccess', FTP_ASCII)) {
-												$message .= ' <li class="ok">Uploaded <strong>'.$site_name.'_Errors.log</strong>!</li><br />';
-												if (ftp_chmod($conn_id, eval("return({$np});"), $site_name.'_Errors.log')){
-													$message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('Permissions Set!').'</li><br />';
-												} else {
-													$message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('Permissions Failed!').'</li><br />';
-												}												
-											} else {
-												$message .= ' <li class="error">'.T_('Failed to upload:').' <strong>'.$site_name.'_Errors.log</strong></li><br />';
-											}	
-										}
-									}
-								}
-							} else {
-								$message .= '<li class="error">'.T_('Cannot find FTP root please check settings').'</li><br />';
-							}
-							$message .= '<br />----------------------------------<br />';
-							ftp_close($conn_id); 
+                                        if (!strpos(' '.$tmp_var,$site_name.'_Errors.log')) {
+                                            $message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('not found...').'</li>';
+                                            if (ftp_put($conn_id, $site_name.'_Errors.log', $path.'.htaccess', FTP_ASCII)) {
+                                                $message .= ' <li class="ok">Uploaded <strong>'.$site_name.'_Errors.log</strong>!</li><br />';
+                                                if (ftp_chmod($conn_id, eval("return({$np});"), $site_name.'_Errors.log')){
+                                                    $message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('Permissions Set!').'</li><br />';
+                                                } else {
+                                                    $message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('Permissions Failed!').'</li><br />';
+                                                }                                                
+                                            } else {
+                                                $message .= ' <li class="error">'.T_('Failed to upload:').' <strong>'.$site_name.'_Errors.log</strong></li><br />';
+                                            }    
+                                        }
+                                    }
+                                }
+                            } else {
+                                $message .= '<li class="error">'.T_('Cannot find FTP root please check settings').'</li><br />';
+                            }
+                            $message .= '<br />----------------------------------<br />';
+                            ftp_close($conn_id); 
 
-						}
-				} else {
-					echo $mysql->error;
-				}
-			} else {
-				echo $mysql->error;
-			}
-		}		
-	}	
+                        }
+                } else {
+                    echo $mysql->error;
+                }
+            } else {
+                echo $mysql->error;
+            }
+        }        
+    }    
 
 
 if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->build_array('SELECT * FROM config')) {
-	if (strpos($mysql->error,T_('config\' doesn\'t exist'))) {
-		if ($mysql->query("
-			CREATE TABLE IF NOT EXISTS `config` (
-			  `ID` int(1) NOT NULL default '0',
-			  `enable_noticeboard` int(11) default '1',
-			  `enable_articles` int(11) default '1',
-			  `enable_events` int(11) default '1',
-			  `enable_faq` int(11) default '1',
-			  `enable_links` int(11) default '1',
-			  `enable_member_list` int(11) default '1',
-			  `site_key` varchar(255) NOT NULL default '',
-			  `path` varchar(255) NOT NULL default '',
-			  `url` varchar(255) NOT NULL default '',
-			  `default_site_language` VARCHAR( 3 ) NOT NULL default '',
-			  `enable_url_session_ids` varchar(255) NOT NULL default '0',
-			  `admin_email` varchar(255) NOT NULL default '',
-			  `site_name` varchar(255) NOT NULL default '',
-			  `register_terms` longtext NOT NULL,
-			  `visitor_message` longtext NOT NULL,
-			  `member_message` longtext NOT NULL,
-			  `new_member_message` longtext,
-			  `require_transaction_description` int(1) NOT NULL default '1',
-			  `setup_fee` decimal(7,2) default '0.00',
-			  `enable_transaction_service_fee` int(1) NOT NULL default '0',
-			  `transaction_service_fee_seller` decimal(7,2) NOT NULL default '0.00',
-			  `transaction_service_fee_buyer` decimal(7,2) NOT NULL default '0.00',
-			  `currency_name` varchar(255) NOT NULL default '',
-			  `enable_auctions` int(1) default '1',
-			  `freeze_auction_after_bid` int(1) default '1',
-			  `prevent_edit_after_transaction` int(1) default '1',
-			  `prevent_deletion_after_transaction` int(1) default '1',
-			  `lock_buy_now_price` int(1) default '0',
-			  `enable_images` int(1) default '1',
-			  `enable_instant_buy` int(1) default '1',
-			  `hour_offset` int(3) default '0',
-			  `image_width_thumb_noticeboard` int(4) NOT NULL default '120',
-			  `image_height_thumb_noticeboard` int(4) NOT NULL default '200',
-			  `image_width_page_noticeboard` int(4) NOT NULL default '400',
-			  `image_height_page_noticeboard` int(4) NOT NULL default '600',
-			  `image_width_thumb_article` int(4) NOT NULL default '150',
-			  `image_height_thumb_article` int(4) NOT NULL default '250',
-			  `image_width_page_article` int(4) NOT NULL default '350',
-			  `image_height_page_article` int(4) NOT NULL default '500',
-			  `image_width_thumb_member` int(4) NOT NULL default '80',
-			  `image_height_thumb_member` int(4) NOT NULL default '100',
-			  `image_width_page_member` int(4) NOT NULL default '400',
-			  `image_height_page_member` int(4) NOT NULL default '600',
-			  `image_quality` int(3) NOT NULL default '80',
-			  `enable_comments` int(1) default '1',
-			  `require_comment_title` int(1) default '1',
-			  `require_comment_body` int(1) default '1',
-			  `location` varchar(255) NOT NULL default '0',
-			  `validate_members` int(1) default '1',
-			  `validate_content` int(1) default '1',
-			  `validate_articles` int(1) default '0',
-			  `validate_events` int(1) default '0',
-			  `validate_faq` int(1) default '0',
-			  `validate_links` int(1) default '0',
-			  `enable_rss` int(1) default '0',
-			  `validate_xhtml` int(1) default '0',
-			  `show_comment_edited` int(1) default '1',
-			  `allow_comment_deletion` int(1) default '0',
-			  `event_description_required` int(1) default '1',
-			  `twelve_hour_clock` int(1) default '1',
-			  `event_location_required` int(1) default '1',
-			  `show_faq_details` int(1) default '0',
-			  `show_link_details` int(1) default '1',
-			  `require_link_description` int(1) default '1',
-			  `require_link_title` int(1) default '1',
-			  `require_link_url` int(1) default '0',
-			  `negative_balance_limit` decimal(6,2) default '10000.00',
-			  `comment_member_images` int(1) default '1',
-			  `transaction_name_singular` varchar(50) NOT NULL default 'trade',
-			  `transaction_name_plural` varchar(50) NOT NULL default 'trades',
-			  `comment_name` varchar(255) NOT NULL default 'Messages',
-			  `comment_name_plural` varchar(255) NOT NULL default 'comments',
-			  `comment_name_singular` varchar(255) NOT NULL default 'comment',
-			  `validation_email` varchar(255) NOT NULL default '',
-			  `technical_email` varchar(255) NOT NULL default '',
-			  `currency_name_singular` varchar(255) NOT NULL default 'green dollar',
-			  `canadian` int(1) default '0',
-			  `template` varchar(255) NOT NULL default 'default',
-			  `dump_balance_accountID` int(9) default '1',
-			  `allow_view_other_transaction_history` int(1) default '1',
-			  `default_expiry_message` varchar(255) default NULL,
-			  `suspend_on_expiry` int(1) default '0',
-			  `time_out` int(4) default '360',
-			  `restrict_updown_links` int(1) default '0',
-			  `member_expiry_hidden` int(11) default '0',
-			  `bulk_trading_confirm` int(1) default '1',
-			  `default_bulk_transaction_descrip` varchar(255) default 'Bulk Entry',
-			  `article_title_required` int(11) default '1',
-			  `article_blurb_required` int(11) default '1',
-			  `article_body_required` int(11) default '1',
-			  `image_title_required` int(11) default '0',
-			  `image_blurb_required` int(11) default '0',
-			  `image_description_required` int(11) default '0',
-			  `member_address_required` int(1) default '0',
-			  `member_city_required` int(1) default '0',
-			  `member_province_required` int(1) default '0',
-			  `member_postal_code_required` int(1) default '0',
-			  `member_neighborhood_required` int(1) default '1',
-			  `member_home_phone_number_required` int(1) default '0',
-			  `member_work_phone_number_required` int(1) default '0',
-			  `member_mobile_phone_number_required` int(1) default '0',
-			  `member_email_address_required` int(1) default '0',
-			  `member_member_profile_required` int(1) default '1',
-			  `member_url_required` int(1) default '0',
-			  `noticeboard_title_required` int(1) default '1',
-			  `noticeboard_blurb_required` int(1) default '1',
-			  `noticeboard_description_required` int(1) default '1',
-			  `noticeboard_amount_required` int(1) default '0',
-			  `allow_member_admin_categories` int(1) default '1',
-			  `enable_guest_comments` int(1) default '1',
-			  `enable_member_edit_colours` int(1) default '0',
-			  `enable_log` int(1) default '1',
-			  `enable_error_log` int(1) default '1',
-			  `enable_email` int(1) default '1',
-			  `use_smtp` int(1) default '0',
-			  `email_smtp_host` varchar(255) default NULL,
-			  `email_smtp_host_backup` varchar(255) default NULL,
-			  `smtp_user_name` varchar(255) default NULL,
-			  `smtp_password` varchar(255) default NULL,
-			  `update_email` varchar(255) default NULL,
-			  `email_from_name` varchar(255) default NULL,
-			  `email_technical_errors` int(1) default '1',
-			  `email_validation_submissions` int(1) default '1',
-			  `enable_email_contact` int(1) default '1',
-			  `allow_duplicate_emails` int(1) default '1',
-			  `log_additions` int(1) default '1',
-			  `log_edits` int(1) default '1',
-			  `log_deletions` int(1) default '1',
-			  `log_trimmed_error` int(1) default '1',
-			  `log_noticeboard` int(1) default '1',
-			  `log_transactions` int(1) default '1',
-			  `log_articles` int(1) default '1',
-			  `log_events` int(1) default '1',
-			  `log_faq` int(1) default '1',
-			  `log_links` int(1) default '1',
-			  `log_comments` int(1) default '1',
-			  `log_post_dump` int(1) default '1',
-			  `homepage_html_articles` int(1) default '1',
-			  `homepage_html_noticeboard` int(1) default '0',
-			  `homepage_html_events` int(1) default '1',
-			  `homepage_html_faq` int(1) default '0',
-			  `homepage_html_links` int(1) default '0',
-			  `persistant_html_search` int(1) default '1',
-			  `persistant_html_login` int(1) default '1',
-			  `persistant_html_noticeboard` int(1) default '1',
-			  `persistant_html_articles` int(1) default '1',
- 			  `persistant_html_events` int(1) default '1',
-			  `persistant_html_faq` int(1) default '0',
-			  `persistant_html_links` int(1) default '0',
-			  `show_search_link` int(1) default '0',
-			  `show_login_link` int(1) default '0',
-			  `show_help_link` int(1) default '0',
-			  `ftp_host` varchar(50) default NULL,
-			  `ftp_path` varchar(255) default NULL,
-			  `ftp_login` varchar(50) default NULL,
-			  `ftp_password` varchar(255) default NULL,
-			  PRIMARY KEY  (`ID`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;")) {
-			echo '<li class="ok">'.T_('Table "config" has been created.').'</li>';
-		} else {
-			echo $mysql->error;
-		}
-		if (!$mysql->query("INSERT INTO config SET
-				ID = '1',
-				register_terms = '".mysql_escape_string('These are the terms of membership:')."',
-				default_expiry_message = '".mysql_escape_string('This LETS suspends members automatically when their account expires. Please renew your account.')."',
-				new_member_message = '".mysql_escape_string('Your account has been created. Please follow these instructions:.')."',
-				default_site_language = '{$_SESSION['lang']}',
-				currency_name = 'green dollars'
-				")) {
-			echo $mysql->error;
-		} else {
-			echo '<li class="ok">'.T_('Some default config information has been added.').'</li><br />';
-		}
-	}	
+    if (strpos($mysql->error,T_('config\' doesn\'t exist'))) {
+        if ($mysql->query("
+            CREATE TABLE IF NOT EXISTS `config` (
+              `ID` int(1) NOT NULL default '0',
+              `enable_noticeboard` int(11) default '1',
+              `enable_articles` int(11) default '1',
+              `enable_events` int(11) default '1',
+              `enable_faq` int(11) default '1',
+              `enable_links` int(11) default '1',
+              `enable_member_list` int(11) default '1',
+              `site_key` varchar(255) NOT NULL default '',
+              `path` varchar(255) NOT NULL default '',
+              `url` varchar(255) NOT NULL default '',
+              `default_site_language` VARCHAR( 3 ) NOT NULL default '',
+              `enable_url_session_ids` varchar(255) NOT NULL default '0',
+              `admin_email` varchar(255) NOT NULL default '',
+              `site_name` varchar(255) NOT NULL default '',
+              `register_terms` longtext NOT NULL,
+              `visitor_message` longtext NOT NULL,
+              `member_message` longtext NOT NULL,
+              `new_member_message` longtext,
+              `require_transaction_description` int(1) NOT NULL default '1',
+              `setup_fee` decimal(7,2) default '0.00',
+              `enable_transaction_service_fee` int(1) NOT NULL default '0',
+              `transaction_service_fee_seller` decimal(7,2) NOT NULL default '0.00',
+              `transaction_service_fee_buyer` decimal(7,2) NOT NULL default '0.00',
+              `currency_name` varchar(255) NOT NULL default '',
+              `enable_auctions` int(1) default '1',
+              `freeze_auction_after_bid` int(1) default '1',
+              `prevent_edit_after_transaction` int(1) default '1',
+              `prevent_deletion_after_transaction` int(1) default '1',
+              `lock_buy_now_price` int(1) default '0',
+              `enable_images` int(1) default '1',
+              `enable_instant_buy` int(1) default '1',
+              `hour_offset` int(3) default '0',
+              `image_width_thumb_noticeboard` int(4) NOT NULL default '120',
+              `image_height_thumb_noticeboard` int(4) NOT NULL default '200',
+              `image_width_page_noticeboard` int(4) NOT NULL default '400',
+              `image_height_page_noticeboard` int(4) NOT NULL default '600',
+              `image_width_thumb_article` int(4) NOT NULL default '150',
+              `image_height_thumb_article` int(4) NOT NULL default '250',
+              `image_width_page_article` int(4) NOT NULL default '350',
+              `image_height_page_article` int(4) NOT NULL default '500',
+              `image_width_thumb_member` int(4) NOT NULL default '80',
+              `image_height_thumb_member` int(4) NOT NULL default '100',
+              `image_width_page_member` int(4) NOT NULL default '400',
+              `image_height_page_member` int(4) NOT NULL default '600',
+              `image_quality` int(3) NOT NULL default '80',
+              `enable_comments` int(1) default '1',
+              `require_comment_title` int(1) default '1',
+              `require_comment_body` int(1) default '1',
+              `location` varchar(255) NOT NULL default '0',
+              `validate_members` int(1) default '1',
+              `validate_content` int(1) default '1',
+              `validate_articles` int(1) default '0',
+              `validate_events` int(1) default '0',
+              `validate_faq` int(1) default '0',
+              `validate_links` int(1) default '0',
+              `enable_rss` int(1) default '0',
+              `validate_xhtml` int(1) default '0',
+              `show_comment_edited` int(1) default '1',
+              `allow_comment_deletion` int(1) default '0',
+              `event_description_required` int(1) default '1',
+              `twelve_hour_clock` int(1) default '1',
+              `event_location_required` int(1) default '1',
+              `show_faq_details` int(1) default '0',
+              `show_link_details` int(1) default '1',
+              `require_link_description` int(1) default '1',
+              `require_link_title` int(1) default '1',
+              `require_link_url` int(1) default '0',
+              `negative_balance_limit` decimal(6,2) default '10000.00',
+              `comment_member_images` int(1) default '1',
+              `transaction_name_singular` varchar(50) NOT NULL default 'trade',
+              `transaction_name_plural` varchar(50) NOT NULL default 'trades',
+              `comment_name` varchar(255) NOT NULL default 'Messages',
+              `comment_name_plural` varchar(255) NOT NULL default 'comments',
+              `comment_name_singular` varchar(255) NOT NULL default 'comment',
+              `validation_email` varchar(255) NOT NULL default '',
+              `technical_email` varchar(255) NOT NULL default '',
+              `currency_name_singular` varchar(255) NOT NULL default 'green dollar',
+              `canadian` int(1) default '0',
+              `template` varchar(255) NOT NULL default 'default',
+              `dump_balance_accountID` int(9) default '1',
+              `allow_view_other_transaction_history` int(1) default '1',
+              `default_expiry_message` varchar(255) default NULL,
+              `suspend_on_expiry` int(1) default '0',
+              `time_out` int(4) default '360',
+              `restrict_updown_links` int(1) default '0',
+              `member_expiry_hidden` int(11) default '0',
+              `bulk_trading_confirm` int(1) default '1',
+              `default_bulk_transaction_descrip` varchar(255) default 'Bulk Entry',
+              `article_title_required` int(11) default '1',
+              `article_blurb_required` int(11) default '1',
+              `article_body_required` int(11) default '1',
+              `image_title_required` int(11) default '0',
+              `image_blurb_required` int(11) default '0',
+              `image_description_required` int(11) default '0',
+              `member_address_required` int(1) default '0',
+              `member_city_required` int(1) default '0',
+              `member_province_required` int(1) default '0',
+              `member_postal_code_required` int(1) default '0',
+              `member_neighborhood_required` int(1) default '1',
+              `member_home_phone_number_required` int(1) default '0',
+              `member_work_phone_number_required` int(1) default '0',
+              `member_mobile_phone_number_required` int(1) default '0',
+              `member_email_address_required` int(1) default '0',
+              `member_member_profile_required` int(1) default '1',
+              `member_url_required` int(1) default '0',
+              `noticeboard_title_required` int(1) default '1',
+              `noticeboard_blurb_required` int(1) default '1',
+              `noticeboard_description_required` int(1) default '1',
+              `noticeboard_amount_required` int(1) default '0',
+              `allow_member_admin_categories` int(1) default '1',
+              `enable_guest_comments` int(1) default '1',
+              `enable_member_edit_colours` int(1) default '0',
+              `enable_log` int(1) default '1',
+              `enable_error_log` int(1) default '1',
+              `enable_email` int(1) default '1',
+              `use_smtp` int(1) default '0',
+              `email_smtp_host` varchar(255) default NULL,
+              `email_smtp_host_backup` varchar(255) default NULL,
+              `smtp_user_name` varchar(255) default NULL,
+              `smtp_password` varchar(255) default NULL,
+              `update_email` varchar(255) default NULL,
+              `email_from_name` varchar(255) default NULL,
+              `email_technical_errors` int(1) default '1',
+              `email_validation_submissions` int(1) default '1',
+              `enable_email_contact` int(1) default '1',
+              `allow_duplicate_emails` int(1) default '1',
+              `log_additions` int(1) default '1',
+              `log_edits` int(1) default '1',
+              `log_deletions` int(1) default '1',
+              `log_trimmed_error` int(1) default '1',
+              `log_noticeboard` int(1) default '1',
+              `log_transactions` int(1) default '1',
+              `log_articles` int(1) default '1',
+              `log_events` int(1) default '1',
+              `log_faq` int(1) default '1',
+              `log_links` int(1) default '1',
+              `log_comments` int(1) default '1',
+              `log_post_dump` int(1) default '1',
+              `homepage_html_articles` int(1) default '1',
+              `homepage_html_noticeboard` int(1) default '0',
+              `homepage_html_events` int(1) default '1',
+              `homepage_html_faq` int(1) default '0',
+              `homepage_html_links` int(1) default '0',
+              `persistant_html_search` int(1) default '1',
+              `persistant_html_login` int(1) default '1',
+              `persistant_html_noticeboard` int(1) default '1',
+              `persistant_html_articles` int(1) default '1',
+               `persistant_html_events` int(1) default '1',
+              `persistant_html_faq` int(1) default '0',
+              `persistant_html_links` int(1) default '0',
+              `show_search_link` int(1) default '0',
+              `show_login_link` int(1) default '0',
+              `show_help_link` int(1) default '0',
+              `ftp_host` varchar(50) default NULL,
+              `ftp_path` varchar(255) default NULL,
+              `ftp_login` varchar(50) default NULL,
+              `ftp_password` varchar(255) default NULL,
+              PRIMARY KEY  (`ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;")) {
+            $message .= '<li class="ok">'.T_('Table "config" has been created.').'</li>';
+        } else {
+            echo '<li class="error">'.$mysql->error.'</li>';
+        }
+        if (!$mysql->query("INSERT INTO config SET
+                ID = '1',
+                register_terms = '".mysql_escape_string('These are the terms of membership:')."',
+                default_expiry_message = '".mysql_escape_string('This LETS suspends members automatically when their account expires. Please renew your account.')."',
+                new_member_message = '".mysql_escape_string('Your account has been created. Please follow these instructions:.')."',
+                default_site_language = '{$_SESSION['lang']}',
+                currency_name = 'green dollars'
+                ")) {
+            echo '<li class="error">'.$mysql->error.'</li>';
+        } else {
+            $message .= '<li class="ok">'.T_('Some default config information has been added.').'</li><br />';
+        }
+    }    
 }
 
 if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->build_array('SELECT * FROM config WHERE 1')) {
-	if (count($mysql->result)) {
-		if (!$mysql->result[0]['site_name'] or
-			!$mysql->result[0]['url'] or
-			!$mysql->result[0]['path'] or
-			!$mysql->result[0]['admin_email'] or
-			!$mysql->result[0]['validation_email'] or
-			!$mysql->result[0]['technical_email'] or
-			!$mysql->result[0]['location']) {
-		
-		
-			if ($submitted_config) {
-				unset($mysql->result[0]);
-				$mysql->result[0] = $post_post;
-				
-			}
-			echo '<div class="basic-grey">';
-			echo '<div class="progress">';
-			echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
-			echo '<a class="current"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
-			echo '<a><span class="step">3</span>'.T_('Admin account creation').'</a>';
-			echo '<a><span class="step">4</span>'.T_('Permission setup').'</a>';
-			echo '</div>';
-			echo '<form action="'.$_SERVER['REQUEST_URI'].'" method="post" >';
-			echo T_('<h1>Setup Form');
-			echo '		<span>'.T_('Please fill all the texts in the fields.').'</span>';
-			echo '</h1><br /><br />';
-			if ($message) {
-				echo '<strong><em>'.$message.'<br /><br /></em></strong>';
-			}
-			echo T_('The following fields are required:').'<br />';
-			echo T_('<strong>Encryption Key:</strong><br /><em>example:')."</em> sedtb782394jhnev63dbnec4uj894tb60rfnd67y2<br />\n";
-			echo T_("<em>Note:</em> You do not need to remember this code. By entering a large random number such as in the example all passwords will be stored in encrypted form.<br />\n");
-			echo ' <input type="text" name="site_key" value="'.$mysql->result[0]['site_key']."\" /><br /><br />\n";
-			
-			echo T_("<strong>Site Name:</strong><br /><em>example:</em> Toronto LETS<br />\n");
-			echo T_("<em>Note:</em> This name will appear in the title (the top bar of your browser).<br />\n");
-			echo '<input type="text" name="site_name" value="'.$mysql->result[0]['site_name']."\" /><br /><br />\n";
-			
-			echo '<strong>URL:</strong><br /><em>'.T_('example').":</em> http://www.toronto-lets.ca/<br />\n";
-			echo '<input type="text" name="url" value="'.$mysql->result[0]['url']."\" /><br /><br />\n";
-			
-			echo T_('<strong>File Path of index.php:</strong><br /><em>example:</em> ').$_SERVER["DOCUMENT_ROOT"]."<br />\n";
-			echo '<input type="text" name="path" value="'.$mysql->result[0]['path']."\" /><br /><br />\n";
-			
-			echo T_("<strong>Admin email:</strong><br /><em>example:</em> john.smith@toronto-lets.ca<br />\n");
-			echo " <input type=\"text\" name=\"admin_email\" value=\"".$mysql->result[0]['admin_email']."\" /><br /><br />\n";
-			
-			echo T_("<strong>Validation email:</strong><br /><em>example:</em> sue@yahoo.com<br />\n");
-			echo " <input type=\"text\" name=\"validation_email\" value=\"".$mysql->result[0]['validation_email']."\" /><br /><br />\n";
-			
-			echo T_("<strong>Technical email:</strong><br /><em>example:</em> techie@domain.ca<br />\n");
-			echo " <input type=\"text\" name=\"technical_email\" value=\"".$mysql->result[0]['technical_email']."\" /><br /><br />\n";
-			
-			echo T_("<strong>Location:</strong><br /><em>example:</em> Toronto, ON<br />\n");
-			echo " <input type=\"text\" name=\"location\" value=\"".$mysql->result[0]['location']."\" /><br /><br />\n";
-			
-			echo T_("<strong>UTC Offset (Time Zone):</strong><br /><em>example:</em> Toronto would be -5, Paris 1, etc (full list on <a href=\"https://en.wikipedia.org/wiki/List_of_UTC_time_offsets\" title=\"List of UTC time offsets\" target=\"_blank\">Wikipedia.org</a>)<br />\n");
-			echo " <input type=\"text\" name=\"hour_offset\" value=\"".$mysql->result[0]['hour_offset']."\" /><br /><br />\n";
-			
-			echo " <input type=\"submit\" name=\"submit\" value=\"Enter Config\" />\n";
-			echo "</form></body></html>";
-			exit();
-		}
-	}
+    if (count($mysql->result)) {
+        if (!$mysql->result[0]['site_name'] or
+            !$mysql->result[0]['url'] or
+            !$mysql->result[0]['path'] or
+            !$mysql->result[0]['admin_email'] or
+            !$mysql->result[0]['validation_email'] or
+            !$mysql->result[0]['technical_email'] or
+            !$mysql->result[0]['location']) {
+        
+        
+            if ($submitted_config) {
+                unset($mysql->result[0]);
+                $mysql->result[0] = $post_post;
+                
+            }
+            echo '<div class="basic-grey">';
+            echo '<div class="progress">';
+            echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
+            echo '<a class="current"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
+            echo '<a><span class="step">3</span>'.T_('Admin account creation').'</a>';
+            echo '<a><span class="step">4</span>'.T_('Permission setup').'</a>';
+            echo '</div>';
+            echo '<form action="'.$_SERVER['REQUEST_URI'].'" method="post" >';
+            echo T_('<h1>Setup Form');
+            echo '        <span>'.T_('Please fill all the texts in the fields.').'</span>';
+            echo '</h1><br /><br />';
+            if ($message) {
+                echo '<strong><em>'.$message.'<br /><br /></em></strong>';
+            }
+            echo T_('The following fields are required:').'<br />';
+            echo T_('<strong>Encryption Key:</strong><br /><em>example:')."</em> sedtb782394jhnev63dbnec4uj894tb60rfnd67y2<br />\n";
+            echo T_("<em>Note:</em> You do not need to remember this code. By entering a large random number such as in the example all passwords will be stored in encrypted form.<br />\n");
+            echo ' <input type="text" name="site_key" value="'.$mysql->result[0]['site_key']."\" /><br /><br />\n";
+            
+            echo T_("<strong>Site Name:</strong><br /><em>example:</em> Toronto LETS<br />\n");
+            echo T_("<em>Note:</em> This name will appear in the title (the top bar of your browser).<br />\n");
+            echo '<input type="text" name="site_name" value="'.$mysql->result[0]['site_name']."\" /><br /><br />\n";
+            
+            echo '<strong>URL:</strong><br />'.T_('<em>example:</em> http://www.toronto-lets.ca/')."<br />\n";
+            echo '<input type="text" name="url" value="'.$mysql->result[0]['url']."\" /><br /><br />\n";
+            
+            echo T_('<strong>File Path of index.php:</strong><br /><em>example:</em> ').$_SERVER["DOCUMENT_ROOT"]."<br />\n";
+            echo '<input type="text" name="path" value="'.$mysql->result[0]['path']."\" /><br /><br />\n";
+            
+            echo T_("<strong>Admin email:</strong><br /><em>example:</em> john.smith@toronto-lets.ca<br />\n");
+            echo " <input type=\"text\" name=\"admin_email\" value=\"".$mysql->result[0]['admin_email']."\" /><br /><br />\n";
+            
+            echo T_("<strong>Validation email:</strong><br /><em>example:</em> sue@yahoo.com<br />\n");
+            echo " <input type=\"text\" name=\"validation_email\" value=\"".$mysql->result[0]['validation_email']."\" /><br /><br />\n";
+            
+            echo T_("<strong>Technical email:</strong><br /><em>example:</em> techie@domain.ca<br />\n");
+            echo " <input type=\"text\" name=\"technical_email\" value=\"".$mysql->result[0]['technical_email']."\" /><br /><br />\n";
+            
+            echo T_("<strong>Location:</strong><br /><em>example:</em> Toronto, ON<br />\n");
+            echo " <input type=\"text\" name=\"location\" value=\"".$mysql->result[0]['location']."\" /><br /><br />\n";
+            
+            echo T_("<strong>UTC Offset (Time Zone):</strong><br /><em>example:</em> Toronto would be -5, Paris 1, etc (full list on <a href=\"https://en.wikipedia.org/wiki/List_of_UTC_time_offsets\" title=\"List of UTC time offsets\" target=\"_blank\">Wikipedia.org</a>)<br />\n");
+            echo " <input type=\"text\" name=\"hour_offset\" value=\"".$mysql->result[0]['hour_offset']."\" /><br /><br />\n";
+            
+            echo " <input type=\"submit\" name=\"submit\" value=\"Enter Config\" />\n";
+            echo "</form></body></html>";
+            exit();
+        }
+    }
 }
 
 
 // We check if the table accounts exist 
 if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) == 0 && !$mysql->build_array('SELECT * FROM accounts WHERE 1')) {
-	if ($message) {
-		echo '<strong><em>'.$message.'<br /><br /></em></strong>';
-	}
-	if ($mysql->query("CREATE TABLE IF NOT EXISTS `accounts` (
-	  `accountID` int(6) NOT NULL auto_increment,
-	  `first_name` varchar(32) NOT NULL default '',
-	  `last_name` varchar(32) NOT NULL default '',
-	  `password` varchar(13) NOT NULL default '',
-	  `address` varchar(32) NOT NULL default '',
-	  `city` varchar(32) NOT NULL default '',
-	  `province` varchar(50) NOT NULL default '',
-	  `postal_code` varchar(50) NOT NULL default '',
-	  `neighborhood` varchar(255) NOT NULL default '',
-	  `mailing_address` varchar(32) NOT NULL default '',
-	  `mailing_city` varchar(32) NOT NULL default '',
-	  `mailing_province` varchar(50) NOT NULL default '',
-	  `mailing_postal_code` varchar(50) NOT NULL default '',
-	  `home_phone_number` varchar(14) NOT NULL default '',
-	  `work_phone_number` varchar(14) NOT NULL default '',
-	  `mobile_phone_number` varchar(14) NOT NULL default '',
-	  `email_address` varchar(255) NOT NULL default '',
-	  `member_profile` longtext NOT NULL,
-	  `public_profile` longtext NOT NULL,
-	  `public_profile_enabled` int(1) NOT NULL default '0',
-	  `url` varchar(255) NOT NULL default '',
-	  `receive_email_outbid` int(1) default '0',
-	  `receive_email_newletter` int(1) NOT NULL default '0',
-	  `receive_email_events` int(1) NOT NULL default '0',
-	  `receive_email_url` int(1) NOT NULL default '0',
-	  `receive_email_faq` int(1) NOT NULL default '0',
-	  `receive_email_buy` int(1) NOT NULL default '0',
-	  `receive_email_sell` int(1) NOT NULL default '0',
-	  `receive_email_noticeboard` int(1) NOT NULL default '0',
-	  `receive_email_comment` int(1) NOT NULL default '0',
-	  `receive_newsletter` int(1) default '0',
-	  `receive_statement` int(1) default '0',
-	  `type` int(1) NOT NULL default '0',
-	  `validated` int(1) NOT NULL default '0',
-	  `suspended` int(1) default '0',
-	  `suspended_message` varchar(255) default '0',
-	  `deleted` int(1) default '0',
-	  `deleted_transactionID` int(11) NOT NULL default '0',
-	  `balance` decimal(7,2) NOT NULL default '0.00',
-	  `imageID` int(12) default '0',
-	  `created_day` int(2) default '0',
-	  `created_month` int(2) default '0',
-	  `created_year` int(4) default '0',
-	  `expiry_day` int(2) default '0',
-	  `expiry_month` int(2) default '0',
-	  `expiry_year` int(4) default '0',
-	  `ll_day` int(2) default '0',
-	  `ll_month` int(2) default '0',
-	  `ll_year` int(4) default '0',
-	  `ll_hour` int(6) default '0',
-	  PRIMARY KEY  (`accountID`),
-	  KEY `first_name` (`first_name`,`last_name`,`public_profile_enabled`,`receive_email_newletter`,`receive_email_events`,`receive_email_url`,`receive_email_faq`,`receive_email_buy`,`receive_email_sell`,`receive_email_noticeboard`,`type`,`validated`,`suspended`),
-	  KEY `neighborhood` (`neighborhood`),
-	  KEY `receive_newsletter` (`receive_newsletter`,`receive_statement`),
-	  KEY `created_day` (`created_day`,`created_month`,`created_year`,`expiry_day`,`expiry_month`,`expiry_year`,`ll_day`,`ll_month`,`ll_year`),
-	  KEY `imageID` (`imageID`),
-	  KEY `deleted` (`deleted`)
-	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-		echo T_('<li class="ok">Table "accounts" has been created.</li><br />');
-	}
-	if ($mysql->query("CREATE TABLE IF NOT EXISTS `transactions` (
-	  `transactionID` int(6) NOT NULL auto_increment,
-	  `buyerID` int(6) NOT NULL default '0',
-	  `sellerID` int(6) NOT NULL default '0',
-	  `amount` decimal(7,2) NOT NULL default '0.00',
-	  `description` longtext NOT NULL,
-	  `day` int(2) NOT NULL default '0',
-	  `month` int(2) NOT NULL default '0',
-	  `year` int(4) NOT NULL default '0',
-	  `hour` int(2) default '0',
-	  `minute` int(2) default '0',
-	  `second` int(2) default '0',
-	  `type` int(1) default '0',
-	  `noticeboardID` int(11) default '0',
-	  PRIMARY KEY  (`transactionID`),
-	  KEY `buyerID` (`buyerID`,`sellerID`),
-	  KEY `day` (`day`,`month`,`year`),
-	  KEY `minute` (`minute`,`second`),
-	  KEY `year` (`year`),
-	  KEY `month` (`month`),
-	  KEY `day_2` (`day`),
-	  KEY `hour` (`hour`),
-	  KEY `type` (`type`),
-	  KEY `noticeboardID` (`noticeboardID`)
-	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-		echo T_('<li class="ok">Table "transactions" has been created.</li><br />');
-	}
+    if ($message) {
+        echo '<strong><em>'.$message.'<br /><br /></em></strong>';
+    }
+    if ($mysql->query("CREATE TABLE IF NOT EXISTS `accounts` (
+      `accountID` int(6) NOT NULL auto_increment,
+      `first_name` varchar(32) NOT NULL default '',
+      `last_name` varchar(32) NOT NULL default '',
+      `password` varchar(13) NOT NULL default '',
+      `address` varchar(32) NOT NULL default '',
+      `city` varchar(32) NOT NULL default '',
+      `province` varchar(50) NOT NULL default '',
+      `postal_code` varchar(50) NOT NULL default '',
+      `neighborhood` varchar(255) NOT NULL default '',
+      `mailing_address` varchar(32) NOT NULL default '',
+      `mailing_city` varchar(32) NOT NULL default '',
+      `mailing_province` varchar(50) NOT NULL default '',
+      `mailing_postal_code` varchar(50) NOT NULL default '',
+      `home_phone_number` varchar(14) NOT NULL default '',
+      `work_phone_number` varchar(14) NOT NULL default '',
+      `mobile_phone_number` varchar(14) NOT NULL default '',
+      `email_address` varchar(255) NOT NULL default '',
+      `member_profile` longtext NOT NULL,
+      `public_profile` longtext NOT NULL,
+      `public_profile_enabled` int(1) NOT NULL default '0',
+      `url` varchar(255) NOT NULL default '',
+      `receive_email_outbid` int(1) default '0',
+      `receive_email_newletter` int(1) NOT NULL default '0',
+      `receive_email_events` int(1) NOT NULL default '0',
+      `receive_email_url` int(1) NOT NULL default '0',
+      `receive_email_faq` int(1) NOT NULL default '0',
+      `receive_email_buy` int(1) NOT NULL default '0',
+      `receive_email_sell` int(1) NOT NULL default '0',
+      `receive_email_noticeboard` int(1) NOT NULL default '0',
+      `receive_email_comment` int(1) NOT NULL default '0',
+      `receive_newsletter` int(1) default '0',
+      `receive_statement` int(1) default '0',
+      `type` int(1) NOT NULL default '0',
+      `validated` int(1) NOT NULL default '0',
+      `suspended` int(1) default '0',
+      `suspended_message` varchar(255) default '0',
+      `deleted` int(1) default '0',
+      `deleted_transactionID` int(11) NOT NULL default '0',
+      `balance` decimal(7,2) NOT NULL default '0.00',
+      `imageID` int(12) default '0',
+      `created_day` int(2) default '0',
+      `created_month` int(2) default '0',
+      `created_year` int(4) default '0',
+      `expiry_day` int(2) default '0',
+      `expiry_month` int(2) default '0',
+      `expiry_year` int(4) default '0',
+      `ll_day` int(2) default '0',
+      `ll_month` int(2) default '0',
+      `ll_year` int(4) default '0',
+      `ll_hour` int(6) default '0',
+      PRIMARY KEY  (`accountID`),
+      KEY `first_name` (`first_name`,`last_name`,`public_profile_enabled`,`receive_email_newletter`,`receive_email_events`,`receive_email_url`,`receive_email_faq`,`receive_email_buy`,`receive_email_sell`,`receive_email_noticeboard`,`type`,`validated`,`suspended`),
+      KEY `neighborhood` (`neighborhood`),
+      KEY `receive_newsletter` (`receive_newsletter`,`receive_statement`),
+      KEY `created_day` (`created_day`,`created_month`,`created_year`,`expiry_day`,`expiry_month`,`expiry_year`,`ll_day`,`ll_month`,`ll_year`),
+      KEY `imageID` (`imageID`),
+      KEY `deleted` (`deleted`)
+    ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+        echo T_('<li class="ok">Table "accounts" has been created.</li><br />');
+    }
+    if ($mysql->query("CREATE TABLE IF NOT EXISTS `transactions` (
+      `transactionID` int(6) NOT NULL auto_increment,
+      `buyerID` int(6) NOT NULL default '0',
+      `sellerID` int(6) NOT NULL default '0',
+      `amount` decimal(7,2) NOT NULL default '0.00',
+      `description` longtext NOT NULL,
+      `day` int(2) NOT NULL default '0',
+      `month` int(2) NOT NULL default '0',
+      `year` int(4) NOT NULL default '0',
+      `hour` int(2) default '0',
+      `minute` int(2) default '0',
+      `second` int(2) default '0',
+      `type` int(1) default '0',
+      `noticeboardID` int(11) default '0',
+      PRIMARY KEY  (`transactionID`),
+      KEY `buyerID` (`buyerID`,`sellerID`),
+      KEY `day` (`day`,`month`,`year`),
+      KEY `minute` (`minute`,`second`),
+      KEY `year` (`year`),
+      KEY `month` (`month`),
+      KEY `day_2` (`day`),
+      KEY `hour` (`hour`),
+      KEY `type` (`type`),
+      KEY `noticeboardID` (`noticeboardID`)
+    ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+        echo T_('<li class="ok">Table "transactions" has been created.</li><br />');
+    }
 }
 
 $second_mysql = new mysql;
 if ($second_mysql->build_array('SELECT * FROM accounts WHERE accountID = 1')) {
-	if (!isset($second_mysql->result[0]['accountID'])) {
-		echo '<div class="basic-grey">';
-		echo '<div class="progress">';
-		echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
-		echo '<a class="stepdone"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
-		echo '<a class="current"><span class="step step-inverse">3</span>'.T_('Admin account creation').'</a>';
-		echo '<a><span class="step">4</span>'.T_('Permission setup').'</a>';
-		echo '</div>';
-		if ($message) {
-			echo '<strong><em>'.$message.'<br /><br /></em></strong>';
-		}
-		echo T_('<strong>Create Administrative Account (#1)</strong><br />');
-		echo T_('This will create the #1 account which is essential for proper functioning of the LETS system.<br /><br />');
-		echo T_('<strong>Important:</strong> Log-on to the site with username: "1" and the password you create here.<br />');
-		echo T_('Also please edit the account after finishing setup to add other important data such as address, telephone number, etc.<br /><br />');
-		echo T_('<strong>Note:</strong> Canadian may want to enable an option under "Website Settings" to force proper Provincial abbreviations and postal codes prior to editing the account.<br />');
-		
-		echo "<form action=\"".$_SERVER['REQUEST_URI']."\" method=\"post\">\n";
-			
-		echo T_("<strong>First Name:</strong><br /><em>example:</em> John<br />\n");
-		echo "<input type=\"text\" name=\"first_name\" /><br /><br />\n";
-	
-		echo T_("<strong>Last Name:</strong><br /><em>example:</em> Malkovich<br />\n");
-		echo "<input type=\"text\" name=\"last_name\" /><br /><br />\n";
-		
-		echo T_("<strong>Password:</strong><br />\n");
-		echo "<input type=\"password\" name=\"password\" /><br /><br />\n";
-		
-		echo T_("<strong>Re-type Password:</strong><br />\n");
-		echo "<input type=\"password\" name=\"second_password\" /><br /><br />\n";
-			
-		echo "<input type=\"submit\" name=\"submit\" value=\"".T_('Create #1 Account')."\" />\n";
-		echo "</form></body></html>";
-		exit();
-	}		
-			
+    if (!isset($second_mysql->result[0]['accountID'])) {
+        echo '<div class="basic-grey">';
+        echo '<div class="progress">';
+        echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
+        echo '<a class="stepdone"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
+        echo '<a class="current"><span class="step step-inverse">3</span>'.T_('Admin account creation').'</a>';
+        echo '<a><span class="step">4</span>'.T_('Permission setup').'</a>';
+        echo '</div>';
+        if ($message) {
+            echo '<strong><em>'.$message.'<br /><br /></em></strong>';
+        }
+        echo T_('<strong>Create Administrative Account (#1)</strong><br />');
+        echo T_('This will create the #1 account which is essential for proper functioning of the LETS system.<br /><br />');
+        echo T_('<strong>Important:</strong> Log-on to the site with username: "1" and the password you create here.<br />');
+        echo T_('Also please edit the account after finishing setup to add other important data such as address, telephone number, etc.<br /><br />');
+        echo T_('<strong>Note:</strong> Canadian may want to enable an option under "Website Settings" to force proper Provincial abbreviations and postal codes prior to editing the account.<br />');
+        
+        echo "<form action=\"".$_SERVER['REQUEST_URI']."\" method=\"post\">\n";
+            
+        echo T_("<strong>First Name:</strong><br /><em>example:</em> John<br />\n");
+        echo "<input type=\"text\" name=\"first_name\" /><br /><br />\n";
+    
+        echo T_("<strong>Last Name:</strong><br /><em>example:</em> Malkovich<br />\n");
+        echo "<input type=\"text\" name=\"last_name\" /><br /><br />\n";
+        
+        echo T_("<strong>Password:</strong><br />\n");
+        echo "<input type=\"password\" name=\"password\" /><br /><br />\n";
+        
+        echo T_("<strong>Re-type Password:</strong><br />\n");
+        echo "<input type=\"password\" name=\"second_password\" /><br /><br />\n";
+            
+        echo "<input type=\"submit\" name=\"submit\" value=\"".T_('Create #1 Account')."\" />\n";
+        echo "</form></body></html>";
+        exit();
+    }        
+            
 }
 
 if (CURRENT_OS == 'UNIX') {
-	$third_mysql = new mysql;
-	if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) > 0 && $third_mysql->build_array('SELECT * FROM config WHERE ID = 1')) {
-		if (count($third_mysql->result)) {
-			$path = $third_mysql->result[0]['path'];
-			$site_name = str_replace(' ','_',$third_mysql->result[0]['site_name']);
-			$files_status_message = '';
-			if ($message) {
-				echo $message.'<br /><br />';
-			}
-			
-	
-			
-			
-			//chdir($path);
-			//$directory_contents = shell_exec('ls -l -a');
-		
-			$directory_contents = dir_contents($path);
-		
-			$htaccess_found = false;
-			$htaccess_perms = false;
-			$images_found = false;
-			$images_perms = false;
-			$logs_found = false;
-			$logs_perms = false;
-		
-			foreach ($directory_contents as $line) {
-				if ($line['name'] == '.htaccess') $htaccess_found = true;
-				if ($line['name'] == '.htaccess' and $line['perms'] == '-rw-rw-r--') $htaccess_perms = true;
-				if ($line['name'] == 'images') $images_found = true;
-				if ($line['name'] == 'images' and $line['perms'] == 'drwxrwxrwx') $images_perms = true;
-				if ($line['name'] == 'logs') $logs_found = true;
-				if ($line['name'] == 'logs' and $line['perms'] == 'drwxrwxrwx') $logs_perms = true;
-			}
-			if (!$htaccess_found) {
-				$files_status = false;
-				$files_status_message .= '<li class="error"><strong>.htaccess</strong> '.T_('has not been found.').'</li><br />';
-			} else {
-				$files_status_message .= '<li class="ok"><strong>.htaccess</strong> '.T_('has been found.').'</li><br />';
-			}
-			if (!$htaccess_perms) {
-				$files_status = false;
-				$files_status_message .= '<li class="error"><strong>.htaccess</strong> '.T_('needs permissions: 664').'</li><br />';
-			} else {
-				$files_status_message .= '<li class="ok"><strong>.htaccess</strong> '.T_('has proper permissions.').'</li><br />';
-			}
-			if (!$images_found) {
-				$files_status = false;
-				$files_status_message .= '<li class="error">'.T_('Folder: <strong>images</strong> has not been found.').'</li><br />';
-			} else {
-				$files_status_message .= '<li class="ok">'.T_('Folder: <strong>images</strong> has been found.').'</li><br />';
-			}
-			if (!$images_perms) {
-				$files_status = false;
-				$files_status_message .= '<li class="error">'.T_('Folder: <strong>images</strong> needs permissions: 777').'</li><br />';
-			} else {
-				$files_status_message .= '<li class="ok">'.T_('Folder: <strong>images</strong> has proper permissions.').'</li><br />';
-			}
-			if (!$logs_found) {
-				$files_status = false;
-				$files_status_message .= '<li class="error">'.T_('Folder: <strong>logs</strong> has not been found.').'</li><br />';
-			} else {
-				$files_status_message .= '<li class="ok">'.T_('Folder: <strong>logs</strong> has been found.').'</li><br />';
-			}
-			if (!$logs_perms) {
-				$files_status = false;
-				$files_status_message .= '<li class="error">'.T_('Folder: <strong>logs</strong> needs permissions: 777').'</li><br />';
-			} else {
-				$files_status_message .= '<li class="ok">'.T_('Folder: <strong>logs</strong> has proper permissions.').'</li><br />';
-			}
-			
-			$directory_contents = dir_contents($path.'//logs/');
+    $third_mysql = new mysql;
+    if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) > 0 && $third_mysql->build_array('SELECT * FROM config WHERE ID = 1')) {
+        if (count($third_mysql->result)) {
+            $path = $third_mysql->result[0]['path'];
+            $site_name = str_replace(' ','_',$third_mysql->result[0]['site_name']);
+            $files_status_message = '';
+            if ($message) {
+                echo $message.'<br /><br />';
+            }
 
-			$log_found = false;
-			$log_perms = false;
-			$err_log_found = false;
-			$err_log_perms = false;
-		
-			foreach ($directory_contents as $line) {
-				if ($line['name'] == $site_name.'.log') $log_found = true;
-				if ($line['name'] == $site_name.'.log' and $line['perms'] == '-rw-rw-r--') $log_perms = true;
-				if ($line['name'] == $site_name.'_Errors.log') $err_log_found = true;
-				if ($line['name'] == $site_name.'_Errors.log' and $line['perms'] == '-rw-rw-r--') $err_log_perms = true;
-			}
-		
-			if (!$log_found) {
-				$files_status = false;
-				$files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('has not been found.</li><br />');
-			} else {
-				$files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('has been found.</li><br />');
-			}
-			if (!$log_perms) {
-				$files_status = false;
-				$files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('needs permissions: 664</li><br />');
-			} else {
-				$files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('has proper permissions.</li><br />');
-			}
-			if (!$err_log_found) {
-				$files_status = false;
-				$files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('has not been found.</li><br />');
-			} else {
-				$files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('has been found.</li><br />');
-			}
-			if (!$err_log_perms) {
-				$files_status = false;
-				$files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('needs permissions: 664</li><br />');
-			} else {
-				$files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('has proper permissions.</li><br />');
-			}
-		
-		
-			if (!$files_status) {
-				echo '<div class="basic-grey">';
-				echo '<div class="progress">';
-				echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
-				echo '<a class="stepdone"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
-				echo '<a class="stepdone"><span class="step step-inverse">3</span>'.T_('Admin account creation').'</a>';
-				echo '<a class="current"><span class="step">4</span>'.T_('Permission setup').'</a>';
-				echo '</div>';
-				echo T_('<strong>Checking Files and Folders....</strong><br />');
-				echo T_('<strong>Attention:</strong><br />');
-				echo T_('The following files and/or folders need their permissions changed:<br /><br />');
-				echo $files_status_message.'<br /><br />';
-				echo T_('There are two ways to do this:<br />');
-				echo T_('1. Login to cpanel, open file manager, select the files and/or folders and choose "change permissions".<br /><br />');
-				echo T_('2. Enter FTP data below and this script will change the permissions. The username and password should be the same as the cpanel account.<br /><br />');
-				echo '<form action="'.$_SERVER['REQUEST_URI']."\" method=\"post\">\n";
-		
-				echo T_("<strong>FTP Host:</strong><br /><em>example:</em> ftp.toronto-lets.ca<br />\n");
-				echo " <input type=\"text\" name=\"ftp_host\" value=\"".$third_mysql->result[0]['ftp_host']."\" /><br /><br />\n";
+            //chdir($path);
+            //$directory_contents = shell_exec('ls -l -a');
+        
+            $directory_contents = dir_contents($path);
+        
+            $htaccess_found = false;
+            $htaccess_perms = false;
+            $images_found = false;
+            $images_perms = false;
+            $logs_found = false;
+            $logs_perms = false;
+        
+            foreach ($directory_contents as $line) {
+                if ($line['name'] == '.htaccess') $htaccess_found = true;
+                if ($line['name'] == '.htaccess' and $line['perms'] == '-rw-rw-r--') $htaccess_perms = true;
+                if ($line['name'] == 'images') $images_found = true;
+                if ($line['name'] == 'images' and $line['perms'] == 'drwxrwxrwx') $images_perms = true;
+                if ($line['name'] == 'logs') $logs_found = true;
+                if ($line['name'] == 'logs' and $line['perms'] == 'drwxrwxrwx') $logs_perms = true;
+            }
+            if (!$htaccess_found) {
+                $files_status = false;
+                $files_status_message .= '<li class="error"><strong>.htaccess</strong> '.T_('has not been found.').'</li><br />';
+            } else {
+                $files_status_message .= '<li class="ok"><strong>.htaccess</strong> '.T_('has been found.').'</li><br />';
+            }
+            if (!$htaccess_perms) {
+                $files_status = false;
+                $files_status_message .= '<li class="error"><strong>.htaccess</strong> '.T_('needs permissions: 664').'</li><br />';
+            } else {
+                $files_status_message .= '<li class="ok"><strong>.htaccess</strong> '.T_('has proper permissions.').'</li><br />';
+            }
+            if (!$images_found) {
+                $files_status = false;
+                $files_status_message .= '<li class="error">'.T_('Folder: <strong>images</strong> has not been found.').'</li><br />';
+            } else {
+                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>images</strong> has been found.').'</li><br />';
+            }
+            if (!$images_perms) {
+                $files_status = false;
+                $files_status_message .= '<li class="error">'.T_('Folder: <strong>images</strong> needs permissions: 777').'</li><br />';
+            } else {
+                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>images</strong> has proper permissions.').'</li><br />';
+            }
+            if (!$logs_found) {
+                $files_status = false;
+                $files_status_message .= '<li class="error">'.T_('Folder: <strong>logs</strong> has not been found.').'</li><br />';
+            } else {
+                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>logs</strong> has been found.').'</li><br />';
+            }
+            if (!$logs_perms) {
+                $files_status = false;
+                $files_status_message .= '<li class="error">'.T_('Folder: <strong>logs</strong> needs permissions: 777').'</li><br />';
+            } else {
+                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>logs</strong> has proper permissions.').'</li><br />';
+            }
+            
+            $directory_contents = dir_contents($path.'//logs/');
 
-				echo T_("<strong>FTP Root:</strong><br /><em>example:</em> public_html<br />\n");
-				echo T_("<em>Note:</em> In a cpanel environment this should be either public_html or public_html/toronto_lets (for example).<br />\n");
-				echo " <input type=\"text\" name=\"ftp_path\" value=\"".$third_mysql->result[0]['ftp_path']."\" /><br /><br />\n";
+            $log_found = false;
+            $log_perms = false;
+            $err_log_found = false;
+            $err_log_perms = false;
+        
+            foreach ($directory_contents as $line) {
+                if ($line['name'] == $site_name.'.log') $log_found = true;
+                if ($line['name'] == $site_name.'.log' and $line['perms'] == '-rw-rw-r--') $log_perms = true;
+                if ($line['name'] == $site_name.'_Errors.log') $err_log_found = true;
+                if ($line['name'] == $site_name.'_Errors.log' and $line['perms'] == '-rw-rw-r--') $err_log_perms = true;
+            }
+        
+            if (!$log_found) {
+                $files_status = false;
+                $files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('has not been found.</li><br />');
+            } else {
+                $files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('has been found.</li><br />');
+            }
+            if (!$log_perms) {
+                $files_status = false;
+                $files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('needs permissions: 664</li><br />');
+            } else {
+                $files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('has proper permissions.</li><br />');
+            }
+            if (!$err_log_found) {
+                $files_status = false;
+                $files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('has not been found.</li><br />');
+            } else {
+                $files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('has been found.</li><br />');
+            }
+            if (!$err_log_perms) {
+                $files_status = false;
+                $files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('needs permissions: 664</li><br />');
+            } else {
+                $files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('has proper permissions.</li><br />');
+            }
+        
+        
+            if (!$files_status) {
+                echo '<div class="basic-grey">';
+                echo '<div class="progress">';
+                echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
+                echo '<a class="stepdone"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
+                echo '<a class="stepdone"><span class="step step-inverse">3</span>'.T_('Admin account creation').'</a>';
+                echo '<a class="current"><span class="step">4</span>'.T_('Permission setup').'</a>';
+                echo '</div>';
+                echo T_('<strong>Checking Files and Folders....</strong><br />');
+                echo T_('<strong>Attention:</strong><br />');
+                echo T_('The following files and/or folders need their permissions changed:<br /><br />');
+                echo $files_status_message.'<br /><br />';
+                echo T_('There are two ways to do this:<br />');
+                echo T_('1. Login to cpanel, open file manager, select the files and/or folders and choose "change permissions".<br /><br />');
+                echo T_('2. Enter FTP data below and this script will change the permissions. The username and password should be the same as the cpanel account.<br /><br />');
+                echo '<form action="'.$_SERVER['REQUEST_URI']."\" method=\"post\">\n";
+        
+                echo T_("<strong>FTP Host:</strong><br /><em>example:</em> ftp.toronto-lets.ca<br />\n");
+                echo " <input type=\"text\" name=\"ftp_host\" value=\"".$third_mysql->result[0]['ftp_host']."\" /><br /><br />\n";
 
-				echo T_("<strong>FTP Login:</strong><br /><br />\n");
-				echo " <input type=\"text\" name=\"ftp_login\" value=\"".$third_mysql->result[0]['ftp_login']."\" /><br /><br />\n";
+                echo T_("<strong>FTP Root:</strong><br /><em>example:</em> public_html<br />\n");
+                echo T_("<em>Note:</em> In a cpanel environment this should be either public_html or public_html/toronto_lets (for example).<br />\n");
+                echo " <input type=\"text\" name=\"ftp_path\" value=\"".$third_mysql->result[0]['ftp_path']."\" /><br /><br />\n";
 
-				echo T_("<strong>FTP Password:</strong><br /><br />\n");
-				echo " <input type=\"password\" name=\"ftp_password\" value=\"".md5_decrypt($third_mysql->result[0]['ftp_password'],$third_mysql->result[0]['site_key'])."\" /><br /><br />\n";
-			
-				echo T_("<strong>Re-Type FTP Password:</strong><br /><br />\n");
-				echo " <input type=\"password\" name=\"second_ftp_password\" value=\"".md5_decrypt($third_mysql->result[0]['ftp_password'],$third_mysql->result[0]['site_key'])."\" /><br /><br />\n";
-				echo '<input type="submit" name="submit" value="'.T_('Set Permissions')."\" />\n";
-				echo "</form>\n";
-				echo '</div></body></html>';
-				exit();
-			} else {
-				echo '<div class="basic-grey">';
-				echo '<div class="progress">';
-				echo '<a class="stepdone"><span class="step step-inverse">1</span>Creating Database</a>';
-				echo '<a class="stepdone"><span class="step step-inverse">2</span>Website settings</a>';
-				echo '<a class="stepdone"><span class="step step-inverse">3</span>Admin account creation</a>';
-				echo '<a class="current"><span class="step">4</span>Permission setup</a>';
-				echo '</div>';
-				echo T_('<strong>Checking Files and Folders....</strong><br />');
-				echo "{$files_status_message}<br /><br />";
-			}
-		}
-	}
+                echo T_("<strong>FTP Login:</strong><br /><br />\n");
+                echo " <input type=\"text\" name=\"ftp_login\" value=\"".$third_mysql->result[0]['ftp_login']."\" /><br /><br />\n";
+
+                echo T_("<strong>FTP Password:</strong><br /><br />\n");
+                echo " <input type=\"password\" name=\"ftp_password\" value=\"".md5_decrypt($third_mysql->result[0]['ftp_password'],$third_mysql->result[0]['site_key'])."\" /><br /><br />\n";
+            
+                echo T_("<strong>Re-Type FTP Password:</strong><br /><br />\n");
+                echo " <input type=\"password\" name=\"second_ftp_password\" value=\"".md5_decrypt($third_mysql->result[0]['ftp_password'],$third_mysql->result[0]['site_key'])."\" /><br /><br />\n";
+                echo '<input type="submit" name="submit" value="'.T_('Set Permissions')."\" />\n";
+                echo "</form>\n";
+                echo '</div></body></html>';
+                exit();
+            } else {
+                echo '<div class="basic-grey">';
+                echo '<div class="progress">';
+                echo '<a class="stepdone"><span class="step step-inverse">1</span>Creating Database</a>';
+                echo '<a class="stepdone"><span class="step step-inverse">2</span>Website settings</a>';
+                echo '<a class="stepdone"><span class="step step-inverse">3</span>Admin account creation</a>';
+                echo '<a class="current"><span class="step">4</span>Permission setup</a>';
+                echo '</div>';
+                echo T_('<strong>Checking Files and Folders....</strong><br />');
+                echo "{$files_status_message}<br /><br />";
+            }
+        }
+    }
 }
 
 $completed = true;
 $last_mysql = new mysql;
 
 if (!$last_mysql->build_array('SELECT * FROM config WHERE ID = 1')){
-	exit($last_mysql->error);
+    exit($last_mysql->error);
 }
 //$path = $last_mysql->result[0]['path'];
 $url = $last_mysql->result[0]['url'];
@@ -826,8 +823,8 @@ CREATE TABLE IF NOT EXISTS `articles` (
   KEY `validated` (`validated`),
   KEY `imageID` (`imageID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -852,8 +849,8 @@ CREATE TABLE IF NOT EXISTS `bids` (
   KEY `noticeboardID` (`noticeboardID`,`accountID`,`amount`,`day`,`month`,`year`,`hour`),
   KEY `minute` (`minute`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 
@@ -876,8 +873,8 @@ CREATE TABLE IF NOT EXISTS `bad_logins` (
   PRIMARY KEY  (`id`),
   KEY `ip` (`ip`,`year`,`month`,`day`,`hour`,`minute`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 
@@ -919,8 +916,8 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `created_hour` (`created_hour`,`created_minute`),
   KEY `eventID` (`eventID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -955,8 +952,8 @@ CREATE TABLE IF NOT EXISTS `events` (
   KEY `end_hour` (`end_hour`,`end_minute`),
   KEY `validated` (`validated`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -985,8 +982,8 @@ CREATE TABLE IF NOT EXISTS `faq` (
   KEY `validated` (`validated`),
   KEY `position` (`position`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1020,8 +1017,8 @@ CREATE TABLE IF NOT EXISTS `images` (
   KEY `noticeboardID` (`noticeboardID`),
   KEY `articleID` (`articleID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1049,8 +1046,8 @@ CREATE TABLE IF NOT EXISTS `links` (
   KEY `link_CategoryID` (`category`,`accountID`),
   KEY `parent` (`parent`,`position`,`validated`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1093,8 +1090,8 @@ CREATE TABLE IF NOT EXISTS `noticeboard` (
   KEY `request` (`request`),
   KEY `quick_delete` (`quick_delete`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1130,8 +1127,8 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   KEY `type` (`type`),
   KEY `noticeboardID` (`noticeboardID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1150,8 +1147,8 @@ CREATE TABLE IF NOT EXISTS `article_categories` (
   PRIMARY KEY  (`art_catID`),
   KEY `art_cat` (`art_cat`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1165,8 +1162,8 @@ INSERT INTO `article_categories` (`art_catID`, `art_cat`) VALUES
 (2, 'Meetings'),
 (3, 'From around the world'),
 (4, 'Look At Me!');")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1204,8 +1201,8 @@ CREATE TABLE IF NOT EXISTS `style` (
   `required_display` varchar(10) NOT NULL default '',
   PRIMARY KEY  (`styleID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1216,8 +1213,8 @@ if (!$last_mysql->query("--
 
 INSERT INTO `style` (`styleID`, `font_size`, `font`, `text_colour`, `background_colour`, `min_width`, `header_colour`, `tab_colour`, `text_background_colour`, `link_colour`, `link_decoration`, `visited_colour`, `visited_decoration`, `hover_colour`, `hover_decoration`, `header_border_size`, `header_border_colour`, `tab_border_size`, `tab_border_colour`, `header`, `required_text_decoration`, `required_font_weight`, `required_color`, `required_display`) VALUES
 (1, '12', 'Georgia, \"Times New Roman\", Times, serif', '#4f4f4f', '#F7F7F7', '550', '#e7e7e7', 'white', '#ffffff', '#006699', '#006699', '#006699', '#006699', '#ff6600', '#ff6600', '2', 'black', '2', 'black', '', 'none', 'bold', 'none', 'bold');")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1234,8 +1231,8 @@ CREATE TABLE IF NOT EXISTS `categories` (
   PRIMARY KEY  (`categoryID`),
   KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1263,8 +1260,8 @@ INSERT INTO `categories` (`categoryID`, `name`) VALUES
 (16, 'Pets /Animal Care'),
 (17, 'Recreation, Sports, Equipment, Etc.'),
 (18, 'Miscellaneous');")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1281,8 +1278,8 @@ CREATE TABLE IF NOT EXISTS `event_categories` (
   PRIMARY KEY  (`event_categoryID`),
   KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1298,8 +1295,8 @@ INSERT INTO `event_categories` (`event_categoryID`, `name`) VALUES
 (4, 'Potluck'),
 (5, 'Public Events'),
 (6, 'Market');")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if (!$last_mysql->query("--
@@ -1328,8 +1325,8 @@ CREATE TABLE IF NOT EXISTS `sections` (
   KEY `hidden` (`hidden`),
   KEY `position_2` (`position`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 $site_name_text = str_replace('_',' ',$site_name);
 
@@ -1379,28 +1376,28 @@ INSERT INTO `sections` (`sectionID`, `page_type`, `page_id`, `url`, `name`, `plu
 (37, 15, 0, 'help', 'Help', 'Helps', 'Help', 1, 0, 43, 'Please <a href=\"".$url."\">contact</a> us if your problem isn''t answered here.'),
 (39, 10, 0, 'business_directory', 'Business Directory', '', '', 5, 0, 2, 'This page is a simple additional page entered through the \"website structure\" link'),
 (40, 10, 0, 'more_info', 'More Info', '', '', 5, 1, 44, ' What is a LETS?\r\n\r\nLETS stands for Local Exchange Trading System. Members trade directly or use the local currency, called \"Green dollars\" (GRN $) in exchange for goods and services.\r\n\r\n\r\nWho Are LETS Members?\r\n\r\nThere are hundreds of LETS communities all around the world, circulating their own local currencies. Members are people like you, your family, friends, neighbours, your massage therapist, gardener, tutor, chef, business owners...\r\n\r\nWhy Join LETS?\r\n\r\nLETS provides an alternative economy, so everyone can value the goods and services you have to offer. Likewise you are able to value and pay for the goods and services you receive with something other than Canadian dollars. There always seems to be a shortage of Canadian dollars, but there are always enough Green dollars and they always stay in the community.\r\n\r\n\r\n\r\nEarning and spending Green dollars is also a way of building community relationships and strengthening community resources. LETS works without interest or inflation. LETS eliminates the value of hoarding, stimulates active exchange, and provides equal access to resources for everyone.\r\n\r\n\r\nHow Does LETS Work?\r\n\r\n\r\nMembers open an account by paying a registration fee.\r\n\r\nWhen members sell goods or services they earn Green dollars, and their accounts are credited. When members buy goods or services they spend Green dollars, and their accounts are debited.');")) {
-	echo $last_mysql->error;
-	$completed = false;
+    echo $last_mysql->error;
+    $completed = false;
 }
 
 if ($completed) {
-	echo T_('<strong>Database Finalized!!</strong><br />');
-	if ($links->initialize($nav_links_indent)) {
-		echo T_('<strong>Site Structure Initialized</strong><br />');
-		if ($links->rebuild_htaccess()) {
-			echo T_('<strong>.htaccess was updated!!!</strong><br />');
-		} else {
-			echo T_('<strong>.htaccess could NOT be updated</strong>, make sure the file permission is set to (775)<br /></div>');
-			$completed = false;
-		}
-	} else {
-		echo T_('<strong>Site Structure could NOT be Initialized</strong><br /></div>');
-		$completed = false;
-	}
+    echo T_('<strong>Database Finalized!!</strong><br />');
+    if ($links->initialize($nav_links_indent)) {
+        echo T_('<strong>Site Structure Initialized</strong><br />');
+        if ($links->rebuild_htaccess()) {
+            echo T_('<strong>.htaccess was updated!!!</strong><br />');
+        } else {
+            echo T_('<strong>.htaccess could NOT be updated</strong>, make sure the file permission is set to (775)<br /></div>');
+            $completed = false;
+        }
+    } else {
+        echo T_('<strong>Site Structure could NOT be Initialized</strong><br /></div>');
+        $completed = false;
+    }
 }
-	
+    
 if ($completed) {
-	echo '<strong>'.T_('Installation Complete!!!').'</strong><br /><br />'.T_('Clicking').' <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">'.T_('here').'</a> '.T_('should direct you to the home page.').'</div>';
+    echo '<strong>'.T_('Installation Complete!!!').'</strong><br /><br />'.T_('Clicking').' <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">'.T_('here').'</a> '.T_('should direct you to the home page.').'</div>';
 }
 echo '</body></html>';
 ?>

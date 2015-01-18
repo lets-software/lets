@@ -34,8 +34,8 @@ margin: 10px;
 
 .progress {
     text-align: center;
-	font: 14px serif;
-	padding-bottom: 20px;
+    font: 14px serif;
+    padding-bottom: 20px;
 }
 
 .progress a {
@@ -106,17 +106,17 @@ margin: 10px;
 }
 
 ul {
-	list-style-position: outside;
-	margin-left: -15px;
+    list-style-position: outside;
+    margin-left: -15px;
 }
 
 li.error{
-	color: red;
-	list-style-image: url('../images/iconset/essen/16x16/busy.png');
+    color: red;
+    list-style-image: url('../images/iconset/essen/16x16/busy.png');
 }
 
 li.ok{
-	list-style-image: url('../images/iconset/essen/16x16/check.png');
+    list-style-image: url('../images/iconset/essen/16x16/check.png');
 }
 
 .basic-grey label {

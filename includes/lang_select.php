@@ -1,20 +1,21 @@
 <?php
 // This should be the first page to appear on the screen during installation to allow user to select his language
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
-<link href="/templates/default/styles/install.css" rel="stylesheet" type="text/css">'
-</html>
+<title>Select Language</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="/templates/default/styles/install.css" rel="stylesheet" type="text/css" />
+</head>
 <body>
-<div class="basic-grey"><h1>Select you Language:</h1><br>
+<div class="basic-grey"><h1>Select you Language:</h1><br />
 <form  action="/index.php" method="post">
    <select id="lang" name="lang">
       <option value="en_US">English</option>
-	  <option value="fr_FR">Français</option>
-	</select><br>
-	<input type="submit" value="Submit"><br>
+      <option value="fr_FR">Français</option>
+    </select><br />
+    <input type="submit" value="Submit"><br />
 </form></div>
 </body>
 </html>

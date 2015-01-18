@@ -885,9 +885,9 @@ class links {
 		$z .= $i."<span class=\"nav_links_heading\">Site Menu:</span>\n<br /><br />";
 		$z .= $i."<ul>\n";
 		if (!isset($_GET['page_type'])) {
-			$z .= $i." <li><a class=\"nav_link_selected\" href=\"".URL.append_url(0)."\">Home</a></li><br />\n";
+			$z .= $i." <li><a class=\"nav_link_selected\" href=\"".URL.append_url(0)."\">Home</a></li>\n";
 		} else {
-			$z .= $i." <li><a class=\"nav_link\" href=\"".URL.append_url(0)."\">Home</a></li><br />\n";
+			$z .= $i." <li><a class=\"nav_link\" href=\"".URL.append_url(0)."\">Home</a></li>\n";
 		}
 		foreach ($mysql->result as $link) {
 			$selected = '';
@@ -923,7 +923,7 @@ class links {
 				define("ADMIN_NAME_SINGULAR",			$link['singular']);
 			}
 			if ($link['type'] == 1 and $link['page_type'] == 2 and !$link['page_id'] and ENABLE_NOTICEBOARD) {
-				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li><br />\n";
+				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li>\n";
 				define("NOTICEBOARD_URL",				$link['url']);
 				define("NOTICEBOARD_NAME",				$link['name']);
 				define("NOTICEBOARD_NAME_PLURAL",		$link['plural']);
@@ -931,35 +931,35 @@ class links {
 				
 			}
 			if ($link['type'] == 1 and $link['page_type'] == 3 and !$link['page_id'] and ENABLE_ARTICLES) {
-				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li><br />\n";
+				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li>\n";
 				define("ARTICLES_URL",					$link['url']);
 				define("ARTICLES_NAME",					$link['name']);
 				define("ARTICLES_NAME_PLURAL",			$link['plural']);
 				define("ARTICLES_NAME_SINGULAR",		$link['singular']);
 			}
 			if ($link['type'] == 1 and $link['page_type'] == 4 and !$link['page_id'] and ENABLE_EVENTS) {
-				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li><br />\n";
+				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li>\n";
 				define("EVENTS_URL",					$link['url']);
 				define("EVENTS_NAME",					$link['name']);
 				define("EVENTS_NAME_PLURAL",			$link['plural']);
 				define("EVENTS_NAME_SINGULAR",			$link['singular']);
 			}
 			if ($link['type'] == 1 and $link['page_type'] == 5 and !$link['page_id'] and ENABLE_FAQ) {
-				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li><br />\n";
+				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li>\n";
 				define("FAQ_URL",						$link['url']);
 				define("FAQ_NAME",						$link['name']);
 				define("FAQ_NAME_PLURAL",				$link['plural']);
 				define("FAQ_NAME_SINGULAR",				$link['singular']);
 			}
 			if ($link['type'] == 1 and $link['page_type'] == 6 and !$link['page_id'] and ENABLE_LINKS) {
-				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li><br />\n";
+				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li>\n";
 				define("LINKS_URL",						$link['url']);
 				define("LINKS_NAME",					$link['name']);
 				define("LINKS_NAME_PLURAL",				$link['plural']);
 				define("LINKS_NAME_SINGULAR",			$link['singular']);
 			}
 			if ($link['type'] == 1 and $link['page_type'] == 7 and !$link['page_id'] and ENABLE_MEMBER_LIST) {
-				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li><br />\n";
+				$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li>\n";
 				define("MEMBER_LIST_URL",				$link['url']);
 				define("MEMBER_LIST_NAME",				$link['name']);
 			}
@@ -969,7 +969,7 @@ class links {
 				($link['page_type'] == 12 and SHOW_SEARCH_LINK) or
 				($link['page_type'] == 14 and SHOW_LOGIN_LINK) or
 				($link['page_type'] == 15 and SHOW_HELP_LINK)) {
-					$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li><br />\n";
+					$z .= $i.' <li><a class="nav_link'.$selected.'" href="'.URL.$link['url'].'/'.append_url(0).'">'.$link['name']."</a></li>\n";
 			}
 		}
 		$z .= $i."</ul>\n";

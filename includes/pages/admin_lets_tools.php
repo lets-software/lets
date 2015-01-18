@@ -134,17 +134,17 @@ if ($_POST['submit'] == 'Delete Category') {
 
 if ($_POST['submit'] == 'Submit '.ucwords(TRANSACTION_NAME_SINGULAR) or $_POST['submit'] == 'Confirm '.ucwords(TRANSACTION_NAME_SINGULAR)) {
 	if (!is_numeric($_POST['amount'])) {
-		$main_html .= $i.'<span class="message">Amount given is not a number</span><br /><br />'."\n";
+		$main_html .= $i.T_('<span class="message">Amount given is not a number</span>')."<br /><br />\n";
 	} elseif($_POST['amount'] < 0) {
-		$main_html .= $i.'<span class="message">Amount must be positive</span><br /><br />'."\n";
+		$main_html .= $i.T_('<span class="message">Amount must be positive</span>')."<br /><br />\n";
 	} elseif(!$_POST['description']) {
-		$main_html .= $i.'<span class="message">Please provide a description</span><br /><br />'."\n";
+		$main_html .= $i.T_('<span class="message">Please provide a description</span>')."<br /><br />\n";
 	} elseif(!$_POST['member_id']) {
-		$main_html .= $i.'<span class="message">Please provide '.a(MEMBERS_NAME_SINGULAR).' '.strtolower(MEMBERS_NAME_SINGULAR).' ID</span><br /><br />'."\n";
+		$main_html .= $i.T_('<span class="message">Please provide '.a(MEMBERS_NAME_SINGULAR).' '.strtolower(MEMBERS_NAME_SINGULAR).' ID</span>')."<br /><br />\n";
 	} elseif(!$mysql->num_rows('SELECT accountID FROM accounts WHERE accountID = '.$_POST['member_id'].' LIMIT 1')) {
-		$main_html .= $i.'<span class="message">Database Problem</span><br /><br />'."\n";
+		$main_html .= $i.T_('<span class="message">Database Problem</span>')."<br /><br />\n";
 	} elseif(!$mysql->num_rows) {
-		$main_html .= $i.'<span class="message">'.ucwords(MEMBERS_NAME_SINGULAR).' ID not found</span><br /><br />'."\n";
+		$main_html .= $i.T_('<span class="message">'.ucwords(MEMBERS_NAME_SINGULAR).' ID not found</span>')."<br /><br />\n";
 	} else {
 		$xhtml_report = '';
 		$_POST['description'] = remove_slashes($_POST['description']);
@@ -176,11 +176,11 @@ if ($_POST['submit'] == 'Delete All Suspended Accounts' or $_POST['submit'] == '
 	$confirmation_screen = true;
 	if ($_POST['expiry_adjustment'] and !is_numeric($_POST['expiry_adjustment'])) {
 		$confirmation_screen = false;
-		$main_html .= $i.'<span class="message">You entered a letter when it should have been a number (Expiry Adjustment)</span><br /><br />'."\n";
+		$main_html .= $i.T_('<span class="message">You entered a letter when it should have been a number (Expiry Adjustment)</span>')."<br /><br />\n";
 	}
 	if (isset($_POST['expiry_adjustment']) and isset($_POST['new_expiry'])) {
 		$confirmation_screen = false;
-		$main_html .= $i.'<span class="message">Either set an expiry for all accounts or adjust each account a specific amount</span><br /><br />'."\n";
+		$main_html .= $i.T_('<span class="message">Either set an expiry for all accounts or adjust each account a specific amount</span>')."<br /><br />\n";
 	}
 	if ($confirmation_screen) {
 		if ($_POST['submit'] == 'Delete All Suspended Accounts') {
@@ -238,7 +238,7 @@ if ($_POST['submit'] == 'Confirm') {
 if ($_POST['submit'] == 'Reverse' and isset($_POST['transaction_id'])) {
 	$mysql->num_rows('SELECT transactionID FROM transactions WHERE transactionID = '.$_POST['transaction_id'].' LIMIT 1');
 	if (!$mysql->num_rows) {
-		$main_html .= $i.'<span class="message">'.ucfirst(TRANSACTION_NAME_SINGULAR).' not found</span><br /><br />'."\n";
+		$main_html .= $i.T_('<span class="message">'.ucfirst(TRANSACTION_NAME_SINGULAR).' not found</span>')."<br /><br />\n";
 	} else {
 		$confirmation_screen = true;
 		$main_html .= $transactions->confirm_reverse_transaction($i,$url,$_POST['transaction_id']);
@@ -246,10 +246,10 @@ if ($_POST['submit'] == 'Reverse' and isset($_POST['transaction_id'])) {
 }
 if ($_POST['submit'] == 'Confirm Reversal' and isset($_POST['transaction_id'])) {
 	if ($transactions->reverse($_POST['transaction_id'])) {
-		$main_html .= $i.'<span class="message">'.ucfirst(TRANSACTION_NAME_SINGULAR).' deleted</span><br /><br />'."\n";
+		$main_html .= $i.T_('<span class="message">'.ucfirst(TRANSACTION_NAME_SINGULAR).' deleted</span>')."<br /><br />\n";
 		if (ENABLE_LOG) log_action($_SESSION['member_full_name'].' reversed "'.strtolower(TRANSACTION_NAME_SINGULAR).' #'.$_POST['transaction_id']);
 	} else {
-		$main_html .= $i.'<span class="message">'.ucfirst(TRANSACTION_NAME_SINGULAR).' could not be deleted:</span><br /><br />'."\n";
+		$main_html .= $i.T_('<span class="message">'.ucfirst(TRANSACTION_NAME_SINGULAR).' could not be deleted:</span>')."<br /><br />\n";
 	}
 }
 
@@ -271,8 +271,8 @@ if(!$confirmation_screen) {
 	$events->get_event_categories();
 	$noticeboard->get_categories();
 	$articles->get_art_cats();
-	$main_html .= $i.'<h2>Category Admin</h2>'."\n";
-	$main_html .= $i.'<strong>Note:</strong> It is not possible to delete a category once '.a(EVENTS_NAME_SINGULAR).' '.strtolower(EVENTS_NAME_SINGULAR).', '.strtolower(NOTICEBOARD_NAME_SINGULAR).' or '.strtolower(ARTICLES_NAME_SINGULAR).' has been assigned to it.'."\n";
+	$main_html .= $i.T_('<h2>Category Admin</h2>')."\n";
+	$main_html .= $i.T_('<strong>Note:</strong> It is not possible to delete a category once '.a(EVENTS_NAME_SINGULAR).' '.strtolower(EVENTS_NAME_SINGULAR).', '.strtolower(NOTICEBOARD_NAME_SINGULAR).' or '.strtolower(ARTICLES_NAME_SINGULAR).' has been assigned to it.')."\n";
 	$main_html .= $noticeboard->categories_html($i,$url);
 	if (ENABLE_EVENTS) {
 		$main_html .= $events->categories_html($i,$url);
@@ -281,18 +281,18 @@ if(!$confirmation_screen) {
 		$main_html .= $articles->categories_html($i,$url);
 	}
 	// global transactions
-	$main_html .= $i.'<h2>Make a Global '.ucwords(TRANSACTION_NAME_SINGULAR).'</h2>'."\n";
+	$main_html .= $i.T_('<h2>Make a Global '.ucwords(TRANSACTION_NAME_SINGULAR).'</h2>')."\n";
 	$main_html .= $transactions->member_distribute_html($i,$url);
 	$user->bulk_membership_tools($i,$url,'delete',false);
-	$main_html .= $i.'<h2>Bulk '.ucwords(MEMBERS_NAME_SINGULAR).' Tools</h2>'."\n";
+	$main_html .= $i.T_('<h2>Bulk '.ucwords(MEMBERS_NAME_SINGULAR).' Tools</h2>')."\n";
 	$main_html .= $user->bulk_tools_html($i,$url);
-	$main_html .= $i.'<h2>Reverse A '.ucwords(TRANSACTION_NAME_SINGULAR).'</h2>'."\n";
+	$main_html .= $i.T_('<h2>Reverse A '.ucwords(TRANSACTION_NAME_SINGULAR).'</h2>')."\n";
 	$main_html .= $transactions->reverse_transaction_html($i,$url);
 	$main_html .= $i.'<br /><br />'."\n";
-	$main_html .= $i.'<h2>Check Balances</h2>'."\n";
-	$main_html .= $i.'Use this function to ensure stored balances are accurate<br />'."\n";
+	$main_html .= $i.T_('<h2>Check Balances</h2>')."\n";
+	$main_html .= $i.T_('Use this function to ensure stored balances are accurate<br />')."\n";
 	$main_html .= $i.'<form name="check_balances" id="check_balances" method="post" action="'.rtrim(URL,'/').$_SERVER['REQUEST_URI'].append_url().'">'."\n";
-	$main_html .= $i.' <input class="check_balances_button" type="submit" name="submit" value="Check Balances" />'."\n";
+	$main_html .= $i.T_(' <input class="check_balances_button" type="submit" name="submit" value="Check Balances" />')."\n";
 	$main_html .= $i.'</form>'."\n";
 	$javascript .= $events->category_javascript;
 	$javascript .= $noticeboard->category_javascript;
