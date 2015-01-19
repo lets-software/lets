@@ -106,7 +106,7 @@ margin: 10px;
 }
 
 ul {
-    list-style-position: outside;
+    list-style-position: inside;
     margin-left: -15px;
 }
 

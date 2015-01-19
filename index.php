@@ -203,7 +203,7 @@ if (!mysql_select_db("$database_name")) {
     }else{
         echo '    <li class="ok">'.T_("Database <strong>$database_name</strong> created successfully! => Please refresh the page... (F5)").'</li>';
     }
-    echo '</ul><input type="button" value="'.T_('Next').'" onClick="location.href=\''.$_SERVER['HTTP_REFERER'].'\';"></div></body></html>';
+    echo '</ul><input type="button" value="'.T_('Next').'" onClick="location.href=\''.$_SERVER['PHP_SELF'].'\';"></div></body></html>';
     mysql_select_db("$database_name");
 }
 

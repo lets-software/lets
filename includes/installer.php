@@ -402,7 +402,7 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->bu
               `ftp_password` varchar(255) default NULL,
               PRIMARY KEY  (`ID`)
             ) ENGINE=InnoDB DEFAULT CHARSET=latin1;")) {
-            $message .= '<li class="ok">'.T_('Table "config" has been created.').'</li>';
+            $message .= '<ul><li class="ok">'.T_('Table "config" has been created.').'</li>';
         } else {
             echo '<li class="error">'.$mysql->error.'</li>';
         }
@@ -416,7 +416,7 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->bu
                 ")) {
             echo '<li class="error">'.$mysql->error.'</li>';
         } else {
-            $message .= '<li class="ok">'.T_('Some default config information has been added.').'</li><br />';
+            $message .= '<li class="ok">'.T_('Some default config information has been added.').'</li></ul>';
         }
     }    
 }
@@ -447,7 +447,7 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->bui
             echo '<form action="'.$_SERVER['REQUEST_URI'].'" method="post" >';
             echo T_('<h1>Setup Form');
             echo '        <span>'.T_('Please fill all the texts in the fields.').'</span>';
-            echo '</h1><br /><br />';
+            echo '</h1>';
             if ($message) {
                 echo '<strong><em>'.$message.'<br /><br /></em></strong>';
             }
@@ -795,13 +795,8 @@ $site_name = $last_mysql->result[0]['site_name'];
 
 
 if (!$last_mysql->query("--
--- Database: `lets_viclets`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `articles`
+-- Create structure for table `articles`
 --
 
 CREATE TABLE IF NOT EXISTS `articles` (
@@ -827,12 +822,9 @@ CREATE TABLE IF NOT EXISTS `articles` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `bids`
+-- Create structure for table `bids`
 --
 
 CREATE TABLE IF NOT EXISTS `bids` (
@@ -854,12 +846,9 @@ CREATE TABLE IF NOT EXISTS `bids` (
 }
 
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `bad_logins`
+-- Create structure for table `bad_logins`
 --
 
 CREATE TABLE IF NOT EXISTS `bad_logins` (
@@ -884,12 +873,9 @@ CREATE TABLE IF NOT EXISTS `bad_logins` (
 
 
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `comments`
+-- Create structure for table `comments`
 --
 
 CREATE TABLE IF NOT EXISTS `comments` (
@@ -920,12 +906,9 @@ CREATE TABLE IF NOT EXISTS `comments` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `events`
+-- Create structure for table `events`
 --
 
 CREATE TABLE IF NOT EXISTS `events` (
@@ -956,12 +939,9 @@ CREATE TABLE IF NOT EXISTS `events` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `faq`
+-- Create structure for table `faq`
 --
 
 CREATE TABLE IF NOT EXISTS `faq` (
@@ -986,12 +966,9 @@ CREATE TABLE IF NOT EXISTS `faq` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `images`
+-- Create structure for table `images`
 --
 
 CREATE TABLE IF NOT EXISTS `images` (
@@ -1021,12 +998,9 @@ CREATE TABLE IF NOT EXISTS `images` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `links`
+-- Create structure for table `links`
 --
 
 CREATE TABLE IF NOT EXISTS `links` (
@@ -1050,12 +1024,9 @@ CREATE TABLE IF NOT EXISTS `links` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `noticeboard`
+-- Create structure for table `noticeboard`
 --
 
 CREATE TABLE IF NOT EXISTS `noticeboard` (
@@ -1094,12 +1065,9 @@ CREATE TABLE IF NOT EXISTS `noticeboard` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `transactions`
+-- Create structure for table `transactions`
 --
 
 CREATE TABLE IF NOT EXISTS `transactions` (
@@ -1131,14 +1099,9 @@ CREATE TABLE IF NOT EXISTS `transactions` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
--- Database: `lets_viclets`
+if (!$last_mysql->query("
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `article_categories`
+-- Create structure for table `article_categories`
 --
 
 CREATE TABLE IF NOT EXISTS `article_categories` (
@@ -1151,10 +1114,9 @@ CREATE TABLE IF NOT EXISTS `article_categories` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
+if (!$last_mysql->query("
 --
--- Dumping data for table `article_categories`
+-- Insert data to table `article_categories`
 --
 
 INSERT INTO `article_categories` (`art_catID`, `art_cat`) VALUES
@@ -1166,12 +1128,9 @@ INSERT INTO `article_categories` (`art_catID`, `art_cat`) VALUES
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `style`
+-- Create structure for table `style`
 --
 
 CREATE TABLE IF NOT EXISTS `style` (
@@ -1205,10 +1164,9 @@ CREATE TABLE IF NOT EXISTS `style` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
+if (!$last_mysql->query("
 --
--- Dumping data for table `style`
+-- Insert data to table `style`
 --
 
 INSERT INTO `style` (`styleID`, `font_size`, `font`, `text_colour`, `background_colour`, `min_width`, `header_colour`, `tab_colour`, `text_background_colour`, `link_colour`, `link_decoration`, `visited_colour`, `visited_decoration`, `hover_colour`, `hover_decoration`, `header_border_size`, `header_border_colour`, `tab_border_size`, `tab_border_colour`, `header`, `required_text_decoration`, `required_font_weight`, `required_color`, `required_display`) VALUES
@@ -1217,12 +1175,9 @@ INSERT INTO `style` (`styleID`, `font_size`, `font`, `text_colour`, `background_
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `categories`
+-- Create structure for table `categories`
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -1235,10 +1190,9 @@ CREATE TABLE IF NOT EXISTS `categories` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
+if (!$last_mysql->query("
 --
--- Dumping data for table `categories`
+-- Insert data for table `categories`
 --
 
 INSERT INTO `categories` (`categoryID`, `name`) VALUES
@@ -1264,12 +1218,9 @@ INSERT INTO `categories` (`categoryID`, `name`) VALUES
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `event_categories`
+-- Create structure for table `event_categories`
 --
 
 CREATE TABLE IF NOT EXISTS `event_categories` (
@@ -1282,10 +1233,9 @@ CREATE TABLE IF NOT EXISTS `event_categories` (
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
+if (!$last_mysql->query("
 --
--- Dumping data for table `event_categories`
+-- Insert data for table `event_categories`
 --
 
 INSERT INTO `event_categories` (`event_categoryID`, `name`) VALUES
@@ -1299,12 +1249,9 @@ INSERT INTO `event_categories` (`event_categoryID`, `name`) VALUES
     $completed = false;
 }
 
-if (!$last_mysql->query("--
-
--- --------------------------------------------------------
-
+if (!$last_mysql->query("
 --
--- Table structure for table `sections`
+-- Create structure for table `sections`
 --
 
 CREATE TABLE IF NOT EXISTS `sections` (
@@ -1330,10 +1277,9 @@ CREATE TABLE IF NOT EXISTS `sections` (
 }
 $site_name_text = str_replace('_',' ',$site_name);
 
-if (!$last_mysql->query("--
-
+if (!$last_mysql->query("
 --
--- Dumping data for table `sections`
+-- Insert data to table `sections`
 --
 
 INSERT INTO `sections` (`sectionID`, `page_type`, `page_id`, `url`, `name`, `plural`, `singular`, `type`, `hidden`, `position`, `body`) VALUES
@@ -1387,17 +1333,17 @@ if ($completed) {
         if ($links->rebuild_htaccess()) {
             echo T_('<strong>.htaccess was updated!!!</strong><br />');
         } else {
-            echo T_('<strong>.htaccess could NOT be updated</strong>, make sure the file permission is set to (775)<br /></div>');
+            echo T_('<strong>.htaccess could NOT be updated</strong>, make sure the file permission is set to (775)').'<br /></div>';
             $completed = false;
         }
     } else {
-        echo T_('<strong>Site Structure could NOT be Initialized</strong><br /></div>');
+        echo T_('<strong>Site Structure could NOT be Initialized</strong>').'<br /></div>';
         $completed = false;
     }
 }
     
 if ($completed) {
-    echo '<strong>'.T_('Installation Complete!!!').'</strong><br /><br />'.T_('Clicking').' <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">'.T_('here').'</a> '.T_('should direct you to the home page.').'</div>';
+    echo '<strong>'.T_('Installation Complete!!!</strong><br /><br />Clicking <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">here</a> should direct you to the home page.').'</div>';
 }
 echo '</body></html>';
 ?>
