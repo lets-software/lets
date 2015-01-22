@@ -112,10 +112,16 @@ ul {
 
 li.error{
     color: red;
+    padding-bottom:4px;
+    font-size: 1.2em;
+    font-weight: bold;
     list-style-image: url('../images/iconset/essen/16x16/busy.png');
 }
 
 li.ok{
+    padding-bottom:4px;
+    font-size: 1.2em;
+    font-weight: bold;
     list-style-image: url('../images/iconset/essen/16x16/check.png');
 }
 

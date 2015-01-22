@@ -10,25 +10,25 @@ require_once LETS_ROOT.'includes/files_and_folders_functions.php';
 
 
 echo '<!DOCTYPE html>';
-echo '<html xmlns="http://www.w3.org/1999/xhtml">';
+echo '<html>';
 echo '<head>';
 echo '<title>Lets-Software Setup</title>';
 echo '<meta http-equiv="Content-Type" content="text/html; charset='.$_SESSION['lang'].'" />';
-echo '<link href="'.URL.'/templates/'.TEMPLATE.'/styles/install.css" rel="stylesheet" type="text/css">';
+echo '<link href="'.URL.'/templates/'.TEMPLATE.'/styles/install.css" rel="stylesheet" type="text/css" />';
 echo '</head>';
 echo '<body>';
 
 
-$message = '';
-$submitted_config = 0;
-$files_status = true;
+$message                                    = '';
+$submitted_website_settings     = 0;
+$submitted_account                  = 0;
+$files_status                               = true;
 
 
 if (isset($_POST['submit'])) {
     $post_post = remove_slashes($_POST);
     $okToUpdateDb = 0;                                                    // Stay at 0 if there is no error, pas it a 1 in case of any error
     if ($post_post['submit'] == 'Enter Config') {
-            $message = '<ul>';
             // strpos(shell_exec('/usr/local/apache/bin/apachectl -l'), 'mod_rewrite') !== false
             if (!in_array('mod_rewrite', apache_get_modules())) {$message .= '<li class="error">'.T_('Mod_Rewrite MUST be enable. Current status = Disable').'</li>'; } // We don't prevent you to keep going as this test will fail if you don't run Apache
             //TODO:  Generate this number randomly so user don't have to type one them selves
@@ -46,9 +46,10 @@ if (isset($_POST['submit'])) {
             if (!filter_var($post_post['validation_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li class="error">'.T_('Please enter Validation email.').'</li>'; $okToUpdateDb = 1;}
             if (!filter_var($post_post['technical_email'], FILTER_VALIDATE_EMAIL)) {$message .= '<li class="error">'.T_('Please enter Technical email.').'</li>'; $okToUpdateDb = 1;}
             if (!$post_post['location']) {$message .= '<li class="error">'.T_('Please enter your location.').'</li>'; $okToUpdateDb = 1;}
-            $message .= '</ul>';
-            $submitted_config = 1;
+            $submitted_website_settings  = 1;
             if ($okToUpdateDb == 0) {
+                // make sure that $post_post['url'] and $post_post['path'] end by a slash
+                $post_post['url'] = preg_match('/\/$/', $post_post['url'])? $post_post['url'] : preg_replace('/$/', '/', $post_post['url']);
                 $post_post['path'] = preg_match('/\/$/', $post_post['path'])? $post_post['path'] : preg_replace('/$/', '/', $post_post['path']);
                 if ($mysql->query("UPDATE config SET
                 site_name = '".mysql_escape_string($post_post['site_name'])."',
@@ -61,7 +62,10 @@ if (isset($_POST['submit'])) {
                 update_email = '".mysql_escape_string($post_post['admin_email'])."',
                 email_from_name = '".mysql_escape_string($post_post['site_name'])."',
                 location = '".mysql_escape_string($post_post['location'])."'")) {
-                    $message .= '<ul class="basic-grey"><li class="ok">'.T_('Configuration Complete!').'</li>';
+                    if( !isset($_SESSION['submitted_website_settings']) ){
+                        $message .= '<li class="ok">'.T_('Configuration Complete!').'</li>';
+                        $_SESSION['submitted_website_settings'] = 'done';
+                    }
                 }else {
                     echo '<li class="error">'.T_('Database update fail').'</li>';
                 }
@@ -72,9 +76,11 @@ if (isset($_POST['submit'])) {
         if (!$post_post['first_name'] or
             !$post_post['last_name'] or
             !$post_post['password'] or
-            !$post_post['second_password']) {
+            !$post_post['second_password']){
+                $submitted_account = 1;
                 $message .= '<li class="error">'.T_('You did not fill out all the fields!!!').'</li>';
         } elseif ($post_post['password'] != $post_post['second_password']) {
+            $submitted_account = 1;
             $message .= '<li class="error">'.T_('Passwords did not match, please try again.').'</li>';
         } else {
             if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) > 0 && $mysql->result('SELECT site_key FROM config')) {
@@ -138,48 +144,48 @@ if (isset($_POST['submit'])) {
                                 $files_exist = true;
                                 if (!strpos(' '.$tmp_var,'.htaccess')) {
                                     $files_exist = false;
-                                    $message .= '<li class="error"><strong>.htaccess</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                    $message .= '<li class="error"><strong>.htaccess</strong> '.T_("NOT FOUIND!").'</li>';
                                 }
                                 if (!strpos(' '.$tmp_var,'images')) {
                                     $files_exist = false;
-                                    $message .= '<li class="error"><strong>images</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                    $message .= '<li class="error"><strong>images</strong> '.T_("NOT FOUIND!").'</li>';
                                 }
                                 if (!strpos(' '.$tmp_var,'includes')) {
                                     $files_exist = false;
-                                    $message .= '<li class="error"><strong>includes</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                    $message .= '<li class="error"><strong>includes</strong> '.T_("NOT FOUIND!").'</li>';
                                 }
                                 if (!strpos(' '.$tmp_var,'templates')) {
                                     $files_exist = false;
-                                    $message .= '<li class="error"><strong>templates</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                    $message .= '<li class="error"><strong>templates</strong> '.T_("NOT FOUIND!").'</li>';
                                 }
                                 if (!strpos(' '.$tmp_var,'logs')) {
                                     $files_exist = false;
-                                    $message .= '<li class="error"><strong>logs</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                    $message .= '<li class="error"><strong>logs</strong> '.T_("NOT FOUIND!").'</li>';
                                 }
                                 if (!strpos(' '.$tmp_var,'index.php')) {
                                     $files_exist = false;
-                                    $message .= '<li class="error"><strong>index.php</strong> '.T_("NOT FOUIND!").'</li><br />';
+                                    $message .= '<li class="error"><strong>index.php</strong> '.T_("NOT FOUIND!").'</li>';
                                 }
                                 
                                 if (!$files_exist) {
-                                    $message .= '<li><strong>'.T_("FTP root is incorrect").'</strong></li><br />';
+                                    $message .= '<li><strong>'.T_("FTP root is incorrect").'</strong></li>';
                                 } else {
                                     $mode = 777; 
                                     $np = '0'.$mode;
                                     if (ftp_chmod($conn_id, eval("return({$np});"), '.htaccess')){
-                                        $message .= '<li class="ok"><strong>.htaccess</strong> '.T_("Permissions Set!").'</li><br />';
+                                        $message .= '<li class="ok"><strong>.htaccess</strong> '.T_("Permissions Set!").'</li>';
                                     } else {
-                                        $message .= '<li class="error"><strong>.htaccess</strong> '.T_("Permissions Failed!").'</li><br />';
+                                        $message .= '<li class="error"><strong>.htaccess</strong> '.T_("Permissions Failed!").'</li>';
                                     }
                                     if (ftp_chmod($conn_id, eval("return({$np});"), 'images')){
-                                        $message .= '<li class="ok"><strong>images</strong> '.T_("Permissions Set!").'</li><br />';
+                                        $message .= '<li class="ok"><strong>images</strong> '.T_("Permissions Set!").'</li>';
                                     } else {
-                                        $message .= '<li class="error"><strong>images</strong> '.T_("Permissions Failed!").'</li><br />';
+                                        $message .= '<li class="error"><strong>images</strong> '.T_("Permissions Failed!").'</li>';
                                     }
                                     if (ftp_chmod($conn_id, eval("return({$np});"), 'logs')){
-                                        $message .= '<li class="ok"><strong>logs</strong> '.T_("Permissions Set!").'</li><br />';
+                                        $message .= '<li class="ok"><strong>logs</strong> '.T_("Permissions Set!").'</li>';
                                     } else {
-                                        $message .= '<li class="error"><strong>logs</strong> '.T_("Permissions Failed!").'</li><br />';
+                                        $message .= '<li class="error"><strong>logs</strong> '.T_("Permissions Failed!").'</li>';
                                     }
                                     
                                     if (ftp_chdir($conn_id,'logs')) {
@@ -198,32 +204,32 @@ if (isset($_POST['submit'])) {
                                             if (ftp_put($conn_id, $site_name.'.log', $path.'.htaccess', FTP_ASCII)) {
                                                 $message .= ' Uploaded '.$site_name.'.log!<br />';
                                                 if (ftp_chmod($conn_id, eval("return({$np});"), $site_name.'.log')){
-                                                    $message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('Permissions Set!').'</li><br />';
+                                                    $message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('Permissions Set!').'</li>';
                                                 } else {
-                                                    $message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('Permissions Failed!').'</li><br />';
+                                                    $message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('Permissions Failed!').'</li>';
                                                 }                                                
                                             } else {
-                                                $message .= ' <li class="error">'.T_('Failed to upload:').' <strong>'.$site_name.'.log</strong></li><br />';
+                                                $message .= ' <li class="error">'.T_('Failed to upload:').' <strong>'.$site_name.'.log</strong></li>';
                                             }                                            
                                         }
 
                                         if (!strpos(' '.$tmp_var,$site_name.'_Errors.log')) {
                                             $message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('not found...').'</li>';
                                             if (ftp_put($conn_id, $site_name.'_Errors.log', $path.'.htaccess', FTP_ASCII)) {
-                                                $message .= ' <li class="ok">Uploaded <strong>'.$site_name.'_Errors.log</strong>!</li><br />';
+                                                $message .= ' <li class="ok">Uploaded <strong>'.$site_name.'_Errors.log</strong>!</li>';
                                                 if (ftp_chmod($conn_id, eval("return({$np});"), $site_name.'_Errors.log')){
-                                                    $message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('Permissions Set!').'</li><br />';
+                                                    $message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('Permissions Set!').'</li>';
                                                 } else {
-                                                    $message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('Permissions Failed!').'</li><br />';
+                                                    $message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('Permissions Failed!').'</li>';
                                                 }                                                
                                             } else {
-                                                $message .= ' <li class="error">'.T_('Failed to upload:').' <strong>'.$site_name.'_Errors.log</strong></li><br />';
+                                                $message .= ' <li class="error">'.T_('Failed to upload:').' <strong>'.$site_name.'_Errors.log</strong></li>';
                                             }    
                                         }
                                     }
                                 }
                             } else {
-                                $message .= '<li class="error">'.T_('Cannot find FTP root please check settings').'</li><br />';
+                                $message .= '<li class="error">'.T_('Cannot find FTP root please check settings').'</li>';
                             }
                             $message .= '<br />----------------------------------<br />';
                             ftp_close($conn_id); 
@@ -402,7 +408,7 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->bu
               `ftp_password` varchar(255) default NULL,
               PRIMARY KEY  (`ID`)
             ) ENGINE=InnoDB DEFAULT CHARSET=latin1;")) {
-            $message .= '<ul><li class="ok">'.T_('Table "config" has been created.').'</li>';
+            $message .= '<li class="ok">'.T_('Table "config" has been created.').'</li>';
         } else {
             echo '<li class="error">'.$mysql->error.'</li>';
         }
@@ -416,7 +422,7 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->bu
                 ")) {
             echo '<li class="error">'.$mysql->error.'</li>';
         } else {
-            $message .= '<li class="ok">'.T_('Some default config information has been added.').'</li></ul>';
+            $message .= '<li class="ok">'.T_('Some default config information has been added.').'</li>';
         }
     }    
 }
@@ -430,13 +436,13 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->bui
             !$mysql->result[0]['validation_email'] or
             !$mysql->result[0]['technical_email'] or
             !$mysql->result[0]['location']) {
-        
-        
-            if ($submitted_config) {
+            
+            // We use this to keep user data and display them again if needed
+            if ($submitted_website_settings) {
                 unset($mysql->result[0]);
                 $mysql->result[0] = $post_post;
-                
             }
+            
             echo '<div class="basic-grey">';
             echo '<div class="progress">';
             echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
@@ -449,40 +455,40 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->bui
             echo '        <span>'.T_('Please fill all the texts in the fields.').'</span>';
             echo '</h1>';
             if ($message) {
-                echo '<strong><em>'.$message.'<br /><br /></em></strong>';
+                echo '<ul>'.$message.'</ul>';
             }
             echo T_('The following fields are required:').'<br />';
-            echo T_('<strong>Encryption Key:</strong><br /><em>example:')."</em> sedtb782394jhnev63dbnec4uj894tb60rfnd67y2<br />\n";
-            echo T_("<em>Note:</em> You do not need to remember this code. By entering a large random number such as in the example all passwords will be stored in encrypted form.<br />\n");
-            echo ' <input type="text" name="site_key" value="'.$mysql->result[0]['site_key']."\" /><br /><br />\n";
+            echo T_('<strong>Encryption Key:</strong><br /><em>example:').'</em> sedtb782394jhnev63dbnec4uj894tb60rfnd67y2<br />';
+            echo T_('<em>Note:</em> You do not need to remember this code. By entering a large random number such as in the example all passwords will be stored in encrypted form.<br />');
+            echo '<input type="text" name="site_key" value="'.$mysql->result[0]['site_key'].'" /><br /><br />';
             
-            echo T_("<strong>Site Name:</strong><br /><em>example:</em> Toronto LETS<br />\n");
-            echo T_("<em>Note:</em> This name will appear in the title (the top bar of your browser).<br />\n");
-            echo '<input type="text" name="site_name" value="'.$mysql->result[0]['site_name']."\" /><br /><br />\n";
+            echo T_('<strong>Site Name:</strong><br /><em>example:</em> Toronto LETS<br />');
+            echo T_('<em>Note:</em> This name will appear in the title (the top bar of your browser).<br />');
+            echo '<input type="text" name="site_name" value="'.$mysql->result[0]['site_name'].'" /><br /><br />';
             
-            echo '<strong>URL:</strong><br />'.T_('<em>example:</em> http://www.toronto-lets.ca/')."<br />\n";
-            echo '<input type="text" name="url" value="'.$mysql->result[0]['url']."\" /><br /><br />\n";
+            echo '<strong>URL:</strong><br />'.T_('<em>example:</em> http://www.toronto-lets.ca/').'<br />';
+            echo '<input type="text" name="url" value="'.$mysql->result[0]['url'].'" /><br /><br />';
             
-            echo T_('<strong>File Path of index.php:</strong><br /><em>example:</em> ').$_SERVER["DOCUMENT_ROOT"]."<br />\n";
-            echo '<input type="text" name="path" value="'.$mysql->result[0]['path']."\" /><br /><br />\n";
+            echo T_('<strong>File Path of index.php:</strong><br /><em>example:</em> ').$_SERVER["DOCUMENT_ROOT"].'<br />';
+            echo '<input type="text" name="path" value="'.$mysql->result[0]['path'].'" /><br /><br />';
             
-            echo T_("<strong>Admin email:</strong><br /><em>example:</em> john.smith@toronto-lets.ca<br />\n");
-            echo " <input type=\"text\" name=\"admin_email\" value=\"".$mysql->result[0]['admin_email']."\" /><br /><br />\n";
+            echo T_('<strong>Admin email:</strong><br /><em>example:</em> john.smith@toronto-lets.ca<br />');
+            echo '<input type="text" name="admin_email" value="'.$mysql->result[0]['admin_email'].'" /><br /><br />';
             
-            echo T_("<strong>Validation email:</strong><br /><em>example:</em> sue@yahoo.com<br />\n");
-            echo " <input type=\"text\" name=\"validation_email\" value=\"".$mysql->result[0]['validation_email']."\" /><br /><br />\n";
+            echo T_('<strong>Validation email:</strong><br /><em>example:</em> sue@yahoo.com<br />');
+            echo '<input type="text" name="validation_email" value="'.$mysql->result[0]['validation_email'].'" /><br /><br />';
             
-            echo T_("<strong>Technical email:</strong><br /><em>example:</em> techie@domain.ca<br />\n");
-            echo " <input type=\"text\" name=\"technical_email\" value=\"".$mysql->result[0]['technical_email']."\" /><br /><br />\n";
+            echo T_('<strong>Technical email:</strong><br /><em>example:</em> techie@domain.ca<br />');
+            echo '<input type="text" name="technical_email" value="'.$mysql->result[0]['technical_email'].'" /><br /><br />';
             
-            echo T_("<strong>Location:</strong><br /><em>example:</em> Toronto, ON<br />\n");
-            echo " <input type=\"text\" name=\"location\" value=\"".$mysql->result[0]['location']."\" /><br /><br />\n";
+            echo T_('<strong>Location:</strong><br /><em>example:</em> Toronto, ON<br />');
+            echo ' <input type="text" name="location" value="'.$mysql->result[0]['location'].'" /><br /><br />';
             
-            echo T_("<strong>UTC Offset (Time Zone):</strong><br /><em>example:</em> Toronto would be -5, Paris 1, etc (full list on <a href=\"https://en.wikipedia.org/wiki/List_of_UTC_time_offsets\" title=\"List of UTC time offsets\" target=\"_blank\">Wikipedia.org</a>)<br />\n");
-            echo " <input type=\"text\" name=\"hour_offset\" value=\"".$mysql->result[0]['hour_offset']."\" /><br /><br />\n";
+            echo T_('<strong>UTC Offset (Time Zone):</strong><br /><em>example:</em> Toronto would be -5, Paris 1, etc (full list on <a href="https://en.wikipedia.org/wiki/List_of_UTC_time_offsets" title="List of UTC time offsets" target="_blank">Wikipedia.org</a>)<br />');
+            echo '<input type="text" name="hour_offset" value="'.$mysql->result[0]['hour_offset'].'" /><br /><br />';
             
-            echo " <input type=\"submit\" name=\"submit\" value=\"Enter Config\" />\n";
-            echo "</form></body></html>";
+            echo '<input type="submit" name="submit" value="' . T_('Enter Config').'" />';
+            echo '</form></div></body></html>';
             exit();
         }
     }
@@ -492,7 +498,7 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->bui
 // We check if the table accounts exist 
 if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) == 0 && !$mysql->build_array('SELECT * FROM accounts WHERE 1')) {
     if ($message) {
-        echo '<strong><em>'.$message.'<br /><br /></em></strong>';
+        echo '<ul>'.$message.'</ul>';
     }
     if ($mysql->query("CREATE TABLE IF NOT EXISTS `accounts` (
       `accountID` int(6) NOT NULL auto_increment,
@@ -553,7 +559,7 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) == 0 && !$mysql->
       KEY `imageID` (`imageID`),
       KEY `deleted` (`deleted`)
     ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-        echo T_('<li class="ok">Table "accounts" has been created.</li><br />');
+        $message .= T_('<li class="ok">Table "accounts" has been created.</li>');
     }
     if ($mysql->query("CREATE TABLE IF NOT EXISTS `transactions` (
       `transactionID` int(6) NOT NULL auto_increment,
@@ -580,13 +586,23 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) == 0 && !$mysql->
       KEY `type` (`type`),
       KEY `noticeboardID` (`noticeboardID`)
     ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
-        echo T_('<li class="ok">Table "transactions" has been created.</li><br />');
+        $message .= T_('<li class="ok">Table "transactions" has been created.</li>');
     }
 }
 
 $second_mysql = new mysql;
 if ($second_mysql->build_array('SELECT * FROM accounts WHERE accountID = 1')) {
     if (!isset($second_mysql->result[0]['accountID'])) {
+    
+        // We use this to keep user data and display them again if needed
+        if ($submitted_account) {
+            unset($mysql->result[0]);
+            $mysql->result[0] = $post_post;
+        }else{
+            $mysql->result[0]['first_name'] = '';
+            $mysql->result[0]['last_name'] = '';
+        }
+
         echo '<div class="basic-grey">';
         echo '<div class="progress">';
         echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
@@ -595,7 +611,7 @@ if ($second_mysql->build_array('SELECT * FROM accounts WHERE accountID = 1')) {
         echo '<a><span class="step">4</span>'.T_('Permission setup').'</a>';
         echo '</div>';
         if ($message) {
-            echo '<strong><em>'.$message.'<br /><br /></em></strong>';
+            echo '<ul>'.$message.'</ul>';
         }
         echo T_('<strong>Create Administrative Account (#1)</strong><br />');
         echo T_('This will create the #1 account which is essential for proper functioning of the LETS system.<br /><br />');
@@ -603,22 +619,22 @@ if ($second_mysql->build_array('SELECT * FROM accounts WHERE accountID = 1')) {
         echo T_('Also please edit the account after finishing setup to add other important data such as address, telephone number, etc.<br /><br />');
         echo T_('<strong>Note:</strong> Canadian may want to enable an option under "Website Settings" to force proper Provincial abbreviations and postal codes prior to editing the account.<br />');
         
-        echo "<form action=\"".$_SERVER['REQUEST_URI']."\" method=\"post\">\n";
+        echo '<form action="'.$_SERVER['REQUEST_URI'].'" method="post">';
             
-        echo T_("<strong>First Name:</strong><br /><em>example:</em> John<br />\n");
-        echo "<input type=\"text\" name=\"first_name\" /><br /><br />\n";
+        echo T_('<strong>First Name:</strong><br /><em>example:</em> John<br />');
+        echo '<input type="text" name="first_name" value="'.$mysql->result[0]['first_name'].'"/><br /><br />';
     
-        echo T_("<strong>Last Name:</strong><br /><em>example:</em> Malkovich<br />\n");
-        echo "<input type=\"text\" name=\"last_name\" /><br /><br />\n";
+        echo T_('<strong>Last Name:</strong><br /><em>example:</em> Malkovich<br />');
+        echo '<input type="text" name="last_name" value="'.$mysql->result[0]['last_name'].'"/><br /><br />';
         
-        echo T_("<strong>Password:</strong><br />\n");
-        echo "<input type=\"password\" name=\"password\" /><br /><br />\n";
+        echo T_('<strong>Password:</strong><br />');
+        echo '<input type="password" name="password" /><br /><br />';
         
-        echo T_("<strong>Re-type Password:</strong><br />\n");
-        echo "<input type=\"password\" name=\"second_password\" /><br /><br />\n";
+        echo T_('<strong>Re-type Password:</strong><br />');
+        echo '<input type="password" name="second_password" /><br /><br />';
             
-        echo "<input type=\"submit\" name=\"submit\" value=\"".T_('Create #1 Account')."\" />\n";
-        echo "</form></body></html>";
+        echo '<input type="submit" name="submit" value="'.T_('Create #1 Account').'" />';
+        echo '</form></div></body></html>';
         exit();
     }        
             
@@ -630,22 +646,16 @@ if (CURRENT_OS == 'UNIX') {
         if (count($third_mysql->result)) {
             $path = $third_mysql->result[0]['path'];
             $site_name = str_replace(' ','_',$third_mysql->result[0]['site_name']);
-            $files_status_message = '';
-            if ($message) {
-                echo $message.'<br /><br />';
-            }
-
-            //chdir($path);
-            //$directory_contents = shell_exec('ls -l -a');
-        
-            $directory_contents = dir_contents($path);
-        
-            $htaccess_found = false;
-            $htaccess_perms = false;
-            $images_found = false;
-            $images_perms = false;
-            $logs_found = false;
-            $logs_perms = false;
+            $files_status_message   = '';
+            
+            fopen(".htaccess", "w") or $files_status_message .= '<li class="error">'.T_('Cannot create the file').' <strong>.htaccess</strong>.</li>'; // TODO: Attempt to create all files and folder automatically
+            $directory_contents    = dir_contents($path);
+            $htaccess_found         = false;
+            $htaccess_perms        = false;
+            $images_found           = false;
+            $images_perms          = false;
+            $logs_found                = false;
+            $logs_perms               = false;
         
             foreach ($directory_contents as $line) {
                 if ($line['name'] == '.htaccess') $htaccess_found = true;
@@ -657,39 +667,39 @@ if (CURRENT_OS == 'UNIX') {
             }
             if (!$htaccess_found) {
                 $files_status = false;
-                $files_status_message .= '<li class="error"><strong>.htaccess</strong> '.T_('has not been found.').'</li><br />';
+                $files_status_message .= '<li class="error"><strong>.htaccess</strong> '.T_('has not been found.').'</li>';
             } else {
-                $files_status_message .= '<li class="ok"><strong>.htaccess</strong> '.T_('has been found.').'</li><br />';
+                $files_status_message .= '<li class="ok"><strong>.htaccess</strong> '.T_('has been found.').'</li>';
             }
             if (!$htaccess_perms) {
                 $files_status = false;
-                $files_status_message .= '<li class="error"><strong>.htaccess</strong> '.T_('needs permissions: 664').'</li><br />';
+                $files_status_message .= '<li class="error"><strong>.htaccess</strong> '.T_('needs permissions: 664').'</li>';
             } else {
-                $files_status_message .= '<li class="ok"><strong>.htaccess</strong> '.T_('has proper permissions.').'</li><br />';
+                $files_status_message .= '<li class="ok"><strong>.htaccess</strong> '.T_('has proper permissions.').'</li>';
             }
             if (!$images_found) {
                 $files_status = false;
-                $files_status_message .= '<li class="error">'.T_('Folder: <strong>images</strong> has not been found.').'</li><br />';
+                $files_status_message .= '<li class="error">'.T_('Folder: <strong>images</strong> has not been found.').'</li>';
             } else {
-                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>images</strong> has been found.').'</li><br />';
+                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>images</strong> has been found.').'</li>';
             }
             if (!$images_perms) {
                 $files_status = false;
-                $files_status_message .= '<li class="error">'.T_('Folder: <strong>images</strong> needs permissions: 777').'</li><br />';
+                $files_status_message .= '<li class="error">'.T_('Folder: <strong>images</strong> needs permissions: 777').'</li>';
             } else {
-                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>images</strong> has proper permissions.').'</li><br />';
+                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>images</strong> has proper permissions.').'</li>';
             }
             if (!$logs_found) {
                 $files_status = false;
-                $files_status_message .= '<li class="error">'.T_('Folder: <strong>logs</strong> has not been found.').'</li><br />';
+                $files_status_message .= '<li class="error">'.T_('Folder: <strong>logs</strong> has not been found.').'</li>';
             } else {
-                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>logs</strong> has been found.').'</li><br />';
+                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>logs</strong> has been found.').'</li>';
             }
             if (!$logs_perms) {
                 $files_status = false;
-                $files_status_message .= '<li class="error">'.T_('Folder: <strong>logs</strong> needs permissions: 777').'</li><br />';
+                $files_status_message .= '<li class="error">'.T_('Folder: <strong>logs</strong> needs permissions: 777').'</li>';
             } else {
-                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>logs</strong> has proper permissions.').'</li><br />';
+                $files_status_message .= '<li class="ok">'.T_('Folder: <strong>logs</strong> has proper permissions.').'</li>';
             }
             
             $directory_contents = dir_contents($path.'//logs/');
@@ -708,27 +718,27 @@ if (CURRENT_OS == 'UNIX') {
         
             if (!$log_found) {
                 $files_status = false;
-                $files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('has not been found.</li><br />');
+                $files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('has not been found.</li>');
             } else {
-                $files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('has been found.</li><br />');
+                $files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('has been found.</li>');
             }
             if (!$log_perms) {
                 $files_status = false;
-                $files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('needs permissions: 664</li><br />');
+                $files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('needs permissions: 664</li>');
             } else {
-                $files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('has proper permissions.</li><br />');
+                $files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('has proper permissions.</li>');
             }
             if (!$err_log_found) {
                 $files_status = false;
-                $files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('has not been found.</li><br />');
+                $files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('has not been found.</li>');
             } else {
-                $files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('has been found.</li><br />');
+                $files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('has been found.</li>');
             }
             if (!$err_log_perms) {
                 $files_status = false;
-                $files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('needs permissions: 664</li><br />');
+                $files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('needs permissions: 664</li>');
             } else {
-                $files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('has proper permissions.</li><br />');
+                $files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('has proper permissions.</li>');
             }
         
         
@@ -740,14 +750,17 @@ if (CURRENT_OS == 'UNIX') {
                 echo '<a class="stepdone"><span class="step step-inverse">3</span>'.T_('Admin account creation').'</a>';
                 echo '<a class="current"><span class="step">4</span>'.T_('Permission setup').'</a>';
                 echo '</div>';
+                if ($message) {
+                    echo '<ul>' . $message . '</ul>';
+                }
                 echo T_('<strong>Checking Files and Folders....</strong><br />');
                 echo T_('<strong>Attention:</strong><br />');
                 echo T_('The following files and/or folders need their permissions changed:<br /><br />');
-                echo $files_status_message.'<br /><br />';
+                echo '<ul>' . $files_status_message . '</ul><br />';
                 echo T_('There are two ways to do this:<br />');
                 echo T_('1. Login to cpanel, open file manager, select the files and/or folders and choose "change permissions".<br /><br />');
                 echo T_('2. Enter FTP data below and this script will change the permissions. The username and password should be the same as the cpanel account.<br /><br />');
-                echo '<form action="'.$_SERVER['REQUEST_URI']."\" method=\"post\">\n";
+                echo '<form action="'.$_SERVER['REQUEST_URI'].'" method="post">';
         
                 echo T_("<strong>FTP Host:</strong><br /><em>example:</em> ftp.toronto-lets.ca<br />\n");
                 echo " <input type=\"text\" name=\"ftp_host\" value=\"".$third_mysql->result[0]['ftp_host']."\" /><br /><br />\n";
@@ -1345,5 +1358,5 @@ if ($completed) {
 if ($completed) {
     echo '<strong>'.T_('Installation Complete!!!</strong><br /><br />Clicking <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">here</a> should direct you to the home page.').'</div>';
 }
-echo '</body></html>';
+echo '</div></body></html>';
 ?>

@@ -749,9 +749,10 @@ function remove_slashes($string) {
         return $string;
     } else {
         if (is_array($string)) {
-            foreach ($string as $k=>$v) if (is_string($v)) $string[$k] = stripslashes($v);
+            foreach ($string as $k=>$v) if (is_string($v)) $string[$k] = stripslashes(trim($v));
             return $string;
         } else {
+            $string = trim($string);
             return stripslashes($string);
         }
     }
