@@ -13,7 +13,7 @@ System Requirement:
 Installation:
 - Copy the files to your webhost making sure the index.php file is in the url root directory.
    For example /home/your_account or /home/your_friends_account/your_account
-- Change the user name, password of the database user and give the name of the database in /includes/config.php
+- Change the user name, password of the database user and give the name of the database in /includes/configdb.php
 
   IMPORTANT: The scripts will immediately be in an installation-ready state.
 
