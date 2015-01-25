@@ -14,7 +14,7 @@ echo '<html>';
 echo '<head>';
 echo '<title>Lets-Software Setup</title>';
 echo '<meta http-equiv="Content-Type" content="text/html; charset='.$_SESSION['lang'].'" />';
-echo '<link href="'.URL.'/templates/'.TEMPLATE.'/styles/install.css" rel="stylesheet" type="text/css" />';
+echo '<link href="' . URL . '/templates/' . TEMPLATE . '/styles/install.css" rel="stylesheet" type="text/css" />';
 echo '</head>';
 echo '<body>';
 
@@ -445,7 +445,7 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->bui
             
             echo '<div class="basic-grey">';
             echo '<div class="progress">';
-            echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
+            echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').' <span class="glyphicon glyphicon-ok"></span></a>';
             echo '<a class="current"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
             echo '<a><span class="step">3</span>'.T_('Admin account creation').'</a>';
             echo '<a><span class="step">4</span>'.T_('Permission setup').'</a>';
@@ -469,7 +469,7 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->bui
             echo '<strong>URL:</strong><br />'.T_('<em>example:</em> http://www.toronto-lets.ca/').'<br />';
             echo '<input type="text" name="url" value="'.$mysql->result[0]['url'].'" /><br /><br />';
             
-            echo T_('<strong>File Path of index.php:</strong><br /><em>example:</em> ').$_SERVER["DOCUMENT_ROOT"].'<br />';
+            echo T_('<strong>File Path of index.php:</strong><br /><em>example:</em> ').$_SERVER['DOCUMENT_ROOT']    .'<br />';
             echo '<input type="text" name="path" value="'.$mysql->result[0]['path'].'" /><br /><br />';
             
             echo T_('<strong>Admin email:</strong><br /><em>example:</em> john.smith@toronto-lets.ca<br />');
@@ -605,8 +605,8 @@ if ($second_mysql->build_array('SELECT * FROM accounts WHERE accountID = 1')) {
 
         echo '<div class="basic-grey">';
         echo '<div class="progress">';
-        echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
-        echo '<a class="stepdone"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
+        echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').' <span class="glyphicon glyphicon-ok"></span></a>';
+        echo '<a class="stepdone"><span class="step step-inverse">2</span>'.T_('Website settings').' <span class="glyphicon glyphicon-ok"></span></a>';
         echo '<a class="current"><span class="step step-inverse">3</span>'.T_('Admin account creation').'</a>';
         echo '<a><span class="step">4</span>'.T_('Permission setup').'</a>';
         echo '</div>';
@@ -648,7 +648,24 @@ if (CURRENT_OS == 'UNIX') {
             $site_name = str_replace(' ','_',$third_mysql->result[0]['site_name']);
             $files_status_message   = '';
             
-            fopen(".htaccess", "w") or $files_status_message .= '<li class="error">'.T_('Cannot create the file').' <strong>.htaccess</strong>.</li>'; // TODO: Attempt to create all files and folder automatically
+            
+            if(!file_exists(".htaccess")) {
+                fopen(".htaccess", "w")
+                or $files_status_message .= '<li class="error">' . T_('Cannot create the file') . ' <strong>.htaccess</strong>.</li>';
+            }
+            chmod(".htaccess", 0664) or $files_status_message .= '<li class="error">' . T_('Unable to set <strong>.htaccess</strong> permissions') . '.</li>';
+            
+            if(!file_exists("images")) { mkdir("images", 0775) or $files_status_message .= '<li class="error">' . T_('Cannot create folder') . ' <strong>images</strong>.</li>'; }
+            chmod("images/", 0775) or $files_status_message .= '<li class="error">' . T_('Unable to set <strong>.htaccess</strong> permissions') . '.</li>';
+            // Create an empty index.html file to prevent users to brows the images folder
+            if(!file_exists("images/index.html")) {
+                fopen("images/index.html", "w") or $files_status_message .= '<li class="error">' . T_('Cannot create the file') . ' <strong>images/index.html</strong>.</li>';
+            }
+            chmod("images/", 0664) or $files_status_message .= '<li class="error">' . T_('Unable to set <strong>images/index.html</strong> permissions') . '.</li>';
+            
+            if(!file_exists("logs")) { mkdir("logs", 0770) or $files_status_message .= '<li class="error">' . T_('Cannot create folder') . ' <strong>logs</strong>.</li>'; }
+            chmod("logs", 0770) or $files_status_message .= '<li class="error">' . T_('Unable to set <strong>logs</strong> permissions') . '.</li>';
+            
             $directory_contents    = dir_contents($path);
             $htaccess_found         = false;
             $htaccess_perms        = false;
@@ -661,9 +678,9 @@ if (CURRENT_OS == 'UNIX') {
                 if ($line['name'] == '.htaccess') $htaccess_found = true;
                 if ($line['name'] == '.htaccess' and $line['perms'] == '-rw-rw-r--') $htaccess_perms = true;
                 if ($line['name'] == 'images') $images_found = true;
-                if ($line['name'] == 'images' and $line['perms'] == 'drwxrwxrwx') $images_perms = true;
+                if ($line['name'] == 'images' and $line['perms'] == 'drwxrwxr-x') $images_perms = true;
                 if ($line['name'] == 'logs') $logs_found = true;
-                if ($line['name'] == 'logs' and $line['perms'] == 'drwxrwxrwx') $logs_perms = true;
+                if ($line['name'] == 'logs' and $line['perms'] == 'drwxrwx---') $logs_perms = true;
             }
             if (!$htaccess_found) {
                 $files_status = false;
@@ -685,7 +702,7 @@ if (CURRENT_OS == 'UNIX') {
             }
             if (!$images_perms) {
                 $files_status = false;
-                $files_status_message .= '<li class="error">'.T_('Folder: <strong>images</strong> needs permissions: 777').'</li>';
+                $files_status_message .= '<li class="error">'.T_('Folder: <strong>images</strong> needs permissions: 775').'</li>';
             } else {
                 $files_status_message .= '<li class="ok">'.T_('Folder: <strong>images</strong> has proper permissions.').'</li>';
             }
@@ -697,23 +714,37 @@ if (CURRENT_OS == 'UNIX') {
             }
             if (!$logs_perms) {
                 $files_status = false;
-                $files_status_message .= '<li class="error">'.T_('Folder: <strong>logs</strong> needs permissions: 777').'</li>';
+                $files_status_message .= '<li class="error">'.T_('Folder: <strong>logs</strong> needs permissions: 770').'</li>';
             } else {
                 $files_status_message .= '<li class="ok">'.T_('Folder: <strong>logs</strong> has proper permissions.').'</li>';
             }
             
-            $directory_contents = dir_contents($path.'//logs/');
+            $directory_contents = dir_contents($path.'/logs/');
 
             $log_found = false;
             $log_perms = false;
             $err_log_found = false;
             $err_log_perms = false;
-        
+            
+            // Create the file log
+            if(!file_exists('logs/' . $site_name . '.log')) {
+                fopen('logs/' . $site_name.'.log', "w")
+                or $files_status_message .= '<li class="error">' . T_('Cannot create the file') . ' <strong>logs/' . $site_name . '.log</strong></li>';
+             }
+            
+            // Create the error log file
+            if(!file_exists('logs/' . $site_name.'_Errors.log')) {
+                fopen('logs/' . $site_name.'_Errors.log', "w")
+                or $files_status_message .= '<li class="error">' . T_('Cannot create the file') . ' <strong>logs/' . $site_name . '_Errors.log</strong></li>';
+             }
+            chmod('logs/' . $site_name . '_Errors.log', 0660) or $files_status_message .= '<li class="error">'.T_('Unable to set <strong>logs/' . $site_name . '_Errors.log</strong> permissions').'.</li>';
+            
             foreach ($directory_contents as $line) {
+                // Check if log files exist and if they have the correct permission
                 if ($line['name'] == $site_name.'.log') $log_found = true;
-                if ($line['name'] == $site_name.'.log' and $line['perms'] == '-rw-rw-r--') $log_perms = true;
+                if ($line['name'] == $site_name.'.log' and $line['perms'] == '-rw-rw----') $log_perms = true;
                 if ($line['name'] == $site_name.'_Errors.log') $err_log_found = true;
-                if ($line['name'] == $site_name.'_Errors.log' and $line['perms'] == '-rw-rw-r--') $err_log_perms = true;
+                if ($line['name'] == $site_name.'_Errors.log' and $line['perms'] == '-rw-rw----') $err_log_perms = true;
             }
         
             if (!$log_found) {
@@ -721,33 +752,35 @@ if (CURRENT_OS == 'UNIX') {
                 $files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('has not been found.</li>');
             } else {
                 $files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('has been found.</li>');
+                chmod('logs/' . $site_name . '.log', 0660) or $files_status_message .= '<li class="error">'.T_('Unable to set <strong>logs/' . $site_name . '.log</strong> permissions').'.</li>';
+                if (!$log_perms) {
+                    $files_status = false;
+                    $files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('needs permissions: 660</li>');
+                } else {
+                    $files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('has proper permissions.</li>');
+                }
             }
-            if (!$log_perms) {
-                $files_status = false;
-                $files_status_message .= '<li class="error"><strong>'.$site_name.'.log</strong> '.T_('needs permissions: 664</li>');
-            } else {
-                $files_status_message .= '<li class="ok"><strong>'.$site_name.'.log</strong> '.T_('has proper permissions.</li>');
-            }
+
             if (!$err_log_found) {
                 $files_status = false;
                 $files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('has not been found.</li>');
             } else {
                 $files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('has been found.</li>');
-            }
-            if (!$err_log_perms) {
-                $files_status = false;
-                $files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('needs permissions: 664</li>');
-            } else {
-                $files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('has proper permissions.</li>');
+                if (!$err_log_perms) {
+                    $files_status = false;
+                    $files_status_message .= '<li class="error"><strong>'.$site_name.'_Errors.log</strong> '.T_('needs permissions: 660</li>');
+                } else {
+                    $files_status_message .= '<li class="ok"><strong>'.$site_name.'_Errors.log</strong> '.T_('has proper permissions.</li>');
+                }
             }
         
         
             if (!$files_status) {
                 echo '<div class="basic-grey">';
                 echo '<div class="progress">';
-                echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
-                echo '<a class="stepdone"><span class="step step-inverse">2</span>'.T_('Website settings').'</a>';
-                echo '<a class="stepdone"><span class="step step-inverse">3</span>'.T_('Admin account creation').'</a>';
+                echo '<a class="stepdone"><span class="step step-inverse">1</span>'.T_('Creating Database').' <span class="glyphicon glyphicon-ok"></span></a>';
+                echo '<a class="stepdone"><span class="step step-inverse">2</span>'.T_('Website settings').' <span class="glyphicon glyphicon-ok"></span></a>';
+                echo '<a class="stepdone"><span class="step step-inverse">3</span>'.T_('Admin account creation').' <span class="glyphicon glyphicon-ok"></span></a>';
                 echo '<a class="current"><span class="step">4</span>'.T_('Permission setup').'</a>';
                 echo '</div>';
                 if ($message) {
@@ -1340,23 +1373,27 @@ INSERT INTO `sections` (`sectionID`, `page_type`, `page_id`, `url`, `name`, `plu
 }
 
 if ($completed) {
-    echo T_('<strong>Database Finalized!!</strong><br />');
+    $message .= T_('<li class="ok"><strong>Database Finalized!!</strong></li>');
     if ($links->initialize($nav_links_indent)) {
-        echo T_('<strong>Site Structure Initialized</strong><br />');
+        $message .= T_('<li class="ok"><strong>Site Structure Initialized</strong></li>');
         if ($links->rebuild_htaccess()) {
-            echo T_('<strong>.htaccess was updated!!!</strong><br />');
+            $message .= T_('<li class="ok"><strong>.htaccess was updated!!!</strong></li>');
         } else {
-            echo T_('<strong>.htaccess could NOT be updated</strong>, make sure the file permission is set to (775)').'<br /></div>';
+            $message .= T_('<li class="error"><strong>.htaccess could NOT be updated</strong>, make sure the file permission is set to (775)').'</li>';
             $completed = false;
         }
     } else {
-        echo T_('<strong>Site Structure could NOT be Initialized</strong>').'<br /></div>';
+        $message .= T_('<li class="error"><strong>Site Structure could NOT be Initialized</strong>').'</li>';
         $completed = false;
     }
 }
     
 if ($completed) {
-    echo '<strong>'.T_('Installation Complete!!!</strong><br /><br />Clicking <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">here</a> should direct you to the home page.').'</div>';
+    $message .= '<li class="ok"><strong>'.T_('Installation Complete!!!').'</strong></li>';
+    echo '<ul>' . $message . '</ul>'.T_('Clicking <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">here</a> should direct you to the home page.').'</div>';
+}else{
+    $message .= '<li class="error"><strong>'.T_('Installation Failed!!!').'</strong></li>';
+    echo '<ul>' . $message . '</ul>'.T_('Check the permission of your files and folder. The user running your web server should have read and write access in files and folders in your lets-software folder.').'</div>';
 }
 echo '</div></body></html>';
 ?>

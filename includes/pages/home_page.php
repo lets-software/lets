@@ -38,27 +38,27 @@
 /*		CSS Files Called by script:																								*/
 	if (!$print) {
 		if (HOMEPAGE_HTML_ARTICLES) {
-			$styles_link 						= 			'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/article_search_form.css" />\n';
-			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/articles_display_1.css" />\n';
-			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/articles_display_2.css" />\n';
-			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/articles_display_3.css" />\n';
-			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/thumbs_list.css" />\n';
+			$styles_link 						= 			'<link rel="stylesheet" type="text/css" href="' . URL . 'templates/' . TEMPLATE . '/styles/article_search_form.css" />';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="' . URL . 'templates/' . TEMPLATE . '/styles/articles_display_1.css" />';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="' . URL . 'templates/' . TEMPLATE . '/styles/articles_display_2.css" />';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="' . URL . 'templates/' . TEMPLATE . '/styles/articles_display_3.css" />';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="' . URL . 'templates/' . TEMPLATE . '/styles/thumbs_list.css" />';
 		}
 		
 
 		if (HOMEPAGE_HTML_EVENTS) {
-			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/events_list.css" />\n';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="' . URL . 'templates/' . TEMPLATE . '/styles/events_list.css" />';
 		}
 		if (HOMEPAGE_HTML_NOTICEBOARD) {
-			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/noticeboard_search_form.css" />\n';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="' . URL . 'templates/' . TEMPLATE . '/styles/noticeboard_search_form.css" />';
 		}
 		if (HOMEPAGE_HTML_FAQ) {
-			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/faq_list.css" />\n';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="' . URL . 'templates/' . TEMPLATE . '/styles/faq_list.css" />';
 		}
 		if (HOMEPAGE_HTML_LINKS) {
-			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/links_list.css" />\n';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="' . URL . 'templates/' . TEMPLATE . '/styles/links_list.css" />';
 		}
-			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/results_table.css" />\n';
+			$styles_link 						.= 		'<link rel="stylesheet" type="text/css" href="' . URL . 'templates/' . TEMPLATE . '/styles/results_table.css" />';
 /*		Dynamic Styling:																										*/
 			if (FONT_SIZE > 14) {
 				$local_font_size = 14;
@@ -68,22 +68,22 @@
 //			$style->dynamic_elements 				.= 		" table {font-size: ".$local_font_size."px;}\n";
 //			$style->dynamic_elements 				.= 		" th.h {background-color:".TAB_COLOUR."; color:".LINK_COLOUR.";}\n";
 //			$style->dynamic_elements 				.= 		" td {border-bottom:1px solid ".TAB_BORDER_COLOUR."; border-right: 1px solid ".TAB_COLOUR."; }\n";
-			$style->dynamic_elements 		.= 		" div.thumbs {float:left; width:".IMAGE_WIDTH_THUMB_ARTICLE."px; margin-right:5px; }\n";
+			$style->dynamic_elements 		.= 		" div.thumbs {float:left; width:".IMAGE_WIDTH_THUMB_ARTICLE."px; margin-right:5px; }";
 		if (HOMEPAGE_HTML_FAQ) {
-			$style->dynamic_elements 				.= 		" span.faq_category {color:".LINK_COLOUR."; }\n";
-			$style->dynamic_elements 				.= 		" div#faq_list {border-top: 1px solid ".TAB_BORDER_COLOUR."; }\n";
+			$style->dynamic_elements 				.= 		" span.faq_category {color:".LINK_COLOUR."; }";
+			$style->dynamic_elements 				.= 		" div#faq_list {border-top: 1px solid ".TAB_BORDER_COLOUR."; }";
 		}
 		if (HOMEPAGE_HTML_LINKS) {
-			$style->dynamic_elements 				.= 		" span.link_category {color:".LINK_COLOUR."; }\n";
-			$style->dynamic_elements 				.= 		" div#link_list {border-top: 1px solid ".TAB_BORDER_COLOUR."; }\n";			
+			$style->dynamic_elements 				.= 		" span.link_category {color:".LINK_COLOUR."; }";
+			$style->dynamic_elements 				.= 		" div#link_list {border-top: 1px solid ".TAB_BORDER_COLOUR."; }";
 		}
 	}
 /*		Javascript:																												*/
 /*		Set Universal Page elements:																							*/
 /*		Page Title:																												*/
-			$title 							= 		SITE_NAME.' Home';
+			$title 							= 		SITE_NAME . ' Home';
 /*		Page Heading																											*/
-			$main_html 						= 		$i."<h1>".SITE_NAME.' Home'."</h1>\n";
+			$main_html 						= 		$i."<h1>".T_(SITE_NAME . ' Home')."</h1>";
 //		Clear HTML Holders
 			$message						=		'';
 			$articles_html					=		'';
@@ -103,31 +103,31 @@ if (HOMEPAGE_HTML_ARTICLES) {
 	// for more info see the function in full use in pages/article.php
 	$articles_html = $articles->xhtml($articles_html_indent,1,'',10,0,0,0,0,0,0,'posted','DESC',$show_results = false);
 	if ($articles_html) {
-		$articles_html = $articles_html_indent.'<h2>'.ARTICLES_NAME."</h2>\n".$articles_html;
+		$articles_html = $articles_html_indent . '<h2>' . ARTICLES_NAME . '</h2>' . $articles_html;
 	}
 }
 if (HOMEPAGE_HTML_EVENTS) {
-	$events_html = $events->event_list($events_html_indent,URL.EVENTS_URL.'/','',false,'','',false,false,false);
+	$events_html = $events->event_list($events_html_indent,URL.EVENTS_URL . '/','',false,'','',false,false,false);
 	if ($events_html) {
-		$events_html = $events_html_indent.'<h2>'.EVENTS_NAME."</h2>\n".$events_html;
+		$events_html = $events_html_indent . '<h2>' . EVENTS_NAME . '</h2>' . $events_html;
 	}
 }
 if (HOMEPAGE_HTML_NOTICEBOARD) {
-	$noticeboard_html = $noticeboard->noticeboard_list($noticeboard_html_indent.' ','',10,0,'','','','','','','','','','posted','DESC',false);
+	$noticeboard_html = $noticeboard->noticeboard_list($noticeboard_html_indent . ' ','',10,0,'','','','','','','','','','posted','DESC',false);
 	if ($noticeboard_html) {
-		$noticeboard_html = $noticeboard_html_indent.'<h2>'.NOTICEBOARD_NAME."</h2>\n".$noticeboard_html;
+		$noticeboard_html = $noticeboard_html_indent . '<h2>' . NOTICEBOARD_NAME . '</h2>' . $noticeboard_html;
 	}
 }
 if (HOMEPAGE_HTML_FAQ) {
 	$faq_html = $faq->faq_list($faq_html_indent,'',false,0);
 	if ($faq_html) {
-		$faq_html = $faq_html_indent.'<h2>'.FAQ_NAME."</h2>\n".$faq_html;
+		$faq_html = $faq_html_indent . '<h2>' . FAQ_NAME . '</h2>' . $faq_html;
 	}
 }
 if (HOMEPAGE_HTML_LINKS) {
 	$links_html = $lets_links->link_list($links_html_indent,'',false,0);
 	if ($links_html) {
-		$links_html =$links_html_indent.'<h2>'.LINKS_NAME."</h2>\n".$links_html;
+		$links_html =$links_html_indent . '<h2>' . LINKS_NAME . '</h2>' . $links_html;
 	}
 }
 

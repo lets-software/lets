@@ -1603,9 +1603,10 @@ class member {
 	}
 	function login() {
 		
-		$login_result = mysql_query("SELECT * FROM accounts WHERE accountID = ".$_POST["login_id"]);
-		if (mysql_num_rows($login_result) == 0) {
-			$this->error_message = "Login Failure: Account ID not found<br />\n";
+		$login_result = mysql_query("SELECT * FROM accounts WHERE accountID = ".mysql_real_escape_string($_POST["login_id"]));
+		if (!$login_result) {
+            // Bad login
+			$this->error_message = '<ul><li class="error">Wrong user ID or password !!!</il></ul>';
 			return false;
 		} else {
 			$pass = mysql_result($login_result,0,"password");
@@ -1613,8 +1614,8 @@ class member {
 				$this->error_message = "<strong>Too many Login attempts!</strong><br /><br />Please try again later.\n";
 				if (ENABLE_LOG) log_action('Login Failure: Account ID:'.$_POST["login_id"].' ('.$this->full_name($_POST["login_id"]).') Entered an invalid password.');
 				return false;
-			} elseif ($pass == crypt(md5($_POST["login_password"]),md5(SITE_KEY))) {
-				$this->build_dataset($_POST["login_id"]);
+			} elseif ($pass == crypt(md5($_POST['login_password']),md5(SITE_KEY))) {
+				$this->build_dataset($_POST['login_id']);
 				$lets_session_name = session_name('SID');
 				session_start();
 				header("Cache-Control: private");
@@ -1628,8 +1629,9 @@ class member {
 				if (ENABLE_LOG) log_action('Account ID:'.$_POST["login_id"].' ('.$this->full_name($_POST["login_id"]).') Signed in.');
 				return true;
 			} else {
+                // Login ok but not the pass
 				wrong_password();
-				$this->error_message = "Wrong Password<br />\n";
+				$this->error_message = '<ul><li class="error">Wrong user ID or password !!!</li></ul>';
 				if (ENABLE_LOG) log_action('Login Failure: Account ID:'.$_POST["login_id"].' ('.$this->full_name($_POST["login_id"]).') Entered an invalid password.');
 				return false;
 			}
