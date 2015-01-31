@@ -54,13 +54,23 @@ function first_name($id) {
 function no_database($i) {
 	return "{$i}database problems, please come back";
 }
+
+/**
+* Select a drop down menu or a check box if $val and $var matches
+*
+* @param $val   Value of the drop down menu or check box
+* @param $var   Value which should be selected
+*
+* @return string : if $val and $var matches
+**/
 function check_selected($val,$var) {
 	if ($val == $var) {
-		return " selected=\"selected\"";
+		return ' selected="selected"';
 	} else {
 		return "";
 	}
 }
+
 function search_sidebar($i) {
 	global $links;
 	$links->build_url(12,0);
@@ -433,12 +443,15 @@ function date_form($i,$date,$prefix,$allow_all = false,$disabled = 'false',$titl
 	}
 }
 
-
+/**
+* 
+*
+**/
 function selected($fi,$bi,$val,$var) {
 	if ($val == $var) return $fi.'selected="selected"'.$bi;
 	return $bi;
-
 }
+
 
 function member_quicklinks($i,$id = 0) {
 	$self = 0;
