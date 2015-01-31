@@ -22,42 +22,42 @@ switch ($page_type) {
 case 1: // /members directory
     // First check if visitor is a un-validated member
     if (isset($_SESSION['member_validated']) and $_SESSION['member_validated'] == 0 and $_GET['page_id'] != 2) {
-        $title = "Account not validated";
-        $main_html = $main_indent . '<h1>Your account is not validated</h1><br />';
-        $main_html .= $main_indent . 'Please allow time for the admin to activate it.<br />';
+        $title      = T_('Account not validated');
+        $main_html  = $main_indent . T_('<h1>Your account is not validated</h1><br />')
+                    . $main_indent . T_('Please allow time for the admin to activate it.<br />');
         break;
     }
     // Check if member's account is suspended
     if (isset($_SESSION['member_suspended']    ) and $_SESSION['member_suspended']     == 1 and $_GET['page_id']     != 2) {
-        $title = 'Account suspended';
-        $main_html = $main_indent . '<h1>Your account has been suspended</h1><br />';
-        $main_html .= $main_indent . 'The following reason was given:<br /><br />' . $_SESSION['member_suspended_message']    ;
+        $title      = 'Account suspended';
+        $main_html  = $main_indent . T_('<h1>Your account has been suspended</h1><br />')
+                    . $main_indent . T_('The following reason was given:<br /><br />' . $_SESSION['member_suspended_message']);
         break;
     }
-    // Security: Visitors must login if page_id is other than 1.
+    // Security: Visitors (user_type 0) must login if page_id is other than 1.
     if (user_type() == 0) {
-        if ($_GET['page_id']     != 1) {
-            $restricted_page = true;
-            $title = SITE_NAME." restricted page";
-            $main_html = $main_indent . "<h1>Restricted page</h1><br />\n";
-            $main_html .= $main_indent . 'Please login to continue<br />';
+        if ($_GET['page_id'] != 1) {
+            $restricted_page    = true;
+            $title              = T_(SITE_NAME.' restricted page');
+            $main_html          = $main_indent . T_('<h1>Restricted page</h1><br />')
+                                . $main_indent . T_('Please login to continue<br />');
             break;
         }
     }
     // If a member trys to reach the register page they will go to members root instead
-    if (user_type() != 0 and $_GET['page_id']     == 1) {
-        unset($_GET['page_id']    );
+    if (user_type() != 0 and $_GET['page_id'] == 1) {
+        unset($_GET['page_id']);
     }
     // Now stop non-admins from reaching an admin page
     // (admin pages will start at a page id of 100)
-    if (user_type() == 1 and $_GET['page_id']     > 99) {
-        $title = SITE_NAME . ' restricted page';
-        $main_html = $main_indent . '<h1>Restricted Page</h1><br />';
-        $main_html .= $main_indent . 'You do not have administrative privileges <br /><br />Please contact the admin <a href="mailto:' . ADMIN_EMAIL . '">here</a>';
+    if (user_type() == 1 and $_GET['page_id'] > 99) {
+        $title      = T_(SITE_NAME . ' restricted page');
+        $main_html  = $main_indent . T_('<h1>Restricted Page</h1><br />')
+                    . $main_indent . T_('You do not have administrative privileges <br /><br />Please contact the admin <a href="mailto:' . ADMIN_EMAIL . '">here</a>');
         break;
     }
     // Now fetch the member page (if any)
-    switch ($_GET['page_id']    ) {
+    switch ($_GET['page_id']) {
     case 1: // /members/register
         require_once('includes/pages/register.php');
         break;
@@ -136,6 +136,8 @@ case 1: // /members directory
     }
     break;
     
+    
+    
 case 2: // noticeboard
     require_once('includes/pages/noticeboard.php');
     break;
@@ -178,14 +180,14 @@ case 15: // help
     require_once('includes/pages/help.php');
     break;
 case 99:
-    $title = SITE_NAME . ' home';
-    $main_html = $main_indent . '<h1>Your page was not found</h1><br />';
+    $title      = T_(SITE_NAME . ' home');
+    $main_html  = $main_indent . T_('<h1>Your page was not found</h1><br />');
     break;
     
 default:
     if (!empty($errors)) {
-        $title = 'An error has occurred';
-        $main_html = $i . $errors;
+        $title      = T_('An error has occurred');
+        $main_html  = $i . $errors;
     } else {
         require_once('includes/pages/home_page.php');
     }
@@ -195,9 +197,9 @@ break;
 if (!isset($disable_print_page)) $disable_print_page = false;
 if (!$print and !$disable_print_page) {
     if (strpos($_SERVER['REQUEST_URI'],'?')) {
-        $print_button = $print_button_indent . '<span class="print_button"><a href="' . rtrim(URL,'/') . $_SERVER['REQUEST_URI'] . '&print=1' . post_to_get() . append_url(' ?') . '">Print</a> this page</span>';
+        $print_button = $print_button_indent . '<span class="print_button"><a href="' . rtrim(URL,'/') . $_SERVER['REQUEST_URI'] . '&print=1' . post_to_get() . append_url(' ?') . '">' . T_('Print</a> this page') . '</span>';
     } else {
-        $print_button = $print_button_indent . '<span class="print_button"><a href="' . rtrim(URL,'/') . $_SERVER['REQUEST_URI'] . '?print=1' . post_to_get() . append_url(' ?') . '">Print</a> this page</span>';
+        $print_button = $print_button_indent . '<span class="print_button"><a href="' . rtrim(URL,'/') . $_SERVER['REQUEST_URI'] . '?print=1' . post_to_get() . append_url(' ?') . '">' . T_('Print</a> this page') . '</span>';
     }
 } elseif ($print and !$disable_print_page){
     $print_button = '';
@@ -213,7 +215,7 @@ if (!$print and !$disable_print_page) {
         $cleaned_return_url = $_SERVER['REQUEST_URI'];
     }
 
-    $message = $i . '<a href="' . rtrim(URL,'/') . $cleaned_return_url . post_to_get() . append_url(' ?') . '">Cancel Print Page</a><br /><br />';
+    $message = $i . '<a href="' . rtrim(URL,'/') . $cleaned_return_url . post_to_get() . append_url(' ?') . '">' . T_('Cancel Print Page') . '</a><br /><br />';
 }
 
 // finish building $styles
