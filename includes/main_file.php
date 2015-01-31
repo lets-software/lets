@@ -174,7 +174,7 @@ function bulk_membership_email($criteria,$text_message,$html_message,$subject,$f
     $mail->IsHTML(true);
     
     if ($criteria) {
-        $q = 'SELECT email_address,first_name,last_name FROM accounts WHERE '.$criteria.' = 1 AND email_address != \'\'';
+        $q = 'SELECT email_address,first_name,last_name FROM accounts WHERE ' . mysql_real_escape_string($criteria) . ' = 1 AND email_address != \'\'';
     } else {
         $q = 'SELECT email_address,first_name,last_name FROM accounts WHERE email_address != \'\'';
     }
@@ -220,19 +220,19 @@ function array_report($array) {
 function bad_user() {
     $mysql = new mysql;
     $bool = false;
-    if ($mysql->build_array("SELECT id FROM bad_logins WHERE ip = '".$_SERVER['REMOTE_ADDR']."'")) {
+    if ($mysql->build_array("SELECT id FROM bad_logins WHERE ip = '" . mysql_real_escape_string($_SERVER['REMOTE_ADDR']) . "'")) {
         if (count($mysql->result) > 20) {
             $bool = true;
         }
     }
-    $q = 'DELETE FROM bad_logins WHERE ( year != '.$GLOBALS['date']['year'].' ) OR ( year = '.$GLOBALS['date']['year'].' AND month != '.$GLOBALS['date']['month'].') OR ( month = '.$GLOBALS['date']['month'].' AND day != '.$GLOBALS['date']['day'].' )';
+    $q = 'DELETE FROM bad_logins WHERE ( year != ' . mysql_real_escape_string($GLOBALS['date']['year']) . '  OR ( year = ' . mysql_real_escape_string($GLOBALS['date']['year']) . ' AND month != ' . mysql_real_escape_string($GLOBALS['date']['month']) . ') OR ( month = ' . mysql_real_escape_string($GLOBALS['date']['month']) . ' AND day != ' . mysql_real_escape_string($GLOBALS['date']['day']) . ' )';
     $mysql->query($q);
     return $bool;
 
 }
 function wrong_password() {
     $mysql = new mysql;
-    $mysql->query("INSERT INTO bad_logins VALUES( '','".$_SERVER['REMOTE_ADDR']."','".$GLOBALS['date']['year']."','".$GLOBALS['date']['month']."','".$GLOBALS['date']['day']."','".$GLOBALS['date']['hour']."','".$GLOBALS['date']['minutes']."' )");
+    $mysql->query("INSERT INTO bad_logins VALUES( '','" . mysql_real_escape_string($_SERVER['REMOTE_ADDR']) . "','" . mysql_real_escape_string($GLOBALS['date']['year']) . "','" . mysql_real_escape_string($GLOBALS['date']['month']) . "','" . mysql_real_escape_string($GLOBALS['date']['day']) . "','" . mysql_real_escape_string($GLOBALS['date']['hour']) . "','" . mysql_real_escape_string($GLOBALS['date']['minutes']) . "' )");
 }
 function log_error($text,$bypass_email = false) {
     $log_text = time_stamp()." - An error has occurred:\r\n";
@@ -260,29 +260,29 @@ function log_error($text,$bypass_email = false) {
     $log_text .= '*********** end of error report ************'."\r\n\r\n";
     
     if (EMAIL_TECHNICAL_ERRORS and !$bypass_email) {
-        $email_text = T_(time_stamp()." - <strong>An error has occurred:</strong><br />");
+        $email_text = time_stamp()." - <strong>An error has occurred:</strong><br />";
         if (isset($_SESSION['member_id'])) {
-            $email_text .= T_('<strong>MEMBER:</strong> ' . $_SESSION['member_id'] . ' (' . $_SESSION['member_name'] . ')<br />');
+            $email_text .= '<strong>MEMBER:</strong> ' . $_SESSION['member_id'] . ' (' . $_SESSION['member_name'] . ')<br />';
         } else {
-            $email_text .= T_('<strong>GUEST</strong><br />');
+            $email_text .= '<strong>GUEST</strong><br />';
         }
-        $email_text .= T_('<strong>IP:</strong> ' . $_SERVER['REMOTE_ADDR'] . '<br />');
-        $email_text .= T_('<strong>Requested Page:</strong> ' . $_SERVER['REQUEST_URI'] . '<br />');
-        $email_text .= T_('<strong>Referrer:</strong> ' . $_SERVER['HTTP_REFERER'] . '<br />');
-        $email_text .= T_('<strong>Script Error:</strong> ' . $text . '\<br />');
+        $email_text .= '<strong>IP:</strong> ' . $_SERVER['REMOTE_ADDR'] . '<br />';
+        $email_text .= '<strong>Requested Page:</strong> ' . $_SERVER['REQUEST_URI'] . '<br />';
+        $email_text .= '<strong>Referrer:</strong> ' . $_SERVER['HTTP_REFERER'] . '<br />';
+        $email_text .= '<strong>Script Error:</strong> ' . $text . '\<br />';
         if (LOG_POST_DUMP) {
             if (is_array($_POST) and count($_POST) > 0) {
-                $email_text .= T_('<strong>POST Data:</strong> ' . indent_variable(' ',array_report($_POST),false) . '<br />');
+                $email_text .= '<strong>POST Data:</strong> ' . indent_variable(' ',array_report($_POST),false) . '<br />';
             } else {
-                $email_text .= T_('<strong>No POST Data</strong><br />');
+                $email_text .= '<strong>No POST Data</strong><br />';
             }
             if (is_array($_GET) and count($_GET) > 0) {
-                    $email_text .= T_('<strong>GET Data:</strong> ' . indent_variable(' ',array_report($_GET),false) . '<br />');
+                    $email_text .= '<strong>GET Data:</strong> ' . indent_variable(' ',array_report($_GET),false) . '<br />';
             } else {
-                $email_text .= T_('<strong>No GET Data</strong><br />');
+                $email_text .= '<strong>No GET Data</strong><br />';
             }
         }
-        $email_text .= T_('*********** end of error report ************<br /><br />');
+        $email_text .= '*********** end of error report ************<br /><br />';
         
         send_single_email(UPDATE_EMAIL,SITE_NAME.' Error Reporter',TECHNICAL_EMAIL,'Technical Administrator','There is an error to report',$log_text,$email_text);
     }    
