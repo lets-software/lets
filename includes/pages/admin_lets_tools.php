@@ -80,7 +80,7 @@ if ($_POST['noticeboard']) {
     $txt            = ucwords(NOTICEBOARD_NAME_SINGULAR).' Categories';
 }
 if ($_POST['article']) {
-    $table          = ' article_categories';
+    $table          = 'article_categories';
     $field          = 'art_catID';
     $name           = 'art_cat';
     $child_table    = 'articles';
