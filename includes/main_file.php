@@ -169,7 +169,7 @@ function bulk_membership_email($criteria,$text_message,$html_message,$subject,$f
     $mail->Subject = $subject;
     $mail->Body    = $html_message.'<br /><br />';
     
-    $mail->Body    .= 'Change your email delivery options <a href="'.URL.$links->complete_url.'">here</a>';
+    $mail->Body    .= T_('Change your email delivery options <a href="'.URL.$links->complete_url.'">here</a>');
     $mail->AltBody = $text_message."\r\n\r\n\r\n\r\n Change your email delivery options here: ".URL.$links->complete_url;
     $mail->IsHTML(true);
     
@@ -260,29 +260,29 @@ function log_error($text,$bypass_email = false) {
     $log_text .= '*********** end of error report ************'."\r\n\r\n";
     
     if (EMAIL_TECHNICAL_ERRORS and !$bypass_email) {
-        $email_text = time_stamp()." - <strong>An error has occurred:</strong><br />";
+        $email_text = T_(time_stamp()." - <strong>An error has occurred:</strong><br />");
         if (isset($_SESSION['member_id'])) {
-            $email_text .= '<strong>MEMBER:</strong> '.$_SESSION['member_id'].' ('.$_SESSION['member_name'].")<br />";
+            $email_text .= T_('<strong>MEMBER:</strong> ' . $_SESSION['member_id'] . ' (' . $_SESSION['member_name'] . ')<br />');
         } else {
-            $email_text .= "<strong>GUEST</strong><br />";
+            $email_text .= T_('<strong>GUEST</strong><br />');
         }
-        $email_text .= '<strong>IP:</strong> '.$_SERVER['REMOTE_ADDR']."<br />";
-        $email_text .= '<strong>Requested Page:</strong> '.$_SERVER['REQUEST_URI']."<br />";
-        $email_text .= '<strong>Referrer:</strong> '.$_SERVER['HTTP_REFERER']."<br />";
-        $email_text .= '<strong>Script Error:</strong> '.$text."\<br />";
+        $email_text .= T_('<strong>IP:</strong> ' . $_SERVER['REMOTE_ADDR'] . '<br />');
+        $email_text .= T_('<strong>Requested Page:</strong> ' . $_SERVER['REQUEST_URI'] . '<br />');
+        $email_text .= T_('<strong>Referrer:</strong> ' . $_SERVER['HTTP_REFERER'] . '<br />');
+        $email_text .= T_('<strong>Script Error:</strong> ' . $text . '\<br />');
         if (LOG_POST_DUMP) {
             if (is_array($_POST) and count($_POST) > 0) {
-                $email_text .= '<strong>POST Data:</strong> '.indent_variable(' ',array_report($_POST),false)."<br />";
+                $email_text .= T_('<strong>POST Data:</strong> ' . indent_variable(' ',array_report($_POST),false) . '<br />');
             } else {
-                $email_text .= '<strong>No POST Data</strong>'."<br />";
+                $email_text .= T_('<strong>No POST Data</strong><br />');
             }
             if (is_array($_GET) and count($_GET) > 0) {
-                    $email_text .= '<strong>GET Data:</strong> '.indent_variable(' ',array_report($_GET),false)."<br />";
+                    $email_text .= T_('<strong>GET Data:</strong> ' . indent_variable(' ',array_report($_GET),false) . '<br />');
             } else {
-                $email_text .= '<strong>No GET Data</strong>'."<br />";
+                $email_text .= T_('<strong>No GET Data</strong><br />');
             }
         }
-        $email_text .= '*********** end of error report ************'."<br /><br />";
+        $email_text .= T_('*********** end of error report ************<br /><br />');
         
         send_single_email(UPDATE_EMAIL,SITE_NAME.' Error Reporter',TECHNICAL_EMAIL,'Technical Administrator','There is an error to report',$log_text,$email_text);
     }    
@@ -544,37 +544,37 @@ function date_difference($start,$end,$minute = 0) {
     
     if ($year_difference) {
         if ($year_difference == 1) {
-            $msg .= '1 year, ';
+            $msg .= T_('1 year, ');
         } else {
-            $msg .= $year_difference.' years, ';
+            $msg .= T_($year_difference.' years, ');
         }
     }
     if ($month_difference) {
         if ($month_difference == 1) {
-            $msg .= '1 month, ';
+            $msg .= T_('1 month, ');
         } else {
-            $msg .= $month_difference.' months, ';
+            $msg .= T_($month_difference.' months, ');
         }
     }
     if ($day_difference) {
         if ($day_difference == 1) {
-            $msg .= '1 day, ';
+            $msg .= T_('1 day, ');
         } else {
-            $msg .= $day_difference.' days, ';
+            $msg .= T_($day_difference.' days, ');
         }
     }
     if ($hour_difference) {
         if ($hour_difference == 1) {
-            $msg .= '1 hour, ';
+            $msg .= T_('1 hour, ');
         } else {
-            $msg .= $hour_difference.' hours, ';
+            $msg .= T_($hour_difference.' hours, ');
         }
     }
     if ($minute_difference) {
         if ($minute_difference == 1) {
-            $msg .= '1 minute';
+            $msg .= T_('1 minute');
         } else {
-            $msg .= $minute_difference.' minutes';
+            $msg .= T_($minute_difference.' minutes');
         }
     } else {
 //        $msg .= 'no minutes';
@@ -585,29 +585,29 @@ function date_difference($start,$end,$minute = 0) {
 function return_month($month) {
     switch ($month) {
     case "01":
-        return "January";
+        return T_('January');
     case "02":
-        return "Febuaury";
+        return T_('Febuaury');
     case "03":
-        return "March";
+        return T_('March');
     case "04":
-        return "April";
+        return T_('April');
     case "05":
-        return "May";
+        return T_('May');
     case "06":
-        return "June";
+        return T_('June');
     case "07":
-        return "July";
+        return T_('July');
     case "08":
-        return "August";
+        return T_('August');
     case "09":
-        return "September";
+        return T_('September');
     case "10":
-        return "October";
+        return T_('October');
     case "11":
-        return "November";
+        return T_('November');
     case "12":
-        return "December";
+        return T_('December');
     }
 }
 function return_day($day) {
