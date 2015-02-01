@@ -977,8 +977,8 @@ class links {
 		
 		if (user_type() > 0) {
 			// member links
-			$z .= $i."<dl>\n";
-			$z .= $i."<span class=\"nav_links_heading\">".MEMBERS_NAME." Links:</span><br />\n";
+			$z .= '<span class="nav_links_heading">' . MEMBERS_NAME . ' Links:</span>';
+            $z .= '<dl>';
 			if (!$mysql->build_array('SELECT * FROM sections WHERE type = 2 AND hidden = 0 ORDER BY position ASC')) {
 				$this->error = $mysql->error;
 				return false;
@@ -1000,13 +1000,13 @@ class links {
 							$selected = '_selected';
 						}
 					}
-					$z .= $i.' <dt><a class="nav_link'.$selected.'" href="'.URL.MEMBERS_URL.'/'.append_url(0).'">'.MEMBERS_NAME." Home</a></dt><br />\n";
+					$z .= $i.' <dt><a class="nav_link' . $selected . '" href="' . URL.MEMBERS_URL . '/' . append_url(0) . '">' . MEMBERS_NAME . ' Home</a></dt><br />';
 				}
 			}
-			$z .= $i."</dl>\n";
+			$z .= $i."</dl>";
 			if (user_type() == 2) {
-				$z .= $i."<dl>\n";
-				$z .= $i."<span class=\"nav_links_heading\">".ucwords(ADMIN_NAME_SINGULAR)." Links:</span><br />\n";
+				$z .= '<span class="nav_links_heading">' . ucwords(ADMIN_NAME_SINGULAR) . ' Links:</span>';
+                $z .= '<dl>';
 				if (!$mysql->build_array('SELECT * FROM sections WHERE type = 3 AND hidden = 0 ORDER BY position ASC')) {
 					$this->error = $mysql->error;
 					return false;
