@@ -992,7 +992,7 @@ class links {
                         }
                     }
                     if ((($link['page_id'] == 3 or $link['page_id'] == 4 or $link['page_id'] == 5) and ENABLE_NOTICEBOARD) or ($link['page_id'] == 7 and ENABLE_ARTICLES) or ($link['page_id'] == 8 and ENABLE_EVENTS) or ($link['page_id'] == 9 and ENABLE_FAQ) or ($link['page_id'] == 10 and ENABLE_LINKS) or ($link['page_id'] == 2) or ($link['page_id'] == 6 and ENABLE_MEMBER_EDIT_COLOURS) or ($link['page_id'] == 12 and ALLOW_MEMBER_ADMIN_CATEGORIES)) {
-                        $z .= '<dt><a class="nav_link' . $selected . '" href="' . URL . MEMBERS_URL . '/' . $link['url'] . '/' . append_url(0) . '">' . $link['name'] . '</a></dt><br />';
+                        $z .= '<dt><a class="nav_link' . $selected . '" href="' . URL . MEMBERS_URL . '/' . $link['url'] . '/' . append_url(0) . '">' . $link['name'] . '</a></dt>';
                     }
                 } else {
                     if (!isset($_GET['page_id']) and isset($_GET['page_type'])) {
@@ -1000,7 +1000,7 @@ class links {
                             $selected = '_selected';
                         }
                     }
-                    $z .= ' <dt><a class="nav_link' . $selected . '" href="' . URL.MEMBERS_URL . '/' . append_url(0) . '">' . MEMBERS_NAME . ' Home</a></dt><br />';
+                    $z .= ' <dt><a class="nav_link' . $selected . '" href="' . URL.MEMBERS_URL . '/' . append_url(0) . '">' . MEMBERS_NAME . ' Home</a></dt>';
                 }
             }
             $z .= '</dl>';
@@ -1037,7 +1037,7 @@ class links {
                             }
                         }
                         if ($print) {
-                            $z .= ' <dt><a class="nav_link' . $selected . '" href="' . URL . ADMIN_URL . '/' . $link['url'] . '/' . append_url(0) . '">' . $link['name'] . '</a></dt><br />';
+                            $z .= ' <dt><a class="nav_link' . $selected . '" href="' . URL . ADMIN_URL . '/' . $link['url'] . '/' . append_url(0) . '">' . $link['name'] . '</a></dt>';
                         }
                     }
                 }
