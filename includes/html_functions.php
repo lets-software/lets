@@ -4,40 +4,40 @@ function login_html($i,$use_uri = true) {
 	global $user;
 	global $links;
 	$links->build_url(1,1);
-	$z = $i."<!-- login_html -->\n";
+	$z = '<!-- login_html -->';
 	if (!user_type()) {
 		
 		$links->build_url(1,1);
-		$z .= "$i <span>Welcome <strong>Guest</strong></span><br /><span>Please Login or <a href=\"".URL.$links->complete_url."\">Register to Join</a>:</span>\n";
+		$z .= '<span>Welcome <strong>Guest</strong></span><br /><span>Please Login or <a href="' . URL.$links->complete_url . '">Register to Join</a>:</span>';
 		
 		if (TEMPLATE == 'viclets') {
 			$links->build_url(13,0);
-			$z .= "$i <br /><span><a href=\"".URL.$links->complete_url."\">Lost Password?</a></span>\n";
-			$z .= "$i</td>$i\n$i<td align=\"left\" valign=\"bottom\">\n";
+			$z .= '<br /><span><a href="' . URL.$links->complete_url . '">Lost Password?</a></span>';
+			$z .= '</td><td align="left" valign="bottom">';
 		}
 			
-		$z .= "$i <form id=\"login\" action=\"";
+		$z .= '<form id="login" action="';
 		if ($use_uri == true) {
 			$z .= $_SERVER["REQUEST_URI"];
 		} else {
 			$z .= URL.MEMBERS_URL."/";
 		}
-		$z .= "\" method=\"post\">\n";		
-		$z .= "$i  <span id=\"login_id_label\">".ucwords(MEMBERS_NAME_SINGULAR)." No:</span>\n";
-		$z .= "$i  <input type=\"text\" id=\"login_id\" name=\"login_id\" />\n";
-		$z .= "$i  <span id=\"login_password_label\">Password:</span>\n";
-		$z .= "$i  <input type=\"password\" id=\"login_password\" name=\"login_password\" />\n";
-		$z .= "$i  <input id=\"login_button\" type=\"submit\" name=\"login\" value=\"Login\" /><br class=\"right\"/>\n";
-		$z .= "$i </form>\n";
+		$z .= '" method="POST">';
+		$z .= '<span id="login_id_label">' . ucwords(MEMBERS_NAME_SINGULAR) . ' No:</span>';
+		$z .= '<input type="text" id="login_id" name="login_id" />';
+		$z .= '<span id="login_password_label">Password:</span>';
+		$z .= '<input type="password" id="login_password" name="login_password" />';
+		$z .= '<input id="login_button" type="submit" name="login" value="Login" /><br class="right" />';
+		$z .= '</form>';
 		if (TEMPLATE != 'viclets') {
 			$links->build_url(13,0);
-			$z .= "$i <span><a href=\"".URL.$links->complete_url."\">Lost Password?</a></span>\n";
+			$z .= '<span><a href="' . URL.$links->complete_url . '">Lost Password?</a></span>';
 		}
 	} else {
-		$z .= "$i <span id=\"login_message\">Welcome <strong>".$_SESSION["member_name"]."</strong></span><br /><span>Please <a id=\"login_link\" href=\"".URL."logout/\">logout here</a></span>\n";
-		$z .= "$i</td>$i\n$i<td width=\"600px\" align=\"left\" valign=\"bottom\">&nbsp;\n";
+		$z .= '<span id="login_message">Welcome <strong>' . $_SESSION["member_name"] . '</strong></span><br /><span>Please <a id="login_link" href="' . URL . 'logout/">logout here</a></span>';
+		//$z .= '</td><td width="600px" align="left" valign="bottom">&nbsp;';
 	}
-	$z .= "$i<!-- /login_html -->\n";
+	$z .= '<!-- /login_html -->';
 	return $z;
 }
 function first_name($id) {
