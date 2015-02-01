@@ -964,12 +964,12 @@
 				$z .= 'checked="checked" ';
 				$disabled_reserve = ' ';				
 			} else {
-				$disabled_reserve = ' disabled=\"true\" ';
+				$disabled_reserve = ' disabled ';
 			}
-			$z .= "onClick=\"set_as_auction();\"".$disable_auction."\" /><br class=\"left\" />\n";
+			$z .= 'onClick="set_as_auction();"' . $disable_auction . ' /><br class="left" />';
 			
-			$z .= $i." <label for=\"reserve\">Reserve:</label>\n";
-			$z .= $i." <input type=\"text\" name=\"reserve\" id=\"reserve\"".$disabled_reserve."value=\"".$this->reserve."\" /><br class=\"left\" />\n";
+			$z .= '<label for="reserve">Reserve:</label>';
+			$z .= '<input type="text" name="reserve" id="reserve"' . $disabled_reserve . 'value="' . $this->reserve . '" /><br class="left" />';
 			
 		}
 		
@@ -996,7 +996,7 @@
 		if ($this->set_expiry) {
 			$z .= " ";
 		} else {
-			$z .= " disabled=\"true\"";
+			$z .= " disabled";
 		}
 		$z .= ">\n";
 		$z .= $i."  <option value=\"0\"".selected(' ','',0,$this->expiry_hour).">12:00 AM</option>\n";

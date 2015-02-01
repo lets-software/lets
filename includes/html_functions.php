@@ -338,7 +338,7 @@ function date_form($i,$date,$prefix,$allow_all = false,$disabled = 'false',$titl
 	if ($disabled == 'false') {
 		$disabled_string = '';
 	} elseif ($disabled == 'true') {
-		$disabled_string = ' disabled="true"';
+		$disabled_string = ' disabled';
 	}
 	
 	$z = '';
