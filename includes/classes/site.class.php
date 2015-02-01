@@ -598,8 +598,10 @@ class site {
 		$links->build_url(1,103);
 		if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->result('SELECT * FROM config LIMIT 1')) {
 			return $mysql->error;
-		}
-		$z = $i."<!-- site_settings_form -->\n";
+		}else{
+            $mysql->result('SELECT * FROM config LIMIT 1');
+        }
+		$z = $i."<!-- site_settings_form -->";
 		$z .= $i."<div id=\"site_settings_form\">\n";
 		$z .= $i.' '.T_('For settings specific to LETS please go <a href="'.URL.$links->complete_url.append_url(0).'">here')."</a><br /><br />\n";
 		$z .= $i." <fieldset>\n";
@@ -607,7 +609,6 @@ class site {
 		$z .= $i.T_(' <strong>Warning:</strong> For advanced use only. Follow instructions carefully. There is no validation to this form so please ensure all information is correct.').'<br class="left" /><br class="left" />'."\n";
 		$z .= $i.T_(' Required fields are').' <span class="required_field">'.REQUIRED_DISPLAY.'</span>.<br /><br />'."\n";
 		$z .= $i.'  <h3>'.T_('Website Information')."</h3>\n";
-		
 		$z .= $i.'  <label for="site_name"><span class="required_field">'.T_('Name').':</span></label>'."\n";
 		$z .= $i.'  <input type="text" id="site_name" name="site_name" value="'.htmlspecialchars($mysql->result['site_name']).'" /><br class="left" />'."\n";
 		$z .= $i.'  <label for="location">'.T_('Location').':</label>'."\n";
