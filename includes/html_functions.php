@@ -8,11 +8,11 @@ function login_html($i,$use_uri = true) {
 	if (!user_type()) {
 		
 		$links->build_url(1,1);
-		$z .= '<span>Welcome <strong>Guest</strong></span><br /><span>Please Login or <a href="' . URL.$links->complete_url . '">Register to Join</a>:</span>';
+		$z .= T_('<span>Welcome <strong>Guest</strong></span>') . '<br />' . T_('<span>Please Login or <a href="' . URL.$links->complete_url . '">Register to Join</a>:</span>');
 		
 		if (TEMPLATE == 'viclets') {
 			$links->build_url(13,0);
-			$z .= '<br /><span><a href="' . URL.$links->complete_url . '">Lost Password?</a></span>';
+			$z .= '<br /><span><a href="' . URL.$links->complete_url . '">' . T_('Lost Password?') . '</a></span>';
 			$z .= '</td><td align="left" valign="bottom">';
 		}
 			
@@ -25,16 +25,16 @@ function login_html($i,$use_uri = true) {
 		$z .= '" method="POST">';
 		$z .= '<span id="login_id_label">' . ucwords(MEMBERS_NAME_SINGULAR) . ' No:</span>';
 		$z .= '<input type="text" id="login_id" name="login_id" />';
-		$z .= '<span id="login_password_label">Password:</span>';
+		$z .= '<span id="login_password_label">' . T_('Password') . ':</span>';
 		$z .= '<input type="password" id="login_password" name="login_password" />';
-		$z .= '<input id="login_button" type="submit" name="login" value="Login" /><br class="right" />';
+		$z .= '<input id="login_button" type="submit" name="login" value="' . T_('Login') . '" /><br class="right" />';
 		$z .= '</form>';
 		if (TEMPLATE != 'viclets') {
 			$links->build_url(13,0);
-			$z .= '<span><a href="' . URL.$links->complete_url . '">Lost Password?</a></span>';
+			$z .= '<span><a href="' . URL.$links->complete_url . '">' . T_('Lost Password?') . '</a></span>';
 		}
 	} else {
-		$z .= '<span id="login_message">Welcome <strong>' . $_SESSION["member_name"] . '</strong></span><br /><span>Please <a id="login_link" href="' . URL . 'logout/">logout here</a></span>';
+		$z .= T_('<span id="login_message">Welcome <strong>' . $_SESSION["member_name"] . '</strong></span><br /><span>Please <a id="login_link" href="' . URL . 'logout/">logout here</a></span>');
 		//$z .= '</td><td width="600px" align="left" valign="bottom">&nbsp;';
 	}
 	$z .= '<!-- /login_html -->';
@@ -52,7 +52,7 @@ function first_name($id) {
 	return $z;
 }
 function no_database($i) {
-	return "{$i}database problems, please come back";
+	return T_('database problems, please come back');
 }
 
 /**
@@ -80,14 +80,14 @@ function search_sidebar($i) {
 			$keyword = $_POST['keyword'];
 		}
 	}
-	$z = $i."<!-- search_sidebar -->\n";
-	$z .= $i."<div id=\"search_sidebar\">\n";
-	$z .= $i." <form id=\"search\" action=\"".URL.$links->complete_url.append_url(0)."\" method=\"post\">\n";
-	$z .= $i."  <input id=\"search_box_sidebar\" type=\"text\" name=\"keyword\" value=\"".$keyword."\" /><br />\n";
-	$z .= $i."  <input id=\"search_box_sidebar_button\" type=\"submit\" name=\"submit\" value=\"Search ".SITE_NAME."\" />\n";
-	$z .= $i." </form>\n";
-	$z .= $i.'</div>'."\n";
-	$z .= $i."<!-- /search_sidebar -->\n";
+	$z = '<!-- search_sidebar -->';
+	$z .= '<div id="search_sidebar">';
+	$z .= '<form id="search" action="' . URL . $links->complete_url . append_url(0) . '" method="POST">';
+	$z .= '<input id="search_box_sidebar" type="text" name="keyword" value="' . $keyword . '" /><br />';
+	$z .= '<input id="search_box_sidebar_button" type="submit" name="submit" value="Search ' . SITE_NAME . '" />';
+	$z .= '</form>';
+	$z .= '</div>';
+	$z .= '<!-- /search_sidebar -->';
 	return $z;
 }
 function time_stamp() {
@@ -215,9 +215,9 @@ function query_output($i,$order_by,$order_by_default,$direction,$direction_defau
 	$page = ceil($start/$limit) + 1;
 	$pages = ceil($num_rows/$limit);
 	
-	$z = $i."<!-- member_list -->\n";
-	$z .= $i."<div id=\"query_result\">\n";
-	$z .= $i." Viewing ".($start + 1)." to ".$finish." of ".$num_rows." results<br /><br />\n";
+	$z = '<!-- member_list -->';
+	$z .= '<div id="query_result">';
+	$z .= ' Viewing ' . ($start + 1) . ' to ' . $finish . ' of ' . $num_rows . ' results<br /><br />';
 	
 	$page_html = '';
 	if ($pages > 1) {
@@ -227,15 +227,15 @@ function query_output($i,$order_by,$order_by_default,$direction,$direction_defau
 				$z .= " Page ".$s." ";
 				$page_html .= " Page ".$s." ";
 			} else {
-				$z .= "<a class=\"table_page\" href=\"".return_table_page_link($url,"start",(($limit * $s) - $limit),$start_default,$limit,$limit_default,$order_by,$order_by_default,$direction,$direction_default,$num_rows,$member_search_term,$member_search_type).append_url(' ?')."\">Page ".$s."</a> ";
-				$page_html .= "<a class=\"table_page\" href=\"".return_table_page_link($url,"start",(($limit * $s) - $limit),$start_default,$limit,$limit_default,$order_by,$order_by_default,$direction,$direction_default,$num_rows,$member_search_term,$member_search_type).append_url(' ?')."\">Page ".$s."</a> ";
+				$z .= '<a class="table_page" href="' . return_table_page_link($url,"start",(($limit * $s) - $limit),$start_default,$limit,$limit_default,$order_by,$order_by_default,$direction,$direction_default,$num_rows,$member_search_term,$member_search_type).append_url(' ?')."\">Page ".$s."</a> ";
+				$page_html .= '<a class="table_page" href="' . return_table_page_link($url,"start",(($limit * $s) - $limit),$start_default,$limit,$limit_default,$order_by,$order_by_default,$direction,$direction_default,$num_rows,$member_search_term,$member_search_type).append_url(' ?')."\">Page ".$s."</a> ";
 			}
 		}
-		$z .= "<br /><br />\n";
+		$z .= '<br /><br />';
 	}
 	
-	$z .= $i." <table>\n";
-	$z .= $i."  <tr>\n";
+	$z .= '<table>';
+	$z .= '<tr>';
 	for ($j=0;$j<$num_fields;$j++) {
 		$column_name = mysql_field_name($result,$j);
 		$field_array[$j] = $column_name;
@@ -291,9 +291,9 @@ function query_output($i,$order_by,$order_by_default,$direction,$direction_defau
 					$display_email = $email;
 				}
 				if ($email == "&nbsp;") {
-					$z .= $i."   <td class=\"".$class."\">&nbsp;</td>\n";
+					$z .= $i."   <td class=\"".$class."\">&nbsp;</td>";
 				} else {
-					$z .= $i."   <td class=\"".$class."\"><a href=\"mailto:".$email."\">".$display_email."</a></td>\n";
+					$z .= $i."   <td class=\"".$class."\"><a href=\"mailto:".$email."\">".$display_email."</a></td>";
 				}
 			} elseif ($field_array[$b] == 'url') {
 				$url_check = check_empty(stripslashes(mysql_result($result,$k,$field_array[$b])));
@@ -329,9 +329,9 @@ function query_output($i,$order_by,$order_by_default,$direction,$direction_defau
 				}
 			}
 		}
-		$z .= "<br />\n";
+		$z .= '<br />';
 	}
-	$z .= $i."<!-- /member_list -->\n";
+	$z .= '<!-- /member_list -->';
 	return $z;
 }
 function date_form($i,$date,$prefix,$allow_all = false,$disabled = 'false',$title = '') {
@@ -343,103 +343,102 @@ function date_form($i,$date,$prefix,$allow_all = false,$disabled = 'false',$titl
 	
 	$z = '';
 	if ($title) {
-		$current_indent = $i;
-		$i = $i.' ';
-		$z .= $current_indent.'<div class="'.$title."\">\n";
-		$z .= $current_indent."Month:<br />\n";
+		$z .= '<div class="' . $title . '">';
+		$z .= 'Month:<br />';
 	}
 	
-	$z .= $i."<select name=\"".$prefix."month\"".$disabled_string.">\n";
+	$z .= '<select name="' . $prefix . 'month"' . $disabled_string . '>';
 	if ($allow_all) {
-		$z .= $i." <option value=\"0\"".check_selected(0,$date['month']).">All</option>\n";
+		$z .= '<option value="0"' . check_selected(0,$date['month']) . '>All</option>';
 	}
-	$z .= $i." <option value=\"1\"".check_selected(1,$date['month']).">January</option>\n";
-	$z .= $i." <option value=\"2\"".check_selected(2,$date['month']).">Febuary</option>\n";
-	$z .= $i." <option value=\"3\"".check_selected(3,$date['month']).">March</option>\n";
-	$z .= $i." <option value=\"4\"".check_selected(4,$date['month']).">April</option>\n";
-	$z .= $i." <option value=\"5\"".check_selected(5,$date['month']).">May</option>\n";
-	$z .= $i." <option value=\"6\"".check_selected(6,$date['month']).">June</option>\n";
-	$z .= $i." <option value=\"7\"".check_selected(7,$date['month']).">July</option>\n";
-	$z .= $i." <option value=\"8\"".check_selected(8,$date['month']).">August</option>\n";
-	$z .= $i." <option value=\"9\"".check_selected(9,$date['month']).">September</option>\n";
-	$z .= $i." <option value=\"10\"".check_selected(10,$date['month']).">October</option>\n";
-	$z .= $i." <option value=\"11\"".check_selected(11,$date['month']).">November</option>\n";
-	$z .= $i." <option value=\"12\"".check_selected(12,$date['month']).">December</option>\n";
-	$z .= $i."</select>\n";
+	$z .= '<option value="1"'   . check_selected(1, $date['month']) . '>January</option>';
+	$z .= '<option value="2"'   . check_selected(2, $date['month']) . '>Febuary</option>';
+	$z .= '<option value="3"'   . check_selected(3, $date['month']) . '>March</option>';
+	$z .= '<option value="4"'   . check_selected(4, $date['month']) . '>April</option>';
+	$z .= '<option value="5"'   . check_selected(5, $date['month']) . '>May</option>';
+	$z .= '<option value="6"'   . check_selected(6, $date['month']) . '>June</option>';
+	$z .= '<option value="7"'   . check_selected(7, $date['month']) . '>July</option>';
+	$z .= '<option value="8"'   . check_selected(8, $date['month']) . '>August</option>';
+	$z .= '<option value="9"'   . check_selected(9, $date['month']) . '>September</option>';
+	$z .= '<option value="10"' . check_selected(10,$date['month']) . '>October</option>';
+	$z .= '<option value="11"' . check_selected(11,$date['month']) . '>November</option>';
+	$z .= '<option value="12"' . check_selected(12,$date['month']) . '>December</option>';
+	$z .= '</select>';
 	if ($title) {
-		$z .= $current_indent."</div>\n";
-		$z .= $current_indent.'<div class="'.$title."\">\n";
-		$z .= $current_indent."Day:<br />\n";
+		$z .= '</div>';
+		$z .= '<div class="' . $title . '">';
+		$z .= 'Day:<br />';
 	}
-	$z .= $i."<select name=\"".$prefix."day\"".$disabled_string.">\n";
+	$z .= '<select name="' . $prefix . 'day"' . $disabled_string . '>';
 	if ($allow_all) {
-		$z .= $i." <option value=\"0\"".check_selected(0,$date['day']).">All</option>\n";
+		$z .= '<option value="0"' . check_selected(0,$date['day']) . '>All</option>';
 	}
-	$z .= $i." <option value=\"1\"".check_selected(1,$date['day']).">1</option>\n";
-	$z .= $i." <option value=\"2\"".check_selected(2,$date['day']).">2</option>\n";
-	$z .= $i." <option value=\"3\"".check_selected(3,$date['day']).">3</option>\n";
-	$z .= $i." <option value=\"4\"".check_selected(4,$date['day']).">4</option>\n";
-	$z .= $i." <option value=\"5\"".check_selected(5,$date['day']).">5</option>\n";
-	$z .= $i." <option value=\"6\"".check_selected(6,$date['day']).">6</option>\n";
-	$z .= $i." <option value=\"7\"".check_selected(7,$date['day']).">7</option>\n";
-	$z .= $i." <option value=\"8\"".check_selected(8,$date['day']).">8</option>\n";
-	$z .= $i." <option value=\"9\"".check_selected(9,$date['day']).">9</option>\n";
-	$z .= $i." <option value=\"10\"".check_selected(10,$date['day']).">10</option>\n";
-	$z .= $i." <option value=\"11\"".check_selected(11,$date['day']).">11</option>\n";
-	$z .= $i." <option value=\"12\"".check_selected(12,$date['day']).">12</option>\n";
-	$z .= $i." <option value=\"13\"".check_selected(13,$date['day']).">13</option>\n";
-	$z .= $i." <option value=\"14\"".check_selected(14,$date['day']).">14</option>\n";
-	$z .= $i." <option value=\"15\"".check_selected(15,$date['day']).">15</option>\n";
-	$z .= $i." <option value=\"16\"".check_selected(16,$date['day']).">16</option>\n";
-	$z .= $i." <option value=\"17\"".check_selected(17,$date['day']).">17</option>\n";
-	$z .= $i." <option value=\"18\"".check_selected(18,$date['day']).">18</option>\n";
-	$z .= $i." <option value=\"19\"".check_selected(19,$date['day']).">19</option>\n";
-	$z .= $i." <option value=\"20\"".check_selected(20,$date['day']).">20</option>\n";
-	$z .= $i." <option value=\"21\"".check_selected(21,$date['day']).">21</option>\n";
-	$z .= $i." <option value=\"22\"".check_selected(22,$date['day']).">22</option>\n";
-	$z .= $i." <option value=\"23\"".check_selected(23,$date['day']).">23</option>\n";
-	$z .= $i." <option value=\"24\"".check_selected(24,$date['day']).">24</option>\n";
-	$z .= $i." <option value=\"25\"".check_selected(25,$date['day']).">25</option>\n";
-	$z .= $i." <option value=\"26\"".check_selected(26,$date['day']).">26</option>\n";
-	$z .= $i." <option value=\"27\"".check_selected(27,$date['day']).">27</option>\n";
-	$z .= $i." <option value=\"28\"".check_selected(28,$date['day']).">28</option>\n";
-	$z .= $i." <option value=\"29\"".check_selected(29,$date['day']).">29</option>\n";
-	$z .= $i." <option value=\"30\"".check_selected(30,$date['day']).">30</option>\n";
-	$z .= $i." <option value=\"31\"".check_selected(31,$date['day']).">31</option>\n";
-	$z .= $i."</select>\n";
+	$z .= '<option value="1"' . check_selected(1,$date['day']) . '>1</option>';
+	$z .= '<option value="2"' . check_selected(2,$date['day']) . '>2</option>';
+	$z .= '<option value="3"' . check_selected(3,$date['day']) . '>3</option>';
+	$z .= '<option value="4"' . check_selected(4,$date['day']) . '>4</option>';
+	$z .= '<option value="5"' . check_selected(5,$date['day']) . '>5</option>';
+	$z .= '<option value="6"' . check_selected(6,$date['day']) . '>6</option>';
+	$z .= '<option value="7"' . check_selected(7,$date['day']) . '>7</option>';
+	$z .= '<option value="8"' . check_selected(8,$date['day']) . '>8</option>';
+	$z .= '<option value="9"' . check_selected(9,$date['day']) . '>9</option>';
+	$z .= '<option value="10"' . check_selected(10,$date['day']) . '>10</option>';
+	$z .= '<option value="11"' . check_selected(11,$date['day']) . '>11</option>';
+	$z .= '<option value="12"' . check_selected(12,$date['day']) . '>12</option>';
+	$z .= '<option value="13"' . check_selected(13,$date['day']) . '>13</option>';
+	$z .= '<option value="14"' . check_selected(14,$date['day']) . '>14</option>';
+	$z .= '<option value="15"' . check_selected(15,$date['day']) . '>15</option>';
+	$z .= '<option value="16"' . check_selected(16,$date['day']) . '>16</option>';
+	$z .= '<option value="17"' . check_selected(17,$date['day']) . '>17</option>';
+	$z .= '<option value="18"' . check_selected(18,$date['day']) . '>18</option>';
+	$z .= '<option value="19"' . check_selected(19,$date['day']) . '>19</option>';
+	$z .= '<option value="20"' . check_selected(20,$date['day']) . '>20</option>';
+	$z .= '<option value="21"' . check_selected(21,$date['day']) . '>21</option>';
+	$z .= '<option value="22"' . check_selected(22,$date['day']) . '>22</option>';
+	$z .= '<option value="23"' . check_selected(23,$date['day']) . '>23</option>';
+	$z .= '<option value="24"' . check_selected(24,$date['day']) . '>24</option>';
+	$z .= '<option value="25"' . check_selected(25,$date['day']) . '>25</option>';
+	$z .= '<option value="26"' . check_selected(26,$date['day']) . '>26</option>';
+	$z .= '<option value="27"' . check_selected(27,$date['day']) . '>27</option>';
+	$z .= '<option value="28"' . check_selected(28,$date['day']) . '>28</option>';
+	$z .= '<option value="29"' . check_selected(29,$date['day']) . '>29</option>';
+	$z .= '<option value="30"' . check_selected(30,$date['day']) . '>30</option>';
+	$z .= '<option value="31"' . check_selected(31,$date['day']) . '>31</option>';
+	$z .= '</select>';
 	if ($title) {
-		$z .= $current_indent."</div>\n";
-		$z .= $current_indent.'<div class="'.$title."\">\n";
-		$z .= $current_indent."Year:<br />\n";
+		$z .= '</div>';
+		$z .= '<div class="' . $title . '">';
+		$z .= 'Year:<br />';
 	}
-	$z .= $i."<select name=\"".$prefix."year\"".$disabled_string.">\n";
+	$z .= '<select name="' . $prefix . 'year"' . $disabled_string . '>';
 	if ($allow_all) {
-		$z .= $i." <option value=\"0\"".check_selected(0,$date['year']).">All</option>\n";
+		$z .= '<option value="0"' . check_selected(0,$date['year']) . '>All</option>';
 	}
-	$z .= $i." <option value=\"2000\"".check_selected(2000,$date['year']).">2000</option>\n";
-	$z .= $i." <option value=\"2001\"".check_selected(2001,$date['year']).">2001</option>\n";
-	$z .= $i." <option value=\"2002\"".check_selected(2002,$date['year']).">2002</option>\n";
-	$z .= $i." <option value=\"2003\"".check_selected(2003,$date['year']).">2003</option>\n";
-	$z .= $i." <option value=\"2004\"".check_selected(2004,$date['year']).">2004</option>\n";
-	$z .= $i." <option value=\"2005\"".check_selected(2005,$date['year']).">2005</option>\n";
-	$z .= $i." <option value=\"2006\"".check_selected(2006,$date['year']).">2006</option>\n";
-	$z .= $i." <option value=\"2007\"".check_selected(2007,$date['year']).">2007</option>\n";
-	$z .= $i." <option value=\"2008\"".check_selected(2008,$date['year']).">2008</option>\n";
-	$z .= $i." <option value=\"2009\"".check_selected(2009,$date['year']).">2009</option>\n";
-	$z .= $i." <option value=\"2010\"".check_selected(2010,$date['year']).">2010</option>\n";
-	$z .= $i." <option value=\"2011\"".check_selected(2011,$date['year']).">2011</option>\n";
-	$z .= $i." <option value=\"2012\"".check_selected(2012,$date['year']).">2012</option>\n";
-	$z .= $i." <option value=\"2013\"".check_selected(2013,$date['year']).">2013</option>\n";
-	$z .= $i." <option value=\"2014\"".check_selected(2014,$date['year']).">2014</option>\n";
-	$z .= $i." <option value=\"2015\"".check_selected(2015,$date['year']).">2015</option>\n";
-	$z .= $i." <option value=\"2016\"".check_selected(2016,$date['year']).">2016</option>\n";
-	$z .= $i." <option value=\"2017\"".check_selected(2017,$date['year']).">2017</option>\n";
-	$z .= $i." <option value=\"2018\"".check_selected(2018,$date['year']).">2018</option>\n";
-	$z .= $i." <option value=\"2019\"".check_selected(2019,$date['year']).">2019</option>\n";
-	$z .= $i." <option value=\"2020\"".check_selected(2020,$date['year']).">2020</option>\n";
-	$z .= $i."</select>\n";	return $z;
+	$z .= '<option value="2000"' . check_selected(2000,$date['year']) . '>2000</option>';
+	$z .= '<option value="2001"' . check_selected(2001,$date['year']) . '>2001</option>';
+	$z .= '<option value="2002"' . check_selected(2002,$date['year']) . '>2002</option>';
+	$z .= '<option value="2003"' . check_selected(2003,$date['year']) . '>2003</option>';
+	$z .= '<option value="2004"' . check_selected(2004,$date['year']) . '>2004</option>';
+	$z .= '<option value="2005"' . check_selected(2005,$date['year']) . '>2005</option>';
+	$z .= '<option value="2006"' . check_selected(2006,$date['year']) . '>2006</option>';
+	$z .= '<option value="2007"' . check_selected(2007,$date['year']) . '>2007</option>';
+	$z .= '<option value="2008"' . check_selected(2008,$date['year']) . '>2008</option>';
+	$z .= '<option value="2009"' . check_selected(2009,$date['year']) . '>2009</option>';
+	$z .= '<option value="2010"' . check_selected(2010,$date['year']) . '>2010</option>';
+	$z .= '<option value="2011"' . check_selected(2011,$date['year']) . '>2011</option>';
+	$z .= '<option value="2012"' . check_selected(2012,$date['year']) . '>2012</option>';
+	$z .= '<option value="2013"' . check_selected(2013,$date['year']) . '>2013</option>';
+	$z .= '<option value="2014"' . check_selected(2014,$date['year']) . '>2014</option>';
+	$z .= '<option value="2015"' . check_selected(2015,$date['year']) . '>2015</option>';
+	$z .= '<option value="2016"' . check_selected(2016,$date['year']) . '>2016</option>';
+	$z .= '<option value="2017"' . check_selected(2017,$date['year']) . '>2017</option>';
+	$z .= '<option value="2018"' . check_selected(2018,$date['year']) . '>2018</option>';
+	$z .= '<option value="2019"' . check_selected(2019,$date['year']) . '>2019</option>';
+	$z .= '<option value="2020"' . check_selected(2020,$date['year']) . '>2020</option>';
+	$z .= '</select>';
+    return $z;
 	if ($title) {
-		$z .= $current_indent."</div>\n";
+		$z .= '</div>';
 	}
 }
 
