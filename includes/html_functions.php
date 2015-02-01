@@ -8,11 +8,11 @@ function login_html($i,$use_uri = true) {
 	if (!user_type()) {
 		
 		$links->build_url(1,1);
-		$z .= "$i <span id=\"login_message\">Welcome <strong>Guest</strong></span><br /><span id=\"login_message\">Please Login or <a href=\"".URL.$links->complete_url."\">Register to Join</a>:</span>\n";
+		$z .= "$i <span>Welcome <strong>Guest</strong></span><br /><span>Please Login or <a href=\"".URL.$links->complete_url."\">Register to Join</a>:</span>\n";
 		
 		if (TEMPLATE == 'viclets') {
 			$links->build_url(13,0);
-			$z .= "$i <br /><span id=\"login_message\"><a href=\"".URL.$links->complete_url."\">Lost Password?</a></span>\n";
+			$z .= "$i <br /><span><a href=\"".URL.$links->complete_url."\">Lost Password?</a></span>\n";
 			$z .= "$i</td>$i\n$i<td align=\"left\" valign=\"bottom\">\n";
 		}
 			
@@ -31,10 +31,10 @@ function login_html($i,$use_uri = true) {
 		$z .= "$i </form>\n";
 		if (TEMPLATE != 'viclets') {
 			$links->build_url(13,0);
-			$z .= "$i <span id=\"login_message\"><a href=\"".URL.$links->complete_url."\">Lost Password?</a></span>\n";
+			$z .= "$i <span><a href=\"".URL.$links->complete_url."\">Lost Password?</a></span>\n";
 		}
 	} else {
-		$z .= "$i <span id=\"login_message\">Welcome <strong>".$_SESSION["member_name"]."</strong></span><br /><span id=\"login_message\">Please <a id=\"login_link\" href=\"".URL."logout/\">logout here</a></span>\n";
+		$z .= "$i <span id=\"login_message\">Welcome <strong>".$_SESSION["member_name"]."</strong></span><br /><span>Please <a id=\"login_link\" href=\"".URL."logout/\">logout here</a></span>\n";
 		$z .= "$i</td>$i\n$i<td width=\"600px\" align=\"left\" valign=\"bottom\">&nbsp;\n";
 	}
 	$z .= "$i<!-- /login_html -->\n";
