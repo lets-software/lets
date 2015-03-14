@@ -71,8 +71,9 @@ if (isset($_POST['submit'])) {
                 }
             }
         }
-}    
-    if (isset($post_post['submit']) && $post_post['submit'] == 'Create #1 Account') {
+}
+    // Creation of the admin account
+    if (isset($post_post['submit']) && $post_post['submit'] == 'Create Account') {
         if (!$post_post['first_name'] or
             !$post_post['last_name'] or
             !$post_post['password'] or
@@ -99,7 +100,7 @@ if (isset($_POST['submit'])) {
                     expiry_month = '1',
                     expiry_year = '3000',
                     password = '".$password."'")) {
-                        $message .= '<li>'.T_('Account Creation Complete!').'</li>';
+                        $message .= '<li class="ok">'.T_('Account Creation Complete!').'</li>';
                 }
             }
         }
@@ -497,9 +498,6 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 1 && $mysql->bui
 
 // We check if the table accounts exist 
 if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'accounts'")) == 0 && !$mysql->build_array('SELECT * FROM accounts WHERE 1')) {
-    if ($message) {
-        echo '<ul>'.$message.'</ul>';
-    }
     if ($mysql->query("CREATE TABLE IF NOT EXISTS `accounts` (
       `accountID` int(6) NOT NULL auto_increment,
       `first_name` varchar(32) NOT NULL default '',
@@ -613,11 +611,11 @@ if ($second_mysql->build_array('SELECT * FROM accounts WHERE accountID = 1')) {
         if ($message) {
             echo '<ul>'.$message.'</ul>';
         }
-        echo T_('<strong>Create Administrative Account (#1)</strong><br />');
-        echo T_('This will create the #1 account which is essential for proper functioning of the LETS system.<br /><br />');
-        echo T_('<strong>Important:</strong> Log-on to the site with username: "1" and the password you create here.<br />');
-        echo T_('Also please edit the account after finishing setup to add other important data such as address, telephone number, etc.<br /><br />');
-        echo T_('<strong>Note:</strong> Canadian may want to enable an option under "Website Settings" to force proper Provincial abbreviations and postal codes prior to editing the account.<br />');
+        echo T_('<strong>Create Administrative Account</strong><br />');
+        echo T_('This will create the administrator account which is essential for LETS-Software to work properly.') . '<br /><br />';
+        echo T_('<strong>Important:</strong> Log-on to the site with username: "1" and the password you create here.') . '<br />';
+        echo T_('Also please edit the account after finishing setup to add other important data such as address, telephone number, etc.') . '<br /><br />';
+        echo T_('<strong>Note:</strong> Canadian may want to enable an option under "Website Settings" to force proper Provincial abbreviations and postal codes prior to editing the account.') . '<br />';
         
         echo '<form action="'.$_SERVER['REQUEST_URI'].'" method="post">';
             
@@ -633,7 +631,7 @@ if ($second_mysql->build_array('SELECT * FROM accounts WHERE accountID = 1')) {
         echo T_('<strong>Re-type Password:</strong><br />');
         echo '<input type="password" name="second_password" /><br /><br />';
             
-        echo '<input type="submit" name="submit" value="'.T_('Create #1 Account').'" />';
+        echo '<input type="submit" name="submit" value="'.T_('Create Account').'" />';
         echo '</form></div></body></html>';
         exit();
     }        
@@ -656,12 +654,12 @@ if (CURRENT_OS == 'UNIX') {
             chmod(".htaccess", 0664) or $files_status_message .= '<li class="error">' . T_('Unable to set <strong>.htaccess</strong> permissions') . '.</li>';
             
             if(!file_exists("images")) { mkdir("images", 0775) or $files_status_message .= '<li class="error">' . T_('Cannot create folder') . ' <strong>images</strong>.</li>'; }
-            chmod("images/", 0775) or $files_status_message .= '<li class="error">' . T_('Unable to set <strong>.htaccess</strong> permissions') . '.</li>';
+            chmod("images", 0775) or $files_status_message .= '<li class="error">' . T_('Unable to set <strong>.htaccess</strong> permissions') . '.</li>';
             // Create an empty index.html file to prevent users to brows the images folder
             if(!file_exists("images/index.html")) {
                 fopen("images/index.html", "w") or $files_status_message .= '<li class="error">' . T_('Cannot create the file') . ' <strong>images/index.html</strong>.</li>';
             }
-            chmod("images/", 0664) or $files_status_message .= '<li class="error">' . T_('Unable to set <strong>images/index.html</strong> permissions') . '.</li>';
+            chmod("images/index.html", 0664) or $files_status_message .= '<li class="error">' . T_('Unable to set <strong>images/index.html</strong> permissions') . '.</li>';
             
             if(!file_exists("logs")) { mkdir("logs", 0770) or $files_status_message .= '<li class="error">' . T_('Cannot create folder') . ' <strong>logs</strong>.</li>'; }
             chmod("logs", 0770) or $files_status_message .= '<li class="error">' . T_('Unable to set <strong>logs</strong> permissions') . '.</li>';
@@ -785,6 +783,7 @@ if (CURRENT_OS == 'UNIX') {
                 echo '</div>';
                 if ($message) {
                     echo '<ul>' . $message . '</ul>';
+                    echo '<u><b>Tips</b></u>: Please press <b>F5</b> to try again.';
                 }
                 echo T_('<strong>Checking Files and Folders....</strong><br />');
                 echo T_('<strong>Attention:</strong><br />');
@@ -817,13 +816,13 @@ if (CURRENT_OS == 'UNIX') {
             } else {
                 echo '<div class="basic-grey">';
                 echo '<div class="progress">';
-                echo '<a class="stepdone"><span class="step step-inverse">1</span>Creating Database</a>';
-                echo '<a class="stepdone"><span class="step step-inverse">2</span>Website settings</a>';
-                echo '<a class="stepdone"><span class="step step-inverse">3</span>Admin account creation</a>';
-                echo '<a class="current"><span class="step">4</span>Permission setup</a>';
+                echo '<a class="stepdone"><span class="step step-inverse">1</span>' . T_('Creating Database') . '</a>';
+                echo '<a class="stepdone"><span class="step step-inverse">2</span>' . T_('Website settings') . '</a>';
+                echo '<a class="stepdone"><span class="step step-inverse">3</span>' . T_('Admin account creation') . '</a>';
+                echo '<a class="current"><span class="step">4</span>' . T_('Permission setup') . '</a>';
                 echo '</div>';
                 echo T_('<strong>Checking Files and Folders....</strong><br />');
-                echo "{$files_status_message}<br /><br />";
+                echo '<ul>' . $files_status_message . '</ul><br /><br />';
             }
         }
     }
@@ -1389,11 +1388,11 @@ if ($completed) {
 }
     
 if ($completed) {
-    $message .= '<li class="ok"><strong>'.T_('Installation Complete!!!').'</strong></li>';
-    echo '<ul>' . $message . '</ul>'.T_('Clicking <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">here</a> should direct you to the home page.').'</div>';
+    $message .= '<li class="ok"><strong>' . T_('Installation Complete!!!') . '</strong></li>';
+    echo '<ul>' . $message . '</ul>' . T_('Clicking <a href="http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '">here</a> should direct you to the home page.') . '</div>';
 }else{
-    $message .= '<li class="error"><strong>'.T_('Installation Failed!!!').'</strong></li>';
-    echo '<ul>' . $message . '</ul>'.T_('Check the permission of your files and folder. The user running your web server should have read and write access in files and folders in your lets-software folder.').'</div>';
+    $message .= '<li class="error"><strong>' . T_('Installation Failed!!!') . '</strong></li>';
+    echo '<ul>' . $message . '</ul>' . T_('Check the permission of your files and folder. The user running your web server should have read and write access in files and folders in your lets-software folder.') . '</div>';
 }
 echo '</div></body></html>';
 ?>

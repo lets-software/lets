@@ -201,7 +201,7 @@ if (!mysql_select_db("$database_name")) {
         echo T_('Please check your <strong>/includes/configdb.php</strong> file and your <strong>database permissions</strong>.<br />');
         echo T_('Once you made some changes, refresh this page to try again (F5)...</li>');
     }else{
-        echo '    <li class="ok">'.T_("Database <strong>$database_name</strong> created successfully! => Please refresh the page... (F5)").'</li>';
+        echo '<br /><br /><li class="ok">'.T_("Database <strong>$database_name</strong> created successfully! => Please refresh the page... (F5)").'</li>';
     }
     echo '</ul><input type="button" value="'.T_('Next').'" onClick="location.href=\''.$_SERVER['PHP_SELF'].'\';"></div></body></html>';
     mysql_select_db("$database_name");
