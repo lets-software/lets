@@ -1,6 +1,7 @@
 images/*
 logs/*
 .htaccess
+includes/configdb.php
 phpinfo.php
 phpinfo.php~
 
