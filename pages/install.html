@@ -134,7 +134,7 @@
 <p>&nbsp;</p>
 <p>1. Once ubuntu is install, open a terminal and login as root:</p>
 <p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">sudo su -</span></p>
-<p style="padding-left: 30px;">We first make sure we have the lates updates:</p>
+<p style="padding-left: 30px;">We first make sure we have the latest updates:</p>
 <p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">apt-get update &amp;&amp; apt-get upgrade</span></p>
 <p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">apt-get install apache2 php5 php5-gd mysql-server unzip </span></p>
 <p>2. Download and install LETS-software:</p>
@@ -147,14 +147,14 @@
 <p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">chmod 775 lets-master</span></p>
 <p style="padding-left: 30px;">Edit the file <strong>lets-master/includes/configdb.php</strong> and change the credentials to match your database connexion settings:</p>
 <p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">vi lets-master/includes/configdb.php</span></p>
-<p style="padding-left: 30px;"><span style="background-color: #ccffcc;"><span style="background-color: #d6d6d6;">$database_host = "localhost";</span><br /><span style="background-color: #d6d6d6;">$database_name = "<span style="color: #ff0000;">lets</span>";</span><br /><span style="background-color: #d6d6d6;">$database_user = "<span style="color: #ff0000;">lets</span>";</span><br /><span style="background-color: #d6d6d6;">$database_password = "<span style="color: #ff0000;">linux</span>";</span><br /></span></p>
+<p style="padding-left: 30px;"><span style="background-color: #ccffcc;"><div style="border: 1px solid; background-color: #d6d6d6;">$database_host = "localhost";<br />$database_name = "<span style="color: #ff0000;">lets</span>";<br />$database_user = "<span style="color: #ff0000;">lets</span>";<br />$database_password = "<span style="color: #ff0000;">linux</span>";<br /></div></p>
 <p style="padding-left: 30px;">Go to your apache settings folder and setup LETS-Software</p>
 <p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">cd /etc/apache2/sites-available/</span></p>
 <p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">a2dissite 000-default.conf</span></p>
 <p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">cp 000-default.conf lets.conf</span></p>
 <p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">vi lets.conf</span></p>
 <p style="padding-left: 30px;">Change the file so it looks like the following:</p>
-<p style="padding-left: 30px;"><span style="background-color: #d6d6d6;">&lt;VirtualHost *:80&gt;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ServerAdmin webmaster@localhost<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DocumentRoot /var/www/lets-master<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;directory /var/www/lets-master&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AllowOverride All<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Require all granted<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/directory&gt;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CustomLog ${APACHE_LOG_DIR}/access.log combined<br /><br />&lt;/VirtualHost&gt;</span></p>
+<p style="padding-left: 30px;"><div style="border: 1px solid; background-color: #d6d6d6;">&lt;VirtualHost *:80&gt;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ServerAdmin webmaster@localhost<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DocumentRoot /var/www/lets-master<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;directory /var/www/lets-master&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AllowOverride All<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Require all granted<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/directory&gt;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CustomLog ${APACHE_LOG_DIR}/access.log combined<br /><br />&lt;/VirtualHost&gt;</div></p>
 <p style="padding-left: 30px;">Let's enable our new site:</p>
 <p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">a2ensite lets.conf</span></p>
 <p style="padding-left: 30px;">Enable the apache mode_rewrite:</p>
@@ -200,7 +200,7 @@
 <p><img class="img-responsive" src="images/install-3.png" alt="Third step" /></p>
 <ul>
 <li><strong>Important</strong> => This account will be the administrative account of your web site. <br />
-You will need to logon to the site with username: "1" and the password you create here.</li>
+You will need to log on to the site with user name: "1" and the password you create here.</li>
 </ul>
 <hr>
 <p><img class="img-responsive" src="images/install-4.png" alt="Step Four" /></p>
