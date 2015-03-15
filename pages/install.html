@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LETS-Software - Install</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="../css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../bower_components/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">LETS-Software</a>
+            </div>
+            <!-- /.navbar-header -->
+
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="index.html"><i class="fa fa-home fa-fw"></i> Home</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-book"></i> Documentations<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="install.html">Install</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="screenshots.html"><i class="fa fa-table fa-fw"></i> Screenshots</a>
+                        </li>
+                        <li>
+                            <a href="download.html"><i class="fa fa-download fa-fw"></i> Download</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Installation <i class="fa fa-wrench"></i></h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            System Requirement
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul>
+                                <li>OS =&gt; <i class="fa fa-linux"></i> Linux</li>
+                                <li>Apache (with mod_rewrite enable)</li>
+                                <li>PHP 5.2 or above</li>
+                                <li>MySQL server <span class="pl-s2"><span class="pl-c"><span class="pl-ii">5.0.7 or above</span></span></span></li>
+                            </ul>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="fa-stack fa-lg">
+                              <i class="fa fa-square fa-stack-2x"></i>
+                              <i class="fa fa-terminal fa-stack-1x fa-inverse"></i>
+                            </span>
+                            1. Installation Steps
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+
+                        
+                        
+<h1>Here are the steps to install LETS-Software on ubuntu 14.01 TLS</h1>
+<p>We will not cover the installation of Ubuntu here, please refer to the <a title="ubuntu web site" href="http://www.ubuntu.com/download/server/install-ubuntu-server" target="_blank">ubuntu web site</a> for that.</p>
+<p>&nbsp;</p>
+<p>1. Once ubuntu is install, open a terminal and login as root:</p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">sudo su -</span></p>
+<p style="padding-left: 30px;">We first make sure we have the lates updates:</p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">apt-get update &amp;&amp; apt-get upgrade</span></p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">apt-get install apache2 php5 php5-gd mysql-server unzip </span></p>
+<p>2. Download and install LETS-software:</p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">adduser letsuser</span></p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">cd /var/www</span></p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">wget <a style="background-color: #000000; color: #ffffff;" href="https://github.com/lets-software/lets/archive/master.zip">https://github.com/lets-software/lets/archive/master.zip</a></span></p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">unzip master.zip</span></p>
+<p style="padding-left: 30px;">Change the owner and permissions of the <strong>lets-master</strong> folder created by the previous command:</p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">chown -R letsuser:www-data lets-master</span></p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">chmod 775 lets-master</span></p>
+<p style="padding-left: 30px;">Edit the file <strong>lets-master/includes/configdb.php</strong> and change the credentials to match your database connexion settings:</p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">vi lets-master/includes/configdb.php</span></p>
+<p style="padding-left: 30px;"><span style="background-color: #ccffcc;"><span style="background-color: #d6d6d6;">$database_host = "localhost";</span><br /><span style="background-color: #d6d6d6;">$database_name = "<span style="color: #ff0000;">lets</span>";</span><br /><span style="background-color: #d6d6d6;">$database_user = "<span style="color: #ff0000;">lets</span>";</span><br /><span style="background-color: #d6d6d6;">$database_password = "<span style="color: #ff0000;">linux</span>";</span><br /></span></p>
+<p style="padding-left: 30px;">Go to your apache settings folder and setup LETS-Software</p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">cd /etc/apache2/sites-available/</span></p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">a2dissite 000-default.conf</span></p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">cp 000-default.conf lets.conf</span></p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">vi lets.conf</span></p>
+<p style="padding-left: 30px;">Change the file so it looks like the following:</p>
+<p style="padding-left: 30px;"><span style="background-color: #d6d6d6;">&lt;VirtualHost *:80&gt;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ServerAdmin webmaster@localhost<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DocumentRoot /var/www/lets-master<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;directory /var/www/lets-master&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AllowOverride All<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Require all granted<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/directory&gt;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CustomLog ${APACHE_LOG_DIR}/access.log combined<br /><br />&lt;/VirtualHost&gt;</span></p>
+<p style="padding-left: 30px;">Let's enable our new site:</p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">a2ensite lets.conf</span></p>
+<p style="padding-left: 30px;">Enable the apache mode_rewrite:</p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">a2enmod rewrite</span></p>
+<p style="padding-left: 30px;">Restart apache to take the new configuration into effect:</p>
+<p style="padding-left: 30px;"><span style="background-color: #000000; color: #ffffff;">service apache2 restart</span></p>
+<p style="padding-left: 30px;">&nbsp;</p>
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="fa-stack fa-lg">
+                              <i class="fa fa-globe fa-stack-2x"></i>
+                            </span>
+                            2. Once the installation is done, setup the site.
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                        
+<h1>Now let's start configuring our software.</h1>
+<p>In a web browser type the IP address or the domain name that will point to your new site:</p>
+<p>In our example it's "<strong>http://192.168.1.29</strong>" => </p>
+<p>You should arrive to the following page:</p>
+<p><img class="img-responsive" src="images/install-1.png" alt="First step" /></p>
+<p>Just click <strong>Next</strong> or <strong>F5</strong></p>
+<hr>
+<p><img class="img-responsive" src="images/install-2.png" alt="Second step" /></p>
+<ul>
+<li><strong>Encryption Key</strong> =&gt; This will be used to salt your password in the encryption process (I would recommend 20 or more characters)</li>
+<li><strong>Site Name</strong> =&gt; Give it the name of your LETS community is a good idea.</li>
+<li><strong>URL</strong> =&gt; Enter here the URL that will be use to access your site later.<br />
+<span style="color: #ff0000;"><strong>IMPOTANT:</strong> Don't put an IP address if you want to access your site with a domain name, it will NOT WORK </span><br />
+<span style="color: #339966;"><strong>Tips:</strong> If you make a mistake here during the installation you can still change it in the database, just change the value of the column "url" in the table "config".</span></li>
+<li><strong>File Path of index.php</strong> =&gt; Just copy and past what the example is showing should work (as we do an auto detect)<strong><br /></strong></li>
+</ul>
+<hr>
+<p><img class="img-responsive" src="images/install-3.png" alt="Third step" /></p>
+<ul>
+<li><strong>Important</strong> => This account will be the administrative account of your web site. <br />
+You will need to logon to the site with username: "1" and the password you create here.</li>
+</ul>
+<hr>
+<p><img class="img-responsive" src="images/install-4.png" alt="Step Four" /></p>
+<ul>
+<li><strong>For permissions</strong> => Start by pressing <strong>F5</strong> a couple of time in case of error, in 90% of the case you will be fine.<br />
+If you still have some error, please set permissions manually.</li>
+</ul>
+                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
+               
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Flot Charts JavaScript -->
+<!--     <script src="../bower_components/flot/excanvas.min.js"></script>
+    <script src="../bower_components/flot/jquery.flot.js"></script>
+    <script src="../bower_components/flot/jquery.flot.pie.js"></script>
+    <script src="../bower_components/flot/jquery.flot.resize.js"></script>
+    <script src="../bower_components/flot/jquery.flot.time.js"></script>
+    <script src="../bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script src="../js/flot-data.js"></script> -->
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
