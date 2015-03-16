@@ -304,7 +304,7 @@ class comments {
 						$z .= ' (<a href="'.URL.$links->complete_url.$comment['commentID'].'/'.append_url(0).'">edit</a>)';
 					}
 				}
-				$z .= "</span><br /><br class=\"left\" />\n";
+				$z .= "</span><br /><br />\n";
 				$z .= $i." <span class=\"comment_body\">\n".indent_variable($i.'  ',$comment['comment'])."\n";
 				$z .= $i." </span><br />\n";
 				if (SHOW_COMMENT_EDITED and $comment['edited_by']) {
