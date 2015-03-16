@@ -880,10 +880,10 @@ class links {
             $this->error = $mysql->error;
             return false;
         }
-        $z = "<!-- nav_links -->";
-        $z .= "<div id=\"nav_bar\">";
-        $z .= "<span class=\"nav_links_heading\">Site Menu:</span><br /><br />";
-        $z .= "<ul>";
+        $z = '<!-- nav_links -->';
+        $z .= '<div id="nav_bar">';
+        $z .= '<span class="nav_links_heading">Site Menu:</span><br /><br />';
+        $z .= '<ul>';
         if (!isset($_GET['page_type'])) {
             $z .= " <li><a class=\"nav_link_selected\" href=\"".URL.append_url(0)."\">Home</a></li>";
         } else {
@@ -973,12 +973,12 @@ class links {
             }
         }
         $z .= "</ul>";
-        $z .= "</div>";
+
 
         if (user_type() > 0) {
             // member links
-            $z .= '<span class="nav_links_heading">' . MEMBERS_NAME . ' Links:</span>';
-            $z .= '<dl>';
+            $z .= '<span class="nav_links_heading">' . MEMBERS_NAME . ' Links:</span><br /><br />';
+            $z .= '<ul>';
             if (!$mysql->build_array('SELECT * FROM sections WHERE type = 2 AND hidden = 0 ORDER BY position ASC')) {
                 $this->error = $mysql->error;
                 return false;
@@ -992,7 +992,7 @@ class links {
                         }
                     }
                     if ((($link['page_id'] == 3 or $link['page_id'] == 4 or $link['page_id'] == 5) and ENABLE_NOTICEBOARD) or ($link['page_id'] == 7 and ENABLE_ARTICLES) or ($link['page_id'] == 8 and ENABLE_EVENTS) or ($link['page_id'] == 9 and ENABLE_FAQ) or ($link['page_id'] == 10 and ENABLE_LINKS) or ($link['page_id'] == 2) or ($link['page_id'] == 6 and ENABLE_MEMBER_EDIT_COLOURS) or ($link['page_id'] == 12 and ALLOW_MEMBER_ADMIN_CATEGORIES)) {
-                        $z .= '<dt><a class="nav_link' . $selected . '" href="' . URL . MEMBERS_URL . '/' . $link['url'] . '/' . append_url(0) . '">' . $link['name'] . '</a></dt>';
+                        $z .= '<li><a class="nav_link' . $selected . '" href="' . URL . MEMBERS_URL . '/' . $link['url'] . '/' . append_url(0) . '">' . $link['name'] . '</a></li>';
                     }
                 } else {
                     if (!isset($_GET['page_id']) and isset($_GET['page_type'])) {
@@ -1000,13 +1000,13 @@ class links {
                             $selected = '_selected';
                         }
                     }
-                    $z .= ' <dt><a class="nav_link' . $selected . '" href="' . URL.MEMBERS_URL . '/' . append_url(0) . '">' . MEMBERS_NAME . ' Home</a></dt>';
+                    $z .= ' <li><a class="nav_link' . $selected . '" href="' . URL.MEMBERS_URL . '/' . append_url(0) . '">' . MEMBERS_NAME . ' Home</a></li>';
                 }
             }
-            $z .= '</dl>';
+            $z .= '</ul>';
             if (user_type() == 2) {
-                $z .= '<span class="nav_links_heading">' . ucwords(ADMIN_NAME_SINGULAR) . ' Links:</span>';
-                $z .= '<dl>';
+                $z .= '<span class="nav_links_heading">' . ucwords(ADMIN_NAME_SINGULAR) . ' Links:</span><br /><br />';
+                $z .= '<ul>';
                 if (!$mysql->build_array('SELECT * FROM sections WHERE type = 3 AND hidden = 0 ORDER BY position ASC')) {
                     $this->error = $mysql->error;
                     return false;
@@ -1037,13 +1037,14 @@ class links {
                             }
                         }
                         if ($print) {
-                            $z .= ' <dt><a class="nav_link' . $selected . '" href="' . URL . ADMIN_URL . '/' . $link['url'] . '/' . append_url(0) . '">' . $link['name'] . '</a></dt>';
+                            $z .= ' <li><a class="nav_link' . $selected . '" href="' . URL . ADMIN_URL . '/' . $link['url'] . '/' . append_url(0) . '">' . $link['name'] . '</a></li>';
                         }
                     }
                 }
             }
         }
-        $z .= '</dl>';
+        $z .= '</ul>';
+        $z .= '</div>';
         $z .= '<!-- /nav_links -->';
         $this->xhtml = $z;
         return true;
