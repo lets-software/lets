@@ -15,7 +15,7 @@ class style {
         $print = return_link_variable('print','');
         $this->print_page = $print;
     }
-    
+
     function exists($style_id) {
         if (empty($style_id)) {
             return false;
@@ -54,24 +54,24 @@ class style {
         $this->set = 1;
         return true;
     }
-    
+
     function style_header() {
         if (!$this->print_page) {
             $styles = '<link rel="stylesheet" href="'.URL.'templates/'.TEMPLATE."/styles/main.css\" /> \n";
             $styles .= "<style type=\"text/css\">\n";
-            
+
             return $styles;
         }
     }
     function style_footer() {
         if ($this->print_page) {
-            return '<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/print.css" title="print_page" />'."\n";        
+            return '<link rel="stylesheet" type="text/css" href="'.URL.'templates/'.TEMPLATE.'/styles/print.css" title="print_page" />'."\n";
         } else {
             // $styles = " @import url(".URL.'templates/'.TEMPLATE."/styles/main.css);\n";
              $styles = " body { color: ".TEXT_COLOUR."; font-family: ".FONT."; font-size: ".FONT_SIZE."px; background-color: ".BACKGROUND_COLOUR."; }\n";
             $styles .= " h1 { font-size: ".(FONT_SIZE + 16)."px; font-weight: normal; font-style:italic}\n";
             $styles .= " h2 { font-size: ".(FONT_SIZE + 12)."px; font-weight: normal; font-style:italic}\n";
-            
+
             if ($GLOBALS['min_width'] != $GLOBALS['default_min_width']) {
                 $styles .= " #container { width:".$GLOBALS['min_width']."px; }\n";
                 $styles .= " #header { width:".$GLOBALS['min_width']."px; background-color: ".HEADER_COLOUR."; border-bottom: ".HEADER_BORDER_SIZE."px solid ".HEADER_BORDER_COLOUR.";}\n";
@@ -97,17 +97,17 @@ class style {
             $styles .= " input,label,textarea,select { font-size: ".(FONT_SIZE - 1)."px; }\n";
             $styles .= " div.article_image_holder {float:left; width:".IMAGE_WIDTH_THUMB_ARTICLE."px; margin-right:5px; }\n";
             $styles .= " #article_page_image_holder {float:left; width:".IMAGE_WIDTH_PAGE_ARTICLE."px; }\n";
-            
+
             if (TEMPLATE == 'viclets') {
                 $styles .= " #tableborder_left { background-color: ".HEADER_COLOUR."; border-left: ".HEADER_BORDER_SIZE."px solid ".HEADER_BORDER_COLOUR."; border-bottom: ".HEADER_BORDER_SIZE."px solid ".HEADER_BORDER_COLOUR."; border-top: ".HEADER_BORDER_SIZE."px solid ".HEADER_BORDER_COLOUR.";}\n";
                 $styles .= " #tableborder_right { background-color: ".HEADER_COLOUR."; border-right: ".HEADER_BORDER_SIZE."px solid ".HEADER_BORDER_COLOUR."; border-bottom: ".HEADER_BORDER_SIZE."px solid ".HEADER_BORDER_COLOUR."; border-top: ".HEADER_BORDER_SIZE."px solid ".HEADER_BORDER_COLOUR."; }\n";
-                $styles .= " #sidebox { background: ".TAB_COLOUR."; border: ".TAB_BORDER_SIZE."px solid ".TAB_BORDER_COLOUR."}\n";    
+                $styles .= " #sidebox { background: ".TAB_COLOUR."; border: ".TAB_BORDER_SIZE."px solid ".TAB_BORDER_COLOUR."}\n";
             }
-            
+
             if (!empty($this->dynamic_elements)) {
                 $styles .= $this->dynamic_elements;
             }
-            
+
             $styles .= "</style>\n";
             return $styles;
         }
