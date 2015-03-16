@@ -52,16 +52,17 @@ if (isset($_POST['submit'])) {
                 $post_post['url'] = preg_match('/\/$/', $post_post['url'])? $post_post['url'] : preg_replace('/$/', '/', $post_post['url']);
                 $post_post['path'] = preg_match('/\/$/', $post_post['path'])? $post_post['path'] : preg_replace('/$/', '/', $post_post['path']);
                 if ($mysql->query("UPDATE config SET
-                site_name = '".mysql_escape_string($post_post['site_name'])."',
-                site_key = '".mysql_escape_string($post_post['site_key'])."',
-                url = '".mysql_escape_string($post_post['url'])."',
-                path = '".mysql_escape_string($post_post['path'])."',
-                admin_email = '".mysql_escape_string($post_post['admin_email'])."',
-                validation_email = '".mysql_escape_string($post_post['validation_email'])."',
-                technical_email = '".mysql_escape_string($post_post['technical_email'])."',
-                update_email = '".mysql_escape_string($post_post['admin_email'])."',
-                email_from_name = '".mysql_escape_string($post_post['site_name'])."',
-                location = '".mysql_escape_string($post_post['location'])."'")) {
+                site_name             = '" . mysql_escape_string($post_post['site_name']) . "',
+                site_key                = '" . mysql_escape_string($post_post['site_key']) . "',
+                url                         = '" . mysql_escape_string($post_post['url']) . "',
+                path                      = '" . mysql_escape_string($post_post['path']) . "',
+                admin_email          = '" . mysql_escape_string($post_post['admin_email']) . "',
+                validation_email     = '" . mysql_escape_string($post_post['validation_email']) . "',
+                technical_email     = '" . mysql_escape_string($post_post['technical_email']) . "',
+                update_email        = '" . mysql_escape_string($post_post['admin_email']) . "',
+                email_from_name  = '" . mysql_escape_string($post_post['site_name']) . "',
+                location                = '" . mysql_escape_string($post_post['location']) . "',
+                hour_offset            = '" . mysql_escape_string($post_post['hour_offset']) . "' ")) {
                     if( !isset($_SESSION['submitted_website_settings']) ){
                         $message .= '<li class="ok">'.T_('Configuration Complete!').'</li>';
                         $_SESSION['submitted_website_settings'] = 'done';
