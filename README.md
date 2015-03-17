@@ -3,7 +3,7 @@ Welcome to LETS-Software
 
 A content management system catering to a local LETS. A full-featured suite of tools to transact, communicate and meet with your community. Submit articles and events, make comments, create auctions and much more!
 
-
+Find out more at https://lets-software.github.io/lets/
 
 System Requirement: 
 - A Web server supporting PHP5
