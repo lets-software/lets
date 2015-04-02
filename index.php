@@ -113,6 +113,7 @@ $login_sidebar_indent            =         '   ';
 $doc_root = $_SERVER['DOCUMENT_ROOT']."/"; //.$_SERVER['PHP_SELF'];
 define('LETS_ROOT', $_SERVER['DOCUMENT_ROOT']."/");
 
+
 if (!isset($_SESSION['lang'])){
     if (!isset($_POST['lang'])) {
         require_once $doc_root.'includes/lang_select.php';
@@ -147,24 +148,25 @@ require_once $doc_root.'includes/html_functions.php';
 
 
 // clear HTMl holders:
-$main_html                         =         '';
-$message                         =         '';
-$messages                         =         '';
-$search_sidebar                    =         '';
-$noticeboard_sidebar            =         '';
-$articles_sidebar                =         '';
-$events_sidebar                    =         '';
-$faq_sidebar                    =         '';
-$links_sidebar                    =         '';
-$login_sidebar                    =         '';
+$main_html              = '';
+$message                = '';
+$messages               = '';
+$search_sidebar         = '';
+$noticeboard_sidebar    = '';
+$articles_sidebar       = '';
+$events_sidebar         = '';
+$faq_sidebar            = '';
+$links_sidebar          = '';
+$login_sidebar          = '';
 
-$errors = '';
-$javascript = '';
+$errors             = '';
+$javascript         = '';
 $javascript_in_body = '';
-$restricted_page = false;
+$restricted_page    = false;
 
-$default_min_width = 650;
-$min_width = $default_min_width;
+$default_min_width  = 650;
+$min_width          = $default_min_width;
+
 
 
 // *********  Main Part Here! ***********
@@ -182,7 +184,7 @@ if (!mysql_select_db("$database_name")) {
     echo '<html xmlns="http://www.w3.org/1999/xhtml">';
     echo '<head>';
     echo '<title>Lets-Software Setup</title>';
-    echo '<meta http-equiv="Content-Type" content="text/html; charset='.$_SESSION['lang'].'" />';
+    echo '<meta http-equiv="Content-Type" content="text/html; charset=' . $_SESSION['lang'] . '" />';
     echo '<link href="/templates/default/styles/install.css" rel="stylesheet" type="text/css">';
     echo '</head><body>';
     echo '<div class="basic-grey">';
@@ -195,7 +197,7 @@ if (!mysql_select_db("$database_name")) {
     echo '<ul>';
     mysql_query("CREATE DATABASE $database_name");
     if (!mysql_select_db("$database_name")) {
-        echo '    <li class="error">'.T_("Database creation <strong>$database_name</strong> failed!<br />");
+        echo '<li class="error">'.T_("Database creation <strong>$database_name</strong> failed!<br />");
         echo T_("We manage to connect to the database server but we couldn't create the database <strong>$database_name</strong><br />");
         echo T_('This is most likely a database permission issue.<br />');
         echo T_('Please check your <strong>/includes/configdb.php</strong> file and your <strong>database permissions</strong>.<br />');
