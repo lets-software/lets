@@ -311,7 +311,7 @@ if ($_SESSION['installStep'] == 2){
           `enable_comments` int(1) default '1',
           `require_comment_title` int(1) default '1',
           `require_comment_body` int(1) default '1',
-          `location` varchar(255) NOT NULL default '0',
+          `location` varchar(255) NOT NULL default '',
           `validate_members` int(1) default '1',
           `validate_content` int(1) default '1',
           `validate_articles` int(1) default '0',
@@ -498,7 +498,7 @@ if ($_SESSION['installStep'] == 3) {
             echo '<input type="text" name="technical_email" value="'.$mysql->result[0]['technical_email'].'" /><br /><br />';
             
             echo T_('<strong>Location:</strong><br /><em>example:</em> Toronto, ON<br />');
-            echo ' <input type="text" name="location" value="'.$mysql->result[0]['location'].'" /><br /><br />';
+            echo ' <input type="text" name="location" placeholder="Paris" value="'.$mysql->result[0]['location'].'" /><br /><br />';
             
             echo T_('<strong>UTC Offset (Time Zone):</strong><br /><em>example:</em> Toronto would be -5, Paris 1, etc (full list on <a href="https://en.wikipedia.org/wiki/List_of_UTC_time_offsets" title="List of UTC time offsets" target="_blank">Wikipedia.org</a>)<br />');
             echo '<input type="text" name="hour_offset" value="'.$mysql->result[0]['hour_offset'].'" /><br /><br />';
@@ -938,12 +938,6 @@ CREATE TABLE IF NOT EXISTS `bad_logins` (
 }
 
 
-
-
-
-
-
-
 if (!$last_mysql->query("
 --
 -- Create structure for table `comments`
@@ -973,39 +967,6 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `created_hour` (`created_hour`,`created_minute`),
   KEY `eventID` (`eventID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;")) {
-    echo $last_mysql->error;
-    $completed = false;
-}
-
-if (!$last_mysql->query("
---
--- Create structure for table `events`
---
-
-CREATE TABLE IF NOT EXISTS `events` (
-  `eventID` int(11) NOT NULL auto_increment,
-  `accountID` int(11) NOT NULL default '0',
-  `event_categoryID` int(11) NOT NULL default '0',
-  `title` varchar(255) NOT NULL default '',
-  `description` longtext NOT NULL,
-  `location` varchar(255) NOT NULL default '0',
-  `start_day` int(11) NOT NULL default '0',
-  `start_month` int(11) NOT NULL default '0',
-  `start_year` int(11) NOT NULL default '0',
-  `start_hour` int(2) NOT NULL default '0',
-  `start_minute` int(2) default '0',
-  `end_day` int(4) NOT NULL default '0',
-  `end_month` int(4) NOT NULL default '0',
-  `end_year` int(4) NOT NULL default '0',
-  `end_hour` int(2) NOT NULL default '0',
-  `end_minute` int(2) default '0',
-  `validated` int(1) default '0',
-  PRIMARY KEY  (`eventID`),
-  KEY `accountID` (`accountID`,`event_categoryID`,`title`,`start_day`,`start_month`,`start_year`),
-  KEY `start_hour` (`start_hour`,`start_minute`,`end_day`,`end_month`,`end_year`),
-  KEY `end_hour` (`end_hour`,`end_minute`),
-  KEY `validated` (`validated`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
     echo $last_mysql->error;
     $completed = false;
 }
