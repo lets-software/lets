@@ -198,9 +198,10 @@ class site {
         if (isset($_POST['require_link_url']))                      $query .= 'require_link_url = 1, ';                     else $query .= 'require_link_url = 0, ';
         if (isset($_POST['require_comment_title']))                 $query .= 'require_comment_title = 1, ';                else $query .= 'require_comment_title = 0, ';
         if (isset($_POST['require_comment_body']))                  $query .= 'require_comment_body = 1, ';                 else $query .= 'require_comment_body = 0, ';
-        if (isset($_POST['image_title_required']))                  $query .= ' = 1, ';                                     else $query .= 'image_title_required = 0, ';
+        if (isset($_POST['image_title_required']))                  $query .= 'image_title_required = 1, ';                 else $query .= 'image_title_required = 0, ';
         if (isset($_POST['image_blurb_required']))                  $query .= 'image_blurb_required = 1, ';                 else $query .= 'image_blurb_required = 0, ';
         if (isset($_POST['image_description_required']))            $query .= 'image_description_required = 1 ';            else $query .= 'image_description_required = 0 ';
+        $query .= 'WHERE ID = 1';
         if ($mysql->query($query)) {
             return true;
         } else {

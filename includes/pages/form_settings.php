@@ -27,11 +27,10 @@
 			$main_html 					= 		$i."<h1>".SITE_NAME.' '.$page_name."</h1>\n";
 /*
 ************************************************************************************************************************************/
+
 if (isset($_POST['submit'])) {
-	if ($_POST['submit'] == 'Submit') {
-		$site->update_form_setting();
-		if (ENABLE_LOG) log_action($_SESSION['member_full_name'].' updated Form Settings "');
-	}
+    $site->update_form_setting();
+    if (ENABLE_LOG) log_action($_SESSION['member_full_name'].' updated Form Settings "');
 }
 
 
