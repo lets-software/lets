@@ -283,7 +283,7 @@ class site {
         $z .= $i.'  <input type="checkbox" id="image_blurb_required" name="image_blurb_required" value="1"'.set_checked($mysql->result['image_blurb_required']).' /><br class="left" />'."\n";
         $z .= $i.'  <label for="image_description_required">'.T_('Long Description').'</label>'."\n";
         $z .= $i.'  <input type="checkbox" id="image_description_required" name="image_description_required" value="1"'.set_checked($mysql->result['image_description_required']).' /><br class="left" />'."\n";
-        $z .= $i.'  <input class="form_settings_button" type="submit" name="submit" value="'.T_('Submit').'" />'."\n";
+        $z .= $i.'  <button class="site_settings_button" type="submit" name="submit" value="Submit" />'.T_('Submit').'</button>'."\n";
         $z .= $i.' </form>'."\n";
         $z .= $i." </fieldset>\n";
         $z .= $i.'</div>'."\n";
@@ -421,7 +421,7 @@ class site {
         $z .= $i.'  <label for="bulk_trading_confirm">'.T_('Confirm Bulk '.ucwords(TRANSACTION_NAME_PLURAL).'?').":</label>\n";
         $z .= $i.'  <input type="checkbox" id="bulk_trading_confirm" name="bulk_trading_confirm" value="1"'.set_checked($mysql->result['bulk_trading_confirm']).' /><br class="left" />'."\n";
 
-        $z .= $i.'  <input class="form_settings_button" type="submit" name="submit" value="Submit" />'."\n";
+        $z .= $i.'  <button class="site_settings_button" type="submit" name="submit" value="Submit" />'.T_('Submit').'</button>'."\n";
         $z .= $i.' </form>'."\n";
         $z .= $i." </fieldset>\n";
         $z .= $i.'</div>'."\n";
@@ -868,9 +868,9 @@ class site {
         $z .= $i.'  <input type="text" id="smtp_user_name" name="smtp_user_name" value="'.$mysql->result['smtp_user_name'].'" /><br class="left" /><br class="left" />'."\n";
         $z .= $i.'  '.T_('<strong>Note:</strong> Leave blank to keep the password the same. It is stored in encrypted form.').'<br class="left" /><br class="left" />'."\n";
         $z .= $i.'  <label for="smtp_password">'.T_('SMTP Password').':</label>'."\n";
-        $z .= $i.'  <input type="password" id="smtp_password" name="smtp_password" /><br class="left" />'."\n";
+        $z .= $i.'  <input type="password" id="smtp_password" name="smtp_password" value=""/><br class="left" />'."\n";
         $z .= $i.'  <label for="smtp_password_confirm">'.T_('Confirm SMTP Password').':</label>'."\n";
-        $z .= $i.'  <input type="password" id="smtp_password_confirm" name="smtp_password_confirm" /><br class="left" />'."\n";
+        $z .= $i.'  <input type="password" id="smtp_password_confirm" name="smtp_password_confirm" value="" /><br class="left" />'."\n";
         /*
         I decided there is no use changing these settings. The installer should ensure all permissions
         are already set making this info irrelevant.
@@ -888,7 +888,7 @@ class site {
         $z .= $i.'  <input type="password" id="ftp_password_confirm" name="ftp_password_confirm" /><br class="left" />'."\n";
         */
 
-        $z .= $i.'  <input class="site_settings_button" type="submit" name="submit" value="'.T_('Submit').'" />'."\n";
+        $z .= $i.'  <button class="site_settings_button" type="submit" name="submit" value="Submit" />'.T_('Submit').'</button>'."\n";
         $z .= $i.' </form>'."\n";
         $z .= $i." </fieldset>\n";
         $z .= $i.'</div>'."\n";
