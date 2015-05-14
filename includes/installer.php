@@ -973,6 +973,38 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 if (!$last_mysql->query("
 --
+-- Create structure for table `events`
+--
+CREATE TABLE IF NOT EXISTS `events` (
+  `eventID` int(11) NOT NULL auto_increment,
+  `accountID` int(11) NOT NULL default '0',
+  `event_categoryID` int(11) NOT NULL default '0',
+  `title` varchar(255) NOT NULL default '',
+  `description` longtext NOT NULL,
+  `location` varchar(255) NOT NULL default '0',
+  `start_day` int(11) NOT NULL default '0',
+  `start_month` int(11) NOT NULL default '0',
+  `start_year` int(11) NOT NULL default '0',
+  `start_hour` int(2) NOT NULL default '0',
+  `start_minute` int(2) default '0',
+  `end_day` int(4) NOT NULL default '0',
+  `end_month` int(4) NOT NULL default '0',
+  `end_year` int(4) NOT NULL default '0',
+  `end_hour` int(2) NOT NULL default '0',
+  `end_minute` int(2) default '0',
+  `validated` int(1) default '0',
+  PRIMARY KEY  (`eventID`),
+  KEY `accountID` (`accountID`,`event_categoryID`,`title`,`start_day`,`start_month`,`start_year`),
+  KEY `start_hour` (`start_hour`,`start_minute`,`end_day`,`end_month`,`end_year`),
+  KEY `end_hour` (`end_hour`,`end_minute`),
+  KEY `validated` (`validated`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")) {
+    echo $last_mysql->error;
+    $completed = false;
+}
+
+if (!$last_mysql->query("
+--
 -- Create structure for table `faq`
 --
 
