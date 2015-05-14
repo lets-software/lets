@@ -347,6 +347,7 @@ class site {
         if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->result('SELECT * FROM config LIMIT 1')) {
             return $mysql->error;
         }
+        $mysql->result('SELECT * FROM config LIMIT 1');
         $z = $i."<!-- lets_settings_form -->\n";
         $z .= $i."<div id=\"lets_settings_form\">\n";
         $z .= $i.T_(' Only settings directly related to LETS are here. For more general website settings go <a href="'.URL.$links->complete_url.append_url(0).'">here')."</a><br /><br />\n";
