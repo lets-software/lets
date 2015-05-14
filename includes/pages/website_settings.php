@@ -33,18 +33,16 @@ if (!$links->htaccess_writable()) {
 	$main_html .= $i." Ensure the file: ".PATH.".htaccess exists and is writable.<br />\n";
 } else {
 	if (isset($_POST['submit'])) {
-		if ($_POST['submit'] == 'Submit') {
-			if (!$site->update_site_settings()) {
-				$main_html .= $i.'<span class="message">'.$site->error.'</span><br /><br />'."\n";
-			} else {
-				if (!$links->rebuild_htaccess()) {
-					$main_html .= $i.'<span class="message">'.$links->error.'</span><br /><br />'."\n";
-				} else {
-					if (ENABLE_LOG) log_action($_SESSION['member_full_name'].' updated the website settings of '.SITE_NAME.'.');
-					header ("Location: ".$_SERVER["REQUEST_URI"].append_url());
-				}
-			}
-		}
+        if (!$site->update_site_settings()) {
+            $main_html .= $i.'<span class="message">'.$site->error.'</span><br /><br />'."\n";
+        } else {
+            if (!$links->rebuild_htaccess()) {
+                $main_html .= $i.'<span class="message">'.$links->error.'</span><br /><br />'."\n";
+            } else {
+                if (ENABLE_LOG) log_action($_SESSION['member_full_name'].' updated the website settings of '.SITE_NAME.'.');
+                header ("Location: ".$_SERVER["REQUEST_URI"].append_url());
+            }
+        }
 	}
 
 	$main_html .= $site->site_settings_html($i,$url);
