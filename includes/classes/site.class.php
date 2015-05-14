@@ -212,6 +212,7 @@ class site {
         if (mysql_num_rows(mysql_query("SHOW TABLES LIKE 'config'")) == 0 && !$mysql->result('SELECT * FROM config LIMIT 1')) {
             return $mysql->error;
         }
+        $mysql->result('SELECT * FROM config LIMIT 1');
         $z = $i."<!-- form_settings_form -->\n";
         $z .= $i."<div id=\"form_settings_form\">\n";
         $z .= $i.T_(' Checked fields will be required on their respected form. No submissions will be accepted without all these fields completed.')."<br />\n";
