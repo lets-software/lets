@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lets\n"
-"POT-Creation-Date: 2015-01-31 15:24+0100\n"
-"PO-Revision-Date: 2015-01-31 15:24+0100\n"
+"POT-Creation-Date: 2015-05-14 20:36+0100\n"
+"PO-Revision-Date: 2015-05-14 20:36+0100\n"
 "Last-Translator: user2 <langlais115@yahoo.fr>\n"
 "Language-Team: Lets-Software\n"
 "Language: fr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.6\n"
 "X-Poedit-KeywordsList: T_\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -31,775 +31,799 @@ msgid ""
 "<strong>includes/dbconfig.php</strong>"
 msgstr ""
 
-#: ../includes/classes/site.class.php:217
+#: ../includes/classes/site.class.php:218
 msgid ""
 " Checked fields will be required on their respected form. No submissions "
 "will be accepted without all these fields completed."
 msgstr ""
 
-#: ../includes/classes/site.class.php:218
+#: ../includes/classes/site.class.php:219
 msgid ""
 " <strong>Note:</strong> It is recommended that title be required in all "
 "applicable elements (except images)."
 msgstr ""
 
-#: ../includes/classes/site.class.php:221
-#: ../includes/classes/site.class.php:244
-#: ../includes/classes/site.class.php:253
-#: ../includes/classes/site.class.php:260
-#: ../includes/classes/site.class.php:265
-#: ../includes/classes/site.class.php:272
+#: ../includes/classes/site.class.php:222
+#: ../includes/classes/site.class.php:245
+#: ../includes/classes/site.class.php:254
+#: ../includes/classes/site.class.php:261
+#: ../includes/classes/site.class.php:266
+#: ../includes/classes/site.class.php:273
 msgid " Fields"
 msgstr ""
 
-#: ../includes/classes/site.class.php:222
+#: ../includes/classes/site.class.php:223
 msgid "Address"
 msgstr ""
 
-#: ../includes/classes/site.class.php:224
+#: ../includes/classes/site.class.php:225
 msgid "City"
 msgstr ""
 
-#: ../includes/classes/site.class.php:226
+#: ../includes/classes/site.class.php:227
 msgid "State/Province"
 msgstr ""
 
-#: ../includes/classes/site.class.php:228
+#: ../includes/classes/site.class.php:229
 msgid "Postal Code"
 msgstr ""
 
-#: ../includes/classes/site.class.php:230
+#: ../includes/classes/site.class.php:231
 msgid "Neighbourhood"
 msgstr ""
 
-#: ../includes/classes/site.class.php:232
+#: ../includes/classes/site.class.php:233
 msgid "Home Phone"
 msgstr ""
 
-#: ../includes/classes/site.class.php:234
+#: ../includes/classes/site.class.php:235
 msgid "Work Phone"
 msgstr ""
 
-#: ../includes/classes/site.class.php:236
+#: ../includes/classes/site.class.php:237
 msgid "Mobile Phone"
 msgstr ""
 
-#: ../includes/classes/site.class.php:238
+#: ../includes/classes/site.class.php:239
 msgid "Email"
 msgstr ""
 
-#: ../includes/classes/site.class.php:240
+#: ../includes/classes/site.class.php:241
 msgid " Profile"
 msgstr ""
 
-#: ../includes/classes/site.class.php:242
+#: ../includes/classes/site.class.php:243
 msgid "Website"
 msgstr ""
 
-#: ../includes/classes/site.class.php:245
-#: ../includes/classes/site.class.php:266
-#: ../includes/classes/site.class.php:273
-#: ../includes/classes/site.class.php:278
+#: ../includes/classes/site.class.php:246
+#: ../includes/classes/site.class.php:267
+#: ../includes/classes/site.class.php:274
+#: ../includes/classes/site.class.php:279
 msgid "Title"
 msgstr ""
 
-#: ../includes/classes/site.class.php:247
+#: ../includes/classes/site.class.php:248
 msgid "Short Description (used on list page)"
 msgstr ""
 
-#: ../includes/classes/site.class.php:249
+#: ../includes/classes/site.class.php:250
 msgid "Long Description (used on item page)"
 msgstr ""
 
-#: ../includes/classes/site.class.php:251
+#: ../includes/classes/site.class.php:252
 msgid "Amount: (only applies to offers)"
 msgstr ""
 
-#: ../includes/classes/site.class.php:254
+#: ../includes/classes/site.class.php:255
 msgid "Title: (recommended)"
 msgstr ""
 
-#: ../includes/classes/site.class.php:256
+#: ../includes/classes/site.class.php:257
 msgid "Summary: (recommended)"
 msgstr ""
 
-#: ../includes/classes/site.class.php:258
+#: ../includes/classes/site.class.php:259
 msgid "Body: (recommended)"
 msgstr ""
 
-#: ../includes/classes/site.class.php:261
-#: ../includes/classes/site.class.php:268
+#: ../includes/classes/site.class.php:262
+#: ../includes/classes/site.class.php:269
 msgid "Description"
 msgstr ""
 
-#: ../includes/classes/site.class.php:263
-#: ../includes/classes/site.class.php:613
+#: ../includes/classes/site.class.php:264
+#: ../includes/classes/site.class.php:616
 msgid "Location"
 msgstr ""
 
-#: ../includes/classes/site.class.php:270
+#: ../includes/classes/site.class.php:271
 msgid "URL"
 msgstr ""
 
-#: ../includes/classes/site.class.php:275
+#: ../includes/classes/site.class.php:276
 msgid "Body"
 msgstr ""
 
-#: ../includes/classes/site.class.php:277
+#: ../includes/classes/site.class.php:278
 msgid "Image Fields"
 msgstr ""
 
-#: ../includes/classes/site.class.php:280
+#: ../includes/classes/site.class.php:281
 msgid "Short Description"
 msgstr ""
 
-#: ../includes/classes/site.class.php:282
+#: ../includes/classes/site.class.php:283
 msgid "Long Description"
 msgstr ""
 
-#: ../includes/classes/site.class.php:284
-#: ../includes/classes/site.class.php:887
+#: ../includes/classes/site.class.php:285
+#: ../includes/classes/site.class.php:890
 msgid "Submit"
 msgstr ""
 
-#: ../includes/classes/site.class.php:296
-#: ../includes/classes/site.class.php:444
+#: ../includes/classes/site.class.php:297
+#: ../includes/classes/site.class.php:446
 msgid "Required Field Missing"
 msgstr ""
 
-#: ../includes/classes/site.class.php:301
+#: ../includes/classes/site.class.php:302
 msgid "Problem with fee"
 msgstr ""
 
-#: ../includes/classes/site.class.php:305
+#: ../includes/classes/site.class.php:306
 msgid "Negative balance limit must be a positive number"
 msgstr ""
 
-#: ../includes/classes/site.class.php:352
+#: ../includes/classes/site.class.php:354
 msgid ""
 " Only settings directly related to LETS are here. For more general website "
 "settings go <a href=\""
 msgstr ""
 
-#: ../includes/classes/site.class.php:355
+#: ../includes/classes/site.class.php:357
 msgid "Currency Information"
 msgstr ""
 
-#: ../includes/classes/site.class.php:356
 #: ../includes/classes/site.class.php:358
+#: ../includes/classes/site.class.php:360
 msgid "Currency Name"
 msgstr ""
 
-#: ../includes/classes/site.class.php:356
-#: ../includes/classes/site.class.php:363
+#: ../includes/classes/site.class.php:358
+#: ../includes/classes/site.class.php:365
 msgid "(plural)"
 msgstr ""
 
-#: ../includes/classes/site.class.php:358
-#: ../includes/classes/site.class.php:361
+#: ../includes/classes/site.class.php:360
+#: ../includes/classes/site.class.php:363
 msgid "(singular)"
 msgstr ""
 
-#: ../includes/classes/site.class.php:360
+#: ../includes/classes/site.class.php:362
 msgid "Transaction Information"
 msgstr ""
 
-#: ../includes/classes/site.class.php:361
 #: ../includes/classes/site.class.php:363
+#: ../includes/classes/site.class.php:365
 msgid "Transaction Name"
 msgstr ""
 
-#: ../includes/classes/site.class.php:365
+#: ../includes/classes/site.class.php:367
 msgid "Transaction Fees"
 msgstr ""
 
-#: ../includes/classes/site.class.php:366
+#: ../includes/classes/site.class.php:368
 msgid "Enter a positive transaction amount at startup to charge "
 msgstr ""
 
-#: ../includes/classes/site.class.php:367
+#: ../includes/classes/site.class.php:369
 msgid "Transaction amount at startup"
 msgstr ""
 
-#: ../includes/classes/site.class.php:369
+#: ../includes/classes/site.class.php:371
 msgid "Enable Transaction Fees"
 msgstr ""
 
-#: ../includes/classes/site.class.php:371
+#: ../includes/classes/site.class.php:373
 msgid ""
 "Buyer and seller fees are only applicable if they are enabled above. If "
 "enabled they will only work if a positive amount is entered."
 msgstr ""
 
-#: ../includes/classes/site.class.php:372
+#: ../includes/classes/site.class.php:374
 msgid "Seller Fee"
 msgstr ""
 
-#: ../includes/classes/site.class.php:374
+#: ../includes/classes/site.class.php:376
 msgid "Buyer Fee"
 msgstr ""
 
-#: ../includes/classes/site.class.php:376
+#: ../includes/classes/site.class.php:378
 msgid "Auctions"
 msgstr ""
 
-#: ../includes/classes/site.class.php:377
+#: ../includes/classes/site.class.php:379
 msgid "Enable Auctions"
 msgstr ""
 
-#: ../includes/classes/site.class.php:379
+#: ../includes/classes/site.class.php:381
 msgid "If auctions are enabled the following option will prevent "
 msgstr ""
 
-#: ../includes/classes/site.class.php:380
+#: ../includes/classes/site.class.php:382
 msgid "Freeze Auction"
 msgstr ""
 
-#: ../includes/classes/site.class.php:382
+#: ../includes/classes/site.class.php:384
 msgid "Buy Now"
 msgstr ""
 
-#: ../includes/classes/site.class.php:383
+#: ../includes/classes/site.class.php:385
 msgid "This option can work with or without auctions. If "
 msgstr ""
 
-#: ../includes/classes/site.class.php:385
+#: ../includes/classes/site.class.php:387
 msgid "Enable Buy Now"
 msgstr ""
 
-#: ../includes/classes/site.class.php:387
+#: ../includes/classes/site.class.php:389
 msgid ""
 "If \"Buy it Now\" is enabled this option will only allow the transaction to "
 "take place at the original asking price. If not enabled a Buy Now "
 "transaction can be completed at any amount."
 msgstr ""
 
-#: ../includes/classes/site.class.php:388
+#: ../includes/classes/site.class.php:390
 msgid "Lock Buy Now Price"
 msgstr ""
 
-#: ../includes/classes/site.class.php:390
+#: ../includes/classes/site.class.php:392
 msgid "Noticeboard Access"
 msgstr ""
 
-#: ../includes/classes/site.class.php:391
+#: ../includes/classes/site.class.php:393
 msgid "If either auctions or \"Buy Now\" is enabled the "
 msgstr ""
 
-#: ../includes/classes/site.class.php:393
+#: ../includes/classes/site.class.php:395
 msgid "Prevent editing after transaction"
 msgstr ""
 
-#: ../includes/classes/site.class.php:395
+#: ../includes/classes/site.class.php:397
 msgid "Prevent deleting after transaction"
 msgstr ""
 
-#: ../includes/classes/site.class.php:397
+#: ../includes/classes/site.class.php:399
 msgid " Access"
 msgstr ""
 
-#: ../includes/classes/site.class.php:398
+#: ../includes/classes/site.class.php:400
 msgid "Negative Balance Limit (leave blank or zero for none)"
 msgstr ""
 
-#: ../includes/classes/site.class.php:400
-#: ../includes/classes/site.class.php:404
-#: ../includes/classes/site.class.php:762
-#: ../includes/classes/site.class.php:780
+#: ../includes/classes/site.class.php:402
+#: ../includes/classes/site.class.php:406
+#: ../includes/classes/site.class.php:765
+#: ../includes/classes/site.class.php:783
 msgid "Allow "
 msgstr ""
 
-#: ../includes/classes/site.class.php:402
+#: ../includes/classes/site.class.php:404
 msgid "Hide "
 msgstr ""
 
-#: ../includes/classes/site.class.php:406
+#: ../includes/classes/site.class.php:408
 #: ../includes/pages/noticeboard.php:330
 msgid "Expired "
 msgstr ""
 
-#: ../includes/classes/site.class.php:408
+#: ../includes/classes/site.class.php:410
 msgid "Automatically suspend "
 msgstr ""
 
-#: ../includes/classes/site.class.php:410
+#: ../includes/classes/site.class.php:412
 msgid "Message when automatically suspended for expiry"
 msgstr ""
 
-#: ../includes/classes/site.class.php:412
+#: ../includes/classes/site.class.php:414
 msgid "Misc"
 msgstr ""
 
-#: ../includes/classes/site.class.php:413
+#: ../includes/classes/site.class.php:415
 msgid "When "
 msgstr ""
 
-#: ../includes/classes/site.class.php:414
+#: ../includes/classes/site.class.php:416
 msgid ""
 "They can later be reactivated and their balance restored to it's former "
 "amount (positive or negative). "
 msgstr ""
 
-#: ../includes/classes/site.class.php:415
+#: ../includes/classes/site.class.php:417
 msgid ""
 "Enter which account this transaction should be done with. If left empty the "
 "#1 account will be used."
 msgstr ""
 
-#: ../includes/classes/site.class.php:416
+#: ../includes/classes/site.class.php:418
 msgid "Account ID for transferring accounts to"
 msgstr ""
 
-#: ../includes/classes/site.class.php:418
+#: ../includes/classes/site.class.php:420
 msgid "Confirm Bulk "
 msgstr ""
 
-#: ../includes/classes/site.class.php:448
-#: ../includes/classes/site.class.php:452
+#: ../includes/classes/site.class.php:450
+#: ../includes/classes/site.class.php:454
 msgid "Problem with a numeric field"
 msgstr ""
 
-#: ../includes/classes/site.class.php:462
+#: ../includes/classes/site.class.php:464
 msgid "SMTP Passwords do not match"
 msgstr ""
 
-#: ../includes/classes/site.class.php:468
+#: ../includes/classes/site.class.php:470
 msgid "FTP Passwords do not match"
 msgstr ""
 
-#: ../includes/classes/site.class.php:604
+#: ../includes/classes/site.class.php:608
 msgid "For settings specific to LETS please go <a href=\""
 msgstr ""
 
-#: ../includes/classes/site.class.php:607
+#: ../includes/classes/site.class.php:611
 msgid ""
 " <strong>Warning:</strong> For advanced use only. Follow instructions "
 "carefully. There is no validation to this form so please ensure all "
 "information is correct."
 msgstr ""
 
-#: ../includes/classes/site.class.php:608
+#: ../includes/classes/site.class.php:612
 msgid " Required fields are"
 msgstr ""
 
-#: ../includes/classes/site.class.php:609
+#: ../includes/classes/site.class.php:613
 msgid "Website Information"
 msgstr ""
 
-#: ../includes/classes/site.class.php:611
+#: ../includes/classes/site.class.php:614
 msgid "Name"
 msgstr ""
 
-#: ../includes/classes/site.class.php:615
+#: ../includes/classes/site.class.php:618
 msgid "Hour Offset"
 msgstr ""
 
-#: ../includes/classes/site.class.php:617
+#: ../includes/classes/site.class.php:620
 msgid "12 Hour Clock?"
 msgstr ""
 
-#: ../includes/classes/site.class.php:619
+#: ../includes/classes/site.class.php:622
 msgid ""
 "<strong>Note:</strong> Selecting the \"Canadian\" option adds provinces to "
 "the user forms as well as validates postal codes."
 msgstr ""
 
-#: ../includes/classes/site.class.php:620
+#: ../includes/classes/site.class.php:623
 msgid "Canadian"
 msgstr ""
 
-#: ../includes/classes/site.class.php:623
+#: ../includes/classes/site.class.php:626
 msgid "Website Settings"
 msgstr ""
 
-#: ../includes/classes/site.class.php:624
+#: ../includes/classes/site.class.php:627
 msgid ""
 "<strong>Warning:</strong> URL and file path are crucial to the proper "
 "functioning of the site and must be correct."
 msgstr ""
 
-#: ../includes/classes/site.class.php:625
+#: ../includes/classes/site.class.php:628
 msgid ""
 "<strong>Complete URL:</strong> Must contain the initial \"http://\" and the "
 "trailing \"/\". Example: \"http://www.your_lets_website.ca/\" or \"http://"
 "www.some_website.ca/your_lets_website/\"."
 msgstr ""
 
-#: ../includes/classes/site.class.php:626
+#: ../includes/classes/site.class.php:629
 msgid ""
 "<strong>Complete File Path:</strong> Must lead from the server's root "
 "directory to the location of the index.php file. Example: \"/home/your_site/"
 "public_html/\" or \"/home/some_site/public_html/your_site/."
 msgstr ""
 
-#: ../includes/classes/site.class.php:627
+#: ../includes/classes/site.class.php:630
 msgid "Complete URL"
 msgstr ""
 
-#: ../includes/classes/site.class.php:629
+#: ../includes/classes/site.class.php:632
 msgid "Complete Path"
 msgstr ""
 
-#: ../includes/classes/site.class.php:631
+#: ../includes/classes/site.class.php:634
 msgid ""
 "<strong>Warning:</strong> URL-based sessions are not as secure as cookie-"
 "based sessions. If disabled and "
 msgstr ""
 
-#: ../includes/classes/site.class.php:632
+#: ../includes/classes/site.class.php:635
 msgid ""
 " tries to login while disallowing cookies the site will give a message "
 "stating their requirement. If URL-based sessions are enabled a lower session "
 "time-out would increase security."
 msgstr ""
 
-#: ../includes/classes/site.class.php:633
+#: ../includes/classes/site.class.php:636
 msgid "Enable URL-Based Session?"
 msgstr ""
 
-#: ../includes/classes/site.class.php:635
+#: ../includes/classes/site.class.php:638
 msgid "Session Time Out (minutes)"
 msgstr ""
 
-#: ../includes/classes/site.class.php:638
+#: ../includes/classes/site.class.php:641
 msgid "Enabled Sections"
 msgstr ""
 
-#: ../includes/classes/site.class.php:639
+#: ../includes/classes/site.class.php:642
 msgid "<strong>Note:</strong> Disabling the "
 msgstr ""
 
-#: ../includes/classes/site.class.php:653
+#: ../includes/classes/site.class.php:656
 msgid "Validation Settings"
 msgstr ""
 
-#: ../includes/classes/site.class.php:654
+#: ../includes/classes/site.class.php:657
 msgid ""
 "<strong>Note:</strong> Check the sections you wish to enable validation. "
 msgstr ""
 
-#: ../includes/classes/site.class.php:663
+#: ../includes/classes/site.class.php:666
 msgid ""
 "Enabling XHTML Validation will apply to all sections. Submissions with "
 "invalid XHTML will be rejected with a message containing some debugging "
 "information."
 msgstr ""
 
-#: ../includes/classes/site.class.php:666
+#: ../includes/classes/site.class.php:669
 msgid ""
 "<strong>Warning:</strong> No method of email confirmation currently exists. "
 "Not validating "
 msgstr ""
 
-#: ../includes/classes/site.class.php:667
+#: ../includes/classes/site.class.php:670
 msgid "Validate "
 msgstr ""
 
-#: ../includes/classes/site.class.php:670
+#: ../includes/classes/site.class.php:673
 msgid "Messages"
 msgstr ""
 
-#: ../includes/classes/site.class.php:671
+#: ../includes/classes/site.class.php:674
 msgid "Here you can enter HTML that will appear on the home or "
 msgstr ""
 
-#: ../includes/classes/site.class.php:672
+#: ../includes/classes/site.class.php:675
 msgid "Home Page"
 msgstr ""
 
-#: ../includes/classes/site.class.php:674
+#: ../includes/classes/site.class.php:677
 msgid "'s Home:</label>"
 msgstr ""
 
-#: ../includes/classes/site.class.php:676
+#: ../includes/classes/site.class.php:679
 msgid "Register Terms"
 msgstr ""
 
-#: ../includes/classes/site.class.php:678
+#: ../includes/classes/site.class.php:681
 msgid "If email is enables you can enter a message that will be email to new "
 msgstr ""
 
-#: ../includes/classes/site.class.php:679
+#: ../includes/classes/site.class.php:682
 msgid "New "
 msgstr ""
 
-#: ../includes/classes/site.class.php:682
+#: ../includes/classes/site.class.php:685
 msgid "Image Settings"
 msgstr ""
 
-#: ../includes/classes/site.class.php:683
+#: ../includes/classes/site.class.php:686
 msgid ""
 "<strong>Note:</strong> The image functions of this site depend on PHP "
 "compiled with the GD libraries and writable permissions in the images "
 "folder. "
 msgstr ""
 
-#: ../includes/classes/site.class.php:684
+#: ../includes/classes/site.class.php:687
 msgid ""
 "If images are not working disable them here so user's will not be shown "
 "image forms."
 msgstr ""
 
-#: ../includes/classes/site.class.php:692
+#: ../includes/classes/site.class.php:695
 msgid "Enable Images:"
 msgstr ""
 
-#: ../includes/classes/site.class.php:694
+#: ../includes/classes/site.class.php:697
 msgid "Image Quality"
 msgstr ""
 
-#: ../includes/classes/site.class.php:696
+#: ../includes/classes/site.class.php:699
 msgid ""
 "<strong>Note:</strong> Changing the image sizes after images have been "
 "uploaded will distort the output so it is recommended these adjustments only "
 "be done during setup."
 msgstr ""
 
-#: ../includes/classes/site.class.php:697
-#: ../includes/classes/site.class.php:705
-#: ../includes/classes/site.class.php:713
+#: ../includes/classes/site.class.php:700
+#: ../includes/classes/site.class.php:708
+#: ../includes/classes/site.class.php:716
 msgid " Thumbnail Width"
 msgstr ""
 
-#: ../includes/classes/site.class.php:699
-#: ../includes/classes/site.class.php:707
-#: ../includes/classes/site.class.php:715
+#: ../includes/classes/site.class.php:702
+#: ../includes/classes/site.class.php:710
+#: ../includes/classes/site.class.php:718
 msgid " Thumbnail Height"
 msgstr ""
 
-#: ../includes/classes/site.class.php:701
-#: ../includes/classes/site.class.php:709
-#: ../includes/classes/site.class.php:717
+#: ../includes/classes/site.class.php:704
+#: ../includes/classes/site.class.php:712
+#: ../includes/classes/site.class.php:720
 msgid " Image Width"
 msgstr ""
 
-#: ../includes/classes/site.class.php:703
-#: ../includes/classes/site.class.php:711
-#: ../includes/classes/site.class.php:719
+#: ../includes/classes/site.class.php:706
+#: ../includes/classes/site.class.php:714
+#: ../includes/classes/site.class.php:722
 msgid " Image Height"
 msgstr ""
 
-#: ../includes/classes/site.class.php:722
+#: ../includes/classes/site.class.php:725
 msgid "Display"
 msgstr ""
 
-#: ../includes/classes/site.class.php:723
+#: ../includes/classes/site.class.php:726
 msgid ""
 "<strong>Note:</strong> These checked sections will appear on the home page:"
 msgstr ""
 
-#: ../includes/classes/site.class.php:734
+#: ../includes/classes/site.class.php:737
 msgid ""
 "<strong>Note:</strong> These checked elements will be persistently "
 "displayed. To save processing time disable them here rather than removing "
 "them from the default template file."
 msgstr ""
 
-#: ../includes/classes/site.class.php:735
-#: ../includes/classes/site.class.php:750
+#: ../includes/classes/site.class.php:738
+#: ../includes/classes/site.class.php:753
 msgid "Search"
 msgstr ""
 
-#: ../includes/classes/site.class.php:737
-#: ../includes/classes/site.class.php:752
+#: ../includes/classes/site.class.php:740
+#: ../includes/classes/site.class.php:755 ../includes/html_functions.php:30
 msgid "Login"
 msgstr ""
 
-#: ../includes/classes/site.class.php:749
+#: ../includes/classes/site.class.php:752
 msgid ""
 "<strong>Note:</strong> Check the following links to have them displayed. Use "
 "them in conjunction with the above settings (If Login HTML is persistent "
 "there is no need for a login link)."
 msgstr ""
 
-#: ../includes/classes/site.class.php:754
+#: ../includes/classes/site.class.php:757
 msgid "Help"
 msgstr ""
 
-#: ../includes/classes/site.class.php:757
+#: ../includes/classes/site.class.php:760
 msgid "Style and Access Settings"
 msgstr ""
 
-#: ../includes/classes/site.class.php:758
+#: ../includes/classes/site.class.php:761
 msgid "Enable "
 msgstr ""
 
-#: ../includes/classes/site.class.php:760
-#: ../includes/classes/site.class.php:772
-#: ../includes/classes/site.class.php:774
+#: ../includes/classes/site.class.php:763
+#: ../includes/classes/site.class.php:775
+#: ../includes/classes/site.class.php:777
 msgid "Show "
 msgstr ""
 
-#: ../includes/classes/site.class.php:764
+#: ../includes/classes/site.class.php:767
 msgid "Include "
 msgstr ""
 
-#: ../includes/classes/site.class.php:766
+#: ../includes/classes/site.class.php:769
 msgid " Name (heading)"
 msgstr ""
 
-#: ../includes/classes/site.class.php:768
+#: ../includes/classes/site.class.php:771
 msgid " Name Singular"
 msgstr ""
 
-#: ../includes/classes/site.class.php:770
+#: ../includes/classes/site.class.php:773
 msgid " Name Plural"
 msgstr ""
 
-#: ../includes/classes/site.class.php:776
+#: ../includes/classes/site.class.php:779
 msgid "Disallow "
 msgstr ""
 
-#: ../includes/classes/site.class.php:778
+#: ../includes/classes/site.class.php:781
 msgid "Enable Guests to post "
 msgstr ""
 
-#: ../includes/classes/site.class.php:782
+#: ../includes/classes/site.class.php:785
 msgid "Enable RSS?"
 msgstr ""
 
-#: ../includes/classes/site.class.php:786
+#: ../includes/classes/site.class.php:789
 msgid ""
 "<strong>Note:</strong> Want to change the look of this site? Copy the folder "
 "\"default\" in \""
 msgstr ""
 
-#: ../includes/classes/site.class.php:787
+#: ../includes/classes/site.class.php:790
 msgid ""
 "templates/\" to another name, edit the HTML and CSS files, and change the "
 "following field to the new template. <strong>DO NOT</strong> delete the "
 "default folder."
 msgstr ""
 
-#: ../includes/classes/site.class.php:788
+#: ../includes/classes/site.class.php:791
 msgid "Template"
 msgstr ""
 
-#: ../includes/classes/site.class.php:796
+#: ../includes/classes/site.class.php:799
 msgid "Log Settings"
 msgstr ""
 
-#: ../includes/classes/site.class.php:797
+#: ../includes/classes/site.class.php:800
 msgid "Enable Log"
 msgstr ""
 
-#: ../includes/classes/site.class.php:799
+#: ../includes/classes/site.class.php:802
 msgid "Enable Error Log"
 msgstr ""
 
-#: ../includes/classes/site.class.php:801
+#: ../includes/classes/site.class.php:804
 msgid "Record POST variable in error log?"
 msgstr ""
 
-#: ../includes/classes/site.class.php:803
+#: ../includes/classes/site.class.php:806
 msgid "If logging is enabled choose the following events."
 msgstr ""
 
-#: ../includes/classes/site.class.php:804
+#: ../includes/classes/site.class.php:807
 msgid "Log User Submissions"
 msgstr ""
 
-#: ../includes/classes/site.class.php:806
+#: ../includes/classes/site.class.php:809
 msgid "Log User Edits"
 msgstr ""
 
-#: ../includes/classes/site.class.php:808
+#: ../includes/classes/site.class.php:811
 msgid "Log User Deletions"
 msgstr ""
 
-#: ../includes/classes/site.class.php:810
+#: ../includes/classes/site.class.php:813
 msgid "Log Trimmed Errors"
 msgstr ""
 
-#: ../includes/classes/site.class.php:812
+#: ../includes/classes/site.class.php:815
 msgid "The above setting will apply to each of the following sections."
 msgstr ""
 
-#: ../includes/classes/site.class.php:833
+#: ../includes/classes/site.class.php:836
 msgid "Email Settings"
 msgstr ""
 
-#: ../includes/classes/site.class.php:834
+#: ../includes/classes/site.class.php:837
 msgid "Enable email"
 msgstr ""
 
-#: ../includes/classes/site.class.php:838
+#: ../includes/classes/site.class.php:841
 msgid "The "
 msgstr ""
 
-#: ../includes/classes/site.class.php:839
+#: ../includes/classes/site.class.php:842
 msgid "Show Contact Page?"
 msgstr ""
 
-#: ../includes/classes/site.class.php:841
+#: ../includes/classes/site.class.php:844
 msgid "Technical email"
 msgstr ""
 
-#: ../includes/classes/site.class.php:843
+#: ../includes/classes/site.class.php:846
 msgid "Email technical errors?"
 msgstr ""
 
-#: ../includes/classes/site.class.php:845
+#: ../includes/classes/site.class.php:848
 msgid "Validation email"
 msgstr ""
 
-#: ../includes/classes/site.class.php:847
+#: ../includes/classes/site.class.php:850
 msgid "Send email when new submissions need to be validated?"
 msgstr ""
 
-#: ../includes/classes/site.class.php:849
+#: ../includes/classes/site.class.php:852
 msgid ""
 "<strong>Note:</strong> If \"Allow duplicate emails\" is set different "
 "members will be able to share the same email address."
 msgstr ""
 
-#: ../includes/classes/site.class.php:850
+#: ../includes/classes/site.class.php:853
 msgid "Allow duplicate emails"
 msgstr ""
 
-#: ../includes/classes/site.class.php:852
+#: ../includes/classes/site.class.php:855
 msgid "Send emails from this address"
 msgstr ""
 
-#: ../includes/classes/site.class.php:854
+#: ../includes/classes/site.class.php:857
 msgid "The \"From\" Name"
 msgstr ""
 
-#: ../includes/classes/site.class.php:856
+#: ../includes/classes/site.class.php:859
 msgid ""
 "<strong>Note:</strong> Not all web servers allow php to send mail from "
 "\"nobody\". If that is the case you must provide correct SMTP information "
 "for email to function properly."
 msgstr ""
 
-#: ../includes/classes/site.class.php:857
+#: ../includes/classes/site.class.php:860
 msgid "Use SMTP?"
 msgstr ""
 
-#: ../includes/classes/site.class.php:859
+#: ../includes/classes/site.class.php:862
 msgid "SMTP Host"
 msgstr ""
 
-#: ../includes/classes/site.class.php:861
+#: ../includes/classes/site.class.php:864
 msgid "SMTP Backup Host"
 msgstr ""
 
-#: ../includes/classes/site.class.php:863
+#: ../includes/classes/site.class.php:866
 msgid "SMTP Username"
 msgstr ""
 
-#: ../includes/classes/site.class.php:865
+#: ../includes/classes/site.class.php:868
 msgid ""
 "<strong>Note:</strong> Leave blank to keep the password the same. It is "
 "stored in encrypted form."
 msgstr ""
 
-#: ../includes/classes/site.class.php:866
+#: ../includes/classes/site.class.php:869
 msgid "SMTP Password"
 msgstr ""
 
-#: ../includes/classes/site.class.php:868
+#: ../includes/classes/site.class.php:871
 msgid "Confirm SMTP Password"
+msgstr ""
+
+#: ../includes/html_functions.php:11
+msgid "<span>Welcome <strong>Guest</strong></span>"
+msgstr ""
+
+#: ../includes/html_functions.php:11
+msgid "<span>Please Login or <a href=\""
+msgstr ""
+
+#: ../includes/html_functions.php:15 ../includes/html_functions.php:34
+msgid "Lost Password?"
+msgstr ""
+
+#: ../includes/html_functions.php:28
+msgid "Password"
+msgstr ""
+
+#: ../includes/html_functions.php:37
+msgid "<span id=\"login_message\">Welcome <strong>"
+msgstr ""
+
+#: ../includes/html_functions.php:55
+msgid "database problems, please come back"
 msgstr ""
 
 #: ../includes/installer.php:33
@@ -842,182 +866,186 @@ msgstr ""
 msgid "Please enter your location."
 msgstr ""
 
-#: ../includes/installer.php:66
+#: ../includes/installer.php:67
 msgid "Configuration Complete!"
 msgstr ""
 
-#: ../includes/installer.php:70
+#: ../includes/installer.php:71
 msgid "Database update fail"
 msgstr ""
 
-#: ../includes/installer.php:81
+#: ../includes/installer.php:83
 msgid "You did not fill out all the fields!!!"
 msgstr ""
 
-#: ../includes/installer.php:84 ../includes/installer.php:112
+#: ../includes/installer.php:86 ../includes/installer.php:114
 msgid "Passwords did not match, please try again."
 msgstr ""
 
-#: ../includes/installer.php:102
+#: ../includes/installer.php:104
 msgid "Account Creation Complete!"
 msgstr ""
 
-#: ../includes/installer.php:110
+#: ../includes/installer.php:112
 msgid "You did not fill out all the ftp fields!!!"
 msgstr ""
 
-#: ../includes/installer.php:124
+#: ../includes/installer.php:126
 msgid "FTP information set!"
 msgstr ""
 
-#: ../includes/installer.php:126
+#: ../includes/installer.php:128
 msgid "Attempting to connect to FTP server..."
 msgstr ""
 
-#: ../includes/installer.php:131
+#: ../includes/installer.php:133
 msgid ""
 "<strong>FTP connection has failed</strong><br />Please check and re-enter "
 "details.<br />If this method continues to fail you will have to set "
 "permissions manually."
 msgstr ""
 
-#: ../includes/installer.php:134
+#: ../includes/installer.php:136
 msgid "Done!"
 msgstr ""
 
-#: ../includes/installer.php:137 ../includes/installer.php:194
+#: ../includes/installer.php:139 ../includes/installer.php:196
 msgid "Moved into directory: "
 msgstr ""
 
-#: ../includes/installer.php:147 ../includes/installer.php:151
-#: ../includes/installer.php:155 ../includes/installer.php:159
-#: ../includes/installer.php:163 ../includes/installer.php:167
+#: ../includes/installer.php:149 ../includes/installer.php:153
+#: ../includes/installer.php:157 ../includes/installer.php:161
+#: ../includes/installer.php:165 ../includes/installer.php:169
 msgid "NOT FOUIND!"
 msgstr ""
 
-#: ../includes/installer.php:171
+#: ../includes/installer.php:173
 msgid "FTP root is incorrect"
-msgstr ""
-
-#: ../includes/installer.php:176 ../includes/installer.php:181
-#: ../includes/installer.php:186 ../includes/installer.php:207
-#: ../includes/installer.php:221
-msgid "Permissions Set!"
 msgstr ""
 
 #: ../includes/installer.php:178 ../includes/installer.php:183
 #: ../includes/installer.php:188 ../includes/installer.php:209
 #: ../includes/installer.php:223
+msgid "Permissions Set!"
+msgstr ""
+
+#: ../includes/installer.php:180 ../includes/installer.php:185
+#: ../includes/installer.php:190 ../includes/installer.php:211
+#: ../includes/installer.php:225
 msgid "Permissions Failed!"
 msgstr ""
 
-#: ../includes/installer.php:203 ../includes/installer.php:217
+#: ../includes/installer.php:205 ../includes/installer.php:219
 msgid "not found..."
 msgstr ""
 
-#: ../includes/installer.php:212 ../includes/installer.php:226
+#: ../includes/installer.php:214 ../includes/installer.php:228
 msgid "Failed to upload:"
 msgstr ""
 
-#: ../includes/installer.php:232
+#: ../includes/installer.php:234
 msgid "Cannot find FTP root please check settings"
 msgstr ""
 
-#: ../includes/installer.php:249
+#: ../includes/installer.php:251
 msgid "config' doesn't exist"
 msgstr ""
 
-#: ../includes/installer.php:411
+#: ../includes/installer.php:413
 msgid "Table \"config\" has been created."
 msgstr ""
 
-#: ../includes/installer.php:425
+#: ../includes/installer.php:427
 msgid "Some default config information has been added."
 msgstr ""
 
-#: ../includes/installer.php:448 ../includes/installer.php:608
-#: ../includes/installer.php:781 ../index.php:190
+#: ../includes/installer.php:450 ../includes/installer.php:607
+#: ../includes/installer.php:780 ../includes/installer.php:820
+#: ../index.php:192
 msgid "Creating Database"
 msgstr ""
 
-#: ../includes/installer.php:449 ../includes/installer.php:609
-#: ../includes/installer.php:782 ../index.php:191
+#: ../includes/installer.php:451 ../includes/installer.php:608
+#: ../includes/installer.php:781 ../includes/installer.php:821
+#: ../index.php:193
 msgid "Website settings"
 msgstr ""
 
-#: ../includes/installer.php:450 ../includes/installer.php:610
-#: ../includes/installer.php:783 ../index.php:192
+#: ../includes/installer.php:452 ../includes/installer.php:609
+#: ../includes/installer.php:782 ../includes/installer.php:822
+#: ../index.php:194
 msgid "Admin account creation"
 msgstr ""
 
-#: ../includes/installer.php:451 ../includes/installer.php:611
-#: ../includes/installer.php:784 ../index.php:193
+#: ../includes/installer.php:453 ../includes/installer.php:610
+#: ../includes/installer.php:783 ../includes/installer.php:823
+#: ../index.php:195
 msgid "Permission setup"
 msgstr ""
 
-#: ../includes/installer.php:454
+#: ../includes/installer.php:456
 msgid "<h1>Setup Form"
 msgstr ""
 
-#: ../includes/installer.php:455
+#: ../includes/installer.php:457
 msgid "Please fill all the texts in the fields."
 msgstr ""
 
-#: ../includes/installer.php:460
+#: ../includes/installer.php:462
 msgid "The following fields are required:"
 msgstr ""
 
-#: ../includes/installer.php:461
+#: ../includes/installer.php:463
 msgid "<strong>Encryption Key:</strong><br /><em>example:"
 msgstr ""
 
-#: ../includes/installer.php:462
+#: ../includes/installer.php:464
 msgid ""
 "<em>Note:</em> You do not need to remember this code. By entering a large "
 "random number such as in the example all passwords will be stored in "
 "encrypted form.<br />"
 msgstr ""
 
-#: ../includes/installer.php:465
+#: ../includes/installer.php:467
 msgid "<strong>Site Name:</strong><br /><em>example:</em> Toronto LETS<br />"
 msgstr ""
 
-#: ../includes/installer.php:466
+#: ../includes/installer.php:468
 msgid ""
 "<em>Note:</em> This name will appear in the title (the top bar of your "
 "browser).<br />"
 msgstr ""
 
-#: ../includes/installer.php:469
+#: ../includes/installer.php:471
 msgid "<em>example:</em> http://www.toronto-lets.ca/"
 msgstr ""
 
-#: ../includes/installer.php:472
+#: ../includes/installer.php:474
 msgid "<strong>File Path of index.php:</strong><br /><em>example:</em> "
 msgstr ""
 
-#: ../includes/installer.php:475
+#: ../includes/installer.php:477
 msgid ""
 "<strong>Admin email:</strong><br /><em>example:</em> john.smith@toronto-lets."
 "ca<br />"
 msgstr ""
 
-#: ../includes/installer.php:478
+#: ../includes/installer.php:480
 msgid ""
 "<strong>Validation email:</strong><br /><em>example:</em> sue@yahoo.com<br />"
 msgstr ""
 
-#: ../includes/installer.php:481
+#: ../includes/installer.php:483
 msgid ""
 "<strong>Technical email:</strong><br /><em>example:</em> techie@domain."
 "ca<br />"
 msgstr ""
 
-#: ../includes/installer.php:484
+#: ../includes/installer.php:486
 msgid "<strong>Location:</strong><br /><em>example:</em> Toronto, ON<br />"
 msgstr ""
 
-#: ../includes/installer.php:487
+#: ../includes/installer.php:489
 msgid ""
 "<strong>UTC Offset (Time Zone):</strong><br /><em>example:</em> Toronto "
 "would be -5, Paris 1, etc (full list on <a href=\"https://en.wikipedia.org/"
@@ -1025,153 +1053,153 @@ msgid ""
 "\"_blank\">Wikipedia.org</a>)<br />"
 msgstr ""
 
-#: ../includes/installer.php:490
+#: ../includes/installer.php:492
 msgid "Enter Config"
 msgstr ""
 
-#: ../includes/installer.php:562
+#: ../includes/installer.php:561
 msgid "<li class=\"ok\">Table \"accounts\" has been created.</li>"
 msgstr ""
 
-#: ../includes/installer.php:589
+#: ../includes/installer.php:588
 msgid "<li class=\"ok\">Table \"transactions\" has been created.</li>"
 msgstr ""
 
+#: ../includes/installer.php:615
+msgid "<strong>Create Administrative Account</strong><br />"
+msgstr ""
+
 #: ../includes/installer.php:616
-msgid "<strong>Create Administrative Account (#1)</strong><br />"
+msgid ""
+"This will create the administrator account which is essential for LETS-"
+"Software to work properly."
 msgstr ""
 
 #: ../includes/installer.php:617
 msgid ""
-"This will create the #1 account which is essential for proper functioning of "
-"the LETS system.<br /><br />"
+"<strong>Important:</strong> Log-on to the site with username: \"1\" and the "
+"password you create here."
 msgstr ""
 
 #: ../includes/installer.php:618
 msgid ""
-"<strong>Important:</strong> Log-on to the site with username: \"1\" and the "
-"password you create here.<br />"
+"Also please edit the account after finishing setup to add other important "
+"data such as address, telephone number, etc."
 msgstr ""
 
 #: ../includes/installer.php:619
 msgid ""
-"Also please edit the account after finishing setup to add other important "
-"data such as address, telephone number, etc.<br /><br />"
-msgstr ""
-
-#: ../includes/installer.php:620
-msgid ""
 "<strong>Note:</strong> Canadian may want to enable an option under \"Website "
 "Settings\" to force proper Provincial abbreviations and postal codes prior "
-"to editing the account.<br />"
+"to editing the account."
 msgstr ""
 
-#: ../includes/installer.php:624
+#: ../includes/installer.php:623
 msgid "<strong>First Name:</strong><br /><em>example:</em> John<br />"
 msgstr ""
 
-#: ../includes/installer.php:627
+#: ../includes/installer.php:626
 msgid "<strong>Last Name:</strong><br /><em>example:</em> Malkovich<br />"
 msgstr ""
 
-#: ../includes/installer.php:630
+#: ../includes/installer.php:629
 msgid "<strong>Password:</strong><br />"
 msgstr ""
 
-#: ../includes/installer.php:633
+#: ../includes/installer.php:632
 msgid "<strong>Re-type Password:</strong><br />"
 msgstr ""
 
-#: ../includes/installer.php:636
-msgid "Create #1 Account"
+#: ../includes/installer.php:635
+msgid "Create Account"
 msgstr ""
 
-#: ../includes/installer.php:654 ../includes/installer.php:662
-#: ../includes/installer.php:732 ../includes/installer.php:738
+#: ../includes/installer.php:653 ../includes/installer.php:661
+#: ../includes/installer.php:731 ../includes/installer.php:737
 msgid "Cannot create the file"
 msgstr ""
 
-#: ../includes/installer.php:656 ../includes/installer.php:659
+#: ../includes/installer.php:655 ../includes/installer.php:658
 msgid "Unable to set <strong>.htaccess</strong> permissions"
 msgstr ""
 
-#: ../includes/installer.php:658 ../includes/installer.php:666
+#: ../includes/installer.php:657 ../includes/installer.php:665
 msgid "Cannot create folder"
 msgstr ""
 
-#: ../includes/installer.php:664
+#: ../includes/installer.php:663
 msgid "Unable to set <strong>images/index.html</strong> permissions"
 msgstr ""
 
-#: ../includes/installer.php:667
+#: ../includes/installer.php:666
 msgid "Unable to set <strong>logs</strong> permissions"
 msgstr ""
 
-#: ../includes/installer.php:687
+#: ../includes/installer.php:686
 msgid "has not been found."
 msgstr ""
 
-#: ../includes/installer.php:689
+#: ../includes/installer.php:688
 msgid "has been found."
 msgstr ""
 
-#: ../includes/installer.php:693
+#: ../includes/installer.php:692
 msgid "needs permissions: 664"
 msgstr ""
 
-#: ../includes/installer.php:695
+#: ../includes/installer.php:694
 msgid "has proper permissions."
 msgstr ""
 
-#: ../includes/installer.php:699
+#: ../includes/installer.php:698
 msgid "Folder: <strong>images</strong> has not been found."
 msgstr ""
 
-#: ../includes/installer.php:701
+#: ../includes/installer.php:700
 msgid "Folder: <strong>images</strong> has been found."
 msgstr ""
 
-#: ../includes/installer.php:705
+#: ../includes/installer.php:704
 msgid "Folder: <strong>images</strong> needs permissions: 775"
 msgstr ""
 
-#: ../includes/installer.php:707
+#: ../includes/installer.php:706
 msgid "Folder: <strong>images</strong> has proper permissions."
 msgstr ""
 
-#: ../includes/installer.php:711
+#: ../includes/installer.php:710
 msgid "Folder: <strong>logs</strong> has not been found."
 msgstr ""
 
-#: ../includes/installer.php:713
+#: ../includes/installer.php:712
 msgid "Folder: <strong>logs</strong> has been found."
 msgstr ""
 
-#: ../includes/installer.php:717
+#: ../includes/installer.php:716
 msgid "Folder: <strong>logs</strong> needs permissions: 770"
 msgstr ""
 
-#: ../includes/installer.php:719
+#: ../includes/installer.php:718
 msgid "Folder: <strong>logs</strong> has proper permissions."
 msgstr ""
 
-#: ../includes/installer.php:740 ../includes/installer.php:755
+#: ../includes/installer.php:739 ../includes/installer.php:754
 msgid "Unable to set <strong>logs/"
 msgstr ""
 
-#: ../includes/installer.php:752 ../includes/installer.php:766
+#: ../includes/installer.php:751 ../includes/installer.php:765
 msgid "has not been found.</li>"
 msgstr ""
 
-#: ../includes/installer.php:754 ../includes/installer.php:768
+#: ../includes/installer.php:753 ../includes/installer.php:767
 msgid "has been found.</li>"
 msgstr ""
 
-#: ../includes/installer.php:758 ../includes/installer.php:771
+#: ../includes/installer.php:757 ../includes/installer.php:770
 msgid "needs permissions: 660</li>"
 msgstr ""
 
-#: ../includes/installer.php:760 ../includes/installer.php:773
+#: ../includes/installer.php:759 ../includes/installer.php:772
 msgid "has proper permissions.</li>"
 msgstr ""
 
@@ -1278,6 +1306,98 @@ msgid ""
 "software folder."
 msgstr ""
 
+#: ../includes/main_file.php:172
+msgid "Change your email delivery options <a href=\""
+msgstr ""
+
+#: ../includes/main_file.php:547
+msgid "1 year, "
+msgstr ""
+
+#: ../includes/main_file.php:549
+msgid " years, "
+msgstr ""
+
+#: ../includes/main_file.php:554
+msgid "1 month, "
+msgstr ""
+
+#: ../includes/main_file.php:556
+msgid " months, "
+msgstr ""
+
+#: ../includes/main_file.php:561
+msgid "1 day, "
+msgstr ""
+
+#: ../includes/main_file.php:563
+msgid " days, "
+msgstr ""
+
+#: ../includes/main_file.php:568
+msgid "1 hour, "
+msgstr ""
+
+#: ../includes/main_file.php:570
+msgid " hours, "
+msgstr ""
+
+#: ../includes/main_file.php:575
+msgid "1 minute"
+msgstr ""
+
+#: ../includes/main_file.php:577
+msgid " minutes"
+msgstr ""
+
+#: ../includes/main_file.php:588
+msgid "January"
+msgstr ""
+
+#: ../includes/main_file.php:590
+msgid "Febuaury"
+msgstr ""
+
+#: ../includes/main_file.php:592
+msgid "March"
+msgstr ""
+
+#: ../includes/main_file.php:594
+msgid "April"
+msgstr ""
+
+#: ../includes/main_file.php:596
+msgid "May"
+msgstr ""
+
+#: ../includes/main_file.php:598
+msgid "June"
+msgstr ""
+
+#: ../includes/main_file.php:600
+msgid "July"
+msgstr ""
+
+#: ../includes/main_file.php:602
+msgid "August"
+msgstr ""
+
+#: ../includes/main_file.php:604
+msgid "September"
+msgstr ""
+
+#: ../includes/main_file.php:606
+msgid "October"
+msgstr ""
+
+#: ../includes/main_file.php:608
+msgid "November"
+msgstr ""
+
+#: ../includes/main_file.php:610
+msgid "December"
+msgstr ""
+
 #: ../includes/main_file.php:905
 msgid "<li class=\"error\"><strong>["
 msgstr ""
@@ -1301,6 +1421,68 @@ msgstr ""
 
 #: ../includes/main_file.php:948
 msgid "Invalid Code  Please check for the following:"
+msgstr ""
+
+#: ../includes/main_xhtml.php:25
+msgid "Account not validated"
+msgstr ""
+
+#: ../includes/main_xhtml.php:26
+msgid "<h1>Your account is not validated</h1><br />"
+msgstr ""
+
+#: ../includes/main_xhtml.php:27
+msgid "Please allow time for the admin to activate it.<br />"
+msgstr ""
+
+#: ../includes/main_xhtml.php:33
+msgid "<h1>Your account has been suspended</h1><br />"
+msgstr ""
+
+#: ../includes/main_xhtml.php:34
+msgid "The following reason was given:<br /><br />"
+msgstr ""
+
+#: ../includes/main_xhtml.php:41 ../includes/main_xhtml.php:54
+msgid " restricted page"
+msgstr ""
+
+#: ../includes/main_xhtml.php:42
+msgid "<h1>Restricted page</h1><br />"
+msgstr ""
+
+#: ../includes/main_xhtml.php:43
+msgid "Please login to continue<br />"
+msgstr ""
+
+#: ../includes/main_xhtml.php:55
+msgid "<h1>Restricted Page</h1><br />"
+msgstr ""
+
+#: ../includes/main_xhtml.php:56
+msgid ""
+"You do not have administrative privileges <br /><br />Please contact the "
+"admin <a href=\"mailto:"
+msgstr ""
+
+#: ../includes/main_xhtml.php:183
+msgid " home"
+msgstr ""
+
+#: ../includes/main_xhtml.php:184
+msgid "<h1>Your page was not found</h1><br />"
+msgstr ""
+
+#: ../includes/main_xhtml.php:189
+msgid "An error has occurred"
+msgstr ""
+
+#: ../includes/main_xhtml.php:200 ../includes/main_xhtml.php:202
+msgid "Print</a> this page"
+msgstr ""
+
+#: ../includes/main_xhtml.php:218
+msgid "Cancel Print Page"
 msgstr ""
 
 #: ../includes/pages/admin_lets_tools.php:137
@@ -1501,20 +1683,20 @@ msgstr ""
 msgid " <span class=\"nb_page_title\">Amount: "
 msgstr ""
 
-#: ../index.php:200
+#: ../index.php:202
 msgid "This is most likely a database permission issue.<br />"
 msgstr ""
 
-#: ../index.php:201
+#: ../index.php:203
 msgid ""
 "Please check your <strong>/includes/configdb.php</strong> file and your "
 "<strong>database permissions</strong>.<br />"
 msgstr ""
 
-#: ../index.php:202
+#: ../index.php:204
 msgid "Once you made some changes, refresh this page to try again (F5)...</li>"
 msgstr ""
 
-#: ../index.php:206
+#: ../index.php:208
 msgid "Next"
 msgstr ""
