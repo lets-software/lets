@@ -216,12 +216,12 @@ if (!isset($_POST['submit'])) $_POST['submit'] = '';
                     if ($transactions->balance($_SESSION['member_id'])) {
                         if (($transactions->balance - $amount) < (NEGATIVE_BALANCE_LIMIT * -1)) {
                             $transaction_halted = true;
-                            $messages .= $messages_indent.T_('<span class="message">A limit of '.NEGATIVE_BALANCE_LIMIT.' '.CURRENCY_NAME.' has been established. This trade cannot be completed because it would exceed that limit.</span>')."<br /><br />\n";
+                            $messages .= $messages_indent . T_('<span class="message">A limit of ') . NEGATIVE_BALANCE_LIMIT . ' '.CURRENCY_NAME . T_(' has been established. This trade cannot be completed because it would exceed that limit.</span>')."<br /><br />\n";
                         }
                     }
                 }
                 if (!$transaction_halted) {
-                    if ($transactions->make_transaction(2,$_SESSION['member_id'],$notice['accountID'],$_POST['buy_now_amount'],'Automated transaction for a "Buy Now" entry (<a href="'.URL.NOTICEBOARD_URL.'/'.$notice['noticeboardID'].'/">'.ucwords(NOTICEBOARD_NAME_SINGULAR).' ID #'.$notice['noticeboardID'].'</a>): '.$notice['title'],$date['day'],$date['month'],$date['year'],$date['hour'],$date['minutes'],$date['seconds'],$_GET['page_id'])) {
+                    if ($transactions->make_transaction(2,$_SESSION['member_id'],$notice['accountID'],$_POST['buy_now_amount'],T_('Automated transaction for a "Buy Now" entry') . ' (<a href="'.URL.NOTICEBOARD_URL.'/'.$notice['noticeboardID'].'/">'.ucwords(NOTICEBOARD_NAME_SINGULAR).' ID #'.$notice['noticeboardID'].'</a>): '.$notice['title'],$date['day'],$date['month'],$date['year'],$date['hour'],$date['minutes'],$date['seconds'],$_GET['page_id'])) {
                         if (!$noticeboard->bid($messages_indent,$notice['noticeboardID'],$notice['reserve'],$_POST['buy_now_amount'])) {
                             if (ENABLE_LOG and LOG_TRIMMED_ERROR) log_action('FAILED: Bid representing a "buy now" added to '.strtolower(NOTICEBOARD_NAME_SINGULAR).' ID:'.$_GET['event_id'].' ('.$notice['title'].')');
                             if (ENABLE_ERROR_LOG) log_error('FAILED: Bid representing a "buy now" added to '.strtolower(NOTICEBOARD_NAME_SINGULAR).' ID:'.$_GET['event_id'].' ('.$notice['title'].')'.$noticeboard->error);
@@ -262,7 +262,7 @@ if (!isset($_POST['submit'])) $_POST['submit'] = '';
                         if (ENABLE_LOG and LOG_EDITS and LOG_COMMENTS) log_action(ucwords(COMMENT_NAME_SINGULAR).' edited in '.ucwords(NOTICEBOARD_NAME_SINGULAR).' ID:'.$_GET['event_id'].' ('.$notice['title'].')');
                         $comment_edited = true;
                     } else {
-                        $messages .= $messages_indent.'<span class="message">'.$comments->error.' <br /><strong>GO Back in your browser to make the changes</strong></span><br /><br />'."\n";
+                        $messages .= $messages_indent.'<span class="message">'.$comments->error.' <br /><strong>' . T_('GO Back in your browser to make the changes') . '</strong></span><br /><br />'."\n";
                         if (ENABLE_LOG and LOG_TRIMMED_ERROR) log_action('FAILED: '.ucwords(COMMENT_NAME_SINGULAR).' edited in '.ucwords(NOTICEBOARD_NAME_SINGULAR).' ID:'.$_GET['event_id'].' ('.$notice['title'].')');
                         if (ENABLE_ERROR_LOG) log_error('FAILED: '.ucwords(COMMENT_NAME_SINGULAR).' edited in '.ucwords(NOTICEBOARD_NAME_SINGULAR).' ID:'.$_GET['event_id'].' ('.$notice['title'].')<br />Error: '.$comments->error);
                     }
@@ -275,7 +275,7 @@ if (!isset($_POST['submit'])) $_POST['submit'] = '';
                     if (ENABLE_LOG and LOG_DELETIONS and LOG_COMMENTS) log_action(ucwords(COMMENT_NAME_SINGULAR).' deleted in '.ucwords(NOTICEBOARD_NAME_SINGULAR).' ID:'.$_GET['event_id'].' ('.$notice['title'].')');
                 } else {
                     // document error
-                    $messages .= $messages_indent.'<span class="message">'.ucwords(COMMENT_NAME_SINGULAR).' could not be deleted</span><br /><br />'."\n";
+                    $messages .= $messages_indent.'<span class="message">'.ucwords(COMMENT_NAME_SINGULAR) . T_(' could not be deleted') . '</span><br /><br />'."\n";
                     if (ENABLE_LOG and LOG_TRIMMED_ERROR) log_action('FAILED: '.ucwords(COMMENT_NAME_SINGULAR).' deleted in '.ucwords(NOTICEBOARD_NAME_SINGULAR).' ID:'.$_GET['event_id'].' ('.$notice['title'].')');
                     if (ENABLE_ERROR_LOG) log_error('FAILED: '.ucwords(COMMENT_NAME_SINGULAR).' edited in '.ucwords(NOTICEBOARD_NAME_SINGULAR).' ID:'.$_GET['event_id'].' ('.$notice['title'].')<br />Error: '.$comments->error);
                 }
@@ -499,12 +499,12 @@ if (!isset($_POST['submit'])) $_POST['submit'] = '';
                             if ($expired and !$bought) {
                                 $noticeboard_tools .= $noticeboard_tools_indent."<span class=\"nb_page_auction_title\">This auction ended with no bids</span><br /><br />\n";
                             } elseif ($bought and !$expired) {
-                                $noticeboard_tools .= $noticeboard_tools_indent."<span class=\"nb_page_auction_title\"><strong>".$member_info->full_name($noticeboard->auction_winning_member_id)."</strong> purchased this item with the \"Buy Now\" feature for <strong>".$noticeboard->auction_winning_amount."</strong> ".CURRENCY_NAME."</span><br /><br />\n";
+                                $noticeboard_tools .= $noticeboard_tools_indent."<span class=\"nb_page_auction_title\"><strong>" . $member_info->full_name($noticeboard->auction_winning_member_id) . "</strong> purchased this item with the \"Buy Now\" feature for <strong>".$noticeboard->auction_winning_amount."</strong> ".CURRENCY_NAME."</span><br /><br />\n";
                             } else {
                                 if ($noticeboard->auction_winning_member_id != $_SESSION['member_id']) {
-                                    $noticeboard_tools .= $noticeboard_tools_indent."<span class=\"nb_page_auction_title\"><strong>".$member_info->full_name($noticeboard->auction_winning_member_id)."</strong> won this auction with a bid of <strong>".$noticeboard->auction_winning_amount."</strong> ".CURRENCY_NAME."</span><br /><br />\n";
+                                    $noticeboard_tools .= $noticeboard_tools_indent . '<span class="nb_page_auction_title"><strong>' . $member_info->full_name($noticeboard->auction_winning_member_id) . T_('</strong> won this auction with a bid of <strong>') . $noticeboard->auction_winning_amount . '</strong> ' . CURRENCY_NAME."</span><br /><br />\n";
                                 } else {
-                                    $noticeboard_tools .= $noticeboard_tools_indent."<span class=\"nb_page_auction_title\"><strong>You</strong> won this auction with a bid of <strong>".$noticeboard->auction_winning_amount."</strong> ".CURRENCY_NAME."</span><br /><br />\n";
+                                    $noticeboard_tools .= $noticeboard_tools_indent . T_('<span class="nb_page_auction_title"><strong>You</strong> won this auction with a bid of <strong>') . $noticeboard->auction_winning_amount . '</strong> ' . CURRENCY_NAME . "</span><br /><br />\n";
                                 }
                             }
                         }
@@ -549,12 +549,12 @@ if (!isset($_POST['submit'])) $_POST['submit'] = '';
         }
 
         if (user_type() == 0 or $_SESSION["member_validated"] == 0 or $_SESSION["member_suspended"] == 1) {
-            $noticeboard_tools .= $noticeboard_tools_indent.'<br /><strong>Please Login or <a href="'.URL.MEMBERS_URL."/register/\">register</a> to gain access to all details of this entry.</strong><br /><br /><br />\n";
+            $noticeboard_tools .= $noticeboard_tools_indent . '<br /><strong>' . T_('Please Login or ') . '<a href="' . URL . MEMBERS_URL . '"register/">' . T_('register</a> to gain access to all details of this entry.') . "</strong><br /><br /><br />\n";
         }
 
     }
 } else {
-    $messages .= $messages_indent."<span class=\"message\">The owner of this ".strtolower(NOTICEBOARD_NAME_SINGULAR)." has been suspended.<br />".ucfirst(MEMBERS_NAME_PLURAL)." will not be able to access it until this account is re-activated</span><br /><br />\n";
+    $messages .= $messages_indent . '<span class="message">' . T_('The owner of this ') . strtolower(NOTICEBOARD_NAME_SINGULAR) . T(' has been suspended.') . '<br />' . ucfirst(MEMBERS_NAME_PLURAL) . T_(' will not be able to access it until this account is re-activated') . "</span><br /><br />\n";
 }
 
 ?>
