@@ -69,10 +69,10 @@
                     
                     If this doesn't work for some reason use a different method.                    
                     This is the required configuration:
-                        /images        777
-                        /logs        777
+                        /images      775
+                        /logs        770
                         .htaccess    777
-                        /logs/<Your Site Name>.log            666
+                        /logs/<Your Site Name>.log           666
                         /logs/<Your Site Name>_Errors.log    666
                     
                     Once permissions are set refresh your browser and the script should set everything else up.
@@ -84,7 +84,7 @@
 
 // Check PHP version not to have trouble
 if (version_compare(PHP_VERSION, "5.2.0") < 0) {
-   die("PHP >= 5.2.0 required you have: ". PHP_VERSION);
+   die("PHP >= 5.2.0 required, you have: ". PHP_VERSION);
 }
 
 session_start();
@@ -92,31 +92,32 @@ session_start();
 //error_reporting(0);
 //error_reporting(0);
 
-$login_html_indent                 =         '   ';
-$nav_links_indent                 =         '   ';
-$main_indent                     =         '   ';
-$blurb_indent                     =         '   ';
-$print_button_indent             =         '   ';
-$message_indent                    =         '   ';
-$messages_indent                =         '   ';
+$login_html_indent              = '   ';
+$nav_links_indent               = '   ';
+$main_indent                    = '   ';
+$blurb_indent                   = '   ';
+$print_button_indent            = '   ';
+$message_indent                 = '   ';
+$messages_indent                = '   ';
 
 // Persistent HTML
-$search_sidebar_indent             =         '   ';
-$noticeboard_sidebar_indent        =         '   ';
-$articles_sidebar_indent        =         '   ';
-$events_sidebar_indent            =         '   ';
-$faq_sidebar_indent                =         '   ';
-$links_sidebar_indent            =         '   ';
-$search_sidebar_indent            =         '   ';
-$login_sidebar_indent            =         '   ';
+$search_sidebar_indent          = '   ';
+$noticeboard_sidebar_indent     = '   ';
+$articles_sidebar_indent        = '   ';
+$events_sidebar_indent          = '   ';
+$faq_sidebar_indent             = '   ';
+$links_sidebar_indent           = '   ';
+$search_sidebar_indent          = '   ';
+$login_sidebar_indent           = '   ';
 
-$doc_root = $_SERVER['DOCUMENT_ROOT']."/"; //.$_SERVER['PHP_SELF'];
-define('LETS_ROOT', $_SERVER['DOCUMENT_ROOT']."/");
+// We should preferably use the constant LETS_ROOT and not the variable for $doc_root as it's faster and use less memory
+$doc_root = __DIR__."/";
+define('LETS_ROOT', __DIR__."/");
 
 
 if (!isset($_SESSION['lang'])){
     if (!isset($_POST['lang'])) {
-        require_once $doc_root.'includes/lang_select.php';
+        require_once LETS_ROOT . 'includes/lang_select.php';
         die();
     }
     
@@ -136,15 +137,15 @@ if (!isset($_SESSION['lang'])){
     }
 }
 // Translation library
-require_once LETS_ROOT.'includes/lib/gettext/translate.php';
+require_once LETS_ROOT . 'includes/lib/gettext/translate.php';
 
 //if file_exists($doc_root.'includes/config.php')?require_once($doc_root.'includes/configdb.php'):require_once($doc_root.'install/createConfigdb.php');
-require_once $doc_root.'includes/configdb.php';
-require_once $doc_root.'includes/main_file.php';
+require_once LETS_ROOT . 'includes/configdb.php';
+require_once LETS_ROOT . 'includes/main_file.php';
 
 
-require_once $doc_root.'includes/processing_functions.php';
-require_once $doc_root.'includes/html_functions.php';
+require_once LETS_ROOT . 'includes/processing_functions.php';
+require_once LETS_ROOT . 'includes/html_functions.php';
 
 
 // clear HTMl holders:
@@ -159,13 +160,13 @@ $faq_sidebar            = '';
 $links_sidebar          = '';
 $login_sidebar          = '';
 
-$errors             = '';
-$javascript         = '';
-$javascript_in_body = '';
-$restricted_page    = false;
-
-$default_min_width  = 650;
-$min_width          = $default_min_width;
+$errors                 = '';
+$javascript             = '';
+$javascript_in_body     = '';
+$restricted_page        = false;
+    
+$default_min_width      = 650;
+$min_width              = $default_min_width;
 
 
 
@@ -189,36 +190,37 @@ if (!mysql_select_db("$database_name")) {
     echo '</head><body>';
     echo '<div class="basic-grey">';
     echo '<div class="progress">';
-    echo '<a class="current"><span class="step step-inverse">1</span>'.T_('Creating Database').'</a>';
-    echo '<a><span class="step">2</span>'.T_('Website settings').'</a>';
-    echo '<a><span class="step">3</span>'.T_('Admin account creation').'</a>';
-    echo '<a><span class="step">4</span>'.T_('Permission setup').'</a>';
+    echo '<a class="current"><span class="step step-inverse">1</span>' . T_('Creating Database') . '</a>';
+    echo '<a><span class="step">2</span>' . T_('Website settings') . '</a>';
+    echo '<a><span class="step">3</span>' . T_('Admin account creation') . '</a>';
+    echo '<a><span class="step">4</span>' . T_('Permission setup') . '</a>';
     echo '</div>';
     echo '<ul>';
     mysql_query("CREATE DATABASE $database_name");
     if (!mysql_select_db("$database_name")) {
-        echo '<li class="error">'.T_("Database creation <strong>$database_name</strong> failed!<br />");
+        echo '<li class="error">' . T_("Database creation <strong>$database_name</strong> failed!<br />");
         echo T_("We manage to connect to the database server but we couldn't create the database <strong>$database_name</strong><br />");
         echo T_('This is most likely a database permission issue.<br />');
         echo T_('Please check your <strong>/includes/configdb.php</strong> file and your <strong>database permissions</strong>.<br />');
         echo T_('Once you made some changes, refresh this page to try again (F5)...</li>');
     }else{
-        echo '<br /><br /><li class="ok">'.T_("Database <strong>$database_name</strong> created successfully! => Please refresh the page... (F5)").'</li>';
+        $_SESSION['installStep'] = 2;
+        echo '<br /><br /><li class="ok">' . T_("Database <strong>$database_name</strong> created successfully! => Please refresh the page... (F5)") . '</li>';
     }
-    echo '</ul><input type="button" value="'.T_('Next').'" onClick="location.href=\''.$_SERVER['PHP_SELF'].'\';"></div></body></html>';
+    echo '</ul><input type="button" value="' . T_('Next') . '" onClick="location.href=\'' . $_SERVER['PHP_SELF'] . '\';"></div></body></html>';
     mysql_select_db("$database_name");
 }
 
 
 // Returns $main_html and $title and appends $styles 
-require_once $doc_root.'includes/main_xhtml.php';
-require_once $doc_root.'includes/header.php';
+require_once LETS_ROOT . 'includes/main_xhtml.php';
+require_once LETS_ROOT . 'includes/header.php';
 
 if (!isset($template_filename)) {
     $template_filename = 'default';
 }
 
 
-require_once $doc_root.'templates/'.TEMPLATE.'/'.$template_filename.'.php';
+require_once LETS_ROOT . 'templates/' . TEMPLATE . '/' . $template_filename . '.php';
 
 ?>
