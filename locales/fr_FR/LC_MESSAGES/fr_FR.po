@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lets\n"
 "POT-Creation-Date: 2015-05-14 20:36+0100\n"
-"PO-Revision-Date: 2015-05-14 23:20+0100\n"
+"PO-Revision-Date: 2015-05-15 15:01+0100\n"
 "Last-Translator: user2 <langlais115@yahoo.fr>\n"
 "Language-Team: Lets-Software\n"
 "Language: fr\n"
@@ -94,7 +94,7 @@ msgstr "Votre Compte"
 
 #: ../includes/classes/site.class.php:243
 msgid "Website"
-msgstr ""
+msgstr "Site web"
 
 #: ../includes/classes/site.class.php:246
 #: ../includes/classes/site.class.php:267
@@ -113,7 +113,7 @@ msgstr "Description longue (utilisé dans la page des articles)"
 
 #: ../includes/classes/site.class.php:252
 msgid "Amount: (only applies to offers)"
-msgstr ""
+msgstr "Montant: (s'applique seulement aux offres)"
 
 #: ../includes/classes/site.class.php:255
 msgid "Title: (recommended)"
@@ -121,11 +121,11 @@ msgstr "Titre: (recommandé)"
 
 #: ../includes/classes/site.class.php:257
 msgid "Summary: (recommended)"
-msgstr ""
+msgstr "Résumé: (recommendé)"
 
 #: ../includes/classes/site.class.php:259
 msgid "Body: (recommended)"
-msgstr ""
+msgstr "Corps: (recommandé)"
 
 #: ../includes/classes/site.class.php:262
 #: ../includes/classes/site.class.php:269
@@ -135,7 +135,7 @@ msgstr "Description"
 #: ../includes/classes/site.class.php:264
 #: ../includes/classes/site.class.php:616
 msgid "Location"
-msgstr ""
+msgstr "Ville"
 
 #: ../includes/classes/site.class.php:271
 msgid "URL"
@@ -143,7 +143,7 @@ msgstr "URL"
 
 #: ../includes/classes/site.class.php:276
 msgid "Body"
-msgstr ""
+msgstr "Corps"
 
 #: ../includes/classes/site.class.php:278
 msgid "Image Fields"
@@ -307,11 +307,11 @@ msgstr ""
 #: ../includes/classes/site.class.php:765
 #: ../includes/classes/site.class.php:783
 msgid "Allow "
-msgstr ""
+msgstr "Authoriser "
 
 #: ../includes/classes/site.class.php:404
 msgid "Hide "
-msgstr ""
+msgstr "Cacher "
 
 #: ../includes/classes/site.class.php:408
 #: ../includes/pages/noticeboard.php:330
@@ -643,11 +643,11 @@ msgstr ""
 
 #: ../includes/classes/site.class.php:771
 msgid " Name Singular"
-msgstr ""
+msgstr " Nom Singulier"
 
 #: ../includes/classes/site.class.php:773
 msgid " Name Plural"
-msgstr ""
+msgstr " Nom Pluriel"
 
 #: ../includes/classes/site.class.php:779
 msgid "Disallow "
@@ -696,7 +696,7 @@ msgstr ""
 
 #: ../includes/classes/site.class.php:806
 msgid "If logging is enabled choose the following events."
-msgstr ""
+msgstr "Si les logs sont activés choisez les événements suivants à enregister."
 
 #: ../includes/classes/site.class.php:807
 msgid "Log User Submissions"
@@ -712,11 +712,11 @@ msgstr "Logger les effacements utilisateur"
 
 #: ../includes/classes/site.class.php:813
 msgid "Log Trimmed Errors"
-msgstr ""
+msgstr "Logger les erreurs"
 
 #: ../includes/classes/site.class.php:815
 msgid "The above setting will apply to each of the following sections."
-msgstr ""
+msgstr "Le réglage ci-dessus sera applicable à chacune des sections suivantes."
 
 #: ../includes/classes/site.class.php:836
 msgid "Email Settings"
@@ -749,6 +749,7 @@ msgstr "Email pour les validations"
 #: ../includes/classes/site.class.php:850
 msgid "Send email when new submissions need to be validated?"
 msgstr ""
+"Envoyer un email quand les nouveau enregistrement ont besoin d'etre validé?"
 
 #: ../includes/classes/site.class.php:852
 msgid ""
@@ -766,7 +767,7 @@ msgstr "Envoyer les mails de cette adresse"
 
 #: ../includes/classes/site.class.php:857
 msgid "The \"From\" Name"
-msgstr ""
+msgstr "Nom convivial qui remplacera l'adresse email \"De\""
 
 #: ../includes/classes/site.class.php:859
 msgid ""
@@ -774,6 +775,9 @@ msgid ""
 "\"nobody\". If that is the case you must provide correct SMTP information "
 "for email to function properly."
 msgstr ""
+"<strong>Note:</strong> Tous les serveurs PHP n'acceptent pas l'envoie de "
+"mail de \"inconue\". Si c'est le cas vous devez fournir les identifiants "
+"SMTP du serveur mail à utiliser."
 
 #: ../includes/classes/site.class.php:860
 msgid "Use SMTP?"
@@ -796,6 +800,8 @@ msgid ""
 "<strong>Note:</strong> Leave blank to keep the password the same. It is "
 "stored in encrypted form."
 msgstr ""
+"<strong>Note:</strong> Laissez le champs vide pour garder le même mot de "
+"passe."
 
 #: ../includes/classes/site.class.php:869
 msgid "SMTP Password"
@@ -811,7 +817,7 @@ msgstr "<span>Bienvenue <strong>Invité</strong></span>"
 
 #: ../includes/html_functions.php:11
 msgid "<span>Please Login or <a href=\""
-msgstr ""
+msgstr "<span>Merci de vous identifiez ou <a href=\""
 
 #: ../includes/html_functions.php:15 ../includes/html_functions.php:34
 msgid "Lost Password?"
@@ -1277,7 +1283,7 @@ msgstr ""
 
 #: ../includes/installer.php:1380
 msgid "<li class=\"ok\"><strong>.htaccess was updated!!!</strong></li>"
-msgstr ""
+msgstr "<li class=\"ok\"><strong>.htaccess mis à jour!!!</strong></li>"
 
 #: ../includes/installer.php:1382
 msgid ""
@@ -1289,6 +1295,8 @@ msgstr ""
 msgid ""
 "<li class=\"error\"><strong>Site Structure could NOT be Initialized</strong>"
 msgstr ""
+"<li class=\"error\"><strong>La structure du site ne PEU PAS être "
+"initialisée</strong>"
 
 #: ../includes/installer.php:1392
 msgid "Installation Complete!!!"
@@ -1300,7 +1308,7 @@ msgstr ""
 
 #: ../includes/installer.php:1395
 msgid "Installation Failed!!!"
-msgstr ""
+msgstr "L'installation à échouée!!!"
 
 #: ../includes/installer.php:1396
 msgid ""
@@ -1308,6 +1316,9 @@ msgid ""
 "server should have read and write access in files and folders in your lets-"
 "software folder."
 msgstr ""
+"Vérifiez les permissions de vos fichiers et dossiers. L'utilisateur du "
+"serveur web doit acoir les accès en lecture et ecritures sur les fichiers et "
+"dossiers se trouvant dans le dossier Lets-Software."
 
 #: ../includes/main_file.php:172
 msgid "Change your email delivery options <a href=\""
@@ -1440,19 +1451,19 @@ msgstr ""
 
 #: ../includes/main_xhtml.php:33
 msgid "<h1>Your account has been suspended</h1><br />"
-msgstr ""
+msgstr "<h1>Votre compte a été suspendue</h1><br />"
 
 #: ../includes/main_xhtml.php:34
 msgid "The following reason was given:<br /><br />"
-msgstr ""
+msgstr "La raison suivant a été donnée:<br /><br />"
 
 #: ../includes/main_xhtml.php:41 ../includes/main_xhtml.php:54
 msgid " restricted page"
-msgstr ""
+msgstr " page avec accès restrain"
 
 #: ../includes/main_xhtml.php:42
 msgid "<h1>Restricted page</h1><br />"
-msgstr ""
+msgstr "<h1>Page avec acces restrain</h1><br />"
 
 #: ../includes/main_xhtml.php:43
 msgid "Please login to continue<br />"
@@ -1460,13 +1471,15 @@ msgstr "Merci de vous logger pour continuer<br />"
 
 #: ../includes/main_xhtml.php:55
 msgid "<h1>Restricted Page</h1><br />"
-msgstr ""
+msgstr "<h1>Page avec acces restrain</h1><br />"
 
 #: ../includes/main_xhtml.php:56
 msgid ""
 "You do not have administrative privileges <br /><br />Please contact the "
 "admin <a href=\"mailto:"
 msgstr ""
+"Vous n'avez pas sufisament de droit <br /><br />Merci de contacter votre "
+"administrateur <a href=\"mailto:"
 
 #: ../includes/main_xhtml.php:183
 msgid " home"
@@ -1486,7 +1499,7 @@ msgstr "Imprimer</a> cette page"
 
 #: ../includes/main_xhtml.php:218
 msgid "Cancel Print Page"
-msgstr ""
+msgstr "Annuler l'impression de la page"
 
 #: ../includes/pages/admin_lets_tools.php:137
 msgid "<span class=\"message\">Amount given is not a number</span>"
@@ -1494,11 +1507,11 @@ msgstr "<span class=\"message\">Le montant donné n'est pas un nombre</span>"
 
 #: ../includes/pages/admin_lets_tools.php:139
 msgid "<span class=\"message\">Amount must be positive</span>"
-msgstr ""
+msgstr "<span class=\"message\">Le montant doit etre positif</span>"
 
 #: ../includes/pages/admin_lets_tools.php:141
 msgid "<span class=\"message\">Please provide a description</span>"
-msgstr ""
+msgstr "<span class=\"message\">Merci de fournir une description</span>"
 
 #: ../includes/pages/admin_lets_tools.php:143
 msgid "<span class=\"message\">Please provide "
@@ -1529,7 +1542,7 @@ msgstr ""
 
 #: ../includes/pages/admin_lets_tools.php:274
 msgid "<h2>Category Admin</h2>"
-msgstr ""
+msgstr "<h2>Administration des Catégories</h2>"
 
 #: ../includes/pages/admin_lets_tools.php:275
 msgid "<strong>Note:</strong> It is not possible to delete a category once "
@@ -1549,7 +1562,7 @@ msgstr ""
 
 #: ../includes/pages/admin_lets_tools.php:292
 msgid "<h2>Check Balances</h2>"
-msgstr ""
+msgstr "<h2>Vérifier les comptes</h2>"
 
 #: ../includes/pages/admin_lets_tools.php:293
 msgid "Use this function to ensure stored balances are accurate<br />"
@@ -1598,11 +1611,11 @@ msgstr ""
 
 #: ../includes/pages/contact.php:92
 msgid "  <label for=\"email_subject\">Subject:</label>"
-msgstr ""
+msgstr "  <label for=\"email_subject\">Sujet:</label>"
 
 #: ../includes/pages/contact.php:94
 msgid "  <label for=\"email_message\">Message:</label>"
-msgstr ""
+msgstr "  <label for=\"email_message\">Message:</label>"
 
 #: ../includes/pages/contact.php:99
 msgid ""
@@ -1628,7 +1641,7 @@ msgstr ""
 
 #: ../includes/pages/noticeboard.php:315
 msgid " ID: "
-msgstr ""
+msgstr " ID: "
 
 #: ../includes/pages/noticeboard.php:316
 msgid "Created "
@@ -1660,7 +1673,7 @@ msgstr " Service"
 
 #: ../includes/pages/noticeboard.php:355
 msgid " <span class=\"nb_page_expired\">The owner of this "
-msgstr ""
+msgstr " <span class=\"nb_page_expired\">The owner of this "
 
 #: ../includes/pages/noticeboard.php:358
 msgid " <span class=\"nb_page_expired\">This auction has ended</span>"
